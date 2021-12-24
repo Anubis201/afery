@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "afery-e38fc": {
+      "hosting": {
+        "afery": [
+          "afery-e38fc"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "afery-e38fc"
+  }
+}
