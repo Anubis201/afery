@@ -6,12 +6,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideAnalytics,getAnalytics,ScreenTrackingService,UserTrackingService } from '@angular/fire/analytics';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
-import { provideStorage,getStorage } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -22,16 +19,11 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
     AppRoutingModule,
     BrowserAnimationsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
-    provideFirestore(() => getFirestore()),
-    provideRemoteConfig(() => getRemoteConfig()),
-    provideStorage(() => getStorage())
+    provideFirestore(() => getFirestore())
   ],
-  providers: [
-    ScreenTrackingService,UserTrackingService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
