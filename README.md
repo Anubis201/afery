@@ -2,4 +2,4 @@
 
 IN PROGRESS!
 
-Page: afery.org
+Page: https://afery.org/
