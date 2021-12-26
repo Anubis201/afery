@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
   selector: 'app-admin',
@@ -8,7 +9,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UserService) { }
+
+  get isAdmin() {
+    return this.userService.isAdmin
+  }
 
   ngOnInit(): void {
   }

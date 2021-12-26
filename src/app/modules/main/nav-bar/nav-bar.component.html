@@ -6,5 +6,6 @@
     <a mat-button>
       <span>Partie</span>
     </a>
+    <mat-icon *ngIf="isAdmin | async">supervised_user_circle</mat-icon>
   </mat-toolbar>
 </nav>

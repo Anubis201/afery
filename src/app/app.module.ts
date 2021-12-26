@@ -17,6 +17,7 @@ import { SnowAnimationComponent } from './modules/shared/snow-animation/snow-ani
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/mater
     ReactiveFormsModule,
     FormsModule,
     MatButtonModule,
+    MatIconModule,
     HttpClientModule,
     MatSnackBarModule,
     AngularFireModule.initializeApp(environment.firebase),

@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,11 +7,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./nav-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent {
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
-  ngOnInit(): void {
+  get isAdmin() {
+    return this.userService.isAdmin
   }
-
 }
