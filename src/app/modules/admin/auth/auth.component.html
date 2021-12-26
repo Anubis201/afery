@@ -1,8 +1,10 @@
-<form [formGroup]="form" class="auth">
+<mat-spinner *ngIf="(isLoading | async)"></mat-spinner>
+
+<form *ngIf="!(isBanned | async) && !(isLoading | async)" [formGroup]="form" class="auth">
   <div class="auth__title">Czy na pewno jesteś adminem? hmmm...</div>
   <mat-form-field appearance="fill">
     <mat-label>Email</mat-label>
-    <input matInput formControlName="email" autocomplete="off" type="text" placeholder="A napisz mikolaj@swieta.com">
+    <input matInput formControlName="email" autocomplete="off" type="text" placeholder="A napisz mikolaj@swieta.fin">
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Hasło</mat-label>

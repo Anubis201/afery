@@ -6,13 +6,14 @@ import { AuthComponent } from './auth/auth.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
 @NgModule({
   declarations: [
     AdminComponent,
-    AuthComponent
+    AuthComponent,
   ],
   imports: [
     CommonModule,
@@ -20,6 +21,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule,
     AdminRoutingModule,
+    MatProgressSpinnerModule,
     MatButtonModule,
   ]
 })

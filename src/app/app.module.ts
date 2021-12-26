@@ -13,11 +13,15 @@ import { NavBarComponent } from './modules/main/nav-bar/nav-bar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SnowAnimationComponent } from './modules/shared/snow-animation/snow-animation.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire/compat';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
+    SnowAnimationComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +31,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule,
     MatButtonModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore())
