@@ -12,8 +12,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { NavBarComponent } from './modules/main/nav-bar/nav-bar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,9 +24,9 @@ import { MatInputModule } from '@angular/material/input';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
+    ReactiveFormsModule,
+    FormsModule,
     MatButtonModule,
-    MatCardModule,
-    MatInputModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
