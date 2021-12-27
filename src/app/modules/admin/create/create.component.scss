@@ -6,4 +6,8 @@
 
 .inputs {
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  margin-top: 50px;
 }

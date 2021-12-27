@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 interface Menu {
   href: string
   text: string
+  icon: string
 }
 
 @Component({
@@ -20,7 +21,8 @@ export class MenuListComponent implements OnInit {
     this.items = [
       {
         href: 'create',
-        text: 'Stwórz wiadomość',
+        text: 'Wiadomość',
+        icon: 'mail_outline'
       }
     ]
   }

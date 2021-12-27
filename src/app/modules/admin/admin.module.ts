@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MenuListComponent } from './menu-list/menu-list.component';
 import { MatListModule } from '@angular/material/list';
 import { CreateComponent } from './create/create.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -25,6 +26,7 @@ import { CreateComponent } from './create/create.component';
     MatInputModule,
     ReactiveFormsModule,
     FormsModule,
+    MatIconModule,
     AdminRoutingModule,
     MatProgressSpinnerModule,
     MatButtonModule,
