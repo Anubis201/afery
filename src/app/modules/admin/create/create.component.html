@@ -1,10 +1,18 @@
-<div class="inputs">
+<form [formGroup]="form" class="inputs">
   <mat-form-field appearance="fill">
-    <mat-label>Title</mat-label>
-    <input matInput autocomplete="off" type="text">
+    <mat-label>Tytuł</mat-label>
+    <input matInput formControlName="title" autocomplete="off" type="text">
   </mat-form-field>
+
   <mat-form-field appearance="fill">
-    <mat-label>Describe</mat-label>
-    <textarea matInput autocomplete="off" type="text" rows="20"></textarea>
+    <mat-label>Opis</mat-label>
+    <textarea matInput formControlName="describe" autocomplete="off" type="text" rows="20"></textarea>
   </mat-form-field>
-</div>
+
+  <div class="file-input">
+    <span class="file-input__text">Zdjęcie artykułu: </span>
+    <input formControlName="image" type="file" accept="image/png, image/jpeg">
+  </div>
+
+  <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid" (click)="create()">Stwórz</button>
+</form>
