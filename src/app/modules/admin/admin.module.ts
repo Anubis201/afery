@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MenuListComponent } from './dashboard/menu-list/menu-list.component';
+import { MatListModule } from '@angular/material/list';
 
 
 
@@ -16,6 +18,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AdminComponent,
     AuthComponent,
     DashboardComponent,
+    MenuListComponent,
   ],
   imports: [
     CommonModule,
@@ -25,6 +28,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AdminRoutingModule,
     MatProgressSpinnerModule,
     MatButtonModule,
+    MatListModule,
   ]
 })
 export class AdminModule { }
