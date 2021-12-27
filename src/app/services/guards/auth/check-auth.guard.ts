@@ -13,16 +13,13 @@ export class CheckAuthGuard implements CanActivate {
     private router: Router,
   ) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       return this.fireAuth.authState.pipe(
         map(user => {
-          if (user) {
-            return this.router.parseUrl('admin/create')
-          } else {
-            return this.router.parseUrl('admin/auth')
+          if (!user) {
+            return this.router.parseUrl('admin/auth');
           }
+          return true;
         })
       )
   }
