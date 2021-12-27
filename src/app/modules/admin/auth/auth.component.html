@@ -10,6 +10,9 @@
     <mat-label>Hasło</mat-label>
     <input matInput formControlName="password" autocomplete="off" type="password" placeholder="Co daje mikołaj?">
   </mat-form-field>
-  <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid" (click)="loginAsAdmin()">Zaloguj się</button>
+  <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid" (click)="login()">Zaloguj się</button>
 </form>
 
+<div *ngIf="(isBanned | async) && !(isLoading | async)" class="ban">
+  Niespodzianka BANNED
+</div>

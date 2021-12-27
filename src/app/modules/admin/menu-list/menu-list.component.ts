@@ -1,5 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
+interface Menu {
+  href: string
+  text: string
+}
+
 @Component({
   selector: 'app-menu-list',
   templateUrl: './menu-list.component.html',
@@ -7,10 +12,16 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MenuListComponent implements OnInit {
+  items: Menu[]
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.items = [
+      {
+        href: 'create',
+        text: 'Stwórz wiadomość',
+      }
+    ]
   }
-
 }

@@ -2,8 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BanService } from 'src/app/services/collections/ban/ban.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
   selector: 'app-auth',
@@ -25,14 +24,13 @@ export class AuthComponent implements OnInit {
 
   constructor(
     private banService: BanService,
-    private fireAuth: AngularFireAuth,
-    private _snackBar: MatSnackBar,
+    private userService: UserService,
   ) { }
 
   ngOnInit() {
     this.getIdAndCheckBan()
     this.formSub = this.form.valueChanges.subscribe((value: { email: string, password: string }) => {
-      if (this.isBanned || this.isLoading) return
+      if (this.isBanned.value || this.isLoading.value) return
 
       if (value.email === 'mikolaj@swieta.fin' && value.password === 'prezenty') {
         this.gift()
@@ -40,16 +38,8 @@ export class AuthComponent implements OnInit {
     })
   }
 
-  loginAsAdmin() {
-    this.fireAuth.signInWithEmailAndPassword(
-      this.form.get('email')?.value,
-      this.form.get('password')?.value
-    ).then(() => {
-      this._snackBar.open('Brawo Bartek zalogowałeś się', 'close');
-    })
-    .catch(() => {
-      this._snackBar.open('Napewno jesteś mną?', 'close');
-    })
+  login() {
+    this.userService.loginAsAdmin(this.form.get('email')?.value, this.form.get('password')?.value)
   }
 
   // Prezent dla włamywacza

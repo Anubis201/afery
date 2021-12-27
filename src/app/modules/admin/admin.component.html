@@ -1,3 +1,3 @@
-<app-auth *ngIf="!(isAdmin | async)"></app-auth>
+<app-menu-list *ngIf="isAdmin | async"></app-menu-list>
 
-<app-dashboard *ngIf="isAdmin | async"></app-dashboard>
+<router-outlet></router-outlet>

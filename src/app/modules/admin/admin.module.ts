@@ -7,9 +7,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { MenuListComponent } from './dashboard/menu-list/menu-list.component';
+import { MenuListComponent } from './menu-list/menu-list.component';
 import { MatListModule } from '@angular/material/list';
+import { CreateComponent } from './create/create.component';
 
 
 
@@ -17,8 +17,8 @@ import { MatListModule } from '@angular/material/list';
   declarations: [
     AdminComponent,
     AuthComponent,
-    DashboardComponent,
     MenuListComponent,
+    CreateComponent,
   ],
   imports: [
     CommonModule,

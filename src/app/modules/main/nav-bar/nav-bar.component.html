@@ -6,6 +6,11 @@
     <a mat-button>
       <span>Partie</span>
     </a>
-    <mat-icon *ngIf="isAdmin | async">supervised_user_circle</mat-icon>
+    <a *ngIf="isAdmin | async" mat-icon-button href="admin/create">
+      <mat-icon>supervised_user_circle</mat-icon>
+    </a>
+    <a *ngIf="isAdmin | async" mat-icon-button (click)="logout()">
+      <mat-icon>L</mat-icon>
+    </a>
   </mat-toolbar>
 </nav>

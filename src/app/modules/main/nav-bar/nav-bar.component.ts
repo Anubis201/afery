@@ -14,4 +14,8 @@ export class NavBarComponent {
   get isAdmin() {
     return this.userService.isAdmin
   }
+
+  logout() {
+    this.userService.logout()
+  }
 }
