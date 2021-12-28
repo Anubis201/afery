@@ -33,8 +33,4 @@ export class BanService {
   getIp() {
     return this.http.get<IpFromNet>('https://api.db-ip.com/v2/free/self')
   }
-
-  private banRef() {
-    return this.firestore.collection('banned')
-  }
 }

@@ -14,5 +14,10 @@
     <input formControlName="image" type="file" accept="image/png, image/jpeg">
   </div>
 
-  <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid" (click)="create()">Stwórz</button>
+  <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid || (isLoading | async)" (click)="create()">
+    <div class="loading-button">
+      <mat-spinner *ngIf="isLoading | async" [diameter]="20"></mat-spinner>
+      <span>Stwórz</span>
+    </div>
+  </button>
 </form>

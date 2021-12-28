@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
 
 @Component({
   selector: 'app-create',
@@ -14,12 +16,16 @@ export class CreateComponent implements OnInit {
     image: new FormControl(null, Validators.required),
   })
 
-  constructor() { }
+  isLoading = new BehaviorSubject<boolean>(false)
+
+  constructor(
+    private articlesService: ArticlesService,
+  ) { }
 
   ngOnInit(): void {
   }
 
   create() {
-
+    this.isLoading.next(true)
   }
 }
