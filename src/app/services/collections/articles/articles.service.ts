@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { from } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
 
 @Injectable({
@@ -12,6 +13,6 @@ export class ArticlesService {
   ) { }
 
   addArticle(data: ArticleModel) {
-    return this.firestore.collection('banned').doc().set(data)
+    return from(this.firestore.collection('articles').add(data))
   }
 }

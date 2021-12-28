@@ -1,20 +1,20 @@
 <form [formGroup]="form" class="inputs">
   <mat-form-field appearance="fill">
     <mat-label>Tytuł</mat-label>
-    <input matInput formControlName="title" autocomplete="off" type="text">
+    <input matInput class="title-input" formControlName="title" autocomplete="off" type="text">
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>Opis</mat-label>
-    <textarea matInput formControlName="describe" autocomplete="off" type="text" rows="20"></textarea>
+    <textarea matInput class="desc-input" formControlName="text" autocomplete="off" type="text" rows="20"></textarea>
   </mat-form-field>
 
   <div class="file-input">
     <span class="file-input__text">Zdjęcie artykułu: </span>
-    <input formControlName="image" type="file" accept="image/png, image/jpeg">
+    <input #image formControlName="image" type="file" accept="image/png, image/jpeg">
   </div>
 
-  <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid || (isLoading | async)" (click)="create()">
+  <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid || (isLoading | async)" (click)="create(image.files)">
     <div class="loading-button">
       <mat-spinner *ngIf="isLoading | async" [diameter]="20"></mat-spinner>
       <span>Stwórz</span>
