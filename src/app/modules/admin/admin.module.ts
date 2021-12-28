@@ -11,6 +11,8 @@ import { MenuListComponent } from './menu-list/menu-list.component';
 import { MatListModule } from '@angular/material/list';
 import { CreateComponent } from './create/create.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 
@@ -26,7 +28,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     ReactiveFormsModule,
     FormsModule,
+    MatRadioModule,
     MatIconModule,
+    MatCheckboxModule,
     AdminRoutingModule,
     MatProgressSpinnerModule,
     MatButtonModule,

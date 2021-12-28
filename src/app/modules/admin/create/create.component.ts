@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage'
+import { ArticlesKindsEnum } from 'src/app/models/articles/enums/articles-kinds.enum';
+import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 
 @Component({
   selector: 'app-create',
@@ -16,6 +18,8 @@ export class CreateComponent {
     title: new FormControl(null, Validators.required),
     text: new FormControl(null, Validators.required),
     image: new FormControl(null, Validators.required),
+    type: new FormControl(ArticlesTypesEnum.PoliticalParties, Validators.required),
+    kind: new FormControl(ArticlesKindsEnum.Confirmed, Validators.required),
   })
 
   isLoading = new BehaviorSubject<boolean>(false)
@@ -50,8 +54,7 @@ export class CreateComponent {
     this.articlesService.addArticle({ title: this.form.get('title')?.value, text: this.form.get('text')?.value }).subscribe({
       next: ref => {
         this.addImage(ref.id, image)
-        this._snackBar.open('Stworzyłeś nowy artykuł!', 'close');
-        // this.isLoading.next(false);
+        this._snackBar.open('Teraz dodaje zdjęcie', 'close');
       },
       error: () => {
         this._snackBar.open('Jakiś dziwny błąd', 'close');
@@ -63,5 +66,12 @@ export class CreateComponent {
   addImage(docId: string, file: File) {
     const path = '/images-articles/' + docId
     const uploadTask = this.storage.upload(path, file)
+
+    uploadTask.percentageChanges().subscribe(value => {
+      if (value === 100) {
+        this._snackBar.open('Stworzyłeś nowy artykuł!', 'close');
+        this.isLoading.next(false);
+      }
+    })
   }
 }

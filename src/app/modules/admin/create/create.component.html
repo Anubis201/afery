@@ -6,13 +6,23 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Opis</mat-label>
-    <textarea matInput class="desc-input" formControlName="text" autocomplete="off" type="text" rows="20"></textarea>
+    <textarea matInput class="desc-input" formControlName="text" autocomplete="off" type="text" rows="15"></textarea>
   </mat-form-field>
 
   <div class="file-input">
     <span class="file-input__text">Zdjęcie artykułu: </span>
     <input #image formControlName="image" type="file" accept="image/png, image/jpeg">
   </div>
+
+  <mat-radio-group>
+    <mat-radio-button class="example-margin" value="after">After</mat-radio-button>
+    <mat-radio-button class="example-margin" value="before">Before</mat-radio-button>
+  </mat-radio-group>
+
+  <mat-radio-group>
+    <mat-radio-button class="example-margin" value="after">After</mat-radio-button>
+    <mat-radio-button class="example-margin" value="before">Before</mat-radio-button>
+  </mat-radio-group>
 
   <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid || (isLoading | async)" (click)="create(image.files)">
     <div class="loading-button">
