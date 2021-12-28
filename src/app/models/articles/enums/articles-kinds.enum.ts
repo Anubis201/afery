@@ -1,7 +1,7 @@
 export enum ArticlesKindsEnum {
-  Confirmed = 0,
+  Confirmed = 'Potwierdzone',
 
-  Unconfirmed = 1,
+  Unconfirmed = 'Niepotwierdzone',
 
-  Gossip = 2,
+  Gossip = 'Ploteczki',
 }

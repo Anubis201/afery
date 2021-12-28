@@ -6,6 +6,7 @@ import { ArticlesService } from 'src/app/services/collections/articles/articles.
 import { AngularFireStorage } from '@angular/fire/compat/storage'
 import { ArticlesKindsEnum } from 'src/app/models/articles/enums/articles-kinds.enum';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
+import { ConvertEnum } from 'src/app/services/global/support-functions/convert-enum';
 
 @Component({
   selector: 'app-create',
@@ -24,6 +25,8 @@ export class CreateComponent {
 
   isLoading = new BehaviorSubject<boolean>(false)
 
+  readonly articleTypes = ConvertEnum(ArticlesTypesEnum)
+  readonly articleKinds = ConvertEnum(ArticlesKindsEnum)
   private readonly maxFileSize = 2097152 // 2MB
 
   constructor(
@@ -51,10 +54,15 @@ export class CreateComponent {
     }
 
     this.isLoading.next(true);
-    this.articlesService.addArticle({ title: this.form.get('title')?.value, text: this.form.get('text')?.value }).subscribe({
+    this.articlesService.addArticle({
+      title: this.form.get('title')?.value,
+      text: this.form.get('text')?.value,
+      type: this.form.get('type')?.value,
+      kind: this.form.get('kind')?.value,
+    }).subscribe({
       next: ref => {
-        this.addImage(ref.id, image)
-        this._snackBar.open('Teraz dodaje zdjęcie', 'close');
+        this.addImage(ref.id, image);
+        this._snackBar.open('Artykuł został wysłany do bazy 1/2', 'close');
       },
       error: () => {
         this._snackBar.open('Jakiś dziwny błąd', 'close');
@@ -64,12 +72,12 @@ export class CreateComponent {
   }
 
   addImage(docId: string, file: File) {
-    const path = '/images-articles/' + docId
-    const uploadTask = this.storage.upload(path, file)
+    const path = '/images-articles/' + docId;
+    const uploadTask = this.storage.upload(path, file);
 
     uploadTask.percentageChanges().subscribe(value => {
       if (value === 100) {
-        this._snackBar.open('Stworzyłeś nowy artykuł!', 'close');
+        this._snackBar.open('Koniec dodawania zdjęcia! 2/2', 'close');
         this.isLoading.next(false);
       }
     })

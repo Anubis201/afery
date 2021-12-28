@@ -13,7 +13,6 @@
 }
 
 .file-input {
-  margin-bottom: 15px;
   font-size: 1.1rem;
 
   &__text {
@@ -32,6 +31,20 @@
   }
 }
 
+mat-radio-group {
+  color: white;
+
+  div:first-child {
+    margin-bottom: 13px;
+    margin-top: 13px;
+    font-size: 1.1rem;
+  }
+
+  mat-radio-button {
+    margin-right: 10px;
+  }
+}
+
 .title-input {
   font-size: 1.4rem;
 }
@@ -42,4 +55,8 @@
 
 mat-label {
   font-size: 1.1rem;
+}
+
+.create {
+  margin-top: 19px;
 }

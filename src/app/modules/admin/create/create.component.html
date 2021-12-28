@@ -6,7 +6,7 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Opis</mat-label>
-    <textarea matInput class="desc-input" formControlName="text" autocomplete="off" type="text" rows="15"></textarea>
+    <textarea matInput class="desc-input" formControlName="text" autocomplete="off" type="text" rows="10"></textarea>
   </mat-form-field>
 
   <div class="file-input">
@@ -14,17 +14,17 @@
     <input #image formControlName="image" type="file" accept="image/png, image/jpeg">
   </div>
 
-  <mat-radio-group>
-    <mat-radio-button class="example-margin" value="after">After</mat-radio-button>
-    <mat-radio-button class="example-margin" value="before">Before</mat-radio-button>
+  <mat-radio-group formControlName="type">
+    <div>Typ</div>
+    <mat-radio-button *ngFor="let type of articleTypes" [value]="type">{{ type }}</mat-radio-button>
   </mat-radio-group>
 
-  <mat-radio-group>
-    <mat-radio-button class="example-margin" value="after">After</mat-radio-button>
-    <mat-radio-button class="example-margin" value="before">Before</mat-radio-button>
+  <mat-radio-group formControlName="kind">
+    <div>Rodzaj</div>
+    <mat-radio-button *ngFor="let kind of articleKinds" [value]="kind">{{ kind }}</mat-radio-button>
   </mat-radio-group>
 
-  <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid || (isLoading | async)" (click)="create(image.files)">
+  <button mat-raised-button class="create" type="submit" color="primary" [disabled]="form.invalid || (isLoading | async)" (click)="create(image.files)">
     <div class="loading-button">
       <mat-spinner *ngIf="isLoading | async" [diameter]="20"></mat-spinner>
       <span>Stwórz</span>
