@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-all-articles',
-  templateUrl: './all-articles.component.html',
-  styleUrls: ['./all-articles.component.scss'],
+  selector: 'app-parties',
+  templateUrl: './parties.component.html',
+  styleUrls: ['.././all-articles.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AllArticlesComponent implements OnInit {
+export class PartiesComponent implements OnInit {
 
   constructor() { }
 
