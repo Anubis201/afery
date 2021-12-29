@@ -2,17 +2,8 @@
   <div class="container">
     <div class="articles__title">Partie</div>
     <div class="row articles__list">
-      <div class="col-12 col-sm-6 col-md-3">
-        <app-article></app-article>
-      </div>
-      <div class="col-12 col-sm-6 col-md-3">
-        <app-article></app-article>
-      </div>
-      <div class="col-12 col-sm-6 col-md-3">
-        <app-article></app-article>
-      </div>
-      <div class="col-12 col-sm-6 col-md-3">
-        <app-article></app-article>
+      <div *ngFor="let article of articles | async" class="col-12 col-sm-6 col-md-3">
+        <app-article [article]="article"></app-article>
       </div>
     </div>
   </div>

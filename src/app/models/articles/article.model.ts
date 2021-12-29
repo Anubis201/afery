@@ -3,4 +3,5 @@ export interface ArticleModel {
   text: string
   type: string
   kind: string
+  createDate: Date
 }

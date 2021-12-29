@@ -20,6 +20,6 @@ export class ArticlesService {
   getArticles(type: ArticlesTypesEnum, limit: number) {
     const ref = this.firestore.collection('articles').ref
 
-    return from(ref.where('type', '==', type).limit(limit).get())
+    return from(ref.where('type', '==', type).orderBy('createDate', 'desc').limit(limit).get())
   }
 }

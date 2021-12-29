@@ -1,4 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { BehaviorSubject } from 'rxjs';
+import { ArticleModel } from 'src/app/models/articles/article.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
 
@@ -9,7 +12,12 @@ import { ArticlesService } from 'src/app/services/collections/articles/articles.
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartiesComponent implements OnInit {
-  constructor(private articlesService: ArticlesService) {}
+  articles = new BehaviorSubject<ArticleModel[]>([])
+
+  constructor(
+    private articlesService: ArticlesService,
+    private _snackBar: MatSnackBar,
+  ) {}
 
   ngOnInit() {
     this.getArticles()
@@ -19,10 +27,12 @@ export class PartiesComponent implements OnInit {
     this.articlesService
       .getArticles(ArticlesTypesEnum.PoliticalParties, 4)
       .subscribe({
-        next: articles => {
-          articles.forEach(value => { console.log(value.data()) })
+        next: doc => {
+          doc.forEach(value => { this.articles.next([ ...this.articles.value, value.data() as ArticleModel ])})
         },
-        error: () => {},
+        error: () => {
+          this._snackBar.open('Błąd! Skontaktuj się z pomocą techniczną', 'close')
+        },
       });
   }
 }

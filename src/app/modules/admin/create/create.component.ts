@@ -59,6 +59,7 @@ export class CreateComponent {
       text: this.form.get('text')?.value,
       type: this.form.get('type')?.value,
       kind: this.form.get('kind')?.value,
+      createDate: new Date(),
     }).subscribe({
       next: ref => {
         this.addImage(ref.id, image);
