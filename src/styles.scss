@@ -8,3 +8,23 @@ input, textarea {
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.mat-card {
+  background: inherit;
+}
+
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: inherit;
+}
+
+.mat-card-content {
+  margin: 0 -16px;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.4rem;
+}
