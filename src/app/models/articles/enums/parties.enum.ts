@@ -3,5 +3,5 @@ export enum PartiesEnum {
   pis = 1,
   lewica = 2,
   konfederacja = 3,
-  holownia = 4,
+  polska2050 = 4,
 }

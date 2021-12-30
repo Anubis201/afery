@@ -10,7 +10,7 @@
   </mat-form-field>
 
   <div class="file-input">
-    <span class="file-input__text">Zdjęcie artykułu: </span>
+    <span class="file-input__text">Zdjęcie artykułu(max 1MB): </span>
     <input #image formControlName="image" type="file" accept="image/png, image/jpeg">
   </div>
 
@@ -20,7 +20,11 @@
   </mat-radio-group>
 
   <mat-form-field class="entity" appearance="fill">
-    <mat-label>Jaka partia?</mat-label>
+    <mat-label [ngSwitch]="form.get('type')?.value">
+      <span *ngSwitchCase="ArticlesTypesEnum.PoliticalParties">Partia</span>
+      <span *ngSwitchCase="ArticlesTypesEnum.People">Człowiek</span>
+      <span *ngSwitchCase="ArticlesTypesEnum.Countries">Kraj</span>
+    </mat-label>
     <mat-select formControlName="entity">
       <mat-option *ngFor="let item of entityItems | async" [value]="item">
         <span>{{ PartiesEnum[item] }}</span>

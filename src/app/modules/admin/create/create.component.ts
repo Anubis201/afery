@@ -31,7 +31,8 @@ export class CreateComponent implements OnInit {
   readonly articleTypes = ConvertEnum(ArticlesTypesEnum, 'string')
   readonly articleKinds = ConvertEnum(ArticlesKindsEnum, 'string')
   readonly PartiesEnum = PartiesEnum
-  private readonly maxFileSize = 2097152 // 2MB
+  readonly ArticlesTypesEnum = ArticlesTypesEnum
+  private readonly maxFileSize = 1048576 // 1MB
 
   constructor(
     private articlesService: ArticlesService,
@@ -52,7 +53,7 @@ export class CreateComponent implements OnInit {
 
     const image = images[0]
     if (image.size > this.maxFileSize) {
-      this._snackBar.open('Max wielkość pliku to 2MB', 'close');
+      this._snackBar.open('Max wielkość pliku to 1MB', 'close');
       return
     }
 
@@ -89,6 +90,12 @@ export class CreateComponent implements OnInit {
       switch(articleType) {
         case ArticlesTypesEnum.PoliticalParties:
           this.entityItems.next(ConvertEnum(PartiesEnum, 'number'));
+          break;
+        case ArticlesTypesEnum.People:
+          this.entityItems.next([]);
+          break;
+        case ArticlesTypesEnum.Countries:
+          this.entityItems.next([]);
           break;
       }
     })
