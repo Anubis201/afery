@@ -14,7 +14,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { PartieIconComponent } from '../shared/partie-icon/partie-icon.component';
 
 
 
@@ -24,7 +23,6 @@ import { PartieIconComponent } from '../shared/partie-icon/partie-icon.component
     AuthComponent,
     MenuListComponent,
     CreateComponent,
-    PartieIconComponent,
   ],
   imports: [
     CommonModule,

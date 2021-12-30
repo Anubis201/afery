@@ -27,6 +27,7 @@
     </mat-label>
     <mat-select formControlName="entity">
       <mat-option *ngFor="let item of entityItems | async" [value]="item">
+        <img class="entity__img" [src]="'/assets/icons/parties/' + PartiesEnum[item] + '.jpg'" alt="">
         <span>{{ PartiesEnum[item] }}</span>
       </mat-option>
     </mat-select>

@@ -64,6 +64,12 @@ mat-label {
   margin-top: 15px;
   margin-bottom: 6px;
   width: 35%;
+
+  &__img {
+    width: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
 }
 
 .type {
