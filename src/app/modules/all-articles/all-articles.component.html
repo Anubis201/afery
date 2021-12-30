@@ -1,1 +1,1 @@
-<app-parties class="section" [articles]="parties | async"></app-parties>
+<app-parties *ngIf="(parties | async)?.length" class="section" [articles]="parties | async"></app-parties>
