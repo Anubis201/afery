@@ -13,6 +13,7 @@ import { CreateComponent } from './create/create.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -34,6 +35,7 @@ import { MatRadioModule } from '@angular/material/radio';
     AdminRoutingModule,
     MatProgressSpinnerModule,
     MatButtonModule,
+    MatSelectModule,
     MatListModule,
   ]
 })

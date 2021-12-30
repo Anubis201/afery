@@ -6,7 +6,7 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Opis</mat-label>
-    <textarea matInput class="desc-input" formControlName="text" autocomplete="off" type="text" rows="10"></textarea>
+    <textarea matInput class="desc-input" formControlName="text" autocomplete="off" type="text" rows="3"></textarea>
   </mat-form-field>
 
   <div class="file-input">
@@ -14,10 +14,19 @@
     <input #image formControlName="image" type="file" accept="image/png, image/jpeg">
   </div>
 
-  <mat-radio-group formControlName="type">
+  <mat-radio-group class="type" formControlName="type">
     <div>Typ</div>
     <mat-radio-button *ngFor="let type of articleTypes" [value]="type">{{ type }}</mat-radio-button>
   </mat-radio-group>
+
+  <mat-form-field class="entity" appearance="fill">
+    <mat-label>Jaka partia?</mat-label>
+    <mat-select formControlName="entity">
+      <mat-option *ngFor="let item of entityItems | async" [value]="item">
+        <span>{{ PartiesEnum[item] }}</span>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <mat-radio-group formControlName="kind">
     <div>Rodzaj</div>

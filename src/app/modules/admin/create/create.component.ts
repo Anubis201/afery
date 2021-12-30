@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, first } from 'rxjs';
@@ -7,6 +7,7 @@ import { ArticlesKindsEnum } from 'src/app/models/articles/enums/articles-kinds.
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { ConvertEnum } from 'src/app/services/global/support-functions/convert-enum';
 import { ImagesService } from 'src/app/services/collections/images/images.service';
+import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 
 @Component({
   selector: 'app-create',
@@ -14,19 +15,22 @@ import { ImagesService } from 'src/app/services/collections/images/images.servic
   styleUrls: ['./create.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateComponent {
+export class CreateComponent implements OnInit {
   form = new FormGroup({
     title: new FormControl(null, Validators.required),
     text: new FormControl(null, Validators.required),
     image: new FormControl(null, Validators.required),
-    type: new FormControl(ArticlesTypesEnum.PoliticalParties, Validators.required),
+    type: new FormControl(null, Validators.required),
     kind: new FormControl(ArticlesKindsEnum.Confirmed, Validators.required),
+    entity: new FormControl(null, Validators.required), // partia/organizacja/pseudoInfluCoś
   })
 
   isLoading = new BehaviorSubject<boolean>(false)
+  entityItems = new BehaviorSubject<PartiesEnum[]>(ConvertEnum(PartiesEnum, 'number'))
 
-  readonly articleTypes = ConvertEnum(ArticlesTypesEnum)
-  readonly articleKinds = ConvertEnum(ArticlesKindsEnum)
+  readonly articleTypes = ConvertEnum(ArticlesTypesEnum, 'string')
+  readonly articleKinds = ConvertEnum(ArticlesKindsEnum, 'string')
+  readonly PartiesEnum = PartiesEnum
   private readonly maxFileSize = 2097152 // 2MB
 
   constructor(
@@ -34,6 +38,11 @@ export class CreateComponent {
     private _snackBar: MatSnackBar,
     private imageService: ImagesService,
   ) { }
+
+  ngOnInit() {
+    this.form.get('type')?.patchValue(ArticlesTypesEnum.PoliticalParties);
+    this.setItemsEntityOnTypeChange();
+  }
 
   create(images: FileList | null) {
     if (images === null) {
@@ -59,6 +68,7 @@ export class CreateComponent {
       text: this.form.get('text')?.value,
       type: this.form.get('type')?.value,
       kind: this.form.get('kind')?.value,
+      entity: this.form.get('entity')?.value,
       createDate: new Date(),
     }).pipe(first()).subscribe({
       next: ref => {
@@ -68,6 +78,18 @@ export class CreateComponent {
       error: () => {
         this._snackBar.open('Jakiś dziwny błąd', 'close');
         this.isLoading.next(false);
+      }
+    })
+  }
+
+  private setItemsEntityOnTypeChange() {
+    this.form.get('type')?.valueChanges.subscribe((articleType: ArticlesTypesEnum) => {
+      this.form.get('entity')?.patchValue(null)
+
+      switch(articleType) {
+        case ArticlesTypesEnum.PoliticalParties:
+          this.entityItems.next(ConvertEnum(PartiesEnum, 'number'));
+          break;
       }
     })
   }
