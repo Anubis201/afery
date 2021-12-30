@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, first } from 'rxjs';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
-import { AngularFireStorage } from '@angular/fire/compat/storage'
 import { ArticlesKindsEnum } from 'src/app/models/articles/enums/articles-kinds.enum';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { ConvertEnum } from 'src/app/services/global/support-functions/convert-enum';
+import { ImagesService } from 'src/app/services/collections/images/images.service';
 
 @Component({
   selector: 'app-create',
@@ -32,7 +32,7 @@ export class CreateComponent {
   constructor(
     private articlesService: ArticlesService,
     private _snackBar: MatSnackBar,
-    private storage: AngularFireStorage,
+    private imageService: ImagesService,
   ) { }
 
   create(images: FileList | null) {
@@ -60,9 +60,9 @@ export class CreateComponent {
       type: this.form.get('type')?.value,
       kind: this.form.get('kind')?.value,
       createDate: new Date(),
-    }).subscribe({
+    }).pipe(first()).subscribe({
       next: ref => {
-        this.addImage(ref.id, image);
+        this.addArticleImage(ref.id, image);
         this._snackBar.open('Artykuł został wysłany do bazy 1/2', 'close');
       },
       error: () => {
@@ -72,11 +72,8 @@ export class CreateComponent {
     })
   }
 
-  addImage(docId: string, file: File) {
-    const path = '/images-articles/' + docId;
-    const uploadTask = this.storage.upload(path, file);
-
-    uploadTask.percentageChanges().subscribe(value => {
+  private addArticleImage(docId: string, file: File) {
+    this.imageService.addImage(docId, file).subscribe(value => {
       if (value === 100) {
         this._snackBar.open('Koniec dodawania zdjęcia! 2/2', 'close');
         this.isLoading.next(false);

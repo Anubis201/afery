@@ -3,7 +3,7 @@
     <div mat-card-avatar></div>
     <mat-card-title>{{ article.title }}</mat-card-title>
   </mat-card-header>
-  <img class="article__image" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Zdjęcie artykułu">
+  <img class="article__image" mat-card-image [src]="article.imageSrc" alt="Zdjęcie artykułu">
   <mat-card-content>
     <p>{{ article.text }}</p>
   </mat-card-content>
