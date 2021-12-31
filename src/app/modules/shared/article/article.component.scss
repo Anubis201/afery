@@ -1,4 +1,10 @@
 .article {
+  cursor: pointer;
+
+  &:hover {
+    opacity: .7;
+  }
+
   &__image {
     height: 150px;
     min-width: 240px;
@@ -11,5 +17,21 @@
 
   &__footer {
     padding-bottom: 10px;
+    display: flex;
+
+    span {
+      height: 17px;
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      color: black;
+    }
+
+    mat-icon {
+      font-size: 16px;
+      height: 17px;
+      width: 19px;
+    }
   }
 }

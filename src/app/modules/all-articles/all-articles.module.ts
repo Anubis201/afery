@@ -6,6 +6,7 @@ import { ArticleComponent } from '../shared/article/article.component';
 import { PartiesComponent } from './parties/parties.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -20,6 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatCardModule,
     AllArticlesRoutingModule,
     MatTooltipModule,
+    MatIconModule,
   ]
 })
 export class AllArticlesModule { }

@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
@@ -19,12 +18,14 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MillionsPipe } from './services/pipes/milions/millions.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     SnowAnimationComponent,
+    MillionsPipe,
   ],
   imports: [
     BrowserModule,
