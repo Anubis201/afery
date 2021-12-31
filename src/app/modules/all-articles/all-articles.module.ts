@@ -5,6 +5,7 @@ import { AllArticlesRoutingModule } from './all-articles-routing.module';
 import { ArticleComponent } from '../shared/article/article.component';
 import { PartiesComponent } from './parties/parties.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -18,6 +19,7 @@ import { MatCardModule } from '@angular/material/card';
     CommonModule,
     MatCardModule,
     AllArticlesRoutingModule,
+    MatTooltipModule,
   ]
 })
 export class AllArticlesModule { }

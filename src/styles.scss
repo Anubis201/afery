@@ -27,6 +27,7 @@ a:hover {
   font-weight: 500;
   font-size: 1rem;
   line-height: 1.4rem;
+  margin-bottom: 4px !important;
 }
 
 .mat-select-min-line, .mat-option-text {
@@ -36,3 +37,10 @@ a:hover {
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
   color: white;
 }
+
+.truncate {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
