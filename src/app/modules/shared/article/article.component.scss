@@ -1,5 +1,10 @@
 .article {
   &__image {
     height: 150px;
+    min-width: 240px;
+  }
+
+  &__organization {
+    width: 20px;
   }
 }

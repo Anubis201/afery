@@ -1,10 +1,14 @@
 <mat-card class="article">
-  <mat-card-header>
-    <div mat-card-avatar></div>
-    <mat-card-title>{{ article.title }}</mat-card-title>
-  </mat-card-header>
   <img class="article__image" mat-card-image [src]="article.imageSrc" alt="Zdjęcie artykułu">
   <mat-card-content>
-    <p>{{ article.text }}</p>
+    <p>{{ article.title }}</p>
   </mat-card-content>
+  <mat-card-footer>
+    <img class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
+  </mat-card-footer>
 </mat-card>
+
+<!-- <div class="article">
+  <img class="article__image" [src]="article.imageSrc" alt="Zdjęcie artykułu">
+  di
+</div> -->

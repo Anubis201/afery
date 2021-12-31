@@ -12,6 +12,7 @@ export class NavBarComponent {
   constructor(private userService: UserService) { }
 
   get isAdmin() {
+    console.log(this.userService.isAdmin.value)
     return this.userService.isAdmin
   }
 
