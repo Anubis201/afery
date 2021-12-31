@@ -23,6 +23,7 @@ export class CreateComponent implements OnInit {
     type: new FormControl(null, Validators.required),
     kind: new FormControl(ArticlesKindsEnum.Confirmed, Validators.required),
     entity: new FormControl(null, Validators.required), // partia/organizacja/pseudoInfluCoś
+    costs: new FormControl(null),
   })
 
   isLoading = new BehaviorSubject<boolean>(false)
@@ -70,6 +71,7 @@ export class CreateComponent implements OnInit {
       type: this.form.get('type')?.value,
       kind: this.form.get('kind')?.value,
       entity: this.form.get('entity')?.value,
+      costs: this.form.get('costs')?.value,
       createDate: new Date(),
     }).pipe(first()).subscribe({
       next: ref => {
