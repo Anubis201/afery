@@ -1,3 +1,21 @@
+@mixin costs {
+  &--costs {
+    height: 17px;
+    display: flex;
+    margin-left: auto;
+    font-size: 13px;
+    color: #ff6a6a;
+    font-weight: 600;
+
+    mat-icon {
+      font-size: 16px;
+      height: 17px;
+      width: 19px;
+      margin-top: 2px;
+    }
+  }
+}
+
 .article {
   cursor: pointer;
 
@@ -19,21 +37,7 @@
     padding-bottom: 10px;
     display: flex;
 
-    &--costs {
-      height: 17px;
-      display: flex;
-      margin-left: auto;
-      font-size: 13px;
-      color: #ff6a6a;
-      font-weight: 600;
-
-      mat-icon {
-        font-size: 16px;
-        height: 17px;
-        width: 19px;
-        margin-top: 2px;
-      }
-    }
+    @include costs;
 
     &--time {
       margin-left: 20px;
@@ -67,22 +71,9 @@
 
     &__footer {
       margin-top: auto;
+      display: flex;
 
-      &--costs {
-        height: 17px;
-        display: flex;
-        margin-left: auto;
-        font-size: 13px;
-        color: #ff6a6a;
-        font-weight: 600;
-
-        mat-icon {
-          font-size: 16px;
-          height: 17px;
-          width: 19px;
-          margin-top: 2px;
-        }
-      }
+      @include costs;
     }
 
     &--title {
