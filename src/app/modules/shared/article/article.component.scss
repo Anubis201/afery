@@ -2,7 +2,7 @@
   cursor: pointer;
 
   &:hover {
-    opacity: .7;
+    opacity: .8;
   }
 
   &__image {
@@ -19,20 +19,63 @@
     padding-bottom: 10px;
     display: flex;
 
-    span {
+    &--costs {
       height: 17px;
-      margin-left: auto;
       display: flex;
-      align-items: center;
+      margin-left: auto;
       font-size: 13px;
       color: #ff6a6a;
       font-weight: 600;
+
+      mat-icon {
+        font-size: 16px;
+        height: 17px;
+        width: 19px;
+        margin-top: 2px;
+      }
     }
 
-    mat-icon {
-      font-size: 16px;
-      height: 17px;
-      width: 19px;
+    &--time {
+      margin-left: 20px;
+    }
+  }
+}
+
+.mobile-article {
+  $gap: 15px;
+  $image-width: 170px;
+
+  display: flex;
+  padding-bottom: 15px;
+  cursor: pointer;
+  color: white;
+  gap: $gap;
+
+  &:hover {
+    opacity: .8;
+  }
+
+  &__image {
+    width: $image-width;
+    height: 100px;
+  }
+
+  &__content {
+    width: calc(100% - ($gap + $image-width));
+    display: flex;
+    flex-direction: column;
+
+    // TODO dlaczego to nie dziala
+    &--footer {
+      margin-top: 100%;
+    }
+
+    &--title {
+      display: -webkit-box;
+      max-width: calc(100% - 10px);
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   }
 }
