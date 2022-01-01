@@ -19,7 +19,7 @@ export class MillionsPipe implements PipeTransform {
       return Math.round(milion) + ' MLN ZŁ';
     }
 
-    return value + ' zł';
+    return value + ' ZŁ';
   }
 
 }
