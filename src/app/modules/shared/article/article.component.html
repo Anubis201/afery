@@ -1,4 +1,4 @@
-<mat-card class="article">
+<mat-card [routerLink]="['/artykul/' + article.id]" class="article">
   <img class="article__image" mat-card-image [src]="article.imageSrc" alt="Zdjęcie artykułu">
   <mat-card-content>
     <p class="truncate">{{ article.title }}</p>
