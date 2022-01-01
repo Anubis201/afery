@@ -18,14 +18,12 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MillionsPipe } from './services/pipes/milions/millions.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     SnowAnimationComponent,
-    MillionsPipe,
   ],
   imports: [
     BrowserModule,

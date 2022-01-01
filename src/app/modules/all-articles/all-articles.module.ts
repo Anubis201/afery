@@ -7,6 +7,7 @@ import { PartiesComponent } from './parties/parties.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
+import { MillionsPipe } from 'src/app/services/pipes/milions/millions.pipe';
 
 
 
@@ -15,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
     AllArticlesComponent,
     ArticleComponent,
     PartiesComponent,
+    MillionsPipe,
   ],
   imports: [
     CommonModule,
@@ -22,6 +24,6 @@ import { MatIconModule } from '@angular/material/icon';
     AllArticlesRoutingModule,
     MatTooltipModule,
     MatIconModule,
-  ]
+  ],
 })
 export class AllArticlesModule { }

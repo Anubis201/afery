@@ -7,7 +7,7 @@
     <img [matTooltip]="PartiesEnum[article.entity].toUpperCase()" class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
     <span>
       <mat-icon>money_off</mat-icon>
-      12312312312 zł
+      {{ 1200000000 | millions }}
     </span>
   </mat-card-footer>
 </mat-card>
