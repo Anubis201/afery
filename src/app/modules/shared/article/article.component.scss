@@ -43,7 +43,7 @@
 
 .mobile-article {
   $gap: 15px;
-  $image-width: 170px;
+  $image-width: 120px;
 
   display: flex;
   padding-bottom: 15px;
@@ -52,12 +52,12 @@
   gap: $gap;
 
   &:hover {
-    opacity: .8;
+    opacity: .6;
   }
 
   &__image {
     width: $image-width;
-    height: 100px;
+    height: 80px;
   }
 
   &__content {
@@ -65,9 +65,24 @@
     display: flex;
     flex-direction: column;
 
-    // TODO dlaczego to nie dziala
-    &--footer {
-      margin-top: 100%;
+    &__footer {
+      margin-top: auto;
+
+      &--costs {
+        height: 17px;
+        display: flex;
+        margin-left: auto;
+        font-size: 13px;
+        color: #ff6a6a;
+        font-weight: 600;
+
+        mat-icon {
+          font-size: 16px;
+          height: 17px;
+          width: 19px;
+          margin-top: 2px;
+        }
+      }
     }
 
     &--title {

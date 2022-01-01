@@ -17,11 +17,11 @@
   <img class="mobile-article__image" [src]="article.imageSrc" alt="Zdjęcie artykułu">
   <div class="mobile-article__content">
     <div class="mobile-article__content--title">{{ article.title }}</div>
-    <div clas="mobile-article__content--footer">
+    <div class="mobile-article__content__footer">
       <span>{{ article.createDate | date:'shortDate' }}</span>
-      <span *ngIf="article.costs">
+      <span *ngIf="true" class="mobile-article__content__footer--costs">
         <mat-icon>money_off</mat-icon>
-        {{ article.costs | millions }}
+        {{ 1232131231232 | millions }}
       </span>
     </div>
   </div>
