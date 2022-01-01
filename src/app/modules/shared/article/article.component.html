@@ -1,13 +1,28 @@
-<mat-card [routerLink]="['/artykul/' + article.id]" class="article">
+<mat-card [routerLink]="['/artykul/' + article.id]" class="article d-none d-sm-block">
   <img class="article__image" mat-card-image [src]="article.imageSrc" alt="Zdjęcie artykułu">
   <mat-card-content>
     <p class="truncate">{{ article.title }}</p>
   </mat-card-content>
   <mat-card-footer class="article__footer">
     <img [matTooltip]="PartiesEnum[article.entity].toUpperCase()" class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
-    <span>
+    <span class="article__footer--time">{{ article.createDate | date:'shortDate' }}</span>
+    <span *ngIf="article.costs" class="article__footer--costs">
       <mat-icon>money_off</mat-icon>
-      {{ 1200000000 | millions }}
+      {{ article.costs | millions }}
     </span>
   </mat-card-footer>
 </mat-card>
+
+<div [routerLink]="['/artykul/' + article.id]" class="mobile-article d-sm-none">
+  <img class="mobile-article__image" [src]="article.imageSrc" alt="Zdjęcie artykułu">
+  <div class="mobile-article__content">
+    <div class="mobile-article__content--title">{{ article.title }}</div>
+    <div clas="mobile-article__content--footer">
+      <span>{{ article.createDate | date:'shortDate' }}</span>
+      <span *ngIf="article.costs">
+        <mat-icon>money_off</mat-icon>
+        {{ article.costs | millions }}
+      </span>
+    </div>
+  </div>
+</div>

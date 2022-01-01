@@ -32,7 +32,7 @@ export class AllArticlesComponent implements OnInit {
       .subscribe({
         next: doc => {
           doc.forEach(value => {
-            let article: ArticleModel = { ...value.data() as ArticleModel, id: value.id };
+            let article: ArticleModel = { ...value.data() as ArticleModel, id: value.id, createDate: (value.data() as any).createDate.toDate() };
             this.getImage(article);
           })
         },
