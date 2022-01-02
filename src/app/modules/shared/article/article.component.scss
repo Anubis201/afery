@@ -43,6 +43,10 @@
       margin-left: 20px;
     }
   }
+
+  p {
+    line-height: 1.4rem;
+  }
 }
 
 .mobile-article {
@@ -77,6 +81,7 @@
     }
 
     &--title {
+      line-height: 1.4rem;
       display: -webkit-box;
       max-width: calc(100% - 10px);
       -webkit-line-clamp: 3;
