@@ -1,8 +1,9 @@
-<div class="container page">
+<div class="container page d-none d-sm-block">
   <ng-container *ngIf="isExists | async">
     <div class="page__title">
       {{ (article | async)?.title }}
     </div>
+    <div class="page__time">Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy HH:mm' }}</div>
     <img *ngIf="article.value?.imageSrc" [src]="article.value?.imageSrc" alt="Zdjęcie artykułu">
     <div class="page__desc">
       {{ article.value?.text }}

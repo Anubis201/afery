@@ -4,29 +4,33 @@
 
 @mixin title($size) {
   font-weight: bold;
-  line-height: 2.9rem;
+  line-height: 3rem;
   font-size: $size;
 }
 
 .page {
   z-index: 1;
   color: white;
-  margin-top: 2.5rem;
+  margin-top: 1.8rem;
 
   &__title {
-    @include title(1.7rem);
+    @include title(2.4rem);
   }
 
   img {
+    margin-top: 15px;
     margin-bottom: 12px;
-    margin-top: 12px;
     width: 100%;
-    height: 45vh;
+    height: 400px;
   }
 
   &__desc {
     line-height: 1.46;
     font-size: 1.125em;
+  }
+
+  &__time {
+    margin-top: 5px;
   }
 }
 
@@ -41,21 +45,14 @@
   }
 }
 
-@media (min-width: 576px) {
-  .container {
-    max-width: 600px;
-  }
-}
-
 @media (min-width: 992px) {
   .container {
     max-width: 700px;
   }
 }
 
-
 @media (min-width: 1200px) {
   .container {
-    max-width: 800px;
+    max-width: 750px;
   }
 }

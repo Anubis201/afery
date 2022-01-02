@@ -30,7 +30,7 @@ export class ArticlePageComponent implements OnInit {
   private getData(articleId: string) {
     this.articlesService.getArticle(articleId).subscribe(article => {
       if (article.exists) {
-        this.article.next({ ...article.data() as ArticleModel, id: article.id });
+        this.article.next({ ...article.data() as ArticleModel, id: article.id, createDate: (article.data() as any).createDate.toDate() });
         this.getImage(article.id)
       } else this.isExists.next(false)
     })
