@@ -4,7 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
-import { ImagesService } from 'src/app/services/collections/images/images.service';
 
 @Component({
   selector: 'app-all-articles',
@@ -18,7 +17,6 @@ export class AllArticlesComponent implements OnInit {
   constructor(
     private articlesService: ArticlesService,
     private _snackBar: MatSnackBar,
-    private imagesService: ImagesService,
   ) { }
 
   ngOnInit() {
@@ -32,30 +30,13 @@ export class AllArticlesComponent implements OnInit {
       .subscribe({
         next: doc => {
           doc.forEach(value => {
-            let article: ArticleModel = { ...value.data() as ArticleModel, id: value.id, createDate: (value.data() as any).createDate.toDate() };
-            this.getImage(article);
+            const article: ArticleModel = { ...value.data() as ArticleModel, id: value.id, createDate: (value.data() as any).createDate.toDate() };
+            this.parties.next([...this.parties.value, article])
           })
         },
         error: () => {
           this._snackBar.open('Błąd! Skontaktuj się z pomocą techniczną', 'close');
         },
       });
-  }
-
-  private getImage(article: ArticleModel) {
-    this.imagesService.getImage(article?.id).subscribe({
-      next: imageSrc => {
-        const articleWithImage: ArticleModel = { ...article, imageSrc };
-
-        switch(article.type) {
-          case ArticlesTypesEnum.PoliticalParties:
-            this.parties.next([ ...this.parties.value, articleWithImage ]);
-            break;
-        }
-      },
-      error: () => {
-        this._snackBar.open('Błąd nie udało się pobrać zdjęcia! Skontaktuj się z pomocą techniczną', 'close');
-      }
-    })
   }
 }

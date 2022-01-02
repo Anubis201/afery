@@ -9,7 +9,7 @@ export interface ArticleModel {
   kind: ArticlesKindsEnum
   createDate: Date
   id?: string // Dodaje id do meduly tylko gdy potrzebuje pobrać zdjęcie artykułu
-  imageSrc?: string // tylko przy pokazniu zdjęcia trzeba dodać jego zdjęcie
+  imageSrc: string // tylko przy pokazniu zdjęcia trzeba dodać jego zdjęcie
   entity: PartiesEnum
   costs: number | null
 }

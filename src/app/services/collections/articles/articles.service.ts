@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { from } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
+import { DocumentReference } from '@angular/fire/compat/firestore/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,12 @@ export class ArticlesService {
     private firestore: AngularFirestore,
   ) { }
 
-  addArticle(data: ArticleModel) {
-    return from(this.firestore.collection('articles').add(data))
+  getRef() {
+    return this.firestore.collection('articles');
+  }
+
+  addArticle(data: ArticleModel, ref: DocumentReference<unknown>) {
+    return from(ref.set(data))
   }
 
   getArticles(type: ArticlesTypesEnum, limit: number) {

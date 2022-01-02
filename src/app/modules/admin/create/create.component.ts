@@ -8,6 +8,7 @@ import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.
 import { ConvertEnum } from 'src/app/services/global/support-functions/convert-enum';
 import { ImagesService } from 'src/app/services/collections/images/images.service';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
+import { DocumentReference } from '@angular/fire/compat/firestore/interfaces';
 
 @Component({
   selector: 'app-create',
@@ -65,22 +66,14 @@ export class CreateComponent implements OnInit {
     }
 
     this.isLoading.next(true);
-    this.articlesService.addArticle({
-      title: this.form.get('title')?.value,
-      text: this.form.get('text')?.value,
-      type: this.form.get('type')?.value,
-      kind: this.form.get('kind')?.value,
-      entity: this.form.get('entity')?.value,
-      costs: this.form.get('costs')?.value,
-      createDate: new Date(),
-    }).pipe(first()).subscribe({
-      next: ref => {
-        this.addArticleImage(ref.id, image);
-        this._snackBar.open('Artykuł został wysłany do bazy 1/2', 'close');
-      },
-      error: () => {
-        this._snackBar.open('Jakiś dziwny błąd', 'close');
-        this.isLoading.next(false);
+    const ref = this.articlesService.getRef().doc().ref;
+
+    this.imageService.addImage(ref.id, image).subscribe(value => {
+      if (value === 100) {
+        this._snackBar.open('Zdjęcie zostało dodane teraz czas na resztę', 'close');
+        this.imageService.getImage(ref.id).subscribe(url => {
+          this.addArticle(ref, url);
+        })
       }
     })
   }
@@ -103,10 +96,23 @@ export class CreateComponent implements OnInit {
     })
   }
 
-  private addArticleImage(docId: string, file: File) {
-    this.imageService.addImage(docId, file).subscribe(value => {
-      if (value === 100) {
-        this._snackBar.open('Koniec dodawania zdjęcia! 2/2', 'close');
+  private addArticle(ref: DocumentReference<unknown>, imageSrc: string) {
+    this.articlesService.addArticle({
+      title: this.form.get('title')?.value,
+      text: this.form.get('text')?.value,
+      type: this.form.get('type')?.value,
+      kind: this.form.get('kind')?.value,
+      entity: this.form.get('entity')?.value,
+      costs: this.form.get('costs')?.value,
+      createDate: new Date(),
+      imageSrc,
+    }, ref).pipe(first()).subscribe({
+      next: () => {
+        this._snackBar.open('GOTOWE', 'close');
+        this.isLoading.next(false);
+      },
+      error: () => {
+        this._snackBar.open('Jakiś dziwny błąd', 'close');
         this.isLoading.next(false);
       }
     })
