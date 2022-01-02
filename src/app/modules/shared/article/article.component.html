@@ -14,7 +14,9 @@
 </mat-card>
 
 <div [routerLink]="[toArticlePage]" class="mobile-article d-sm-none">
-  <img class="mobile-article__image" [src]="article.imageSrc" alt="Zdjęcie artykułu">
+  <div class="mobile-article__image" [style.background-image]="'url(' + article.imageSrc + ')'" alt="Zdjęcie artykułu">
+    <img [matTooltip]="PartiesEnum[article.entity].toUpperCase()" class="mobile-article__image--entity" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
+  </div>
   <div class="mobile-article__content">
     <div class="mobile-article__content--title">{{ article.title }}</div>
     <div class="mobile-article__content__footer">

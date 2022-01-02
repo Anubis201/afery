@@ -66,6 +66,13 @@
   &__image {
     width: $image-width;
     height: 80px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &--entity {
+      height: 20px;
+    }
   }
 
   &__content {
