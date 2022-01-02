@@ -13,7 +13,7 @@ import { ImagesService } from 'src/app/services/collections/images/images.servic
 })
 export class ArticlePageComponent implements OnInit {
   article = new BehaviorSubject<ArticleModel | null>(null)
-  isExists = new BehaviorSubject<boolean>(true)
+  isExists = new BehaviorSubject<boolean>(false)
 
   constructor(
     private route: ActivatedRoute,

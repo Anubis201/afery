@@ -4,7 +4,7 @@ import { ArticlePageComponent } from './article-page.component'
 
 const routes: Routes = [
   {
-    path: ':articleId',
+    path: ':articleId/:title',
     component: ArticlePageComponent,
   },
 ]

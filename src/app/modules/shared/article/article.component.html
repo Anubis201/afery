@@ -1,4 +1,4 @@
-<mat-card [routerLink]="['/artykul/' + article.id]" class="article d-none d-sm-block">
+<mat-card [routerLink]="[toArticlePage]" class="article d-none d-sm-block">
   <img class="article__image" mat-card-image [src]="article.imageSrc" alt="Zdjęcie artykułu">
   <mat-card-content>
     <p class="truncate">{{ article.title }}</p>
@@ -13,7 +13,7 @@
   </mat-card-footer>
 </mat-card>
 
-<div [routerLink]="['/artykul/' + article.id]" class="mobile-article d-sm-none">
+<div [routerLink]="[toArticlePage]" class="mobile-article d-sm-none">
   <img class="mobile-article__image" [src]="article.imageSrc" alt="Zdjęcie artykułu">
   <div class="mobile-article__content">
     <div class="mobile-article__content--title">{{ article.title }}</div>

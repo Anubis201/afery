@@ -1,7 +1,7 @@
 <div class="container page d-none d-sm-block">
-  <ng-container *ngIf="isExists | async">
+  <ng-container *ngIf="(isExists | async) && (article | async)?.imageSrc">
     <div class="page__title">
-      {{ (article | async)?.title }}
+      {{ article.value?.title }}
     </div>
     <div class="page__time">Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy HH:mm' }}</div>
     <img *ngIf="article.value?.imageSrc" [src]="article.value?.imageSrc" alt="Zdjęcie artykułu">
@@ -10,7 +10,27 @@
     </div>
   </ng-container>
 
-  <ng-container *ngIf="!(isExists | async)">
+  <ng-container *ngIf="!isExists.value">
+    <div class="not-exists">
+      <div class="not-exists--error">404</div>
+      Nie znaleziono takiej strony
+    </div>
+  </ng-container>
+</div>
+
+<div class="d-sm-none page-mobile">
+  <ng-container *ngIf="(isExists | async) && (article | async)?.imageSrc">
+    <!-- <div class="page__title">
+      {{ article.value?.title }}
+    </div>
+    <div class="page__time">Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy HH:mm' }}</div>
+    <img *ngIf="article.value?.imageSrc" [src]="article.value?.imageSrc" alt="Zdjęcie artykułu">
+    <div class="page__desc">
+      {{ article.value?.text }}
+    </div> -->
+  </ng-container>
+
+  <ng-container *ngIf="!isExists.value">
     <div class="not-exists">
       <div class="not-exists--error">404</div>
       Nie znaleziono takiej strony

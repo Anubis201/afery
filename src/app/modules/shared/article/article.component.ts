@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ArticleModel } from 'src/app/models/articles/article.model';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 
@@ -8,14 +8,12 @@ import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
   styleUrls: ['./article.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent {
   @Input() article: ArticleModel
 
   readonly PartiesEnum = PartiesEnum
 
-  constructor() { }
-
-  ngOnInit(): void {
+  get toArticlePage() {
+    return `/artykul/${this.article.id}/${this.article.title.replace(/\s/g, '-')}`
   }
-
 }
