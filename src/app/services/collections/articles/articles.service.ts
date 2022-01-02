@@ -22,4 +22,8 @@ export class ArticlesService {
 
     return from(ref.where('type', '==', type).orderBy('createDate', 'desc').limit(limit).get())
   }
+
+  getArticle(docId: string) {
+    return this.firestore.collection('articles').doc(docId).get()
+  }
 }

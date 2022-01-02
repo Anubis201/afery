@@ -1,5 +1,18 @@
 <div class="container page">
-  <div class="page__title">
-    WITAM WSZYSTKICH d sad sad sasDASDASDASDS das DASD SADASD SAD ASD sad ASD SAD ASD SA DASD SAD asd sADSDASDSADASDSADASDASD SAD SAD ASDASJDIUASHDIUASDHSADASUDHG ASIUDHOIASHDUHSAOIDHOI SADHIAUS ASD
-  </div>
+  <ng-container *ngIf="isExists | async">
+    <div class="page__title">
+      {{ (article | async)?.title }}
+    </div>
+    <img *ngIf="article.value?.imageSrc" [src]="article.value?.imageSrc" alt="Zdjęcie artykułu">
+    <div class="page__desc">
+      {{ article.value?.text }}
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="!(isExists | async)">
+    <div class="not-exists">
+      <div class="not-exists--error">404</div>
+      Nie znaleziono takiej strony
+    </div>
+  </ng-container>
 </div>

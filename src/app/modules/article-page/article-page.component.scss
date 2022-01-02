@@ -2,14 +2,60 @@
   display: flex;
 }
 
+@mixin title($size) {
+  font-weight: bold;
+  line-height: 2.9rem;
+  font-size: $size;
+}
+
 .page {
   z-index: 1;
   color: white;
-  margin-top: 1.5rem;
+  margin-top: 2.5rem;
 
   &__title {
-    font-weight: bold;
-    line-height: 2.9rem;
-    font-size: 1.9rem;
+    @include title(1.7rem);
+  }
+
+  img {
+    margin-bottom: 12px;
+    margin-top: 12px;
+    width: 100%;
+    height: 45vh;
+  }
+
+  &__desc {
+    line-height: 1.46;
+    font-size: 1.125em;
+  }
+}
+
+.not-exists {
+  @include title(3rem);
+  text-align: center;
+  margin-top: 10vh;
+
+  &--error {
+    color: red;
+    margin-bottom: 1vh;
+  }
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 700px;
+  }
+}
+
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 800px;
   }
 }
