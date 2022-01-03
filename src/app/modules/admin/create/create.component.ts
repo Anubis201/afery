@@ -23,7 +23,8 @@ export class CreateComponent implements OnInit {
     image: new FormControl(null, Validators.required),
     type: new FormControl(null, Validators.required),
     kind: new FormControl(ArticlesKindsEnum.Confirmed, Validators.required),
-    entity: new FormControl(null, Validators.required), // partia/organizacja/pseudoInfluCoś
+    entity: new FormControl(null, Validators.required), // partie // jest required ponieważ domyślnie przyjmuje partie jako domyślny tryb
+    customName: new FormControl(null), // uzywane w kategoriach politycy oraz reszta // odwrotnie do góry
     costs: new FormControl(null),
   })
 
@@ -80,19 +81,22 @@ export class CreateComponent implements OnInit {
 
   private setItemsEntityOnTypeChange() {
     this.form.get('type')?.valueChanges.subscribe((articleType: ArticlesTypesEnum) => {
-      this.form.get('entity')?.patchValue(null)
-
       switch(articleType) {
         case ArticlesTypesEnum.PoliticalParties:
-          this.entityItems.next(ConvertEnum(PartiesEnum, 'number'));
+          this.form.get('customName')?.patchValue(null);
+          this.form.get('customName')?.clearValidators();
+          this.form.get('entity')?.addValidators(Validators.required);
           break;
-        case ArticlesTypesEnum.People:
-          this.entityItems.next([]);
-          break;
-        case ArticlesTypesEnum.Countries:
-          this.entityItems.next([]);
+        case ArticlesTypesEnum.Politicians:
+        case ArticlesTypesEnum.Others:
+          this.form.get('entity')?.clearValidators();
+          this.form.get('customName')?.addValidators(Validators.required);
+          this.form.get('entity')?.patchValue(null);
           break;
       }
+
+      this.form.get('customName')?.updateValueAndValidity()
+      this.form.get('entity')?.updateValueAndValidity()
     })
   }
 
@@ -105,6 +109,7 @@ export class CreateComponent implements OnInit {
       entity: this.form.get('entity')?.value,
       costs: this.form.get('costs')?.value,
       createDate: new Date(),
+      customName: this.form.get('customName')?.value,
       imageSrc,
     }, ref).pipe(first()).subscribe({
       next: () => {

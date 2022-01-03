@@ -8,5 +8,6 @@ import { ArticleModel } from 'src/app/models/articles/article.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartiesComponent {
+  @Input() name: string
   @Input() articles: ArticleModel[] | null
 }

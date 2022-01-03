@@ -1,7 +1,7 @@
 export enum ArticlesTypesEnum {
   PoliticalParties = 'Partie polityczne',
 
-  People = 'Ludzie',
+  Politicians = 'Politycy',
 
-  Countries = 'Kraje',
+  Others = 'Reszta',
 }

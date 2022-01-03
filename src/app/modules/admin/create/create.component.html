@@ -19,18 +19,19 @@
     <mat-radio-button *ngFor="let type of articleTypes" [value]="type">{{ type }}</mat-radio-button>
   </mat-radio-group>
 
-  <mat-form-field class="entity" appearance="fill">
-    <mat-label [ngSwitch]="form.get('type')?.value">
-      <span *ngSwitchCase="ArticlesTypesEnum.PoliticalParties">Partia</span>
-      <span *ngSwitchCase="ArticlesTypesEnum.People">Człowiek</span>
-      <span *ngSwitchCase="ArticlesTypesEnum.Countries">Kraj</span>
-    </mat-label>
+  <mat-form-field *ngIf="ArticlesTypesEnum.PoliticalParties === form.get('type')?.value" class="entity" appearance="fill">
+    <mat-label>Partia</mat-label>
     <mat-select formControlName="entity">
       <mat-option *ngFor="let item of entityItems | async" [value]="item">
         <img class="entity__img" [src]="'/assets/icons/parties/' + PartiesEnum[item] + '.jpg'" alt="">
         <span>{{ PartiesEnum[item] }}</span>
       </mat-option>
     </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="[ArticlesTypesEnum.Politicians, ArticlesTypesEnum.Others].includes(form.get('type')?.value)" class="others" appearance="fill">
+    <mat-label>Osoba lub organizacja</mat-label>
+    <input matInput class="desc-input" formControlName="customName" autocomplete="off" type="text">
   </mat-form-field>
 
   <mat-radio-group formControlName="kind">

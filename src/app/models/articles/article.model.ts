@@ -12,4 +12,5 @@ export interface ArticleModel {
   imageSrc: string // tylko przy pokazniu zdjęcia trzeba dodać jego zdjęcie
   entity: PartiesEnum
   costs: number | null
+  customName: string
 }
