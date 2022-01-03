@@ -4,9 +4,36 @@
       {{ article.value?.title }}
     </div>
     <div class="page__time">Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy HH:mm' }}</div>
-    <img [src]="article.value?.imageSrc" alt="Zdjęcie artykułu">
+    <div class="page__image" [style.background-image]="'url(' + article.value?.imageSrc + ')'">
+      <img class="page__image--organization" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
+    </div>
     <div class="page__desc">
-      {{ article.value?.text }}
+      <!-- {{ article.value?.text }} -->
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+      dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+
     </div>
   </ng-container>
 
@@ -20,10 +47,36 @@
 
 <div class="d-sm-none page-mobile">
   <ng-container *ngIf="(isExists | async) && (article | async)?.imageSrc">
-    <img [src]="article.value?.imageSrc" alt="Zdjęcie artykułu">
+    <div class="page-mobile__image" [style.background-image]="'url(' + article.value?.imageSrc + ')'">
+      <img class="page-mobile__image--org" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
+    </div>
     <div class="page-mobile__content">
       <div class="page-mobile__content__title">
         {{ article.value?.title }}
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
+        dasdasdsadasd asdasdsadsadsadsad asd asdsadasdasdasd
       </div>
       <div class="page-mobile__content__time">Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy HH:mm' }}</div>
       <div class="page-mobile__content__desc">

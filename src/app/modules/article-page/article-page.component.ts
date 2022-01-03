@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
+import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
 
 @Component({
@@ -13,6 +14,8 @@ import { ArticlesService } from 'src/app/services/collections/articles/articles.
 export class ArticlePageComponent implements OnInit {
   article = new BehaviorSubject<ArticleModel | null>(null)
   isExists = new BehaviorSubject<boolean>(true)
+
+  readonly PartiesEnum = PartiesEnum
 
   constructor(
     private route: ActivatedRoute,
