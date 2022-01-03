@@ -2,19 +2,25 @@
   display: flex;
 }
 
-@mixin title($size) {
+@mixin title($size, $line) {
   font-weight: bold;
-  line-height: 3rem;
+  line-height: $line;
   font-size: $size;
+}
+
+@mixin time {
+  font-size: .95rem;
+  white-space: nowrap;
 }
 
 .page {
   z-index: 1;
   color: white;
   margin-top: 1.8rem;
+  // TODO zrobi scrolla
 
   &__title {
-    @include title(2.4rem);
+    @include title(2.4rem, 3rem);
   }
 
   img {
@@ -39,16 +45,46 @@
 
   &__time {
     margin-top: 5px;
+    @include time;
   }
 }
 
 .page-mobile {
   z-index: 1;
   color: white;
+  width: 100%;
+  overflow: auto;
+  height: 93vh;
+
+  img {
+    width: 100%;
+    height: 25vh;
+  }
+
+  &__content {
+    padding: 0 1rem;
+
+    &__title {
+      @include title(2.2rem, 2.8rem);
+      margin-top: 1rem;
+      margin-bottom: .5rem;
+    }
+
+    &__time {
+      @include time;
+      margin-bottom: .8rem;
+    }
+
+    &__desc {
+      line-height: 1.9;
+      font-size: 1.125em;
+    }
+  }
+
 }
 
 .not-exists {
-  @include title(3rem);
+  @include title(3rem, 3rem);
   text-align: center;
   margin-top: 10vh;
 
@@ -57,8 +93,6 @@
     margin-bottom: 1vh;
   }
 }
-
-
 
 @media (min-width: 992px) {
   .container {

@@ -4,7 +4,7 @@
       {{ article.value?.title }}
     </div>
     <div class="page__time">Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy HH:mm' }}</div>
-    <img *ngIf="article.value?.imageSrc" [src]="article.value?.imageSrc" alt="Zdjęcie artykułu">
+    <img [src]="article.value?.imageSrc" alt="Zdjęcie artykułu">
     <div class="page__desc">
       {{ article.value?.text }}
     </div>
@@ -20,14 +20,16 @@
 
 <div class="d-sm-none page-mobile">
   <ng-container *ngIf="(isExists | async) && (article | async)?.imageSrc">
-    <!-- <div class="page__title">
-      {{ article.value?.title }}
+    <img [src]="article.value?.imageSrc" alt="Zdjęcie artykułu">
+    <div class="page-mobile__content">
+      <div class="page-mobile__content__title">
+        {{ article.value?.title }}
+      </div>
+      <div class="page-mobile__content__time">Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy HH:mm' }}</div>
+      <div class="page-mobile__content__desc">
+        {{ article.value?.text }}
+      </div>
     </div>
-    <div class="page__time">Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy HH:mm' }}</div>
-    <img *ngIf="article.value?.imageSrc" [src]="article.value?.imageSrc" alt="Zdjęcie artykułu">
-    <div class="page__desc">
-      {{ article.value?.text }}
-    </div> -->
   </ng-container>
 
   <ng-container *ngIf="!isExists.value">
