@@ -13,6 +13,7 @@ import { ArticlesService } from 'src/app/services/collections/articles/articles.
 })
 export class AllArticlesComponent implements OnInit {
   parties = new BehaviorSubject<ArticleModel[]>([])
+  politicians = new BehaviorSubject<ArticleModel[]>([])
 
   constructor(
     private articlesService: ArticlesService,
@@ -21,7 +22,8 @@ export class AllArticlesComponent implements OnInit {
 
   ngOnInit() {
     // Pobiera 4 artykuły z kategori parti
-    this.getArticles(ArticlesTypesEnum.PoliticalParties)
+    this.getArticles(ArticlesTypesEnum.PoliticalParties);
+    this.getArticles(ArticlesTypesEnum.Politicians);
   }
 
   private getArticles(type: ArticlesTypesEnum) {
@@ -31,7 +33,15 @@ export class AllArticlesComponent implements OnInit {
         next: doc => {
           doc.forEach(value => {
             const article: ArticleModel = { ...value.data() as ArticleModel, id: value.id, createDate: (value.data() as any).createDate.toDate() };
-            this.parties.next([...this.parties.value, article])
+
+            switch(type) {
+              case ArticlesTypesEnum.PoliticalParties:
+                this.parties.next([...this.parties.value, article])
+                break;
+              case ArticlesTypesEnum.Politicians:
+                this.politicians.next([...this.politicians.value, article])
+                break;
+            }
           })
         },
         error: () => {

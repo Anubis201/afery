@@ -5,7 +5,7 @@
     </div>
     <div class="page__time">Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy HH:mm' }}</div>
     <div class="page__image" [style.background-image]="'url(' + article.value?.imageSrc + ')'">
-      <img class="page__image--organization" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
+      <img *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties" class="page__image--organization" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
     </div>
     <div class="page__desc">
       {{ article.value?.text }}
@@ -23,7 +23,7 @@
 <div class="d-sm-none page-mobile">
   <ng-container *ngIf="(isExists | async) && (article | async)?.imageSrc">
     <div class="page-mobile__image" [style.background-image]="'url(' + article.value?.imageSrc + ')'">
-      <img class="page-mobile__image--org" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
+      <img *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties" class="page-mobile__image--org" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
     </div>
     <div class="page-mobile__content">
       <div class="page-mobile__content__title">

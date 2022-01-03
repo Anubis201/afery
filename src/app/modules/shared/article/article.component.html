@@ -1,6 +1,6 @@
 <mat-card [routerLink]="[toArticlePage]" class="article d-none d-sm-block">
   <div class="article__image" [style.background-image]="'url(' + article.imageSrc + ')'">
-    <img class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
+    <img *ngIf="article.type === ArticlesTypesEnum.PoliticalParties" class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
   </div>
   <mat-card-content>
     <p class="truncate">{{ article.title }}</p>
@@ -16,7 +16,7 @@
 
 <div [routerLink]="[toArticlePage]" class="mobile-article d-sm-none">
   <div class="mobile-article__image" [style.background-image]="'url(' + article.imageSrc + ')'">
-    <img class="mobile-article__image--entity" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
+    <img *ngIf="article.type === ArticlesTypesEnum.PoliticalParties" class="mobile-article__image--entity" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
   </div>
   <div class="mobile-article__content">
     <div class="mobile-article__content--title">{{ article.title }}</div>
