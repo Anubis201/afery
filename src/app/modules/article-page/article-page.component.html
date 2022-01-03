@@ -29,7 +29,9 @@
       <div class="page-mobile__content__title">
         {{ article.value?.title }}
       </div>
-      <div class="page-mobile__content__time">Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy HH:mm' }}</div>
+      <div class="page-mobile__content__time">
+        Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy HH:mm' }}
+      </div>
       <div class="page-mobile__content__desc">
         {{ article.value?.text }}
       </div>

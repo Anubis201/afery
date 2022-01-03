@@ -21,7 +21,7 @@
   <div class="mobile-article__content">
     <div class="mobile-article__content--title">{{ article.title }}</div>
     <div class="mobile-article__content__footer">
-      <span>{{ article.createDate | date:'dd.MM.yyyy' }}</span>
+      <span>{{ article.createDate | date:'d/M/yy' }}</span>
       <span *ngIf="article.costs" class="mobile-article__content__footer--costs">
         <mat-icon>money_off</mat-icon>
         {{ article.costs | millions }}

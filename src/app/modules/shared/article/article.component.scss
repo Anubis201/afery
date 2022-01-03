@@ -74,6 +74,7 @@
     &--entity {
       height: 20px;
       width: 20px;
+      vertical-align: initial;
     }
   }
 
@@ -90,6 +91,8 @@
     }
 
     &--title {
+      font-size: 1rem;
+      font-weight: 500;
       line-height: 1.4rem;
       display: -webkit-box;
       max-width: calc(100% - 10px);
