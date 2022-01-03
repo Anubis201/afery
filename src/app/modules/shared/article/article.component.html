@@ -1,11 +1,12 @@
 <mat-card [routerLink]="[toArticlePage]" class="article d-none d-sm-block">
-  <img class="article__image" mat-card-image [src]="article.imageSrc" alt="Zdjęcie artykułu">
+  <div class="article__image" [style.background-image]="'url(' + article.imageSrc + ')'" alt="Zdjęcie artykułu">
+    <img [matTooltip]="PartiesEnum[article.entity].toUpperCase()" class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
+  </div>
   <mat-card-content>
     <p class="truncate">{{ article.title }}</p>
   </mat-card-content>
   <mat-card-footer class="article__footer">
-    <img [matTooltip]="PartiesEnum[article.entity].toUpperCase()" class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
-    <span class="article__footer--time">{{ article.createDate | date:'shortDate' }}</span>
+    <span class="article__footer--time">{{ article.createDate | date:'dd.MM.yyyy' }}</span>
     <span *ngIf="article.costs" class="article__footer--costs">
       <mat-icon>money_off</mat-icon>
       {{ article.costs | millions }}
@@ -20,7 +21,7 @@
   <div class="mobile-article__content">
     <div class="mobile-article__content--title">{{ article.title }}</div>
     <div class="mobile-article__content__footer">
-      <span>{{ article.createDate | date:'shortDate' }}</span>
+      <span>{{ article.createDate | date:'dd.MM.yyyy' }}</span>
       <span *ngIf="article.costs" class="mobile-article__content__footer--costs">
         <mat-icon>money_off</mat-icon>
         {{ article.costs | millions }}

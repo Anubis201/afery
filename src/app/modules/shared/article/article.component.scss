@@ -25,12 +25,18 @@
 
   &__image {
     height: 150px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     min-width: 240px;
+    margin-top: -16px !important;
+    width: calc(100% + 32px);
+    margin: 0 -16px 16px -16px;
   }
 
   &__organization {
-    width: 20px;
-    border-radius: 10%;
+    width: 30px;
+    vertical-align: inherit;
   }
 
   &__footer {
@@ -38,10 +44,6 @@
     display: flex;
 
     @include costs;
-
-    &--time {
-      margin-left: 20px;
-    }
   }
 
   p {
