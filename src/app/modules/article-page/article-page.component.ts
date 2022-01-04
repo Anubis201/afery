@@ -19,6 +19,7 @@ export class ArticlePageComponent implements OnInit {
   article = new BehaviorSubject<ArticleModel | null>(null)
   isExists = new BehaviorSubject<boolean>(true)
   comments = new BehaviorSubject<CommentModel[]>([])
+  isSavingComment = false
 
   readonly PartiesEnum = PartiesEnum
   readonly ArticlesTypesEnum = ArticlesTypesEnum
@@ -32,29 +33,34 @@ export class ArticlePageComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(({ articleId }) => {
-      this.getData(articleId)
+      this.getData(articleId);
+      this.getComments(articleId);
     })
   }
 
   handleAddComment(comment: CommentModel) {
+    this.isSavingComment = true;
     const rlyComment: CommentModel = { ...comment, articleId: this.article.value?.id as string };
+
     this.commentsService.addComment(rlyComment).subscribe({
       next: () => {
         this.comments.next([rlyComment , ...this.comments.value]);
-        this._snackBar.open('Został dodany komentarz' ,'close');
+        this._snackBar.open('Komentarz został dodany' ,'close');
+        this.isSavingComment = false;
       },
       error: () => {
         this._snackBar.open('Nie udało się dodać komentarza' ,'close');
+        this.isSavingComment = false;
       }
     })
   }
 
-  getComments() {
-    this.commentsService.getComments(this.article.value?.id as string).subscribe({
+  getComments(articleId: string) {
+    this.commentsService.getComments(articleId).subscribe({
       next: commentsDocs => {
         let allComments: CommentModel[] = [];
         commentsDocs.forEach(comment => {
-          allComments.push(comment.data() as CommentModel);
+          allComments.push({ ...comment.data() as CommentModel, date: (comment.data() as any).date.toDate() });
         });
         this.comments.next(allComments);
       },
@@ -68,8 +74,7 @@ export class ArticlePageComponent implements OnInit {
     this.articlesService.getArticle(articleId).subscribe(article => {
       if (article.exists) {
         this.article.next({ ...article.data() as ArticleModel, id: article.id, createDate: (article.data() as any).createDate.toDate() });
-        this.getComments();
-      } else this.isExists.next(false)
+      } else this.isExists.next(false);
     })
   }
 }

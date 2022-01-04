@@ -1,3 +1,4 @@
+$margin-content: 1.3rem;
 
 form {
   mat-form-field {
@@ -9,14 +10,18 @@ form {
   }
 
   .name {
-    margin-top: 1.3rem;
+    margin-top: $margin-content;
   }
 
   .desc {
-    margin-top: 5px;
+    margin-top: 3px;
   }
 
   .create {
     text-align: right;
   }
+}
+
+.loading {
+  margin-top: $margin-content;
 }

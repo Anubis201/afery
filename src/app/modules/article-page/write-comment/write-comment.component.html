@@ -1,5 +1,6 @@
 <div class="label">Komentarza: {{ countComment }}</div>
-<form [formGroup]="form">
+
+<form *ngIf="!isSavingComment" [formGroup]="form">
   <div class="name">
     <mat-form-field appearance="fill">
       <mat-label>Nazwa</mat-label>
@@ -12,7 +13,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Treść komentarza</mat-label>
       <textarea matInput formControlName="text" autocomplete="off" type="text" rows="3"></textarea>
-      <mat-error *ngIf="!form.get('comment')?.hasError('required')">Max długośc to {{ commentLength }} znaków</mat-error>
+      <mat-error *ngIf="!form.get('text')?.hasError('required')">Max długośc to {{ commentLength }} znaków</mat-error>
     </mat-form-field>
   </div>
 
@@ -20,3 +21,7 @@
     <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid" (click)="add()">Dodaj</button>
   </div>
 </form>
+
+<div *ngIf="isSavingComment" class="loading">
+  <mat-spinner></mat-spinner>
+</div>

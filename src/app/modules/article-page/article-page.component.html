@@ -10,6 +10,8 @@
     <div class="page__desc">
       {{ article.value?.text }}
     </div>
+    <app-write-comment [isSavingComment]="isSavingComment" [countComment]="(comments | async)?.length" (addComment)="handleAddComment($event)"></app-write-comment>
+    <app-comments [comments]="comments.value"></app-comments>
   </ng-container>
 
   <ng-container *ngIf="!isExists.value">
@@ -18,9 +20,6 @@
       Nie znaleziono takiej strony
     </div>
   </ng-container>
-
-  <app-write-comment [countComment]="(comments | async)?.length" (addComment)="handleAddComment($event)"></app-write-comment>
-  <app-comments [comments]="comments.value"></app-comments>
 </div>
 
 <div class="d-sm-none page-mobile">

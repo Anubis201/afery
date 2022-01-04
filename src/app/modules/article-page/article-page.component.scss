@@ -21,7 +21,8 @@
   z-index: 1;
   color: white;
   margin-top: 1.2rem;
-  // TODO poprawic kiedys crolla
+
+  $border-radius: 5px;
 
   &__title {
     @include title(2.4rem, 3rem);
@@ -31,12 +32,14 @@
     margin-top: 15px;
     margin-bottom: 12px;
     width: 100%;
+    border-radius: $border-radius;
     height: 250px;
     @include image.imageBackground;
 
     &--organization {
       height: 50px;
       width: 50px;
+      border-top-left-radius: $border-radius;
     }
 
     @media (min-width: 576px) {

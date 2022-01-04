@@ -10,6 +10,7 @@ import { CommentModel } from 'src/app/models/articles/comment.model';
 })
 export class WriteCommentComponent {
   @Input() countComment: number | undefined = 0
+  @Input() isSavingComment: boolean
 
   @Output() addComment = new EventEmitter<CommentModel>()
 
@@ -22,7 +23,7 @@ export class WriteCommentComponent {
   })
 
   add() {
-    this.addComment.emit(this.form.value);
+    this.addComment.emit({ ...this.form.value, date: new Date() });
     this.form.get('text')?.patchValue('');
   }
 }

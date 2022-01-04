@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -24,6 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
   ]
 })
 export class ArticlePageModule { }
