@@ -80,10 +80,10 @@
   }
 
   &__content {
-    padding: 0 1rem;
+    padding: 0 .7rem;
 
     &__title {
-      @include title(2.2rem, 2.8rem);
+      @include title(1.8rem, 2.8rem);
       margin-top: 1rem;
       margin-bottom: .5rem;
     }
@@ -96,9 +96,9 @@
     &__desc {
       line-height: 1.9;
       font-size: 1.125em;
+      padding-bottom: .6rem;
     }
   }
-
 }
 
 .not-exists {

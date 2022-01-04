@@ -37,6 +37,8 @@
       <div class="page-mobile__content__desc">
         {{ article.value?.text }}
       </div>
+      <app-write-comment [isSavingComment]="isSavingComment" [countComment]="(comments | async)?.length" (addComment)="handleAddComment($event)"></app-write-comment>
+      <app-comments [comments]="comments.value"></app-comments>
     </div>
   </ng-container>
 
@@ -46,6 +48,4 @@
       Nie znaleziono takiej strony
     </div>
   </ng-container>
-
-
 </div>
