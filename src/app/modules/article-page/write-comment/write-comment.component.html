@@ -4,17 +4,19 @@
     <mat-form-field appearance="fill">
       <mat-label>Nazwa</mat-label>
       <input matInput formControlName="name" autocomplete="off" type="text">
+      <mat-error *ngIf="!form.get('name')?.hasError('required')">Max długośc to {{ nameLength }} znaków</mat-error>
     </mat-form-field>
   </div>
 
-  <div>
+  <div class="desc">
     <mat-form-field appearance="fill">
       <mat-label>Treść komentarza</mat-label>
       <textarea matInput formControlName="comment" autocomplete="off" type="text" rows="3"></textarea>
+      <mat-error *ngIf="!form.get('comment')?.hasError('required')">Max długośc to {{ commentLength }} znaków</mat-error>
     </mat-form-field>
   </div>
 
   <div class="create">
-    <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid">Dodaj</button>
+    <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid" (click)="add()">Dodaj</button>
   </div>
 </form>

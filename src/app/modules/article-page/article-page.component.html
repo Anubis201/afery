@@ -19,7 +19,7 @@
     </div>
   </ng-container>
 
-  <app-write-comment></app-write-comment>
+  <app-write-comment (addComment)="handleAddComment($event)"></app-write-comment>
   <app-comments></app-comments>
 </div>
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -10,11 +10,18 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class WriteCommentComponent {
   @Input() countComment: number = 0
 
+  @Output() addComment = new EventEmitter<{ name: string, comment: string }>()
+
+  readonly nameLength = 50
+  readonly commentLength = 1000
+
   form = new FormGroup({
-    name: new FormControl('', [Validators.email, Validators.required]),
-    comment: new FormControl('', Validators.required),
+    name: new FormControl('', [Validators.maxLength(this.nameLength), Validators.required]),
+    comment: new FormControl('', [Validators.maxLength(this.commentLength), Validators.required]),
   })
 
-  constructor() { }
-
+  add() {
+    this.addComment.emit(this.form.value);
+    this.form.get('comment')?.patchValue('');
+  }
 }
