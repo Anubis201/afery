@@ -19,8 +19,8 @@
     </div>
   </ng-container>
 
-  <app-write-comment (addComment)="handleAddComment($event)"></app-write-comment>
-  <app-comments></app-comments>
+  <app-write-comment [countComment]="(comments | async)?.length" (addComment)="handleAddComment($event)"></app-write-comment>
+  <app-comments [comments]="comments.value"></app-comments>
 </div>
 
 <div class="d-sm-none page-mobile">

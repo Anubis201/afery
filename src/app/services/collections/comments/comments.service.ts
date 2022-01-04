@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { from } from 'rxjs';
+import { CommentModel } from 'src/app/models/articles/comment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,11 @@ export class CommentsService {
     return this.firestore.collection('comments');
   }
 
-  addComents() {
-    return from(this.getRef())
+  addComment(comment: CommentModel) {
+    return from(this.getRef().add(comment))
+  }
+
+  getComments(articleId: string) {
+    return from(this.getRef().ref.where('articleId', '==', articleId).get())
   }
 }

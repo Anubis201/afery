@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { CommentModel } from 'src/app/models/articles/comment.model';
 
 @Component({
   selector: 'app-write-comment',
@@ -8,20 +9,20 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WriteCommentComponent {
-  @Input() countComment: number = 0
+  @Input() countComment: number | undefined = 0
 
-  @Output() addComment = new EventEmitter<{ name: string, comment: string }>()
+  @Output() addComment = new EventEmitter<CommentModel>()
 
   readonly nameLength = 50
   readonly commentLength = 1000
 
   form = new FormGroup({
     name: new FormControl('', [Validators.maxLength(this.nameLength), Validators.required]),
-    comment: new FormControl('', [Validators.maxLength(this.commentLength), Validators.required]),
+    text: new FormControl('', [Validators.maxLength(this.commentLength), Validators.required]),
   })
 
   add() {
     this.addComment.emit(this.form.value);
-    this.form.get('comment')?.patchValue('');
+    this.form.get('text')?.patchValue('');
   }
 }

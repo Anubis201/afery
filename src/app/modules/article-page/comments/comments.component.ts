@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { CommentModel } from 'src/app/models/articles/comment.model';
 
 @Component({
   selector: 'app-comments',
@@ -6,12 +7,6 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
   styleUrls: ['./comments.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommentsComponent implements OnInit {
-  @Input() comments: any[] = []// TODO
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class CommentsComponent {
+  @Input() comments: CommentModel[] = []
 }

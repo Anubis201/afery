@@ -11,7 +11,7 @@
   <div class="desc">
     <mat-form-field appearance="fill">
       <mat-label>Treść komentarza</mat-label>
-      <textarea matInput formControlName="comment" autocomplete="off" type="text" rows="3"></textarea>
+      <textarea matInput formControlName="text" autocomplete="off" type="text" rows="3"></textarea>
       <mat-error *ngIf="!form.get('comment')?.hasError('required')">Max długośc to {{ commentLength }} znaków</mat-error>
     </mat-form-field>
   </div>

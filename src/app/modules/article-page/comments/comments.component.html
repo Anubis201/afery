@@ -1,10 +1,10 @@
 <div class="comments">
-  <div class="comment">
+  <div *ngFor="let comment of comments" class="comment">
     <mat-icon>person</mat-icon>
     <div class="comment__texts">
-      <div class="comment__texts--name">Anubis201</div>
+      <div class="comment__texts--name">{{ comment.name }}</div>
       <div class="comment__texts--date">2 stycznia</div>
-      <div class="comment__texts--desc">Bardzo rzetelna afera :d</div>
+      <div class="comment__texts--desc">{{ comment.text }}</div>
     </div>
   </div>
 </div>
