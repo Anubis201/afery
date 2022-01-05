@@ -27,6 +27,14 @@ $image-border-radius: 5px;
     @include title(2.4rem, 3rem);
   }
 
+  &__costs {
+    color: #ff6a6a;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    margin-bottom: .3rem;
+  }
+
   &__image {
     margin-top: 15px;
     margin-bottom: 12px;
@@ -52,7 +60,7 @@ $image-border-radius: 5px;
   }
 
   &__desc {
-    line-height: 1.46;
+    line-height: 1.7;
     font-size: 1.125em;
     padding-bottom: 1rem;
   }
@@ -84,6 +92,14 @@ $image-border-radius: 5px;
 
   &__content {
     padding: 0 .7rem;
+
+    &__costs {
+      color: #ff6a6a;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      margin-bottom: .3rem;
+    }
 
     &__title {
       @include title(1.8rem, 2.8rem);

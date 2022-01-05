@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class MillionsPipe implements PipeTransform {
 
-  transform(value: number, ...args: unknown[]): string {
+  transform(value: any, ...args: unknown[]): string {
     // jesli wartosc jest miliardowa
     const bilion = value / 1_000_000_000;
     if (bilion >= 1) {

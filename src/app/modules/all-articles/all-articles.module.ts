@@ -7,7 +7,7 @@ import { SectionComponent } from './section/section.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
-import { MillionsPipe } from 'src/app/services/pipes/milions/millions.pipe';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -16,13 +16,13 @@ import { MillionsPipe } from 'src/app/services/pipes/milions/millions.pipe';
     AllArticlesComponent,
     ArticleComponent,
     SectionComponent,
-    MillionsPipe,
   ],
   imports: [
     CommonModule,
     MatCardModule,
     AllArticlesRoutingModule,
     MatTooltipModule,
+    SharedModule,
     MatIconModule,
   ],
 })

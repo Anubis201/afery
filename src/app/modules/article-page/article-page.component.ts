@@ -8,6 +8,7 @@ import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
+import { MillionsPipe } from 'src/app/services/pipes/milions/millions.pipe';
 
 @Component({
   selector: 'app-article-page',

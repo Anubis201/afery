@@ -3,10 +3,13 @@
     <div class="page__title">
       {{ article.value?.title }}
     </div>
-    <div class="page__time">Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy HH:mm' }}</div>
+    <div class="page__time">Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy' }}</div>
     <div class="page__image" [style.background-image]="'url(' + article.value?.imageSrc + ')'">
       <img *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties" class="page__image--organization" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
     </div>
+    <span *ngIf="article.value?.costs" class="page__costs">
+      Koszty afery: {{ article.value?.costs | millions }}
+    </span>
     <div class="page__desc">
       {{ article.value?.text }}
     </div>
@@ -32,8 +35,11 @@
         {{ article.value?.title }}
       </div>
       <div class="page-mobile__content__time">
-        Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy HH:mm' }}
+        Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy' }}
       </div>
+      <span *ngIf="article.value?.costs" class="page-mobile__content__costs">
+        Koszty afery: {{ article.value?.costs | millions }}
+      </span>
       <div class="page-mobile__content__desc">
         {{ article.value?.text }}
       </div>
