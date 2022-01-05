@@ -7,7 +7,6 @@
 
 .auth {
   width: 380px;
-  z-index: 1;
 
   mat-form-field, button {
     width: 100%;
@@ -22,7 +21,6 @@
 }
 
 .ban {
-  z-index: 1;
   color: rgb(252, 98, 98);
   font-size: 4rem;
   font-weight: 500;

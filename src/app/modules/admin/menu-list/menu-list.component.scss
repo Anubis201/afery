@@ -1,7 +1,8 @@
 :host {
   background: linear-gradient(to right, #292929, #242424);
-  z-index: 1;
-  height: 93vh;
+  height: 100vh;
+  margin-top: 4rem;
+  position: fixed;
 }
 
 mat-icon {
