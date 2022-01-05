@@ -22,9 +22,10 @@ $border: 5px;
 
 .article {
   cursor: pointer;
+  transition: opacity 200ms ease-out 100ms;
 
   &:hover {
-    opacity: .8;
+    opacity: .7;
   }
 
   &__image {
@@ -66,6 +67,7 @@ $border: 5px;
   cursor: pointer;
   color: white;
   gap: $gap;
+  transition: opacity 200ms ease-out 100ms;
 
   &:hover {
     opacity: .6;
