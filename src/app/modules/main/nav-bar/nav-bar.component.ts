@@ -26,6 +26,10 @@ export class NavBarComponent implements OnInit {
       {
         label: 'Najważniejsze',
         href: '/',
+      },
+      {
+        label: 'Admin',
+        href: '/admin',
       }
     ]
   }

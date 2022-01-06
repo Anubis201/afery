@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { NavModel } from 'src/app/models/articles/nav.model';
 
 @Component({
   selector: 'app-navigation-bar-only-pc',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./navigation-bar-only-pc.component.scss']
 })
 export class NavigationBarOnlyPcComponent {
+  @Input() items: NavModel[]
 
+  activeLink = '/'
 }
