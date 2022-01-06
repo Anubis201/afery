@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  height: 80px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-menu {
+  color: white;
+
+  button {
+    width: 50px;
+    height: 50px;
+  }
+
+  mat-icon {
+    font-size: 35px;
+    margin-right: 10px;
+  }
+}
+
+.logo {
+  color: white;
+  font-weight: 600;
+  font-size: 2rem;
+  letter-spacing: 1rem;
+  font-family: 'Material Icons';
+  padding-bottom: 7px;
+  line-height: 3rem;
+}
+
+.socials {
+  filter: invert(94%) sepia(0%) saturate(24%) hue-rotate(24deg) brightness(105%) contrast(108%);
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
