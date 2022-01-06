@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NavModel } from 'src/app/models/articles/nav.model';
 import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
@@ -8,7 +9,8 @@ import { UserService } from 'src/app/services/global/user/user.service';
   styleUrls: ['./nav-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit {
+  items: NavModel[]
 
   constructor(
     private userService: UserService,
@@ -17,6 +19,15 @@ export class NavBarComponent {
 
   get isAdmin() {
     return this.userService.isAdmin
+  }
+
+  ngOnInit() {
+    this.items = [
+      {
+        label: 'Najważniejsze',
+        href: '/',
+      }
+    ]
   }
 
   logout() {

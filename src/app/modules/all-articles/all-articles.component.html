@@ -1,3 +1,5 @@
-<app-section *ngIf="(parties | async)?.length" class="section" [articles]="parties.value" name="Partie"></app-section>
+<div class="all-articles">
+  <app-section *ngIf="(parties | async)?.length" class="section" [articles]="parties.value" name="Partie"></app-section>
 
-<app-section *ngIf="(politicians | async)?.length" class="section" [articles]="politicians.value" name="Politycy"></app-section>
+  <app-section *ngIf="(politicians | async)?.length" class="section" [articles]="politicians.value" name="Politycy"></app-section>
+</div>

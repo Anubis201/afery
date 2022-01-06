@@ -19,6 +19,8 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/mater
 import { MatIconModule } from '@angular/material/icon';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TopNavComponent } from './modules/main/nav-bar/top-nav/top-nav.component';
+import { NavigationBarOnlyPcComponent } from './modules/main/nav-bar/navigation-bar-only-pc/navigation-bar-only-pc.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { TopNavComponent } from './modules/main/nav-bar/top-nav/top-nav.componen
     NavBarComponent,
     SnowAnimationComponent,
     TopNavComponent,
+    NavigationBarOnlyPcComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import { TopNavComponent } from './modules/main/nav-bar/top-nav/top-nav.componen
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
-    NgbModule
+    NgbModule,
+    MatTabsModule,
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500} },
