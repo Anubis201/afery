@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-top-nav',
   templateUrl: './top-nav.component.html',
   styleUrls: ['./top-nav.component.scss']
 })
-export class TopNavComponent implements OnInit {
+export class TopNavComponent {
+  @Input() isAdmin: boolean | null
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  @Output() logout = new EventEmitter<void>()
 
 }

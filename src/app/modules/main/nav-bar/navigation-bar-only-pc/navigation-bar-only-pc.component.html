@@ -1,13 +1,14 @@
 <div class="jd">
   <div class="jd__navigation">
     <nav mat-tab-nav-bar>
-      <a
-        *ngFor="let item of items"
-        mat-tab-link
-        [routerLink]="[item.href]"
-        [active]="activeLink === item.href"
-        (click)="activeLink = item.href"
-      >{{ item.label }}</a>
+      <ng-container *ngFor="let item of items">
+        <a
+          mat-tab-link
+          [routerLink]="[item.href]"
+          [active]="activeLink === item.href"
+          (click)="activeLink = item.href"
+        >{{ item.label }}</a>
+      </ng-container>
     </nav>
   </div>
 </div>

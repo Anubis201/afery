@@ -21,6 +21,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TopNavComponent } from './modules/main/nav-bar/top-nav/top-nav.component';
 import { NavigationBarOnlyPcComponent } from './modules/main/nav-bar/navigation-bar-only-pc/navigation-bar-only-pc.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatIconModule,
     HttpClientModule,
     MatSnackBarModule,
+    MatTooltipModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

@@ -1,16 +1,3 @@
-<app-top-nav class="container"></app-top-nav>
+<app-top-nav class="container" [isAdmin]="isAdmin | async" (logout)="logout()"></app-top-nav>
 
-<app-navigation-bar-only-pc class="d-none d-md-block" [items]="items"></app-navigation-bar-only-pc>
-<!-- <nav>
-  <mat-toolbar>
-    <a mat-button>
-      <span>Partie</span>
-    </a>
-    <a *ngIf="isAdmin | async" mat-icon-button [routerLink]="['/admin/create']">
-      <mat-icon>supervised_user_circle</mat-icon>
-    </a>
-    <a *ngIf="isAdmin | async" mat-icon-button (click)="logout()">
-      <mat-icon>delete_outline</mat-icon>
-    </a>
-  </mat-toolbar>
-</nav> -->
+<app-navigation-bar-only-pc *ngIf="!isAdminPage" class="d-none d-md-block" [items]="items"></app-navigation-bar-only-pc>

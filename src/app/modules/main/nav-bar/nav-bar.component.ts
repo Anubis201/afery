@@ -21,16 +21,16 @@ export class NavBarComponent implements OnInit {
     return this.userService.isAdmin
   }
 
+  get isAdminPage() {
+    return location.pathname.split('/')[1] === 'admin'
+  }
+
   ngOnInit() {
     this.items = [
       {
         label: 'Najważniejsze',
         href: '/',
       },
-      {
-        label: 'Admin',
-        href: '/admin',
-      }
     ]
   }
 
