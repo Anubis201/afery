@@ -20,6 +20,10 @@ $image-border-radius: 5px;
   color: white;
   margin-top: 5rem;
 
+  @media (min-width: 767px) {
+    margin-top: 10rem;
+  }
+
   &__title {
     @include title(2.4rem, 3rem);
   }
@@ -71,6 +75,7 @@ $image-border-radius: 5px;
 .page-mobile {
   color: white;
   width: 100%;
+  margin-top: 5rem;
 
   &__image {
     width: 100%;
