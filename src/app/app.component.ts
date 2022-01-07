@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { BehaviorSubject, distinct, distinctUntilChanged } from 'rxjs';
 import { NavModel } from './models/articles/nav.model';
 
 @Component({
@@ -28,6 +29,10 @@ export class AppComponent implements OnInit {
   items: NavModel[]
   isOpenMenu = new BehaviorSubject<boolean>(false)
 
+  constructor(
+    private route: Router,
+  ) {}
+
   ngOnInit() {
     this.items = [
       {
@@ -35,6 +40,10 @@ export class AppComponent implements OnInit {
         href: '/',
       },
     ]
+
+    this.route.events.subscribe(value => {
+      this.isOpenMenu.next(false);
+    })
   }
 
   handleMenu() {

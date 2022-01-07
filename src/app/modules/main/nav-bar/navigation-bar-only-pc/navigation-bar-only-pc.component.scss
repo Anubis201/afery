@@ -1,8 +1,8 @@
 .jd {
   border-top: 1px solid #464646;
   border-bottom: 1px solid #7c7c7c;
-  padding-top: 2px;
-  padding-bottom: 12px;
+  padding-top: 7px;
+  padding-bottom: 9px;
 
   &__navigation {
     width: 100%;
@@ -12,7 +12,10 @@
     margin-left: auto;
 
     a {
-      font-family: monospace;
+      font-family: monospace, sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      letter-spacing: 1px;
       opacity: 1;
 
       &:hover {
