@@ -7,7 +7,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class TopNavComponent {
   @Input() isAdmin: boolean | null
+  @Input() isOpenMenu: boolean | null
 
   @Output() logout = new EventEmitter<void>()
-
+  @Output() handleMenuNav = new EventEmitter<void>()
 }

@@ -1,7 +1,8 @@
 <!-- Mobile menu -->
 <div class="mobile-menu">
-  <button mat-icon-button>
-    <mat-icon>menu</mat-icon>
+  <button mat-icon-button (click)="handleMenuNav.emit()">
+    <mat-icon *ngIf="!isOpenMenu">menu</mat-icon>
+    <mat-icon *ngIf="isOpenMenu">close</mat-icon>
   </button>
 </div>
 

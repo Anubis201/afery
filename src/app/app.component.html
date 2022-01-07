@@ -1,4 +1,6 @@
-<app-nav-bar></app-nav-bar>
+<app-nav-bar [isOpenMenu]="isOpenMenu | async" (handleMenu)="handleMenu()"></app-nav-bar>
+
+<app-aside-menu *ngIf="isOpenMenu | async"></app-aside-menu>
 
 <!-- <app-snow-animation></app-snow-animation> -->
 

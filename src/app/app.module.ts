@@ -22,6 +22,7 @@ import { TopNavComponent } from './modules/main/nav-bar/top-nav/top-nav.componen
 import { NavigationBarOnlyPcComponent } from './modules/main/nav-bar/navigation-bar-only-pc/navigation-bar-only-pc.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AsideMenuComponent } from './modules/main/aside-menu/aside-menu.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     SnowAnimationComponent,
     TopNavComponent,
     NavigationBarOnlyPcComponent,
+    AsideMenuComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavModel } from 'src/app/models/articles/nav.model';
 import { UserService } from 'src/app/services/global/user/user.service';
@@ -10,6 +10,10 @@ import { UserService } from 'src/app/services/global/user/user.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavBarComponent implements OnInit {
+  @Input() isOpenMenu: boolean | null
+
+  @Output() handleMenu = new EventEmitter<void>()
+
   items: NavModel[]
 
   constructor(

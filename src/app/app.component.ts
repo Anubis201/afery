@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  title = 'afery';
+  isOpenMenu = new BehaviorSubject<boolean>(false)
+
+  handleMenu() {
+    this.isOpenMenu.next(!this.isOpenMenu.value)
+  }
 }
