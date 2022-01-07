@@ -4,6 +4,7 @@ import { from } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { DocumentReference } from '@angular/fire/compat/firestore/interfaces';
+import { increment } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,9 @@ export class ArticlesService {
 
   getArticle(docId: string) {
     return this.firestore.collection('articles').doc(docId).get()
+  }
+
+  updateViewershipArticle(docId: string) {
+    return from(this.firestore.collection('articles').doc(docId).update({ viewership: increment(1) }))
   }
 }

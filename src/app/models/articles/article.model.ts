@@ -13,4 +13,5 @@ export interface ArticleModel {
   entity: PartiesEnum
   costs: number | null
   customName: string
+  viewership: number
 }

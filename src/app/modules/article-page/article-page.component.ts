@@ -8,7 +8,6 @@ import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
-import { MillionsPipe } from 'src/app/services/pipes/milions/millions.pipe';
 
 @Component({
   selector: 'app-article-page',
@@ -36,6 +35,7 @@ export class ArticlePageComponent implements OnInit {
     this.route.params.subscribe(({ articleId }) => {
       this.getData(articleId);
       this.getComments(articleId);
+      this.updateViewership(articleId);
     })
   }
 
@@ -77,5 +77,9 @@ export class ArticlePageComponent implements OnInit {
         this.article.next({ ...article.data() as ArticleModel, id: article.id, createDate: (article.data() as any).createDate.toDate() });
       } else this.isExists.next(false);
     })
+  }
+
+  private updateViewership(articleId: string) {
+    this.articlesService.updateViewershipArticle(articleId)
   }
 }
