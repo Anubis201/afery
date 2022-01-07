@@ -3,7 +3,7 @@
     <img *ngIf="article.type === ArticlesTypesEnum.PoliticalParties" class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
   </div>
   <mat-card-content>
-    <p class="truncate">{{ article.title }}</p>
+    <p class="truncate article__title">{{ article.title }}</p>
   </mat-card-content>
   <mat-card-footer class="article__footer">
     <span class="article__footer--time">{{ article.createDate | date:'dd.MM.yyyy' }}</span>
