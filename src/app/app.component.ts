@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { NavModel } from './models/articles/nav.model';
 
 @Component({
   selector: 'app-root',
@@ -11,20 +12,30 @@ import { BehaviorSubject } from 'rxjs';
     trigger('menu', [
       transition (':enter', [
         style ({ transform: 'translateX(-100vw)' }),
-        animate ('200ms',
+        animate ('300ms',
           style ({ transform: 'translateX(0)' }),
         ),
       ]),
       transition (':leave', [
-        animate ('200ms',
+        animate ('300ms',
           style ({ transform: 'translateX(-100vw)' }),
         ),
       ]),
     ])
   ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  items: NavModel[]
   isOpenMenu = new BehaviorSubject<boolean>(false)
+
+  ngOnInit() {
+    this.items = [
+      {
+        label: 'Najważniejsze',
+        href: '/',
+      },
+    ]
+  }
 
   handleMenu() {
     this.isOpenMenu.next(!this.isOpenMenu.value)

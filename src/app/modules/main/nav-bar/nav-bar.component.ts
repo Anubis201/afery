@@ -9,12 +9,11 @@ import { UserService } from 'src/app/services/global/user/user.service';
   styleUrls: ['./nav-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent {
   @Input() isOpenMenu: boolean | null
+  @Input() items: NavModel[]
 
   @Output() handleMenu = new EventEmitter<void>()
-
-  items: NavModel[]
 
   constructor(
     private userService: UserService,
@@ -27,15 +26,6 @@ export class NavBarComponent implements OnInit {
 
   get isAdminPage() {
     return location.pathname.split('/')[1] === 'admin'
-  }
-
-  ngOnInit() {
-    this.items = [
-      {
-        label: 'Najważniejsze',
-        href: '/',
-      },
-    ]
   }
 
   logout() {

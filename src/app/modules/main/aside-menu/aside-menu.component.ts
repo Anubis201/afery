@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { NavModel } from 'src/app/models/articles/nav.model';
 
 @Component({
   selector: 'app-aside-menu',
@@ -7,4 +8,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AsideMenuComponent {
+  @Input() items: NavModel[]
 }

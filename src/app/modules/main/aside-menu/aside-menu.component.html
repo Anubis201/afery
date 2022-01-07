@@ -1,3 +1,4 @@
-<div>1 item</div>
-<div>2 item</div>
-<div>3 item</div>
+<a *ngFor="let item of items" mat-button [routerLink]="[item.href]">
+  <mat-icon>arrow_forward</mat-icon>
+  {{ item.label }}
+</a>
