@@ -7,8 +7,16 @@
     <div class="page__image" [style.background-image]="'url(' + article.value?.imageSrc + ')'">
       <img *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties" class="page__image--organization" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
     </div>
-    <span *ngIf="article.value?.costs" class="page__costs">
-      Koszty afery: {{ article.value?.costs | millions }}
+    <span class="page__costs">
+      <span class="page__costs--icons" *ngIf="article.value?.costs">
+        <mat-icon>money_off</mat-icon>
+        {{ article.value?.costs | millions }}
+        <span *ngIf="$any(article.value?.viewership) >= 100" class="page__costs--break"> | </span>
+      </span>
+      <span *ngIf="$any(article.value?.viewership) >= 100" class="page__viewership page__costs--icons">
+        <mat-icon>remove_red_eye</mat-icon>
+        {{ article.value?.viewership }}
+      </span>
     </span>
     <div class="page__desc">
       {{ article.value?.text }}
@@ -37,8 +45,16 @@
       <div class="page-mobile__content__time">
         Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy' }}
       </div>
-      <span *ngIf="article.value?.costs" class="page-mobile__content__costs">
-        Koszty afery: {{ article.value?.costs | millions }}
+      <span class="page__costs">
+        <span class="page__costs--icons god" *ngIf="article.value?.costs">
+          <mat-icon>money_off</mat-icon>
+          <span>{{ article.value?.costs | millions }}</span>
+          <span *ngIf="$any(article.value?.viewership) >= 100" class="page__costs--break"> | </span>
+        </span>
+        <span *ngIf="$any(article.value?.viewership) >= 100" class="page__viewership page__costs--icons god">
+          <mat-icon>remove_red_eye</mat-icon>
+          <span>{{ article.value?.viewership }}</span>
+        </span>
       </span>
       <div class="page-mobile__content__desc">
         {{ article.value?.text }}

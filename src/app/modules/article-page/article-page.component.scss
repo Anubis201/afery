@@ -34,6 +34,25 @@ $image-border-radius: 5px;
     display: flex;
     align-items: center;
     margin-bottom: .3rem;
+
+    &--icons {
+      display: flex;
+
+      mat-icon {
+        font-size: 20px;
+      }
+    }
+
+    &--break {
+      margin-left: 10px;
+      margin-bottom: 2px;
+      margin-right: 10px;
+      color: white;
+    }
+  }
+
+  &__viewership {
+    color: rgb(255, 0, 255);
   }
 
   &__image {
@@ -94,14 +113,6 @@ $image-border-radius: 5px;
   &__content {
     padding: 0 .7rem;
 
-    &__costs {
-      color: #ff6a6a;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      margin-bottom: .3rem;
-    }
-
     &__title {
       @include title(1.8rem, 2.8rem);
       margin-top: 1rem;
@@ -118,6 +129,15 @@ $image-border-radius: 5px;
       font-size: 1.125em;
       padding-bottom: .6rem;
     }
+  }
+}
+
+.god {
+  font-size: 13px;
+
+  mat-icon {
+    font-size: 17px;
+    margin-top: 1px;
   }
 }
 

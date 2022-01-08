@@ -25,7 +25,6 @@ export class ArticlesService {
   }
 
   getArticles(type: ArticlesTypesEnum, limit: number, order: OrderEnum) {
-    console.log(order)
     const ref = this.firestore.collection('articles').ref
 
     return from(ref.where('type', '==', type).orderBy(order === OrderEnum.Latest ? 'createDate' : 'viewership', 'desc').limit(limit).get())
