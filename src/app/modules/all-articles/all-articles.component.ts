@@ -16,6 +16,7 @@ import { ArticlesService } from 'src/app/services/collections/articles/articles.
 export class AllArticlesComponent implements OnInit {
   parties = new BehaviorSubject<ArticleModel[]>([])
   politicians = new BehaviorSubject<ArticleModel[]>([])
+  order: OrderEnum
 
   constructor(
     private articlesService: ArticlesService,
@@ -25,7 +26,7 @@ export class AllArticlesComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(({ order }) => {
-      order = order ?? OrderEnum.Latest
+      order = order ?? OrderEnum.Latest;
       // Pobiera 4 artykuły z kategori parti
       this.getArticles(ArticlesTypesEnum.PoliticalParties, order);
       // Pobiera 4 artykuły z kategori polityycy
@@ -41,6 +42,12 @@ export class AllArticlesComponent implements OnInit {
           doc.forEach(value => {
             const article: ArticleModel = { ...value.data() as ArticleModel, id: value.id, createDate: (value.data() as any).createDate.toDate() };
 
+            if (this.order !== order) {
+              this.parties.next([]);
+              this.politicians.next([]);
+            }
+
+
             switch(type) {
               case ArticlesTypesEnum.PoliticalParties:
                 this.parties.next([...this.parties.value, article])
@@ -49,6 +56,8 @@ export class AllArticlesComponent implements OnInit {
                 this.politicians.next([...this.politicians.value, article])
                 break;
             }
+
+            this.order = order;
           })
         },
         error: () => {

@@ -9,5 +9,5 @@ import { NavModel } from 'src/app/models/articles/nav.model';
 export class NavigationBarOnlyPcComponent {
   @Input() items: NavModel[]
 
-  activeLink = '/'
+  activeLink = 'Najnowsze'
 }

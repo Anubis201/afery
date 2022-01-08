@@ -6,8 +6,8 @@
           mat-tab-link
           [routerLink]="[item.href]"
           [queryParams]="item.queryParams"
-          [active]="activeLink === item.href"
-          (click)="activeLink = item.href"
+          [active]="activeLink === item.label"
+          (click)="activeLink = item.label;"
         >{{ item.label }}</a>
       </ng-container>
     </nav>
