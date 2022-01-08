@@ -45,4 +45,10 @@
     <span class="costs__zl" matSuffix>ZŁ</span>
   </mat-form-field>
 
+  <button mat-raised-button class="create" type="submit" color="primary" [disabled]="form.invalid || (isLoading | async)" (click)="create(image.files)">
+    <div class="loading-button">
+      <mat-spinner *ngIf="isLoading | async" [diameter]="20"></mat-spinner>
+      <span>Stwórz</span>
+    </div>
+  </button>
 </form>
