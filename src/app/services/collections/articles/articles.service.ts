@@ -5,6 +5,7 @@ import { ArticleModel } from 'src/app/models/articles/article.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { DocumentReference } from '@angular/fire/compat/firestore/interfaces';
 import { increment } from 'firebase/firestore';
+import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +24,11 @@ export class ArticlesService {
     return from(ref.set(data))
   }
 
-  getArticles(type: ArticlesTypesEnum, limit: number) {
+  getArticles(type: ArticlesTypesEnum, limit: number, order: OrderEnum) {
+    console.log(order)
     const ref = this.firestore.collection('articles').ref
 
-    return from(ref.where('type', '==', type).orderBy('createDate', 'desc').limit(limit).get())
+    return from(ref.where('type', '==', type).orderBy(order === OrderEnum.Latest ? 'createDate' : 'viewership', 'desc').limit(limit).get())
   }
 
   getArticle(docId: string) {

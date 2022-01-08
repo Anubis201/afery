@@ -5,6 +5,7 @@
         <a
           mat-tab-link
           [routerLink]="[item.href]"
+          [queryParams]="item.queryParams"
           [active]="activeLink === item.href"
           (click)="activeLink = item.href"
         >{{ item.label }}</a>

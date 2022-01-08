@@ -1,7 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import { BehaviorSubject, distinct, distinctUntilChanged } from 'rxjs';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { OrderEnum } from './models/articles/enums/order.enum';
 import { NavModel } from './models/articles/nav.model';
 
 @Component({
@@ -39,9 +40,16 @@ export class AppComponent implements OnInit {
         label: 'Najnowsze',
         href: '/',
       },
+      {
+        label: 'Popularne',
+        href: '/',
+        queryParams: {
+          order: OrderEnum.Popular,
+        }
+      },
     ]
 
-    this.route.events.subscribe(value => {
+    this.route.events.subscribe(() => {
       this.isOpenMenu.next(false);
     })
   }
