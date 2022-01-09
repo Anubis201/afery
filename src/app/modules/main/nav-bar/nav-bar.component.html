@@ -1,3 +1,3 @@
 <app-top-nav class="container" [isAdmin]="isAdmin | async" [isOpenMenu]="isOpenMenu" (logout)="logout()" (handleMenuNav)="handleMenu.emit()"></app-top-nav>
 
-<app-navigation-bar-only-pc *ngIf="!isAdminPage" class="d-none d-md-block" [items]="items"></app-navigation-bar-only-pc>
+<app-navigation-bar-only-pc *ngIf="!isAdminPage" class="d-none d-md-block"></app-navigation-bar-only-pc>

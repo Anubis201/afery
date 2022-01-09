@@ -13,6 +13,7 @@
         <!-- TODO disabled dla maxa -->
         <button
           mat-icon-button
+          [disabled]="reachedMaxArticles"
           (click)="changePage(1)"
         >
           <mat-icon>keyboard_arrow_right</mat-icon>

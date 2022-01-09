@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { NavModel } from 'src/app/models/articles/nav.model';
+import { Component } from '@angular/core';
+import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 
 @Component({
   selector: 'app-navigation-bar-only-pc',
@@ -7,7 +7,9 @@ import { NavModel } from 'src/app/models/articles/nav.model';
   styleUrls: ['./navigation-bar-only-pc.component.scss']
 })
 export class NavigationBarOnlyPcComponent {
-  @Input() items: NavModel[]
+  get hasOrderParam() {
+    return new URLSearchParams(window.location.search).has('order')
+  }
 
-  activeLink = 'Najnowsze'
+  readonly OrderEnum = OrderEnum
 }

@@ -15,12 +15,17 @@ import { ArticlesService } from 'src/app/services/collections/articles/articles.
 })
 export class AllArticlesComponent implements OnInit {
   parties = new BehaviorSubject<ArticleModel[]>([])
-  politicians = new BehaviorSubject<ArticleModel[]>([])
   pageParties = new BehaviorSubject<number>(1)
+  reachedMaxArticlesParties = new BehaviorSubject<boolean>(false)
+
+  politicians = new BehaviorSubject<ArticleModel[]>([])
   pagePoliticians = new BehaviorSubject<number>(1)
+  reachedMaxArticlesPoliticians = new BehaviorSubject<boolean>(false)
+
   order: OrderEnum
 
   readonly ArticlesTypesEnum = ArticlesTypesEnum
+  private readonly limit = 5
 
   constructor(
     private articlesService: ArticlesService,
@@ -65,33 +70,41 @@ export class AllArticlesComponent implements OnInit {
     }
 
     this.articlesService
-      .getArticles(type, 4, order, lastItem)
+      .getArticles(type, this.limit, order, lastItem)
       .subscribe({
         next: doc => {
+          let articles: ArticleModel[] = [];
+
           doc.forEach(value => {
-            const article: ArticleModel = { ...value.data() as ArticleModel, id: value.id, createDate: (value.data() as any).createDate.toDate() };
-
-            if (this.order !== order) {
-              this.parties.next([]);
-              this.politicians.next([]);
-            }
-
-            switch(type) {
-              case ArticlesTypesEnum.PoliticalParties:
-                this.parties.next([...this.parties.value, article]);
-                this.pageParties.next(page);
-                break;
-              case ArticlesTypesEnum.Politicians:
-                this.politicians.next([...this.politicians.value, article]);
-                this.pagePoliticians.next(page);
-                break;
-            }
-
-            this.order = order;
+            articles.push({
+              ...value.data() as ArticleModel,
+              id: value.id,
+              createDate: (value.data() as any).createDate.toDate()
+            });
           })
+
+          let isLimit = true;
+          if (articles.length === this.limit) {
+            articles.pop();
+            isLimit = false;
+          }
+
+          switch(type) {
+            case ArticlesTypesEnum.PoliticalParties:
+              this.parties.next(articles);
+              this.pageParties.next(page);
+              this.reachedMaxArticlesParties.next(isLimit);
+              break;
+            case ArticlesTypesEnum.Politicians:
+              this.politicians.next(articles);
+              this.pagePoliticians.next(page);
+              this.reachedMaxArticlesPoliticians.next(isLimit);
+              break;
+          }
+
+          this.order = order;
         },
-        error: (err) => {
-          console.log(err)
+        error: () => {
           this._snackBar.open('Błąd! Skontaktuj się z pomocą techniczną', 'close');
         },
       });

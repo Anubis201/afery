@@ -5,6 +5,7 @@
     name="Partie"
     [articles]="parties.value"
     [page]="pageParties | async"
+    [reachedMaxArticles]="reachedMaxArticlesParties | async"
     (handlePage)="getArticles(ArticlesTypesEnum.PoliticalParties, order, $event)"
   ></app-section>
 
@@ -14,6 +15,7 @@
     name="Politycy"
     [articles]="politicians.value"
     [page]="pagePoliticians | async"
+    [reachedMaxArticles]="reachedMaxArticlesPoliticians | async"
     (handlePage)="getArticles(ArticlesTypesEnum.Politicians, order, $event)"
   ></app-section>
 </div>

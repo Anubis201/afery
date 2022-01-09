@@ -11,6 +11,7 @@ export class SectionComponent {
   @Input() name: string
   @Input() articles: ArticleModel[] | null
   @Input() page: number | null
+  @Input() reachedMaxArticles: boolean | null
 
   @Output() handlePage = new EventEmitter<number>()
 
