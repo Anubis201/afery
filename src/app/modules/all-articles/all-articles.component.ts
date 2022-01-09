@@ -39,10 +39,12 @@ export class AllArticlesComponent implements OnInit {
   }
 
   getArticles(type: ArticlesTypesEnum,  order: OrderEnum, page = 1) {
+    // TODO
     this.articlesService
       .getArticles(type, 4, order)
       .subscribe({
         next: doc => {
+          console.log(doc)
           doc.forEach(value => {
             const article: ArticleModel = { ...value.data() as ArticleModel, id: value.id, createDate: (value.data() as any).createDate.toDate() };
 
@@ -50,7 +52,6 @@ export class AllArticlesComponent implements OnInit {
               this.parties.next([]);
               this.politicians.next([]);
             }
-
 
             switch(type) {
               case ArticlesTypesEnum.PoliticalParties:
@@ -66,7 +67,8 @@ export class AllArticlesComponent implements OnInit {
             this.order = order;
           })
         },
-        error: () => {
+        error: (err) => {
+          console.log(err)
           this._snackBar.open('Błąd! Skontaktuj się z pomocą techniczną', 'close');
         },
       });
