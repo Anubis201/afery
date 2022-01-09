@@ -1,5 +1,19 @@
 <div class="all-articles">
-  <app-section *ngIf="(parties | async)?.length" class="section" [articles]="parties.value" name="Partie"></app-section>
+  <app-section
+    *ngIf="(parties | async)?.length"
+    class="section"
+    name="Partie"
+    [articles]="parties.value"
+    [page]="pageParties | async"
+    (handlePage)="getArticles(ArticlesTypesEnum.PoliticalParties, order, $event)"
+  ></app-section>
 
-  <app-section *ngIf="(politicians | async)?.length" class="section" [articles]="politicians.value" name="Politycy"></app-section>
+  <app-section
+    *ngIf="(politicians | async)?.length"
+    class="section"
+    name="Politycy"
+    [articles]="politicians.value"
+    [page]="pagePoliticians | async"
+    (handlePage)="getArticles(ArticlesTypesEnum.Politicians, order, $event)"
+  ></app-section>
 </div>

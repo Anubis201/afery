@@ -16,7 +16,11 @@ import { ArticlesService } from 'src/app/services/collections/articles/articles.
 export class AllArticlesComponent implements OnInit {
   parties = new BehaviorSubject<ArticleModel[]>([])
   politicians = new BehaviorSubject<ArticleModel[]>([])
+  pageParties = new BehaviorSubject<number>(1)
+  pagePoliticians = new BehaviorSubject<number>(1)
   order: OrderEnum
+
+  readonly ArticlesTypesEnum = ArticlesTypesEnum
 
   constructor(
     private articlesService: ArticlesService,
@@ -34,7 +38,7 @@ export class AllArticlesComponent implements OnInit {
     })
   }
 
-  private getArticles(type: ArticlesTypesEnum,  order: OrderEnum) {
+  getArticles(type: ArticlesTypesEnum,  order: OrderEnum, page = 1) {
     this.articlesService
       .getArticles(type, 4, order)
       .subscribe({
@@ -51,9 +55,11 @@ export class AllArticlesComponent implements OnInit {
             switch(type) {
               case ArticlesTypesEnum.PoliticalParties:
                 this.parties.next([...this.parties.value, article])
+                this.pageParties.next(page);
                 break;
               case ArticlesTypesEnum.Politicians:
-                this.politicians.next([...this.politicians.value, article])
+                this.politicians.next([...this.politicians.value, article]);
+                this.pagePoliticians.next(page);
                 break;
             }
 
