@@ -21,6 +21,7 @@
 
   &__list {
     margin-top: $text-space;
+    min-height: auto;
   }
 
   &__more {
@@ -34,11 +35,12 @@
 
 .section {
   margin: 0 auto;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .all-articles {
-  margin-top: 3rem;
+  margin-top: 4rem;
+  min-height: 85vh;
 
   @media (min-width: 767px) {
     margin-top: 9rem;

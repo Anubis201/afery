@@ -23,6 +23,7 @@ import { NavigationBarOnlyPcComponent } from './modules/main/nav-bar/navigation-
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AsideMenuComponent } from './modules/main/aside-menu/aside-menu.component';
+import { ToolbarComponent } from './modules/main/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AsideMenuComponent } from './modules/main/aside-menu/aside-menu.compone
     TopNavComponent,
     NavigationBarOnlyPcComponent,
     AsideMenuComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,
