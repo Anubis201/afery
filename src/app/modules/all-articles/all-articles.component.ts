@@ -36,6 +36,9 @@ export class AllArticlesComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(({ order }) => {
       order = order ?? OrderEnum.Latest;
+
+      if (order !== this.order) this.resetPageData();
+
       // Pobiera 4 artykuły z kategori parti
       this.getArticles(ArticlesTypesEnum.PoliticalParties, order, this.pageParties.value);
       // Pobiera 4 artykuły z kategori polityycy
@@ -44,26 +47,27 @@ export class AllArticlesComponent implements OnInit {
   }
 
   getArticles(type: ArticlesTypesEnum,  order: OrderEnum, page: number) {
-    let lastItem: Date | string = '';
+    let lastItem: Date | number | null = null;
 
     if (page !== 1) {
+      const name = order === OrderEnum.Latest ? 'createDate' : 'viewership';
       switch(type) {
         case ArticlesTypesEnum.PoliticalParties:
           if (page > this.pageParties.value) {
             // jesli jest kolejna strona
-            lastItem = this.parties.value[this.parties.value.length - 1].createDate;
+            lastItem = this.parties.value[this.parties.value.length - 1][name];
           } else {
             // jesli sie cofamy
-            lastItem = this.parties.value[0].createDate;
+            lastItem = this.parties.value[0][name];
           }
           break;
         case ArticlesTypesEnum.Politicians:
           if (page > this.pagePoliticians.value) {
             // jesli jest kolejna strona
-            lastItem = this.politicians.value[this.parties.value.length - 1].createDate;
+            lastItem = this.politicians.value[this.politicians.value.length - 1][name];
           } else {
             // jesli sie cofamy
-            lastItem = this.politicians.value[0].createDate;
+            lastItem = this.politicians.value[0][name];
           }
           break;
       }
@@ -108,5 +112,13 @@ export class AllArticlesComponent implements OnInit {
           this._snackBar.open('Błąd! Skontaktuj się z pomocą techniczną', 'close');
         },
       });
+  }
+
+  private resetPageData() {
+    this.pageParties.next(1);
+    this.reachedMaxArticlesParties.next(false);
+
+    this.pagePoliticians.next(1);
+    this.reachedMaxArticlesPoliticians.next(false);
   }
 }

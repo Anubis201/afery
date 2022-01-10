@@ -16,7 +16,6 @@ export class SectionComponent {
   @Output() handlePage = new EventEmitter<number>()
 
   changePage(value: number) {
-    console.log(this.page as number + value)
     this.handlePage.emit(this.page as number + value)
   }
 }

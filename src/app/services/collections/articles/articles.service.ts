@@ -24,13 +24,13 @@ export class ArticlesService {
     return from(ref.set(data))
   }
 
-  getArticles(type: ArticlesTypesEnum, limit: number, order: OrderEnum, lastItem: Date | string) {
+  getArticles(type: ArticlesTypesEnum, limit: number, order: OrderEnum, lastItem: Date | number | null) {
     const ref = this.firestore.collection('articles').ref
       .where('type', '==', type)
       .orderBy(order === OrderEnum.Latest ? 'createDate' : 'viewership', 'desc')
       .limit(limit)
 
-    if (lastItem === '') return from(ref.get())
+    if (lastItem === null) return from(ref.get())
 
     else return from(ref.startAfter(lastItem).get())
   }
