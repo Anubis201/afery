@@ -15,9 +15,11 @@ import { ArticlesService } from 'src/app/services/collections/articles/articles.
 })
 export class AllArticlesComponent implements OnInit {
   parties = new BehaviorSubject<ArticleModel[]>([])
+  lastpartieSnapshot: any
   reachedMaxArticlesParties = new BehaviorSubject<boolean>(false)
 
   politicians = new BehaviorSubject<ArticleModel[]>([])
+  lastpoliticSnapshot: any
   reachedMaxArticlesPoliticians = new BehaviorSubject<boolean>(false)
 
   order: OrderEnum
@@ -48,15 +50,14 @@ export class AllArticlesComponent implements OnInit {
     let lastItem: Date | number | null = null;
 
     if (this.parties.value.length) {
-      const name = order === OrderEnum.Latest ? 'createDate' : 'viewership';
-      switch(type) {
-        case ArticlesTypesEnum.PoliticalParties:
-          lastItem = this.parties.value[this.parties.value.length - 1][name];
-          break;
-        case ArticlesTypesEnum.Politicians:
-          lastItem = this.politicians.value[this.politicians.value.length - 1][name];
-          break;
-      }
+    switch(type) {
+      case ArticlesTypesEnum.PoliticalParties:
+        lastItem = this.lastpartieSnapshot;
+        break;
+      case ArticlesTypesEnum.Politicians:
+        lastItem = this.lastpoliticSnapshot;
+        break;
+    }
     }
 
     this.articlesService
@@ -64,6 +65,7 @@ export class AllArticlesComponent implements OnInit {
       .subscribe({
         next: doc => {
           let articles: ArticleModel[] = [];
+          let i = 0;
 
           doc.forEach(value => {
             articles.push({
@@ -71,6 +73,19 @@ export class AllArticlesComponent implements OnInit {
               id: value.id,
               createDate: (value.data() as any).createDate.toDate()
             });
+
+            if (this.limit - 1 === i) {
+              switch(type) {
+                case ArticlesTypesEnum.PoliticalParties:
+                  this.lastpartieSnapshot = value;
+                  break;
+                case ArticlesTypesEnum.Politicians:
+                  this.lastpoliticSnapshot = value;
+                  break;
+              }
+            }
+
+            i++;
           })
 
           let isLimit = true;
@@ -81,11 +96,11 @@ export class AllArticlesComponent implements OnInit {
 
           switch(type) {
             case ArticlesTypesEnum.PoliticalParties:
-              this.parties.next(articles);
+              this.parties.next([...this.parties.value, ...articles]);
               this.reachedMaxArticlesParties.next(isLimit);
               break;
             case ArticlesTypesEnum.Politicians:
-              this.politicians.next(articles);
+              this.politicians.next([...this.politicians.value, ...articles]);
               this.reachedMaxArticlesPoliticians.next(isLimit);
               break;
           }
@@ -100,7 +115,9 @@ export class AllArticlesComponent implements OnInit {
 
   private resetPageData() {
     this.reachedMaxArticlesParties.next(false);
+    this.parties.next([]);
 
     this.reachedMaxArticlesPoliticians.next(false);
+    this.politicians.next([]);
   }
 }

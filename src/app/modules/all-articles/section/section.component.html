@@ -8,12 +8,14 @@
         <app-article [article]="article"></app-article>
       </div>
     </div>
-    <div class="article">
+    <div class="articles__more">
       <button
+        *ngIf="!reachedMaxArticles"
         mat-icon-button
-
+        matTooltip="Wjęcej"
+        (click)="handlePage.emit()"
       >
-      <mat-icon>expand_more</mat-icon>
+        <mat-icon>expand_more</mat-icon>
       </button>
     </div>
   </div>

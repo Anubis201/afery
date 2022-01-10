@@ -24,7 +24,7 @@ export class ArticlesService {
     return from(ref.set(data))
   }
 
-  getArticles(type: ArticlesTypesEnum, limit: number, order: OrderEnum, lastItem: Date | number | null) {
+  getArticles(type: ArticlesTypesEnum, limit: number, order: OrderEnum, lastItem: null | any) {
     const ref = this.firestore.collection('articles').ref
       .where('type', '==', type)
       .orderBy(order === OrderEnum.Latest ? 'createDate' : 'viewership', 'desc')
@@ -32,7 +32,7 @@ export class ArticlesService {
 
     if (lastItem === null) return from(ref.get())
 
-    else return from(ref.startAfter(lastItem).get())
+    else return from(ref.startAt(lastItem).get())
   }
 
   getArticle(docId: string) {

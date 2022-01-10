@@ -22,17 +22,25 @@
   &__list {
     margin-top: $text-space;
   }
+
+  &__more {
+    text-align: center;
+    mat-icon {
+      color: white;
+      font-size: 2rem;
+    }
+  }
 }
 
 .section {
   margin: 0 auto;
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 .all-articles {
-  margin-top: 2rem;
+  margin-top: 3rem;
 
   @media (min-width: 767px) {
-    margin-top: 7.5rem;
+    margin-top: 9rem;
   }
 }
