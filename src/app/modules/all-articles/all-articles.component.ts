@@ -46,7 +46,7 @@ export class AllArticlesComponent implements OnInit {
   getArticles(type: ArticlesTypesEnum,  order: OrderEnum, page: number) {
     let lastItem: Date | string = '';
 
-    if (page !== 1) {
+    if (this.parties.value.length) {
       switch(type) {
         case ArticlesTypesEnum.PoliticalParties:
           if (page > this.pageParties.value) {
