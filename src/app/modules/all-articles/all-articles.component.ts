@@ -15,11 +15,9 @@ import { ArticlesService } from 'src/app/services/collections/articles/articles.
 })
 export class AllArticlesComponent implements OnInit {
   parties = new BehaviorSubject<ArticleModel[]>([])
-  pageParties = new BehaviorSubject<number>(1)
   reachedMaxArticlesParties = new BehaviorSubject<boolean>(false)
 
   politicians = new BehaviorSubject<ArticleModel[]>([])
-  pagePoliticians = new BehaviorSubject<number>(1)
   reachedMaxArticlesPoliticians = new BehaviorSubject<boolean>(false)
 
   order: OrderEnum
@@ -40,34 +38,23 @@ export class AllArticlesComponent implements OnInit {
       if (order !== this.order) this.resetPageData();
 
       // Pobiera 4 artykuły z kategori parti
-      this.getArticles(ArticlesTypesEnum.PoliticalParties, order, this.pageParties.value);
+      this.getArticles(ArticlesTypesEnum.PoliticalParties, order);
       // Pobiera 4 artykuły z kategori polityycy
-      this.getArticles(ArticlesTypesEnum.Politicians, order, this.pagePoliticians.value);
+      this.getArticles(ArticlesTypesEnum.Politicians, order);
     })
   }
 
-  getArticles(type: ArticlesTypesEnum,  order: OrderEnum, page: number) {
+  getArticles(type: ArticlesTypesEnum,  order: OrderEnum) {
     let lastItem: Date | number | null = null;
 
     if (this.parties.value.length) {
+      const name = order === OrderEnum.Latest ? 'createDate' : 'viewership';
       switch(type) {
         case ArticlesTypesEnum.PoliticalParties:
-          if (page > this.pageParties.value) {
-            // jesli jest kolejna strona
-            lastItem = this.parties.value[this.parties.value.length - 1][name];
-          } else {
-            // jesli sie cofamy
-            lastItem = this.parties.value[0][name];
-          }
+          lastItem = this.parties.value[this.parties.value.length - 1][name];
           break;
         case ArticlesTypesEnum.Politicians:
-          if (page > this.pagePoliticians.value) {
-            // jesli jest kolejna strona
-            lastItem = this.politicians.value[this.politicians.value.length - 1][name];
-          } else {
-            // jesli sie cofamy
-            lastItem = this.politicians.value[0][name];
-          }
+          lastItem = this.politicians.value[this.politicians.value.length - 1][name];
           break;
       }
     }
@@ -95,12 +82,10 @@ export class AllArticlesComponent implements OnInit {
           switch(type) {
             case ArticlesTypesEnum.PoliticalParties:
               this.parties.next(articles);
-              this.pageParties.next(page);
               this.reachedMaxArticlesParties.next(isLimit);
               break;
             case ArticlesTypesEnum.Politicians:
               this.politicians.next(articles);
-              this.pagePoliticians.next(page);
               this.reachedMaxArticlesPoliticians.next(isLimit);
               break;
           }
@@ -114,10 +99,8 @@ export class AllArticlesComponent implements OnInit {
   }
 
   private resetPageData() {
-    this.pageParties.next(1);
     this.reachedMaxArticlesParties.next(false);
 
-    this.pagePoliticians.next(1);
     this.reachedMaxArticlesPoliticians.next(false);
   }
 }

@@ -4,9 +4,8 @@
     class="section"
     name="Partie"
     [articles]="parties.value"
-    [page]="pageParties | async"
     [reachedMaxArticles]="reachedMaxArticlesParties | async"
-    (handlePage)="getArticles(ArticlesTypesEnum.PoliticalParties, order, $event)"
+    (handlePage)="getArticles(ArticlesTypesEnum.PoliticalParties, order)"
   ></app-section>
 
   <app-section
@@ -14,8 +13,7 @@
     class="section"
     name="Politycy"
     [articles]="politicians.value"
-    [page]="pagePoliticians | async"
     [reachedMaxArticles]="reachedMaxArticlesPoliticians | async"
-    (handlePage)="getArticles(ArticlesTypesEnum.Politicians, order, $event)"
+    (handlePage)="getArticles(ArticlesTypesEnum.Politicians, order)"
   ></app-section>
 </div>
