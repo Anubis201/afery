@@ -9,8 +9,9 @@ import { ArticleModel } from 'src/app/models/articles/article.model';
 })
 export class SectionComponent {
   @Input() name: string
-  @Input() articles: ArticleModel[] | null
-  @Input() reachedMaxArticles: boolean | null
+  @Input() articles: ArticleModel[]
+  @Input() reachedMaxArticles: boolean
+  @Input() isLoading: boolean
 
   @Output() handlePage = new EventEmitter<void>()
 }

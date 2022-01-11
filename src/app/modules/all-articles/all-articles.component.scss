@@ -25,7 +25,16 @@
   }
 
   &__more {
+    display: flex;
     text-align: center;
+    place-content: center;
+
+    &--loading {
+      position: absolute;
+      margin-top: 8px;
+      margin-left: 70px;
+    }
+
     mat-icon {
       color: white;
       font-size: 2rem;

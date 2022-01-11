@@ -9,6 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -26,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
     SharedModule,
     MatIconModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class AllArticlesModule { }

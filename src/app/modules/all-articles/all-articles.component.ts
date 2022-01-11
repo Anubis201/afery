@@ -8,12 +8,16 @@ import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
 import { ConvertEnum } from 'src/app/services/global/support-functions/convert-enum';
 
+// jesli cos tu dodajesz pamietaj aby zmienic createPageTree()
+interface SectionModel {
+  articles: ArticleModel[]
+  lastArticlesnapshot: any
+  isLastPage: boolean
+  isLoading: boolean
+}
+
 type DataType = {
-  [key in ArticlesTypesEnum]: {
-    articles: ArticleModel[]
-    lastArticlesnapshot: any
-    isLastPage: boolean
-  }
+  [key in ArticlesTypesEnum]: SectionModel
 }
 
 @Component({
@@ -50,6 +54,7 @@ export class AllArticlesComponent implements OnInit {
   }
 
   getArticles(type: ArticlesTypesEnum,  order: OrderEnum) {
+    this.changeSectionLoading(type, true);
     let lastItem: Date | number | null = null;
 
     // przypisz snapshot
@@ -87,16 +92,29 @@ export class AllArticlesComponent implements OnInit {
           this.data.next({
             ...this.data.value,
             [type]: {
-              ...this.data.value[type],
               articles: [...this.data.value[type].articles, ...articles],
               lastArticlesnapshot: snap,
               isLastPage: isLimit,
+              isLoading: false
             }
           })
           this.order = order;
         },
-        error: () => this._snackBar.open('Błąd! Skontaktuj się z pomocą techniczną', 'close'),
+        error: () => {
+          this._snackBar.open('Błąd! Skontaktuj się z pomocą techniczną', 'close');
+          this.changeSectionLoading(type, false);
+        },
       });
+  }
+
+  private changeSectionLoading(type: ArticlesTypesEnum, isLoading: boolean) {
+    this.data.next({
+      ...this.data.value,
+      [type]: {
+        ...this.data.value[type],
+        isLoading,
+      }
+    })
   }
 
   private createPageTree() {
@@ -107,6 +125,7 @@ export class AllArticlesComponent implements OnInit {
         articles: [],
         lastArticlesnapshot: null,
         isLastPage: false,
+        isLoading: false,
       }
     })
 
