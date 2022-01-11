@@ -1,19 +1,12 @@
 <div class="all-articles">
-  <app-section
-    *ngIf="(parties | async)?.length"
-    class="section"
-    name="Partie"
-    [articles]="parties.value"
-    [reachedMaxArticles]="reachedMaxArticlesParties | async"
-    (handlePage)="getArticles(ArticlesTypesEnum.PoliticalParties, order)"
-  ></app-section>
-
-  <app-section
-    *ngIf="(politicians | async)?.length"
-    class="section"
-    name="Politycy"
-    [articles]="politicians.value"
-    [reachedMaxArticles]="reachedMaxArticlesPoliticians | async"
-    (handlePage)="getArticles(ArticlesTypesEnum.Politicians, order)"
-  ></app-section>
+  <ng-container *ngFor="let section of data | async | keyvalue">
+   <app-section
+    *ngIf="section.value.articles.length"
+     class="section"
+     [name]="section.key"
+     [articles]="section.value.articles"
+     [reachedMaxArticles]="section.value.isLastPage"
+     (handlePage)="getArticles($any(section.key), order)"
+   ></app-section>
+  </ng-container>
 </div>

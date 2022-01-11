@@ -6,6 +6,15 @@ import { ArticleModel } from 'src/app/models/articles/article.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
+import { ConvertEnum } from 'src/app/services/global/support-functions/convert-enum';
+
+type DataType = {
+  [key in ArticlesTypesEnum]: {
+    articles: ArticleModel[]
+    lastArticlesnapshot: any
+    isLastPage: boolean
+  }
+}
 
 @Component({
   selector: 'app-all-articles',
@@ -14,13 +23,7 @@ import { ArticlesService } from 'src/app/services/collections/articles/articles.
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AllArticlesComponent implements OnInit {
-  parties = new BehaviorSubject<ArticleModel[]>([])
-  lastpartieSnapshot: any
-  reachedMaxArticlesParties = new BehaviorSubject<boolean>(false)
-
-  politicians = new BehaviorSubject<ArticleModel[]>([])
-  lastpoliticSnapshot: any
-  reachedMaxArticlesPoliticians = new BehaviorSubject<boolean>(false)
+  data = new BehaviorSubject<DataType>(this.createPageTree() as DataType)
 
   order: OrderEnum
 
@@ -37,7 +40,7 @@ export class AllArticlesComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(({ order }) => {
       order = order ?? OrderEnum.Latest;
 
-      if (order !== this.order) this.resetPageData();
+      if (order !== this.order) this.data.next(this.createPageTree() as DataType)
 
       // Pobiera 4 artykuły z kategori parti
       this.getArticles(ArticlesTypesEnum.PoliticalParties, order);
@@ -49,16 +52,8 @@ export class AllArticlesComponent implements OnInit {
   getArticles(type: ArticlesTypesEnum,  order: OrderEnum) {
     let lastItem: Date | number | null = null;
 
-    if (this.parties.value.length) {
-    switch(type) {
-      case ArticlesTypesEnum.PoliticalParties:
-        lastItem = this.lastpartieSnapshot;
-        break;
-      case ArticlesTypesEnum.Politicians:
-        lastItem = this.lastpoliticSnapshot;
-        break;
-    }
-    }
+    // przypisz snapshot
+    if (this.data.value[type].articles.length) lastItem = this.data.value[type].lastArticlesnapshot
 
     this.articlesService
       .getArticles(type, this.limit, order, lastItem)
@@ -66,7 +61,9 @@ export class AllArticlesComponent implements OnInit {
         next: doc => {
           let articles: ArticleModel[] = [];
           let i = 0;
+          let snap: any;
 
+          // bobiera dane
           doc.forEach(value => {
             articles.push({
               ...value.data() as ArticleModel,
@@ -74,50 +71,45 @@ export class AllArticlesComponent implements OnInit {
               createDate: (value.data() as any).createDate.toDate()
             });
 
-            if (this.limit - 1 === i) {
-              switch(type) {
-                case ArticlesTypesEnum.PoliticalParties:
-                  this.lastpartieSnapshot = value;
-                  break;
-                case ArticlesTypesEnum.Politicians:
-                  this.lastpoliticSnapshot = value;
-                  break;
-              }
-            }
+            if (this.limit - 1 === i) snap = value
 
             i++;
           })
 
+          //  sprawdza czy wyswietlic przcisk "wjecej"
           let isLimit = true;
           if (articles.length === this.limit) {
             articles.pop();
             isLimit = false;
           }
 
-          switch(type) {
-            case ArticlesTypesEnum.PoliticalParties:
-              this.parties.next([...this.parties.value, ...articles]);
-              this.reachedMaxArticlesParties.next(isLimit);
-              break;
-            case ArticlesTypesEnum.Politicians:
-              this.politicians.next([...this.politicians.value, ...articles]);
-              this.reachedMaxArticlesPoliticians.next(isLimit);
-              break;
-          }
-
+          // zapisuje potrzebne dane
+          this.data.next({
+            ...this.data.value,
+            [type]: {
+              ...this.data.value[type],
+              articles: [...this.data.value[type].articles, ...articles],
+              lastArticlesnapshot: snap,
+              isLastPage: isLimit,
+            }
+          })
           this.order = order;
         },
-        error: () => {
-          this._snackBar.open('Błąd! Skontaktuj się z pomocą techniczną', 'close');
-        },
+        error: () => this._snackBar.open('Błąd! Skontaktuj się z pomocą techniczną', 'close'),
       });
   }
 
-  private resetPageData() {
-    this.reachedMaxArticlesParties.next(false);
-    this.parties.next([]);
+  private createPageTree() {
+    const object = {}
 
-    this.reachedMaxArticlesPoliticians.next(false);
-    this.politicians.next([]);
+    ConvertEnum(ArticlesTypesEnum, 'string').forEach((value: ArticlesTypesEnum) => {
+      object[value] = {
+        articles: [],
+        lastArticlesnapshot: null,
+        isLastPage: false,
+      }
+    })
+
+    return object;
   }
 }
