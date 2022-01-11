@@ -11,21 +11,22 @@ $image-border-radius: 5px;
   font-size: $size;
 }
 
-@mixin time {
-  font-size: .95rem;
+@mixin time($font) {
+  font-size: $font;
   white-space: nowrap;
 }
 
 .page {
   color: white;
   margin-top: 5rem;
+  min-height: 70vh;
 
   @media (min-width: 767px) {
     margin-top: 10rem;
   }
 
   &__title {
-    @include title(2.4rem, 3rem);
+    @include title(44px, 3rem);
   }
 
   &__costs {
@@ -86,8 +87,20 @@ $image-border-radius: 5px;
   }
 
   &__time {
-    margin-top: 5px;
-    @include time;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    @include time(14px);
+
+    &__read {
+      display: inline-block;
+      width: 0;
+      margin-right: 5px;
+      margin-left: 8px;
+      height: 10px;
+      border-left: 0.5px solid #fffbfb;
+      border-right: 0.5px solid #fffbfb;
+    }
   }
 }
 
@@ -95,6 +108,7 @@ $image-border-radius: 5px;
   color: white;
   width: 100%;
   margin-top: 5rem;
+  min-height: 70vh;
 
   &__image {
     width: 100%;
@@ -114,13 +128,13 @@ $image-border-radius: 5px;
     padding: 0 .7rem;
 
     &__title {
-      @include title(1.8rem, 2.8rem);
+      @include title(2rem, 2.8rem);
       margin-top: 1rem;
       margin-bottom: .5rem;
     }
 
     &__time {
-      @include time;
+      @include time(12px);
       margin-bottom: .5rem;
     }
 

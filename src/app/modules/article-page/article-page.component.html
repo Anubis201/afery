@@ -3,7 +3,13 @@
     <div class="page__title">
       {{ article.value?.title }}
     </div>
-    <div class="page__time">Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy' }}</div>
+    <div class="page__time">
+      <div>{{ article.value?.createDate | date:'dd.MM.yyyy, HH:mm' }}</div>
+      <div>
+        <div class="page__time__read"></div>
+        {{ article.value?.text | timeToRead }} min czytania
+      </div>
+    </div>
     <div class="page__image" [style.background-image]="'url(' + article.value?.imageSrc + ')'">
       <img *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties" class="page__image--organization" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
     </div>
@@ -43,7 +49,11 @@
         {{ article.value?.title }}
       </div>
       <div class="page-mobile__content__time">
-        Data utworzenia: {{ article.value?.createDate | date:'dd.MM.yyyy' }}
+        <div>{{ article.value?.createDate | date:'dd.MM.yyyy, HH:mm' }}</div>
+        <div>
+          <div></div>
+          {{ article.value?.text | timeToRead }} min czytania
+        </div>
       </div>
       <span class="page__costs">
         <span class="page__costs--icons god" *ngIf="article.value?.costs">

@@ -4,13 +4,11 @@
       <a
         mat-tab-link
         [routerLink]="['/']"
-        [active]="!hasOrderParam"
       >Najnowsze</a>
       <a
         mat-tab-link
         [routerLink]="['/']"
         [queryParams]="{ order: OrderEnum.Popular }"
-        [active]="hasOrderParam"
       >Popularne</a>
     </nav>
   </div>
