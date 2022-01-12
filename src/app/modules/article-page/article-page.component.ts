@@ -71,6 +71,10 @@ export class ArticlePageComponent implements OnInit {
     })
   }
 
+  pageUrl() {
+    return location.href
+  }
+
   private getData(articleId: string) {
     this.articlesService.getArticle(articleId).subscribe(article => {
       if (article.exists) {
