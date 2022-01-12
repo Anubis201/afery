@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
@@ -29,6 +30,7 @@ export class ArticlePageComponent implements OnInit {
     private articlesService: ArticlesService,
     private commentsService: CommentsService,
     private _snackBar: MatSnackBar,
+    private meta: Meta,
   ) { }
 
   ngOnInit() {
@@ -36,6 +38,7 @@ export class ArticlePageComponent implements OnInit {
       this.getData(articleId);
       this.getComments(articleId);
       this.updateViewership(articleId);
+      this.prepereTags();
     })
   }
 
@@ -73,6 +76,13 @@ export class ArticlePageComponent implements OnInit {
 
   pageUrl() {
     return location.href
+  }
+
+  private prepereTags() {
+    this.meta.addTags([
+      { name: 'description', content: 'This is an article about Angular Meta service' },
+      { name: 'keywords', content: 'angular, javascript, typescript, meta, seo' }
+    ]);
   }
 
   private getData(articleId: string) {
