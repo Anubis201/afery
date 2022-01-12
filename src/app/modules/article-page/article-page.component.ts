@@ -38,7 +38,6 @@ export class ArticlePageComponent implements OnInit {
       this.getData(articleId);
       this.getComments(articleId);
       this.updateViewership(articleId);
-      this.prepereTags();
     })
   }
 
@@ -78,10 +77,11 @@ export class ArticlePageComponent implements OnInit {
     return location.href
   }
 
-  private prepereTags() {
+  private prepereTags(title: string, image: string) {
     this.meta.addTags([
-      { name: 'description', content: 'This is an article about Angular Meta service' },
-      { name: 'keywords', content: 'angular, javascript, typescript, meta, seo' }
+      { property: 'og:type', content: 'article' },
+      { property: 'og:title', content: title },
+      { property: 'og:image', content: image },
     ]);
   }
 
@@ -89,6 +89,7 @@ export class ArticlePageComponent implements OnInit {
     this.articlesService.getArticle(articleId).subscribe(article => {
       if (article.exists) {
         this.article.next({ ...article.data() as ArticleModel, id: article.id, createDate: (article.data() as any).createDate.toDate() });
+        this.prepereTags(this.article.value?.title as string, this.article.value?.imageSrc as string);
       } else this.isExists.next(false);
     })
   }
