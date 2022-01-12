@@ -3,11 +3,22 @@
     <div class="page__title">
       {{ article.value?.title }}
     </div>
-    <div class="page__time">
-      <div>{{ article.value?.createDate | date:'dd.MM.yyyy, HH:mm' }}</div>
-      <div>
-        <div class="page__time__read"></div>
-        {{ article.value?.text | timeToRead }} min czytania
+    <div class="page__links">
+      <div class="page__links__time">
+        <div>{{ article.value?.createDate | date:'dd.MM.yyyy, HH:mm' }}</div>
+        <div>
+          <div class="page__links__time__read"></div>
+          {{ article.value?.text | timeToRead }} min czytania
+        </div>
+      </div>
+      <div class="page__links__socials">
+        <div>Udostępnij</div>
+        <a mat-icon-button href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/socials/facebook.svg" alt="Link do Facebooka">
+        </a>
+        <a mat-icon-button href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+          <img src="/assets/socials/twitter.svg" alt="Link do Twittera">
+        </a>
       </div>
     </div>
     <div class="page__image" [style.background-image]="'url(' + article.value?.imageSrc + ')'">
@@ -50,9 +61,19 @@
       </div>
       <div class="page-mobile__content__time">
         <div>{{ article.value?.createDate | date:'dd.MM.yyyy, HH:mm' }}</div>
-        <div>
-          <div></div>
-          {{ article.value?.text | timeToRead }} min czytania
+        <div class="page-mobile__content__time__all">
+          <div>
+            {{ article.value?.text | timeToRead }} min czytania
+          </div>
+          <div class="page-mobile__content__time__all__socials">
+            <div>Udostępnij</div>
+            <a mat-icon-button href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+              <img src="/assets/socials/facebook.svg" alt="Link do Facebooka">
+            </a>
+            <a mat-icon-button href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+              <img src="/assets/socials/twitter.svg" alt="Link do Twittera">
+            </a>
+          </div>
         </div>
       </div>
       <span class="page__costs">
