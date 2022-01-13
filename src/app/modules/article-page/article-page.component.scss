@@ -28,7 +28,25 @@ $image-border-radius: 5px;
   min-height: 70vh;
 
   @media (min-width: 767px) {
-    margin-top: 10rem;
+    margin-top: 9rem;
+  }
+
+  &__organization {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 2rem;
+    align-items: center;
+
+    img {
+      height: 30px;
+      border-radius: $image-border-radius;
+    }
+
+    span {
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 1.3rem;
+    }
   }
 
   &__title {
@@ -69,13 +87,6 @@ $image-border-radius: 5px;
     border-radius: $image-border-radius;
     height: 250px;
     @include image.imageBackground;
-
-    &--organization {
-      height: 50px;
-      width: 50px;
-      border-top-left-radius: calc($image-border-radius - 1px);
-      border-bottom-right-radius: calc($image-border-radius - 1px);
-    }
 
     @media (min-width: 576px) {
       height: 300px;

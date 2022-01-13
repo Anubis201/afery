@@ -1,5 +1,9 @@
 <div class="container page d-none d-sm-block">
   <ng-container *ngIf="(isExists | async) && (article | async)?.imageSrc">
+    <div class="page__organization" >
+      <img *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
+      <span>{{ PartiesEnum[$any(article.value?.entity)] }}</span>
+    </div>
     <div class="page__title">
       {{ article.value?.title }}
     </div>
@@ -21,9 +25,7 @@
         </a>
       </div>
     </div>
-    <div class="page__image" [style.background-image]="'url(' + article.value?.imageSrc + ')'">
-      <img *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties" class="page__image--organization" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
-    </div>
+    <div class="page__image" [style.background-image]="'url(' + article.value?.imageSrc + ')'"></div>
     <span class="page__costs">
       <span class="page__costs--icons" *ngIf="article.value?.costs">
         <mat-icon>money_off</mat-icon>

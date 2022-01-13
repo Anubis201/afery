@@ -11,6 +11,7 @@ import { ArticlesService } from 'src/app/services/collections/articles/articles.
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
 
 @Component({
+
   selector: 'app-article-page',
   templateUrl: './article-page.component.html',
   styleUrls: ['./article-page.component.scss'],
@@ -77,6 +78,7 @@ export class ArticlePageComponent implements OnInit {
     return location.href
   }
 
+  // TODO Czeka na naprawienie bledu angular universe i sprawdzenie tego rozwiozania
   private prepereTags(title: string, image: string) {
     this.meta.addTags([
       { property: 'og:type', content: 'article' },
