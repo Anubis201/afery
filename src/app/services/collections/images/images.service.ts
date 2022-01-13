@@ -22,4 +22,10 @@ export class ImagesService {
 
     return ref.getDownloadURL();
   }
+
+  deleteImage(articleId: string) {
+    const ref = this.storage.ref('/images-articles').child(articleId);
+
+    return ref.delete();
+  }
 }

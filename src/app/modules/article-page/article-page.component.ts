@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Meta } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, catchError, from, map, throwError, zip } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
 import { CommentModel } from 'src/app/models/articles/comment.model';
@@ -10,6 +10,7 @@ import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
+import { ImagesService } from 'src/app/services/collections/images/images.service';
 import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
@@ -36,6 +37,8 @@ export class ArticlePageComponent implements OnInit {
     private meta: Meta,
     private userService: UserService,
     private db: AngularFirestore,
+    private imagesService: ImagesService,
+    private router: Router,
   ) { }
 
   get isAdmin() {
@@ -109,32 +112,33 @@ export class ArticlePageComponent implements OnInit {
         return from(batch.commit());
       }),
       catchError((err) => {
-        this._snackBar.open('Nie udało się usunąć komentarzy artykułów', 'close');
+        this._snackBar.open('Nie udało się usunąć komentarzy', 'close');
         return throwError(() => new Error(err));
       })
     )
   }
 
   handleDeleteArticle(id: string) {
-    // aby usunąć artykuł
+    // aby usunąć artykuł najpierw musi miec potwierdzenie ze usunieto zdjecie i komentarze
     zip(
       this.removeAllComments(id),
+      this.imagesService.deleteImage(id),
     ).subscribe({
       next: ([]) => {
-        this._snackBar.open('Żegnaj!', 'close')
+
+        this.articlesService.deleteArticle(id).subscribe({
+          next: () => {
+            this._snackBar.open('Artykuł został usunięty', 'close');
+            this.router.navigateByUrl('/');
+          },
+          error: () => {
+            this._snackBar.open('Błąd usuwania artykułu', 'close');
+          }
+        })
+
       },
       error: () => this._snackBar.open('Nie udało się usunąć artykułu', 'close')
     })
-
-    // this.articlesService.deleteArticle(id).subscribe({
-    //   next: () => {
-    //     this.comments.next(this.comments.value.filter(filterV => filterV.id !== id));
-    //     this._snackBar.open('Artykuł został usunięty', 'close');
-    //   },
-    //   error: () => {
-    //     this._snackBar.open('Błąd usuwania artykułu', 'close');
-    //   }
-    // })
   }
 
   // TODO Czeka na naprawienie bledu angular universe i sprawdzenie tego rozwiozania
@@ -159,7 +163,3 @@ export class ArticlePageComponent implements OnInit {
     this.articlesService.updateViewershipArticle(articleId)
   }
 }
-function form(commit: () => Promise<void>): any {
-  throw new Error('Function not implemented.');
-}
-
