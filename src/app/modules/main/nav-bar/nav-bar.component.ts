@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { NavModel } from 'src/app/models/articles/nav.model';
 import { UserService } from 'src/app/services/global/user/user.service';
 
@@ -16,8 +17,12 @@ export class NavBarComponent implements OnInit {
   @Output() handleMenu = new EventEmitter<void>()
 
   hasOrderParam = false
+  isAdminPage = new BehaviorSubject<boolean>(false)
 
   ngOnInit() {
+    this.route.events.subscribe(() => {
+      this.isAdminPage.next(location.pathname.split('/')[1] === 'admin')
+    })
   }
 
   constructor(
@@ -27,10 +32,6 @@ export class NavBarComponent implements OnInit {
 
   get isAdmin() {
     return this.userService.isAdmin
-  }
-
-  get isAdminPage() {
-    return location.pathname.split('/')[1] === 'admin'
   }
 
   logout() {

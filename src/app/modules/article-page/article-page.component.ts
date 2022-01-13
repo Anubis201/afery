@@ -141,6 +141,14 @@ export class ArticlePageComponent implements OnInit {
     })
   }
 
+  handleEditArticle(id: string) {
+    this.router.navigateByUrl('/admin/create');
+  }
+
+  handleHideArticle(id: string) {
+    // TODO
+  }
+
   // TODO Czeka na naprawienie bledu angular universe i sprawdzenie tego rozwiozania
   private prepereTags(title: string, image: string) {
     this.meta.addTags([

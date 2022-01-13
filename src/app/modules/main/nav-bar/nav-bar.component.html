@@ -7,6 +7,6 @@
 ></app-top-nav>
 
 <app-navigation-bar-only-pc
-  *ngIf="!isAdminPage"
+  *ngIf="!(isAdminPage | async)"
   class="d-none d-md-block"
 ></app-navigation-bar-only-pc>

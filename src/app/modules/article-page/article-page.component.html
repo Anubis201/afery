@@ -6,9 +6,25 @@
     </div>
     <div class="page__title">
       {{ article.value?.title }}
-      <div class="page__title--buttons">
+      <div
+        *ngIf="isAdmin"
+        class="page__title--buttons"
+      >
         <button
-          *ngIf="isAdmin"
+          mat-icon-button
+          matTooltip="Edytuj artykuł"
+          (click)="handleEditArticle(article.value?.id)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          matTooltip="Ukryj artykuł"
+          (click)="handleHideArticle(article.value?.id)"
+        >
+          <mat-icon>remove_red_eye</mat-icon>
+        </button>
+        <button
           mat-icon-button
           matTooltip="Usuń artykuł"
           (click)="handleDeleteArticle(article.value?.id)"
