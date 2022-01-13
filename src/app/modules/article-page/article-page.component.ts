@@ -9,6 +9,7 @@ import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
+import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
 
@@ -32,7 +33,12 @@ export class ArticlePageComponent implements OnInit {
     private commentsService: CommentsService,
     private _snackBar: MatSnackBar,
     private meta: Meta,
+    private userService: UserService,
   ) { }
+
+  get isAdmin() {
+    return this.userService.isAdmin
+  }
 
   ngOnInit() {
     this.route.params.subscribe(({ articleId }) => {
@@ -64,7 +70,7 @@ export class ArticlePageComponent implements OnInit {
       next: commentsDocs => {
         let allComments: CommentModel[] = [];
         commentsDocs.forEach(comment => {
-          allComments.push({ ...comment.data() as CommentModel, date: (comment.data() as any).date.toDate() });
+          allComments.push({ ...comment.data() as CommentModel, date: (comment.data() as any).date.toDate(), id: comment.id });
         });
         this.comments.next(allComments);
       },
@@ -76,6 +82,18 @@ export class ArticlePageComponent implements OnInit {
 
   pageUrl() {
     return location.href
+  }
+
+  handleDeleteComment(id: string) {
+    this.commentsService.deteleComment(id).subscribe({
+      next: () => {
+        this.comments.next(this.comments.value.filter(filterV => filterV.id !== id));
+        this._snackBar.open('Komentarz został usunięty', 'close');
+      },
+      error: () => {
+        this._snackBar.open('Błąd', 'close');
+      }
+    })
   }
 
   // TODO Czeka na naprawienie bledu angular universe i sprawdzenie tego rozwiozania

@@ -27,5 +27,13 @@
         margin-top: 1rem;
       }
     }
+
+    &__delete {
+      margin-left: auto;
+
+      mat-icon {
+        font-size: 18px;
+      }
+    }
   }
 }

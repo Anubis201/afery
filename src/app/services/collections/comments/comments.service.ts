@@ -23,4 +23,8 @@ export class CommentsService {
   getComments(articleId: string) {
     return from(this.getRef().ref.where('articleId', '==', articleId).get())
   }
+
+  deteleComment(articleId: string) {
+    return from(this.getRef().doc(articleId).delete())
+  }
 }

@@ -40,8 +40,16 @@
     <div class="page__desc">
       {{ article.value?.text }}
     </div>
-    <app-write-comment [isSavingComment]="isSavingComment" [countComment]="(comments | async)?.length" (addComment)="handleAddComment($event)"></app-write-comment>
-    <app-comments [comments]="comments.value"></app-comments>
+    <app-write-comment
+      [isSavingComment]="isSavingComment"
+      [countComment]="(comments | async)?.length"
+      (addComment)="handleAddComment($event)"
+    ></app-write-comment>
+    <app-comments
+      [comments]="comments.value"
+      [isAdmin]="isAdmin | async"
+      (deleteComment)="handleDeleteComment($event)"
+    ></app-comments>
   </ng-container>
 
   <ng-container *ngIf="!isExists.value">
@@ -92,8 +100,16 @@
       <div class="page-mobile__content__desc">
         {{ article.value?.text }}
       </div>
-      <app-write-comment [isSavingComment]="isSavingComment" [countComment]="(comments | async)?.length" (addComment)="handleAddComment($event)"></app-write-comment>
-      <app-comments [comments]="comments.value"></app-comments>
+      <app-write-comment
+        [isSavingComment]="isSavingComment"
+        [countComment]="(comments | async)?.length"
+        (addComment)="handleAddComment($event)"
+      ></app-write-comment>
+      <app-comments
+        [comments]="comments.value"
+        [isAdmin]="isAdmin | async"
+        (deleteComment)="handleDeleteComment($event)"
+      ></app-comments>
     </div>
   </ng-container>
 

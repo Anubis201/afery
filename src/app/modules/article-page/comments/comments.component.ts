@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 
 @Component({
@@ -9,4 +9,7 @@ import { CommentModel } from 'src/app/models/articles/comment.model';
 })
 export class CommentsComponent {
   @Input() comments: CommentModel[] = []
+  @Input() isAdmin: boolean
+
+  @Output() deleteComment = new EventEmitter<string>()
 }
