@@ -42,4 +42,8 @@ export class ArticlesService {
   updateViewershipArticle(docId: string) {
     return from(this.firestore.collection('articles').doc(docId).update({ viewership: increment(1) }))
   }
+
+  deleteArticle(docId: string) {
+    return from(this.firestore.collection('articles').doc(docId).delete())
+  }
 }

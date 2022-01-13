@@ -6,6 +6,16 @@
     </div>
     <div class="page__title">
       {{ article.value?.title }}
+      <div class="page__title--buttons">
+        <button
+          *ngIf="isAdmin"
+          mat-icon-button
+          matTooltip="Usuń artykuł"
+          (click)="handleDeleteArticle(article.value?.id)"
+        >
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </div>
     </div>
     <div class="page__links">
       <div class="page__links__time">

@@ -34,7 +34,7 @@ $image-border-radius: 5px;
   &__organization {
     display: flex;
     gap: 10px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     align-items: center;
 
     img {
@@ -51,6 +51,13 @@ $image-border-radius: 5px;
 
   &__title {
     @include title(44px, 3rem);
+    display: flex;
+
+    &--buttons {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+    }
   }
 
   &__costs {

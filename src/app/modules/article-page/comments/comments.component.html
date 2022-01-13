@@ -10,6 +10,7 @@
       *ngIf="isAdmin"
       class="comment__delete"
       mat-icon-button
+      matTooltip="Usuń komentarz"
       (click)="deleteComment.emit(comment.id)"
     >
       <mat-icon>delete_outline</mat-icon>
