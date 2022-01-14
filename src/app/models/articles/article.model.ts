@@ -14,4 +14,5 @@ export interface ArticleModel {
   costs: number | null
   customName: string
   viewership: number
+  isHide?: boolean
 }

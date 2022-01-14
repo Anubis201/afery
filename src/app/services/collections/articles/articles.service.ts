@@ -24,7 +24,7 @@ export class ArticlesService {
     return from(ref.set(data))
   }
 
-  editArticle(data: ArticleModel, id: string) {
+  editArticle(data: Partial<ArticleModel>, id: string) {
     return from(this.getRef().doc(id).update(data))
   }
 

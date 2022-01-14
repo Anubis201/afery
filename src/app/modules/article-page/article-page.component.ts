@@ -60,11 +60,9 @@ export class ArticlePageComponent implements OnInit {
     this.commentsService.addComment(rlyComment).subscribe({
       next: () => {
         this.comments.next([rlyComment , ...this.comments.value]);
-        this._snackBar.open('Komentarz został dodany' ,'close');
         this.isSavingComment = false;
       },
       error: () => {
-        this._snackBar.open('Nie udało się dodać komentarza' ,'close');
         this.isSavingComment = false;
       }
     })
@@ -101,23 +99,6 @@ export class ArticlePageComponent implements OnInit {
     })
   }
 
-  // TODO WAŻNE !!! 500max komentarzy na jeden batch. KIEDYS TRZEBA BEDZIE TO NAPRAWIC :D
-  private removeAllComments(id: string) {
-    return this.commentsService.getComments(id).pipe(
-      map(comments => {
-        let batch = this.db.firestore.batch();
-
-        comments.forEach(doc => batch.delete(doc.ref));
-
-        return from(batch.commit());
-      }),
-      catchError((err) => {
-        this._snackBar.open('Nie udało się usunąć komentarzy', 'close');
-        return throwError(() => new Error(err));
-      })
-    )
-  }
-
   handleDeleteArticle(id: string) {
     // aby usunąć artykuł najpierw musi miec potwierdzenie ze usunieto zdjecie i komentarze
     zip(
@@ -148,8 +129,47 @@ export class ArticlePageComponent implements OnInit {
     )
   }
 
-  handleHideArticle(id: string) {
-    // TODO
+  hideArticle(id: string) {
+    this.articlesService.editArticle({ isHide: true }, id).subscribe({
+      next: () => {
+        this.article.next({
+          ...this.article.value as ArticleModel,
+          isHide: true,
+        })
+        this._snackBar.open('Ukryto artykuł', 'close');
+      },
+      error: () => this._snackBar.open('Nie udało się ukryć artykułu', 'close')
+    })
+  }
+
+  showArticle(id: string) {
+    this.articlesService.editArticle({ isHide: false }, id).subscribe({
+      next: () => {
+        this.article.next({
+          ...this.article.value as ArticleModel,
+          isHide: false,
+        })
+        this._snackBar.open('Ukryto artykuł', 'close');
+      },
+      error: () => this._snackBar.open('Nie udało się ukryć artykułu', 'close')
+    })
+  }
+
+  // TODO WAŻNE !!! 500max komentarzy na jeden batch. KIEDYS TRZEBA BEDZIE TO NAPRAWIC :D
+  private removeAllComments(id: string) {
+    return this.commentsService.getComments(id).pipe(
+      map(comments => {
+        let batch = this.db.firestore.batch();
+
+        comments.forEach(doc => batch.delete(doc.ref));
+
+        return from(batch.commit());
+      }),
+      catchError((err) => {
+        this._snackBar.open('Nie udało się usunąć komentarzy', 'close');
+        return throwError(() => new Error(err));
+      })
+    )
   }
 
   // TODO Czeka na naprawienie bledu angular universe i sprawdzenie tego rozwiozania

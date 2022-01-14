@@ -18,9 +18,18 @@
           <mat-icon>edit</mat-icon>
         </button>
         <button
+          *ngIf="!article.value?.isHide"
           mat-icon-button
           matTooltip="Ukryj artykuł"
-          (click)="handleHideArticle(article.value?.id)"
+          (click)="hideArticle(article.value?.id)"
+        >
+          <mat-icon>panorama_fish_eye</mat-icon>
+        </button>
+        <button
+          *ngIf="article.value?.isHide"
+          mat-icon-button
+          matTooltip="Pokaż artykuł"
+          (click)="showArticle(article.value?.id)"
         >
           <mat-icon>remove_red_eye</mat-icon>
         </button>
