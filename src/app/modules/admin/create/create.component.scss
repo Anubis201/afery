@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 4rem;
+  margin-top: 5rem;
   margin-left: 7rem;
+  min-height: 80vh;
 }
 
 .inputs {
@@ -97,4 +98,9 @@ mat-label {
   .inputs {
     width: 97%;
   }
+}
+
+.hide {
+  opacity: .5;
+  pointer-events: none;
 }

@@ -9,6 +9,8 @@ import { ConvertEnum } from 'src/app/services/global/support-functions/convert-e
 import { ImagesService } from 'src/app/services/collections/images/images.service';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { DocumentReference } from '@angular/fire/compat/firestore/interfaces';
+import { ActivatedRoute } from '@angular/router';
+import { ArticleModel } from 'src/app/models/articles/article.model';
 
 @Component({
   selector: 'app-create',
@@ -28,6 +30,7 @@ export class CreateComponent implements OnInit {
     costs: new FormControl(null),
   })
 
+  articleId = new BehaviorSubject<string>('') // jest on uzywany wylacznie podczas edycji artykulu, czyli jednoczesnie jest uzywane aby sprawdzic czy jest isEdit mode
   isLoading = new BehaviorSubject<boolean>(false)
   entityItems = new BehaviorSubject<PartiesEnum[]>(ConvertEnum(PartiesEnum, 'number'))
 
@@ -41,14 +44,45 @@ export class CreateComponent implements OnInit {
     private articlesService: ArticlesService,
     private _snackBar: MatSnackBar,
     private imageService: ImagesService,
+    private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
     this.form.get('type')?.patchValue(ArticlesTypesEnum.PoliticalParties);
     this.setItemsEntityOnTypeChange();
+
+    this.activatedRoute.queryParams.subscribe(({ id }) => {
+      if (id) {
+        this.getArticleForEdit(id);
+      }
+    })
   }
 
-  create(images: FileList | null) {
+  handleFormClick(images: FileList | null) {
+    if (this.articleId.value.length) {
+      // edycja artykulu
+      this.edit();
+    } else {
+      // tworzenie nowego artykulu
+      this.create(images);
+    }
+  }
+
+  private edit() {
+    this.isLoading.next(true);
+    this.articlesService.editArticle(this.form.value as ArticleModel, this.articleId.value).subscribe({
+      next: () => {
+        this._snackBar.open('Zedytowany artykuł', 'close');
+        this.isLoading.next(false);
+      },
+      error: () => {
+        this._snackBar.open('Nie udalo się zedytować artykułu', 'close');
+        this.isLoading.next(false);
+      }
+    })
+  }
+
+  private create(images: FileList | null) {
     if (images === null) {
       this._snackBar.open('Brak obrazu', 'close');
       return
@@ -114,13 +148,25 @@ export class CreateComponent implements OnInit {
       imageSrc,
     }, ref).pipe(first()).subscribe({
       next: () => {
-        this._snackBar.open('GOTOWE', 'close');
+        this._snackBar.open('Stworzono artykuł!', 'close');
         this.isLoading.next(false);
       },
       error: () => {
         this._snackBar.open('Jakiś dziwny błąd', 'close');
         this.isLoading.next(false);
       }
+    })
+  }
+
+  private getArticleForEdit(id: string) {
+    this.articlesService.getArticle(id).subscribe({
+      next: doc => {
+        this.form.patchValue(doc.data() as ArticleModel);
+        this.articleId.next(doc.id);
+        this.form.get('image').clearValidators();
+        this.form.get('image').updateValueAndValidity();
+      },
+      error: () => this._snackBar.open('Nie udało się pobrać artykułu', 'close')
     })
   }
 }

@@ -24,6 +24,10 @@ export class ArticlesService {
     return from(ref.set(data))
   }
 
+  editArticle(data: ArticleModel, id: string) {
+    return from(this.getRef().doc(id).update(data))
+  }
+
   getArticles(type: ArticlesTypesEnum, limit: number, order: OrderEnum, lastItem: null | any) {
     const ref = this.firestore.collection('articles').ref
       .where('type', '==', type)

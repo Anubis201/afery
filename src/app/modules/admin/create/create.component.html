@@ -9,7 +9,8 @@
     <textarea matInput class="desc-input" formControlName="text" autocomplete="off" type="text" rows="3"></textarea>
   </mat-form-field>
 
-  <div class="file-input">
+  <!-- TODO Kiedys dorobic edycje zdjecia artykulu, ale to jesli bedzie bardzo przeskadzac -->
+  <div [class.hide]="articleId.value.length" class="file-input">
     <span class="file-input__text">Zdjęcie artykułu(max 1MB): </span>
     <input #image formControlName="image" type="file" accept="image/png, image/jpeg">
   </div>
@@ -45,7 +46,7 @@
     <span class="costs__zl" matSuffix>ZŁ</span>
   </mat-form-field>
 
-  <button mat-raised-button class="create" type="submit" color="primary" [disabled]="form.invalid || (isLoading | async)" (click)="create(image.files)">
+  <button mat-raised-button class="create" type="submit" color="primary" [disabled]="form.invalid || (isLoading | async)" (click)="handleFormClick(image.files)">
     <div class="loading-button">
       <mat-spinner *ngIf="isLoading | async" [diameter]="20"></mat-spinner>
       <span>Stwórz</span>

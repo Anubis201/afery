@@ -142,7 +142,10 @@ export class ArticlePageComponent implements OnInit {
   }
 
   handleEditArticle(id: string) {
-    this.router.navigateByUrl('/admin/create');
+    this.router.navigate(
+      ['/admin/create'],
+      { queryParams: { id } }
+    )
   }
 
   handleHideArticle(id: string) {
