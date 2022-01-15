@@ -176,12 +176,20 @@ export class ArticlePageComponent implements OnInit {
   // TODO Czeka na naprawienie bledu angular universe i sprawdzenie tego rozwiozania
   private prepereTagsAndTitle(title: string, image: string) {
     this.titleService.setTitle(title);
-    // FACEBOOK
-    // this.meta.addTags([
-    //   { property: 'og:type', content: 'article' },
-    //   { property: 'og:title', content: title },
-    //   { property: 'og:image', content: image },
-    // ]);
+
+    this.meta.addTags([
+      { property: 'og:type', content: 'article' },
+      { property: 'og:title', content: title },
+      { property: 'og:image', content: image },
+      { property: 'og:local', content: 'pl_PL' },
+      { property: 'og:site_name', content: 'Afery' },
+      { property: 'og:url', content: window.location.href },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:site', content: 'Afery' },
+      { name: 'twitter:title', content: title },
+      { name: 'twitter:image', content: image },
+      { name: 'detailType', content: 'article' },
+    ]);
   }
 
   private getData(articleId: string) {
