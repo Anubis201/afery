@@ -4,10 +4,23 @@
     <input matInput class="title-input" formControlName="title" autocomplete="off" type="text">
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Opis</mat-label>
-    <textarea matInput class="desc-input" formControlName="text" autocomplete="off" type="text" rows="3"></textarea>
-  </mat-form-field>
+  <editor
+    [formControl]="form.get('text')"
+    [init]="{
+      height: 500,
+      menubar: false,
+      content_css: 'dark',
+      plugins: [
+        'advlist autolink lists link image charmap print preview anchor',
+        'searchreplace visualblocks code fullscreen',
+        'insertdatetime media table paste code help wordcount'
+      ],
+      toolbar:
+        'undo redo | formatselect | bold italic backcolor | \
+        alignleft aligncenter alignright alignjustify | \
+        bullist numlist outdent indent | removeformat | help'
+    }"
+  ></editor>
 
   <!-- TODO Kiedys dorobic edycje zdjecia artykulu, ale to jesli bedzie bardzo przeskadzac -->
   <div [class.hide]="articleId.value.length" class="file-input">

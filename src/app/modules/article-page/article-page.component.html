@@ -72,9 +72,7 @@
         {{ article.value?.viewership }}
       </span>
     </span>
-    <div class="page__desc">
-      {{ article.value?.text }}
-    </div>
+    <div class="page__desc" [innerHtml]="article.value?.text"></div>
     <app-write-comment
       [isSavingComment]="isSavingComment"
       [countComment]="(comments | async)?.length"

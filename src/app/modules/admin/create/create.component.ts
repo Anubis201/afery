@@ -21,7 +21,7 @@ import { ArticleModel } from 'src/app/models/articles/article.model';
 export class CreateComponent implements OnInit {
   form = new FormGroup({
     title: new FormControl(null, Validators.required),
-    text: new FormControl(null, Validators.required),
+    text: new FormControl(null),
     image: new FormControl(null, Validators.required),
     type: new FormControl(null, Validators.required),
     kind: new FormControl(ArticlesKindsEnum.Confirmed, Validators.required),

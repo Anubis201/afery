@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 
@@ -37,6 +38,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatSelectModule,
     MatListModule,
+    EditorModule,
   ]
 })
 export class AdminModule { }
