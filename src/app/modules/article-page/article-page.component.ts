@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Meta } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, catchError, from, map, throwError, zip } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
@@ -39,6 +39,7 @@ export class ArticlePageComponent implements OnInit {
     private db: AngularFirestore,
     private imagesService: ImagesService,
     private router: Router,
+    private titleService: Title,
   ) { }
 
   get isAdmin() {
@@ -173,19 +174,21 @@ export class ArticlePageComponent implements OnInit {
   }
 
   // TODO Czeka na naprawienie bledu angular universe i sprawdzenie tego rozwiozania
-  private prepereTags(title: string, image: string) {
-    this.meta.addTags([
-      { property: 'og:type', content: 'article' },
-      { property: 'og:title', content: title },
-      { property: 'og:image', content: image },
-    ]);
+  private prepereTagsAndTitle(title: string, image: string) {
+    this.titleService.setTitle(title);
+    // FACEBOOK
+    // this.meta.addTags([
+    //   { property: 'og:type', content: 'article' },
+    //   { property: 'og:title', content: title },
+    //   { property: 'og:image', content: image },
+    // ]);
   }
 
   private getData(articleId: string) {
     this.articlesService.getArticle(articleId).subscribe(article => {
       if (article.exists) {
         this.article.next({ ...article.data() as ArticleModel, id: article.id, createDate: (article.data() as any).createDate.toDate() });
-        this.prepereTags(this.article.value?.title as string, this.article.value?.imageSrc as string);
+        this.prepereTagsAndTitle(this.article.value?.title as string, this.article.value?.imageSrc as string);
       } else this.isExists.next(false);
     })
   }

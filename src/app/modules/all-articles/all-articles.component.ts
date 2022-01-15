@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
@@ -38,6 +39,7 @@ export class AllArticlesComponent implements OnInit {
     private articlesService: ArticlesService,
     private _snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
+    private titleService: Title,
   ) { }
 
   ngOnInit() {
@@ -50,6 +52,8 @@ export class AllArticlesComponent implements OnInit {
       this.getArticles(ArticlesTypesEnum.PoliticalParties, order);
       // Pobiera 4 artykuły z kategori polityycy
       this.getArticles(ArticlesTypesEnum.Politicians, order);
+
+      this.titleService.setTitle('Afery')
     })
   }
 
