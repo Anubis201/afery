@@ -21,8 +21,13 @@ export class MenuListComponent implements OnInit {
     this.items = [
       {
         href: 'create',
-        text: 'Artykuł',
+        text: 'Stwórz',
         icon: 'mail_outline'
+      },
+      {
+        href: 'comments',
+        text: 'Komentarze',
+        icon: 'comment'
       }
     ]
   }

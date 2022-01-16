@@ -15,6 +15,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { CommentsComponent } from './comments/comments.component';
 
 
 
@@ -24,6 +25,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     AuthComponent,
     MenuListComponent,
     CreateComponent,
+    CommentsComponent,
   ],
   imports: [
     CommonModule,

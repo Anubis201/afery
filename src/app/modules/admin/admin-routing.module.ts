@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router'
 import { CheckAuthGuard } from 'src/app/services/guards/auth/check-auth.guard'
 import { AdminComponent } from './admin.component'
 import { AuthComponent } from './auth/auth.component'
+import { CommentsComponent } from './comments/comments.component'
 import { CreateComponent } from './create/create.component'
 
 const routes: Routes = [
@@ -13,6 +14,11 @@ const routes: Routes = [
       {
         path: 'create',
         component: CreateComponent,
+        canActivate: [CheckAuthGuard],
+      },
+      {
+        path: 'comments',
+        component: CommentsComponent,
         canActivate: [CheckAuthGuard],
       },
       {
