@@ -24,6 +24,11 @@ $border: 5px;
   cursor: pointer;
   transition: opacity 200ms ease-out 100ms;
 
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
   &:hover {
     opacity: .7;
   }

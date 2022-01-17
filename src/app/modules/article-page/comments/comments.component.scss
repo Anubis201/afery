@@ -3,37 +3,4 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-
-  .comment {
-    display: flex;
-    gap: 1.2rem;
-
-    mat-icon {
-      font-size: 30px;
-    }
-
-    &__texts {
-
-      &--name {
-        font-weight: 500;
-        font-size: 1rem;
-      }
-
-      &--date {
-        margin-top: 5px;
-      }
-
-      &--desc {
-        margin-top: 1rem;
-      }
-    }
-
-    &__delete {
-      margin-left: auto;
-
-      mat-icon {
-        font-size: 18px;
-      }
-    }
-  }
 }

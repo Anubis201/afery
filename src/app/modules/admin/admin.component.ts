@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
@@ -7,15 +7,11 @@ import { UserService } from 'src/app/services/global/user/user.service';
   styleUrls: ['./admin.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent {
 
   constructor(private userService: UserService) { }
 
   get isAdmin() {
     return this.userService.isAdmin
   }
-
-  ngOnInit(): void {
-  }
-
 }

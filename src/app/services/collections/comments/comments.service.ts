@@ -24,6 +24,10 @@ export class CommentsService {
     return from(this.getRef().ref.where('articleId', '==', articleId).get())
   }
 
+  getAdminAllComments() {
+    return from(this.getRef().get())
+  }
+
   deteleComment(articleId: string) {
     return from(this.getRef().doc(articleId).delete())
   }

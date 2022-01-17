@@ -24,11 +24,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     CommonModule,
     ArticlePageRoutingModule,
     MatInputModule,
-    MatIconModule,
     ReactiveFormsModule,
-    MatButtonModule,
     SharedModule,
-    MatTooltipModule,
     MatProgressSpinnerModule,
   ]
 })

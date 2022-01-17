@@ -1,0 +1,17 @@
+<div class="comments">
+  <app-comment
+    *ngFor="let comment of comments | async"
+    [comment]="comment"
+    [isAdmin]="true"
+    (deleteComment)="deleteComment($event)"
+  >
+    <a
+      customButtons
+      [routerLink]="['/artykul/' + comment.articleId + '/zmien']"
+      mat-icon-button
+      matTooltip="Przejdz do artykułu"
+    >
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </a>
+  </app-comment>
+</div>

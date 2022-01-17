@@ -197,6 +197,7 @@ export class ArticlePageComponent implements OnInit {
       if (article.exists) {
         this.article.next({ ...article.data() as ArticleModel, id: article.id, createDate: (article.data() as any).createDate.toDate() });
         this.prepereTagsAndTitle(this.article.value?.title as string, this.article.value?.imageSrc as string);
+        if (location.href.slice(-5) !== 'zmien') this.router.navigate(['artykul/', this.article.value.id, this.article.value.title]);
       } else this.isExists.next(false);
     })
   }

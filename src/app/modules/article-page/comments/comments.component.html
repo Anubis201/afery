@@ -1,19 +1,8 @@
 <div class="comments">
-  <div *ngFor="let comment of comments" class="comment">
-    <mat-icon>person</mat-icon>
-    <div class="comment__texts">
-      <div class="comment__texts--name">{{ comment.name }}</div>
-      <div class="comment__texts--date">{{ comment.date | date:'dd.MM.yyyy HH:mm' }}</div>
-      <div class="comment__texts--desc">{{ comment.text }}</div>
-    </div>
-    <button
-      *ngIf="isAdmin"
-      class="comment__delete"
-      mat-icon-button
-      matTooltip="Usuń komentarz"
-      (click)="deleteComment.emit(comment.id)"
-    >
-      <mat-icon>delete_outline</mat-icon>
-    </button>
-  </div>
+  <app-comment
+    *ngFor="let comment of comments"
+    [comment]="comment"
+    [isAdmin]="isAdmin"
+    (deleteComment)="deleteComment.emit($event)"
+  ></app-comment>
 </div>

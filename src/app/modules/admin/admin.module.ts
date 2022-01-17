@@ -15,7 +15,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { EditorModule } from '@tinymce/tinymce-angular';
-import { CommentsComponent } from './comments/comments.component';
+import { ManageCommentsComponent } from './manage-comments/manage-comments.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -25,7 +26,7 @@ import { CommentsComponent } from './comments/comments.component';
     AuthComponent,
     MenuListComponent,
     CreateComponent,
-    CommentsComponent,
+    ManageCommentsComponent,
   ],
   imports: [
     CommonModule,
@@ -33,14 +34,13 @@ import { CommentsComponent } from './comments/comments.component';
     ReactiveFormsModule,
     FormsModule,
     MatRadioModule,
-    MatIconModule,
     MatCheckboxModule,
     AdminRoutingModule,
     MatProgressSpinnerModule,
-    MatButtonModule,
     MatSelectModule,
     MatListModule,
     EditorModule,
+    SharedModule,
   ]
 })
 export class AdminModule { }
