@@ -56,7 +56,7 @@ export class ArticlePageComponent implements OnInit {
 
   handleAddComment(comment: CommentModel) {
     this.isSavingComment = true;
-    const rlyComment: CommentModel = { ...comment, articleId: this.article.value?.id as string };
+    const rlyComment: CommentModel = { ...comment, articleId: this.article.value?.id as string, isNew: true };
 
     this.commentsService.addComment(rlyComment).subscribe({
       next: () => {

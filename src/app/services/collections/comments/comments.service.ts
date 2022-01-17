@@ -28,6 +28,10 @@ export class CommentsService {
     return from(this.getRef().get())
   }
 
+  getAdminNumberOfNewComments()  {
+    return from(this.getRef().ref.where('isNew', '==', true).get())
+  }
+
   deteleComment(articleId: string) {
     return from(this.getRef().doc(articleId).delete())
   }
