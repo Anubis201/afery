@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SharedModule } from '../shared/shared.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ReadingProgressBarComponent } from './reading-progress-bar/reading-progress-bar.component';
 
 
 
@@ -19,6 +20,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ArticlePageComponent,
     CommentsComponent,
     WriteCommentComponent,
+    ReadingProgressBarComponent,
   ],
   imports: [
     CommonModule,
