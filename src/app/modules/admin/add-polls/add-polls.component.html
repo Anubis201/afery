@@ -1,0 +1,25 @@
+<form [formGroup]="form">
+
+  <app-parties></app-parties>
+
+  <app-details
+    [surveying]="form.get('surveying')"
+    [when]="form.get('when')"
+    [people]="form.get('people')"
+    [forWhom]="form.get('forWhom')"
+  ></app-details>
+
+  <button
+    mat-raised-button
+    class="create"
+    type="submit"
+    color="primary"
+    [disabled]="form.invalid || isLoading.value"
+    (click)="addPoll()"
+  >
+    <div class="loading-button">
+      <mat-spinner *ngIf="isLoading | async" [diameter]="20"></mat-spinner>
+      <span>Dodaj</span>
+    </div>
+  </button>
+</form>

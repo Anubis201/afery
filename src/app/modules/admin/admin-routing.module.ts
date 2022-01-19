@@ -5,6 +5,7 @@ import { AdminComponent } from './admin.component'
 import { AuthComponent } from './auth/auth.component'
 import { ManageCommentsComponent } from './manage-comments/manage-comments.component'
 import { CreateComponent } from './create/create.component'
+import { AddPollsComponent } from './add-polls/add-polls.component'
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
       {
         path: 'comments',
         component: ManageCommentsComponent,
+        canActivate: [CheckAuthGuard],
+      },
+      {
+        path: 'polls',
+        component: AddPollsComponent,
         canActivate: [CheckAuthGuard],
       },
       {

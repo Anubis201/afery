@@ -1,0 +1,26 @@
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Wykonawca</mat-label>
+    <input matInput [formControl]="surveying" autocomplete="off" type="text">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Kiedy (data)</mat-label>
+    <input matInput [matDatepicker]="picker" [formControl]="when">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</div>
+
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Dla kogo</mat-label>
+    <input matInput [formControl]="forWhom" autocomplete="off" type="text">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Ilość osób</mat-label>
+    <input matInput [formControl]="people" autocomplete="off" type="number">
+  </mat-form-field>
+</div>
+

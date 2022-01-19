@@ -34,7 +34,7 @@ export class MenuListComponent implements OnInit {
     this.items.next([
       {
         href: 'create',
-        text: 'Stwórz',
+        text: 'Stwórz artykuł',
         icon: 'mail_outline'
       },
       {
@@ -44,6 +44,11 @@ export class MenuListComponent implements OnInit {
         function: () => {
           this.updateIsNewComments();
         },
+      },
+      {
+        href: 'polls',
+        text: 'Dodaj sondaż',
+        icon: 'poll'
       }
     ]);
     this.checkNewComments();
