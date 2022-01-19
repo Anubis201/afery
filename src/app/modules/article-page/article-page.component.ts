@@ -11,6 +11,7 @@ import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
 import { ImagesService } from 'src/app/services/collections/images/images.service';
+import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
 import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
@@ -197,7 +198,7 @@ export class ArticlePageComponent implements OnInit {
       if (article.exists) {
         this.article.next({ ...article.data() as ArticleModel, id: article.id, createDate: (article.data() as any).createDate.toDate() });
         this.prepereTagsAndTitle(this.article.value?.title as string, this.article.value?.imageSrc as string);
-        if (location.href.slice(-5) !== 'zmien') this.router.navigate(['artykul/', this.article.value.id, this.article.value.title.replace(/\s/g, '-')]);
+        if (location.href.slice(-5) !== 'zmien') this.router.navigate(['artykul/', this.article.value.id, ChangePolishChars(this.article.value.title.replace(/\s/g, '-'))]);
       } else this.isExists.next(false);
     })
   }

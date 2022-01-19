@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ArticleModel } from 'src/app/models/articles/article.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
+import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
 
 @Component({
   selector: 'app-article',
@@ -16,6 +17,6 @@ export class ArticleComponent {
   readonly ArticlesTypesEnum = ArticlesTypesEnum
 
   get toArticlePage() {
-    return `/artykul/${this.article.id}/${this.article.title.replace(/\s/g, '-')}`
+    return `/artykul/${this.article.id}/${ChangePolishChars(this.article.title)}`
   }
 }
