@@ -47,6 +47,10 @@ export class AppComponent implements OnInit {
           order: OrderEnum.Popular,
         }
       },
+      {
+        label: 'Sondaże',
+        href: '/sondaze',
+      },
     ]
 
     this.route.events.subscribe(() => {
