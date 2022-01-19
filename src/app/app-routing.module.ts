@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/article-page/article-page.module').then(m => m.ArticlePageModule),
   },
   {
+    path: 'sondaze',
+    loadChildren: () => import('./modules/polls/polls.module').then(m => m.PollsModule),
+  },
+  {
     path: '**',
     redirectTo: '/',
     pathMatch: 'full',
