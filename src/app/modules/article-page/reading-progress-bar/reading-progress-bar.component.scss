@@ -1,22 +1,8 @@
-.post-container {
-  overflow: scroll;
-  $color: #2ecc71;
-  $height: .5rem;
-
-  .progress-bar-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1;
-    height: $height;
-
-    &__progress {
-      height: $height;
-      background-color: $color;
-      width: 0%;
-      float: left;
-    }
-  }
+.progress-bar {
+  background-color: #7b1fa2;
+	height: .4rem;
+	position: fixed;
+	top: 0;
+  width: 0;
+  z-index: 1;
 }
-

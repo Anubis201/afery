@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-reading-progress-bar',
@@ -6,32 +6,24 @@ import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild }
   styleUrls: ['./reading-progress-bar.component.scss']
 })
 export class ReadingProgressBarComponent implements AfterViewInit {
-  @ViewChild('postContainer') postContainer: ElementRef;
-  @ViewChild('progress') progressBarEl: ElementRef;
+  @ViewChild('progressBar') progressBar: ElementRef;
 
   ngAfterViewInit() {
-    this.updateScrollProgressBar();
+    this.processScroll()
+  }
+
+  private processScroll() {
+    let docElem = document.documentElement,
+        docBody = document.body,
+        scrollTop = docElem['scrollTop'] || docBody['scrollTop'],
+        scrollBottom = (docElem['scrollHeight'] || docBody['scrollHeight']) - window.innerHeight,
+        scrollPercent = scrollTop / scrollBottom * 100 + '%';
+
+    this.progressBar.nativeElement.style.width = scrollPercent;
   }
 
   @HostListener('window:scroll', ['$event'])
     onWindowScroll() {
-      this.updateScrollProgressBar();
+      this.processScroll();
     }
-
-  private updateScrollProgressBar() {
-    const scrollHeight = this.postContainer.nativeElement.scrollHeight - this.heightInViewport(this.postContainer);
-    console.log(scrollHeight);
-
-    const scrollPosition = this.postContainer.nativeElement.scrollTop;
-
-    const scrollPercentage = (scrollPosition / scrollHeight) * 100;
-    this.progressBarEl.nativeElement.style.width = scrollPercentage + "%";
-  }
-
-  private heightInViewport(el: ElementRef) {
-    var elH = el.nativeElement.offsetHeight,
-        H   = document.body.offsetHeight,
-        r   = el.nativeElement.getBoundingClientRect(), t = r.top, b = r.bottom;
-    return Math.max(0, t>0 ? Math.min(elH, H-t) : Math.min(b, H));
-  }
 }
