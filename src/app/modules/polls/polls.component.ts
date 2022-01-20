@@ -1,4 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { PollModel } from 'src/app/models/articles/poll.model';
+import { PollsService } from 'src/app/services/collections/polls/polls.service';
 
 @Component({
   selector: 'app-polls',
@@ -7,10 +10,31 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PollsComponent implements OnInit {
+  allPolls = new BehaviorSubject<PollModel[]>([])
+  isLoading = new BehaviorSubject<boolean>(false)
 
-  constructor() { }
+  constructor(
+    private pollsService: PollsService,
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.getPolls();
   }
 
+  private getPolls() {
+    this.isLoading.next(true);
+    this.pollsService.getPolls().subscribe({
+      next: docs => {
+        this.isLoading.next(false);
+        let data = [];
+        docs.forEach(d =>{
+          data.push(d.data())
+        })
+        this.allPolls.next(data);
+      },
+      error: () => {
+        this.isLoading.next(false);
+      }
+    })
+  }
 }

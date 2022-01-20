@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
@@ -37,7 +36,6 @@ export class AllArticlesComponent implements OnInit {
 
   constructor(
     private articlesService: ArticlesService,
-    private _snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
     private titleService: Title,
   ) { }
@@ -105,7 +103,6 @@ export class AllArticlesComponent implements OnInit {
           this.order = order;
         },
         error: () => {
-          this._snackBar.open('Błąd! Skontaktuj się z pomocą techniczną', 'close');
           this.changeSectionLoading(type, false);
         },
       });

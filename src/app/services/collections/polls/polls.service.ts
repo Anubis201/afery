@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { from } from 'rxjs';
+import { PollModel } from 'src/app/models/articles/poll.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,15 @@ export class PollsService {
     private firestore: AngularFirestore,
   ) { }
 
-  getRef() {
+  private getRef() {
     return this.firestore.collection('polls');
   }
 
-  addPoll(data: any) {
+  addPoll(data: PollModel) {
     return from(this.getRef().add(data))
+  }
+
+  getPolls() {
+    return from(this.getRef().get())
   }
 }
