@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import * as d3 from 'd3';
+import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
 import { PollModel } from 'src/app/models/articles/poll.model';
 
@@ -43,8 +44,8 @@ export class NewestsComponent {
       .attr('transform', 'translate(0,' + this.height + ')')
       .call(d3.axisBottom(x))
       .selectAll('text')
-      .attr('fill', 'white')
-      .style('text-anchor', 'end');
+      .append('svg:image')
+      .attr('xlink:href', party => `/assets/icons/parties/${PartiesEnum[party]}.jpg`)
 
     // Create the Y-axis band scale
     const y = d3.scaleLinear()
