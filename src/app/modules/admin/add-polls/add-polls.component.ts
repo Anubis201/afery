@@ -25,6 +25,14 @@ export class AddPollsComponent {
 
   }
 
+  addItem() {
+    (this.form.get('parties') as FormArray).push(this.createItem());
+  }
+
+  deleteItem(index: number) {
+    (this.form.get('parties') as FormArray).removeAt(index);
+  }
+
   private createItem() {
     return new FormGroup({
       party: new FormControl(null, Validators.required),

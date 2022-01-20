@@ -1,6 +1,9 @@
 <form [formGroup]="form">
-
-  <app-parties></app-parties>
+  <app-parties
+    [items]="form.get('parties')"
+    (addItem)="addItem()"
+    (deleteItem)="deleteItem($event)"
+  ></app-parties>
 
   <app-details
     [surveying]="form.get('surveying')"

@@ -11,15 +11,42 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <mat-form-field appearance="fill">
-      <mat-label>First name</mat-label>
-      <input matInput>
-    </mat-form-field>
+    <div class="parties__items">
+      <div
+        *ngFor="let form of items.controls; let index = index"
+        [formGroup]="form"
+        class="parties__items__item"
+      >
+        <mat-form-field appearance="fill">
+          <mat-label>Partia</mat-label>
+          <mat-select class="parties__items__item--entity" formControlName="party">
+            <mat-option *ngFor="let item of entityItems | async" [value]="item">
+              <img class="parties__items__item--entity--image" [src]="'/assets/icons/parties/' + PartiesEnum[item] + '.jpg'" alt="partie">
+              <span>{{ PartiesEnum[item] }}</span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Age</mat-label>
-      <input matInput type="number" min="1">
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Procenty</mat-label>
+          <input matInput formControlName="percentage" autocomplete="off" type="number">
+        </mat-form-field>
 
+        <button
+          mat-icon-button
+          (click)="deleteItem.emit(index)"
+        >
+          <mat-icon *ngIf="items.controls.length > 1">delete_outline</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="parties__new"
+      (click)="addItem.emit()"
+    >
+      <mat-icon>add_box</mat-icon>
+      <div>Dodaj partię</div>
+    </div>
   </mat-expansion-panel>
 </mat-accordion>
