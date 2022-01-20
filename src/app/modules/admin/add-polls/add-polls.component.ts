@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
+import { PollsService } from 'src/app/services/collections/polls/polls.service';
 
 @Component({
   selector: 'app-add-polls',
@@ -19,10 +21,23 @@ export class AddPollsComponent {
 
   isLoading = new BehaviorSubject<boolean>(false)
 
-  constructor() { }
+  constructor(
+    private pollsService: PollsService,
+    private _snackBar: MatSnackBar,
+  ) { }
 
   addPoll() {
-
+    this.isLoading.next(true);
+    this.pollsService.addPoll(this.form.value).subscribe({
+      next: () => {
+        this.isLoading.next(false);
+        this._snackBar.open('Sondaż został dodany', 'close');
+      },
+      error: () => {
+        this.isLoading.next(false);
+        this._snackBar.open('Nie udało się dodać sondażu', 'close');
+      }
+    })
   }
 
   addItem() {
