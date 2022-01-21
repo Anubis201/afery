@@ -13,74 +13,72 @@ import { PollModel } from 'src/app/models/articles/poll.model';
 export class NewestsComponent {
   @Input() set polls (polls: PollModel[]) {
     if (polls.length) {
-      this.createSvg();
-      this.drawBars(polls[0].parties);
+      this.draw(polls[0].parties);
     }
   }
 
-  private svg;
   private margin = 50;
-  private width = 750 - (this.margin * 2);
-  private height = 400 - (this.margin * 2);
+  private width = 550 - (this.margin * 2);
+  private height = 300 - (this.margin * 2);
 
-  private createSvg(): void {
-    this.svg = d3.select('figure#bar')
-      .append('svg')
-      .attr('width', this.width + (this.margin * 2))
-      .attr('height', this.height + (this.margin * 2))
-      .append('g')
-      .attr('transform', 'translate(' + this.margin + ',' + this.margin + ')');
-  }
-
-  private drawBars(data: PartyCharModel[]): void {
-    // Create the X-axis band scale
-    const x = d3.scaleBand()
+  private draw(data: PartyCharModel[]): void {
+    const xScale = d3
+      .scaleBand()
       .range([0, this.width])
       .domain(data.map(d => d.party as unknown as string))
       .padding(0.2);
 
-    // Draw the X-axis on the DOM
-    this.svg.append('g')
+    const yScale = d3
+      .scaleLinear()
+      .domain([0, 60])
+      .range([this.height, 0]);
+
+    const chartContainer = d3
+      .select('svg')
+      .attr('width', this.width + (this.margin * 2))
+      .attr('height', this.height + (this.margin * 2))
+      .attr('transform', 'translate(' + this.margin + ',' + this.margin + ')');
+
+    const chart = chartContainer.append('g');
+
+    chart
+      .append('g')
       .attr('transform', 'translate(0,' + this.height + ')')
-      .call(d3.axisBottom(x))
+      .call(d3.axisBottom(xScale))
       .selectAll('.tick')
       .append('svg:image')
-      .attr('xlink:href', party => `/assets/icons/parties/${PartiesEnum[party]}.jpg`)
+      .attr('xlink:href', party => `/assets/icons/parties/${PartiesEnum[party as PartiesEnum]}.jpg`)
       .attr('width', 30)
       .attr('height', 30)
       .attr('y', 10)
-      .attr('x', -15)
+      .attr('x', -15);
 
-    // remove x Text
-    this.svg.select('g')
+    chart
+      .select('g')
       .selectAll('text')
       .remove();
 
-    // Create the Y-axis band scale
-    const y = d3.scaleLinear()
-      .domain([0, 100])
-      .range([this.height, 0]);
-
-    // Draw the Y-axis on the DOM
-    // this.svg.append('g')
-    //   .call(d3.axisLeft(y))
-    //   .selectAll('text')
-    //   .attr('fill', 'white');
-
-    // Create and fill the bars
-    this.svg.selectAll('bars')
+    chart
+      .selectAll('.bar')
       .data(data)
       .enter()
-      .append('g')
       .append('rect')
-      .attr('x', d => x(d.party))
-      .attr('y', d => y(d.percentage))
-      .attr('width', x.bandwidth())
-      .attr('height', d => this.height - y(d.percentage))
+      .classed('bar', true )
+      .attr('x', d => xScale(d.party as unknown as string))
+      .attr('y', d => yScale(d.percentage))
+      .attr('width', xScale.bandwidth())
+      .attr('height', d => this.height - yScale(d.percentage))
       .attr('fill', '#db00db');
 
-    this.svg.selectAll('.label')
+    chart
+      .selectAll('.label')
+      .data(data)
+      .enter()
       .append('text')
-
+      .text(d => d.percentage as unknown as string + '%')
+      .attr('x', d => xScale(d.party as unknown as string) + xScale.bandwidth() / 2)
+      .attr('y', d => yScale(d.percentage) - 15)
+      .attr('fill', 'white')
+      .attr('text-anchor', 'middle');
   }
 }
