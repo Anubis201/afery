@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import * as d3 from 'd3';
+import { BehaviorSubject } from 'rxjs';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
 import { PollModel } from 'src/app/models/articles/poll.model';
@@ -13,15 +14,22 @@ import { PollModel } from 'src/app/models/articles/poll.model';
 export class NewestsComponent {
   @Input() set polls (polls: PollModel[]) {
     if (polls.length) {
-      this.draw(polls[0].parties);
+      this.rlyPoll.next(polls)
+      this.rlyPoll.value.forEach((element, index) => {
+        setTimeout(() => {
+          this.draw(element.parties, index);
+        }, 2000);
+      });
     }
   }
+
+  rlyPoll = new BehaviorSubject<PollModel[]>([])
 
   private margin = 50;
   private width = 550 - (this.margin * 2);
   private height = 300 - (this.margin * 2);
 
-  private draw(data: PartyCharModel[]): void {
+  private draw(data: PartyCharModel[], index: number) {
     const xScale = d3
       .scaleBand()
       .range([0, this.width])
@@ -34,7 +42,7 @@ export class NewestsComponent {
       .range([this.height, 0]);
 
     const chartContainer = d3
-      .select('svg')
+      .select(`#chart${index}`)
       .attr('width', this.width + (this.margin * 2))
       .attr('height', this.height + (this.margin * 2))
       .attr('transform', 'translate(' + this.margin + ',' + this.margin + ')');
