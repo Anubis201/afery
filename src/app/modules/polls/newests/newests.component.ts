@@ -43,9 +43,18 @@ export class NewestsComponent {
     this.svg.append('g')
       .attr('transform', 'translate(0,' + this.height + ')')
       .call(d3.axisBottom(x))
-      .selectAll('text')
+      .selectAll('.tick')
       .append('svg:image')
       .attr('xlink:href', party => `/assets/icons/parties/${PartiesEnum[party]}.jpg`)
+      .attr('width', 30)
+      .attr('height', 30)
+      .attr('y', 10)
+      .attr('x', -15)
+
+    // remove x Text
+    this.svg.select('g')
+      .selectAll('text')
+      .remove();
 
     // Create the Y-axis band scale
     const y = d3.scaleLinear()
@@ -53,20 +62,25 @@ export class NewestsComponent {
       .range([this.height, 0]);
 
     // Draw the Y-axis on the DOM
-    this.svg.append('g')
-      .call(d3.axisLeft(y))
-      .selectAll('text')
-      .attr('fill', 'white');
+    // this.svg.append('g')
+    //   .call(d3.axisLeft(y))
+    //   .selectAll('text')
+    //   .attr('fill', 'white');
 
     // Create and fill the bars
     this.svg.selectAll('bars')
       .data(data)
       .enter()
+      .append('g')
       .append('rect')
       .attr('x', d => x(d.party))
       .attr('y', d => y(d.percentage))
       .attr('width', x.bandwidth())
-      .attr('height', (d) => this.height - y(d.percentage))
-      .attr('fill', '#db00db')
+      .attr('height', d => this.height - y(d.percentage))
+      .attr('fill', '#db00db');
+
+    this.svg.selectAll('.label')
+      .append('text')
+
   }
 }
