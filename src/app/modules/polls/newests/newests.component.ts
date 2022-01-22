@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, HostListener } from '@angular/core';
 import * as d3 from 'd3';
 import { BehaviorSubject } from 'rxjs';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
@@ -14,23 +14,50 @@ import { PollModel } from 'src/app/models/articles/poll.model';
 export class NewestsComponent {
   @Input() set polls (polls: PollModel[]) {
     if (polls.length) {
-      this.rlyPoll.next(polls)
-      this.rlyPoll.value.forEach((element, index) => {
-        setTimeout(() => {
-          this.draw(element.parties, index);
-        }, 100);
-      });
+      this.rlyPoll.next(polls);
+      this.create()
     }
   }
+
+  @HostListener('window:resize', ['$event'])
+    onResizeScroll() {
+      this.resize();
+    }
 
   rlyPoll = new BehaviorSubject<PollModel[]>([])
   isLoading = new BehaviorSubject<boolean>(true)
 
   private margin = 30;
-  private width = 550 - (this.margin * 2);
+  private width;
   private height = 300 - (this.margin * 2);
 
+  private resize() {
+    console.log(this.width)
+    this.width = parseInt(d3.select('.poll').style('width'), 10);
+    console.log(this.width)
+
+    this.rlyPoll.value.forEach((element, index) => {
+      this.update(index);
+    });
+  }
+
+  private update(index: number) {
+    d3
+      .select(`#chart${index}`)
+      .attr('width', this.width);
+  }
+
+  private create() {
+    this.rlyPoll.value.forEach((element, index) => {
+      setTimeout(() => {
+        this.draw(element.parties, index);
+      });
+    });
+  }
+
   private draw(data: PartyCharModel[], index: number) {
+    this.width = parseInt(d3.select('.poll').style('width'), 10);
+
     const xScale = d3
       .scaleBand()
       .range([0, this.width])
@@ -45,6 +72,7 @@ export class NewestsComponent {
     const chartContainer = d3
       .select(`#chart${index}`)
       .attr('width', this.width)
+      .classed('chart-container', true)
       .attr('height', this.height + (this.margin * 2))
 
     const chart = chartContainer.append('g');

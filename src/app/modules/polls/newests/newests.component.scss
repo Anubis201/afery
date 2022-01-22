@@ -6,6 +6,12 @@
 }
 
 .poll {
+  width: 330px;
+
+
+  @media (min-width: 767px) {
+    width: 500px;
+  }
 
   &__title {
     display: flex;

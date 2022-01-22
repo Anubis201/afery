@@ -1,9 +1,14 @@
 :host {
   display: flex;
   min-height: 80vh;
-  place-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-app-newests {
-  margin-top: 9.5rem;
+app-avarage {
+  margin-top: 5.5rem;
+
+  @media (min-width: 767px) {
+    margin-top: 9.5rem;
+  }
 }
