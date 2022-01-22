@@ -3,7 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { PollModel } from 'src/app/models/articles/poll.model';
+import { PollModel } from 'src/app/models/polls/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
 
 @Component({
