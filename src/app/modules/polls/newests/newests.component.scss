@@ -1,0 +1,25 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: white;
+}
+
+.poll {
+
+  &__title {
+    display: flex;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    justify-content: space-between;
+  }
+}
+
+.section-title {
+  border-bottom: 1px solid white;
+  font-size: 20px;
+  letter-spacing: 1px;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}

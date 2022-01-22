@@ -18,14 +18,15 @@ export class NewestsComponent {
       this.rlyPoll.value.forEach((element, index) => {
         setTimeout(() => {
           this.draw(element.parties, index);
-        }, 2000);
+        }, 100);
       });
     }
   }
 
   rlyPoll = new BehaviorSubject<PollModel[]>([])
+  isLoading = new BehaviorSubject<boolean>(true)
 
-  private margin = 50;
+  private margin = 30;
   private width = 550 - (this.margin * 2);
   private height = 300 - (this.margin * 2);
 
@@ -38,14 +39,13 @@ export class NewestsComponent {
 
     const yScale = d3
       .scaleLinear()
-      .domain([0, 60])
+      .domain([0, 55])
       .range([this.height, 0]);
 
     const chartContainer = d3
       .select(`#chart${index}`)
-      .attr('width', this.width + (this.margin * 2))
+      .attr('width', this.width)
       .attr('height', this.height + (this.margin * 2))
-      .attr('transform', 'translate(' + this.margin + ',' + this.margin + ')');
 
     const chart = chartContainer.append('g');
 
@@ -88,5 +88,7 @@ export class NewestsComponent {
       .attr('y', d => yScale(d.percentage) - 15)
       .attr('fill', 'white')
       .attr('text-anchor', 'middle');
+
+      this.isLoading.next(false);
   }
 }

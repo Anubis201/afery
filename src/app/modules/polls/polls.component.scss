@@ -1,6 +1,7 @@
 :host {
   display: flex;
   min-height: 80vh;
+  place-content: center;
 }
 
 app-newests {

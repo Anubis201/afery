@@ -1,3 +1,17 @@
-<div *ngFor="let poll of rlyPoll | async; let index = index">
+<div
+  *ngIf="!(isLoading | async)"
+  class="section-title"
+>Najnowsze sondaże</div>
+
+<div
+  *ngFor="let poll  of rlyPoll | async; let index = index"
+  [style.display]="isLoading.value ? 'none' : 'block'"
+  class="poll"
+>
+  <div class="poll__title">
+    <span>{{ poll.surveying }}</span>
+    <span>{{ poll.when | date:'dd.MM.yyyy' }}</span>
+  </div>
+  <!-- <span>{{ poll.forWhom }}</span> -->
   <svg [attr.id]="'chart' + index"></svg>
 </div>

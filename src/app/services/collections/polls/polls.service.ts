@@ -21,6 +21,6 @@ export class PollsService {
   }
 
   getPolls() {
-    return from(this.getRef().ref.orderBy('when').get())
+    return from(this.getRef().ref.orderBy('when', 'desc').get())
   }
 }
