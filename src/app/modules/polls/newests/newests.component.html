@@ -10,7 +10,25 @@
 >
   <div class="poll__title">
     <span>{{ poll.surveying }}</span>
-    <span>{{ poll.when | date:'dd.MM.yyyy' }}</span>
+    <span class="poll__title__others">
+      {{ poll.when | date:'dd.MM.yyyy' }}
+      <div *ngIf="isAdmin">
+        <button
+          mat-icon-button
+          matTooltip="Edytuj"
+          (click)="editPoll.emit(poll.id)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          matTooltip="Usuń"
+          (click)="deletePoll.emit(poll.id)"
+        >
+          <mat-icon>delete_outline</mat-icon>
+        </button>
+      </div>
+    </span>
   </div>
   <svg [attr.id]="'chart' + index"></svg>
 </div>

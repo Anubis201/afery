@@ -1,7 +1,8 @@
-<app-avarage
-
-></app-avarage>
+<app-avarage></app-avarage>
 
 <app-newests
   [polls]="allPolls | async"
+  [isAdmin]="isAdmin | async"
+  (deletePoll)="handleDeletePoll($event)"
+  (editPoll)="handleEditPoll($event)"
 ></app-newests>

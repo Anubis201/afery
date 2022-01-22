@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, HostListener, Output, EventEmitter } from '@angular/core';
 import * as d3 from 'd3';
 import { BehaviorSubject } from 'rxjs';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
@@ -12,6 +12,7 @@ import { PollModel } from 'src/app/models/articles/poll.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewestsComponent {
+  @Input() isAdmin: boolean
   @Input() set polls (polls: PollModel[]) {
     if (polls.length) {
       this.rlyPoll.next(polls);
@@ -23,6 +24,9 @@ export class NewestsComponent {
     onResizeScroll() {
       this.resize();
     }
+
+  @Output() editPoll = new EventEmitter<string>()
+  @Output() deletePoll = new EventEmitter<string>()
 
   rlyPoll = new BehaviorSubject<PollModel[]>([])
   isLoading = new BehaviorSubject<boolean>(true)

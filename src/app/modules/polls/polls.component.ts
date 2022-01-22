@@ -3,6 +3,7 @@ import { Meta } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
 import { PollModel } from 'src/app/models/articles/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
+import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
   selector: 'app-polls',
@@ -14,14 +15,27 @@ export class PollsComponent implements OnInit {
   allPolls = new BehaviorSubject<PollModel[]>([])
   isLoading = new BehaviorSubject<boolean>(false)
 
+  get isAdmin() {
+    return this.userService.isAdmin
+  }
+
   constructor(
     private pollsService: PollsService,
     private meta: Meta,
+    private userService: UserService,
   ) { }
 
   ngOnInit() {
     this.getPolls();
     this.metaTags();
+  }
+
+  handleEditPoll(id: string) {
+
+  }
+
+  handleDeletePoll(id: string) {
+
   }
 
   private getPolls() {
@@ -31,7 +45,7 @@ export class PollsComponent implements OnInit {
         this.isLoading.next(false);
         let data: PollModel[] = [];
         docs.forEach(d =>{
-          data.push({ ...d.data() as PollModel, when: (d.data() as any).when.toDate() })
+          data.push({ ...d.data() as PollModel, when: (d.data() as any).when.toDate(), id: d.id })
         })
         this.allPolls.next(data);
       },
