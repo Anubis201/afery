@@ -1,4 +1,4 @@
-import { PartyCharModel } from './party-char.model';
+import { PartyCharModel } from '../articles/party-char.model';
 
 export interface PollModel {
   forWhom: string
