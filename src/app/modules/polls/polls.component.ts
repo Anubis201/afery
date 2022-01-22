@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Meta } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { PollModel } from 'src/app/models/articles/poll.model';
+import { PollModel } from 'src/app/models/polls/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
 import { UserService } from 'src/app/services/global/user/user.service';
 

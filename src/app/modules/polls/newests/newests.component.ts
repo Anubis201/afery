@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import { BehaviorSubject } from 'rxjs';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
-import { PollModel } from 'src/app/models/articles/poll.model';
+import { PollModel } from 'src/app/models/polls/poll.model';
 
 @Component({
   selector: 'app-newests',

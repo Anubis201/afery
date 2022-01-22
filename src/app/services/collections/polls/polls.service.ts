@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { from } from 'rxjs';
-import { PollModel } from 'src/app/models/articles/poll.model';
+import { PollModel } from 'src/app/models/polls/poll.model';
 
 @Injectable({
   providedIn: 'root'
