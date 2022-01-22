@@ -32,9 +32,7 @@ export class NewestsComponent {
   private height = 300 - (this.margin * 2);
 
   private resize() {
-    console.log(this.width)
     this.width = parseInt(d3.select('.poll').style('width'), 10);
-    console.log(this.width)
 
     this.rlyPoll.value.forEach((element, index) => {
       this.update(index);
