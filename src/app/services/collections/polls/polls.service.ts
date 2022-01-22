@@ -23,4 +23,16 @@ export class PollsService {
   getPolls() {
     return from(this.getRef().ref.orderBy('when', 'desc').get())
   }
+
+  getSinglePoll(id: string) {
+    return from(this.getRef().doc(id).get())
+  }
+
+  deletePoll(docId: string) {
+    return from(this.getRef().doc(docId).delete())
+  }
+
+  editPoll(data: PollModel, id: string) {
+    return from(this.getRef().doc(id).update(data))
+  }
 }

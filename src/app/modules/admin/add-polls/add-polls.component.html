@@ -18,11 +18,11 @@
     type="submit"
     color="primary"
     [disabled]="form.invalid || isLoading.value"
-    (click)="addPoll()"
+    (click)="handleSubmit()"
   >
     <div class="loading-button">
       <mat-spinner *ngIf="isLoading | async" [diameter]="20"></mat-spinner>
-      <span>Dodaj</span>
+      <span>{{ (idPoll | async).length ? 'Edytuj' : 'Dodaj' }}</span>
     </div>
   </button>
 </form>

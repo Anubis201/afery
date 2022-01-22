@@ -18,3 +18,13 @@ form {
   margin-top: 1rem;
 }
 
+.loading-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  mat-spinner {
+    margin-right: 80px;
+    position: absolute;
+  }
+}

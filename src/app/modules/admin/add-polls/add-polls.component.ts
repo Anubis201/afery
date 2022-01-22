@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { PollModel } from 'src/app/models/articles/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
 
 @Component({
@@ -10,7 +12,7 @@ import { PollsService } from 'src/app/services/collections/polls/polls.service';
   styleUrls: ['./add-polls.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddPollsComponent {
+export class AddPollsComponent implements OnInit {
   form = new FormGroup({
     parties: new FormArray([ this.createItem() ]),
     surveying: new FormControl(null, Validators.required),
@@ -20,13 +22,56 @@ export class AddPollsComponent {
   })
 
   isLoading = new BehaviorSubject<boolean>(false)
+  idPoll = new BehaviorSubject<string>('')
 
   constructor(
     private pollsService: PollsService,
     private _snackBar: MatSnackBar,
+    private activatedRoute: ActivatedRoute,
   ) { }
 
-  addPoll() {
+  ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(({ id }) => {
+      if (id) {
+        this.getPollDataForEdit(id);
+      } else {
+        this.idPoll.next('');
+      }
+    })
+  }
+
+  handleSubmit() {
+    if (this.idPoll.value.length) {
+      // edycja artykulu
+      this.editPoll();
+    } else {
+      this.addPoll();
+    }
+  }
+
+  addItem() {
+    (this.form.get('parties') as FormArray).push(this.createItem());
+  }
+
+  deleteItem(index: number) {
+    (this.form.get('parties') as FormArray).removeAt(index);
+  }
+
+  private editPoll() {
+    this.isLoading.next(true);
+    this.pollsService.editPoll(this.form.value, this.idPoll.value).subscribe({
+      next: () => {
+        this.isLoading.next(false);
+        this._snackBar.open('Sondaż został zmodyfikowany', 'close');
+      },
+      error: () => {
+        this.isLoading.next(false);
+        this._snackBar.open('Nie udało się zmodyfikować sondażu', 'close');
+      }
+    })
+  }
+
+  private addPoll() {
     this.isLoading.next(true);
     this.pollsService.addPoll(this.form.value).subscribe({
       next: () => {
@@ -40,12 +85,30 @@ export class AddPollsComponent {
     })
   }
 
-  addItem() {
-    (this.form.get('parties') as FormArray).push(this.createItem());
-  }
+  private getPollDataForEdit(id: string) {
+    this.pollsService.getSinglePoll(id).subscribe({
+      next: doc => {
+        let data = doc.data() as PollModel;
 
-  deleteItem(index: number) {
-    (this.form.get('parties') as FormArray).removeAt(index);
+        this.form.patchValue({
+          ...data,
+          when: (data as any).when.toDate(),
+        });
+
+        (this.form.get('parties') as FormArray).controls = [];
+
+        data.parties.forEach(element => {
+          (this.form.get('parties') as FormArray).push(
+            new FormGroup({
+              party: new FormControl(element.party, Validators.required),
+              percentage: new FormControl(element.percentage, Validators.required),
+          })
+        )})
+
+        this.idPoll.next(doc.id);
+      },
+      error: () => this._snackBar.open('Nie udało się pobrać sondażu dla edycji', 'close')
+    })
   }
 
   private createItem() {

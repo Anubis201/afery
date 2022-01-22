@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Meta } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { PollModel } from 'src/app/models/articles/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
@@ -23,6 +25,8 @@ export class PollsComponent implements OnInit {
     private pollsService: PollsService,
     private meta: Meta,
     private userService: UserService,
+    private _snackBar: MatSnackBar,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -31,11 +35,21 @@ export class PollsComponent implements OnInit {
   }
 
   handleEditPoll(id: string) {
-
+    this.router.navigate(
+      ['/admin/polls'],
+      { queryParams: { id } }
+    )
   }
 
   handleDeletePoll(id: string) {
-
+    this.pollsService.deletePoll(id).subscribe({
+      next: () => {
+        this.allPolls.next(this.allPolls.value.filter(element => element.id !== id));
+      },
+      error: () => {
+        this._snackBar.open('Nie udało sie usunąć sondażu', 'close');
+      }
+    })
   }
 
   private getPolls() {

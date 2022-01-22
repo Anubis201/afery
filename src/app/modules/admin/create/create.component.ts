@@ -54,11 +54,13 @@ export class CreateComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(({ id }) => {
       if (id) {
         this.getArticleForEdit(id);
+      } else {
+        this.articleId.next('');
       }
     })
   }
 
-  handleFormClick(images: FileList | null) {
+  handleSubmit(images: FileList | null) {
     if (this.articleId.value.length) {
       // edycja artykulu
       this.edit();
