@@ -1,7 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import * as d3 from 'd3';
+import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
 import { PollModel } from 'src/app/models/polls/poll.model';
+
+interface CharDataModel {
+  party: PartiesEnum,
+  percentage: number,
+  time: Date,
+}
 
 @Component({
   selector: 'app-avarage',
@@ -14,9 +20,22 @@ export class AvarageComponent {
     if (!polls.length) return
 
     this.prepareData(polls);
+    this.convertDataToChart();
   }
 
-  data: any[] = []
+  private charData: CharDataModel[] = []
+  private data: { time: Date, parties: PartyCharModel[] }[] = []
+
+  private convertDataToChart() {
+    this.data.forEach(toConvert => {
+      const helpVariable = [];
+      helpVariable.push(toConvert.parties.map(e => ({
+        ...e,
+        time: toConvert.time,
+      })))
+      this.charData = [...this.charData, ...helpVariable[0]]
+    })
+  }
 
   private setDefualtParties(poll: PollModel) {
     return poll.parties.map(ele => ({ ...ele, percentage: 0 }))

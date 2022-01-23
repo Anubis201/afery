@@ -49,7 +49,7 @@ export class NewestsComponent {
 
     const yScale = d3
       .scaleLinear()
-      .domain([0, 55])
+      .domain([0, 50])
       .range([this.height, 0]);
 
     const chartContainer = d3
