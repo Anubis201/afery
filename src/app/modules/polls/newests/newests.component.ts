@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, HostListener, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 import * as d3 from 'd3';
 import { BehaviorSubject } from 'rxjs';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
@@ -14,16 +14,11 @@ import { PollModel } from 'src/app/models/polls/poll.model';
 export class NewestsComponent {
   @Input() isAdmin: boolean
   @Input() set polls (polls: PollModel[]) {
-    if (polls.length) {
-      this.rlyPoll.next(polls);
-      this.create()
-    }
-  }
+    if (!polls.length) return
 
-  @HostListener('window:resize', ['$event'])
-    onResizeScroll() {
-      this.resize();
-    }
+    this.rlyPoll.next(polls);
+    this.create();
+  }
 
   @Output() editPoll = new EventEmitter<string>()
   @Output() deletePoll = new EventEmitter<string>()
@@ -34,20 +29,6 @@ export class NewestsComponent {
   private margin = 30;
   private width;
   private height = 300 - (this.margin * 2);
-
-  private resize() {
-    this.width = parseInt(d3.select('.poll').style('width'), 10);
-
-    this.rlyPoll.value.forEach((element, index) => {
-      this.update(index);
-    });
-  }
-
-  private update(index: number) {
-    d3
-      .select(`#chart${index}`)
-      .attr('width', this.width);
-  }
 
   private create() {
     this.rlyPoll.value.forEach((element, index) => {
