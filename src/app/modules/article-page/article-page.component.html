@@ -9,7 +9,7 @@
     <div class="page__title">
       {{ article.value?.title }}
       <div
-        *ngIf="isAdmin"
+        *ngIf="isAdmin.value"
         class="page__title--buttons"
       >
         <button

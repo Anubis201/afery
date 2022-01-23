@@ -17,6 +17,6 @@ export class ArticleComponent {
   readonly ArticlesTypesEnum = ArticlesTypesEnum
 
   get toArticlePage() {
-    return `/artykul/${this.article.id}/${ChangePolishChars(this.article.title)}`
+    return `${location.href}/artykul/${this.article.id}/${ChangePolishChars(this.article.title)}`
   }
 }

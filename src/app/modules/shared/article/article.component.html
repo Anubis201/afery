@@ -1,5 +1,6 @@
 <mat-card class="article d-none d-sm-block">
-  <a [routerLink]="[toArticlePage]">
+  <!-- TODO SPRAWDZIC czy teraz przechodzi dalej -->
+  <a [href]="toArticlePage">
     <div class="article__image" [style.background-image]="'url(' + article.imageSrc + ')'">
       <img *ngIf="article.type === ArticlesTypesEnum.PoliticalParties" class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
     </div>
@@ -15,8 +16,9 @@
     </mat-card-footer>
   </a>
 </mat-card>
+  <!-- TODO SPRAWDZIC czy teraz przechodzi dalej -->
 
-<a [routerLink]="[toArticlePage]" class="mobile-article d-sm-none">
+<a [href]="toArticlePage" class="mobile-article d-sm-none">
   <div class="mobile-article__image" [style.background-image]="'url(' + article.imageSrc + ')'">
     <img *ngIf="article.type === ArticlesTypesEnum.PoliticalParties" class="mobile-article__image--entity" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
   </div>
