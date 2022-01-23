@@ -18,9 +18,18 @@ export class AvarageComponent {
 
   data: any[] = []
 
+  private setDefualtParties(poll: PollModel) {
+    return poll.parties.map(ele => ({ ...ele, percentage: 0 }))
+  }
+
+  private getValue(monthAvarage: PartyCharModel[], countItem: number) {
+    return monthAvarage.map(e => ({ ...e, percentage: e.percentage as number / countItem }))
+  }
+
   private prepareData(polls: PollModel[]) {
     let time: Date = polls[0].when;
-    let monthAvarage: PartyCharModel[] = polls[0].parties;
+    let monthAvarage: PartyCharModel[] = this.setDefualtParties(polls[0]);
+    let countItem = 0;
 
     polls.forEach((element, index) => {
       element.when.setDate(1);
@@ -30,16 +39,18 @@ export class AvarageComponent {
       if (isDiffDate) {
         this.data.push({
           time,
-          parties: monthAvarage,
+          parties: this.getValue(monthAvarage, countItem),
         });
 
         time = element.when;
-        monthAvarage = [];
+        monthAvarage = this.setDefualtParties(polls[0]);
+        countItem = 0;
       }
 
+      countItem++;
       monthAvarage = element.parties.map(el => ({
         ...el,
-        percentage: (monthAvarage.find(f => f.party === el.party)?.percentage as number) ?? 0 + (el.percentage as number)
+        percentage: (monthAvarage.find(f => f.party === el.party)?.percentage as number) + (el.percentage as number)
       }));
 
       if (!isLast) return
@@ -47,13 +58,11 @@ export class AvarageComponent {
       if (this.data[this.data.length - 1].time.getTime() !== element.when.getTime()) {
         this.data.push({
           time,
-          parties: monthAvarage,
+          parties: this.getValue(monthAvarage, countItem),
         });
       } else {
         this.data[this.data.length - 1].parties = monthAvarage;
       }
     })
-
-    console.log(this.data);
   }
 }
