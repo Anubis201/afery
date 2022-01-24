@@ -4,6 +4,12 @@
     <div class="comment__texts--name">{{ comment.name }}</div>
     <div class="comment__texts--date">{{ comment.date | date:'dd.MM.yyyy HH:mm' }}</div>
     <div class="comment__texts--desc">{{ comment.text }}</div>
+    <div class="comment__texts--answers">
+      <button
+        mat-button
+      >Odpowiedz</button>
+      <button mat-button>Zobacz odpowiedzi (4)</button>
+    </div>
   </div>
   <div class="comment__buttons">
     <button

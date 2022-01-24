@@ -7,6 +7,9 @@ import { CommentComponent } from './comment/comment.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { WriteCommentComponent } from './write-comment/write-comment.component';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const declarations = [
   MillionsPipe,
@@ -14,12 +17,16 @@ const declarations = [
   SafeHtmlPipe,
 
   CommentComponent,
+  WriteCommentComponent,
 ]
 
 const imports = [
   MatIconModule,
   MatButtonModule,
   MatTooltipModule,
+  MatInputModule,
+  ReactiveFormsModule,
+  FormsModule,
 ]
 
 @NgModule({

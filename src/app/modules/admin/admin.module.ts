@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AuthComponent } from './auth/auth.component';
-import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MenuListComponent } from './menu-list/menu-list.component';
 import { MatListModule } from '@angular/material/list';
@@ -38,10 +36,7 @@ import { MatNativeDateModule } from '@angular/material/core';
   ],
   imports: [
     CommonModule,
-    MatInputModule,
     MatNativeDateModule,
-    ReactiveFormsModule,
-    FormsModule,
     MatDatepickerModule,
     MatRadioModule,
     MatExpansionModule,

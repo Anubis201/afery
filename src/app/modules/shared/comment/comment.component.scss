@@ -7,6 +7,8 @@
   }
 
   &__texts {
+    word-break: break-word;
+    letter-spacing: 1px;
 
     &--name {
       font-weight: 500;
@@ -18,7 +20,11 @@
     }
 
     &--desc {
-      margin-top: 1rem;
+      margin-top: 10px;
+    }
+
+    &--answers {
+      margin-top: 10px;
     }
   }
 

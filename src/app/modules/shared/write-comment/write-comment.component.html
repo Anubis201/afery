@@ -12,12 +12,12 @@
   <div class="desc">
     <mat-form-field appearance="fill">
       <mat-label>Treść komentarza</mat-label>
-      <textarea matInput formControlName="text" autocomplete="off" type="text" rows="3"></textarea>
+      <textarea matInput formControlName="text" autocomplete="off" type="text" rows="1"></textarea>
       <mat-error *ngIf="!form.get('text')?.hasError('required')">Max długośc to {{ commentLength }} znaków</mat-error>
     </mat-form-field>
   </div>
 
-  <div class="create">
+  <div class="create" (click)="test()">
     <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid" (click)="add()">Dodaj</button>
   </div>
 </form>
