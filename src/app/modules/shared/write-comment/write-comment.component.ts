@@ -11,6 +11,7 @@ import { CommentModel } from 'src/app/models/articles/comment.model';
 export class WriteCommentComponent {
   @Input() countComment: number | undefined = 0
   @Input() isSavingComment: boolean
+  @Input() answerMode: boolean = false
 
   @Output() addComment = new EventEmitter<CommentModel>()
 

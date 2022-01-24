@@ -1,6 +1,13 @@
-<div class="label">Komentarza: {{ countComment }}</div>
+<div
+  *ngIf="!answerMode"
+  class="label"
+>Komentarza: {{ countComment }}</div>
 
-<form *ngIf="!isSavingComment" [formGroup]="form">
+<form
+  *ngIf="!isSavingComment"
+  [formGroup]="form"
+  [class.left-margin]="answerMode"
+>
   <div class="name">
     <mat-form-field appearance="fill">
       <mat-label>Nazwa</mat-label>

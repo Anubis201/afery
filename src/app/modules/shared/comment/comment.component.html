@@ -7,8 +7,11 @@
     <div class="comment__texts--answers">
       <button
         mat-button
+        (click)="handleOpenWriteComment.next(!handleOpenWriteComment.value)"
       >Odpowiedz</button>
-      <button mat-button>Zobacz odpowiedzi (4)</button>
+      <button
+        mat-button
+      >Zobacz odpowiedzi (4)</button>
     </div>
   </div>
   <div class="comment__buttons">
@@ -23,3 +26,10 @@
     <ng-content select="[customButtons]"></ng-content>
   </div>
 </div>
+<!-- Pisanie odpowiedzi -->
+<app-write-comment
+  *ngIf="handleOpenWriteComment | async"
+  [isSavingComment]="isSaving | async"
+  [answerMode]="true"
+  (addComment)="addAnswer($event)"
+></app-write-comment>
