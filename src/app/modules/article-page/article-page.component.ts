@@ -57,7 +57,12 @@ export class ArticlePageComponent implements OnInit {
 
   handleAddComment(comment: CommentModel) {
     this.isSavingComment = true;
-    const rlyComment: CommentModel = { ...comment, articleId: this.article.value?.id as string, isNew: true };
+    const rlyComment: CommentModel = {
+      ...comment,
+      articleId: this.article.value?.id as string,
+      isNew: true,
+      isAnswer: false,
+    };
 
     this.commentsService.addComment(rlyComment).subscribe({
       next: () => {
@@ -75,11 +80,16 @@ export class ArticlePageComponent implements OnInit {
       next: commentsDocs => {
         let allComments: CommentModel[] = [];
         commentsDocs.forEach(comment => {
-          allComments.push({ ...comment.data() as CommentModel, date: (comment.data() as any).date.toDate(), id: comment.id });
+          allComments.push({
+            ...comment.data() as CommentModel,
+            date: (comment.data() as any).date.toDate(),
+            id: comment.id
+          });
         });
         this.comments.next(allComments);
       },
-      error: () => {
+      error: err => {
+        console.log(err)
         this._snackBar.open('Nie udało się pobrać komentarzy', 'close');
       }
     })
@@ -158,8 +168,9 @@ export class ArticlePageComponent implements OnInit {
   }
 
   // TODO WAŻNE !!! 500max komentarzy na jeden batch. KIEDYS TRZEBA BEDZIE TO NAPRAWIC :D
+  // DODAC USUWANIE ODPOWIEDZI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   private removeAllComments(id: string) {
-    return this.commentsService.getComments(id).pipe(
+    return this.commentsService.getCommentsToDelete(id).pipe(
       map(comments => {
         let batch = this.db.firestore.batch();
 

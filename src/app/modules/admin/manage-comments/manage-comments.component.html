@@ -3,6 +3,7 @@
     *ngFor="let comment of comments | async"
     [comment]="comment"
     [isAdmin]="true"
+    [isMenagaComponent]="true"
     (deleteComment)="deleteComment($event)"
   >
     <a

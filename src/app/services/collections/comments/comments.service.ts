@@ -20,8 +20,16 @@ export class CommentsService {
     return from(this.getRef().add(comment))
   }
 
-  getComments(articleId: string) {
+  getCommentsToDelete(articleId: string) {
     return from(this.getRef().ref.where('articleId', '==', articleId).get())
+  }
+
+  getComments(articleId: string) {
+    return from(this.getRef().ref.where('articleId', '==', articleId).where('isAnswer', '==', false).get())
+  }
+
+  getAnswers(commentId: string) {
+    return from(this.getRef().ref.where('commentId', '==', commentId).get())
   }
 
   getAdminAllComments() {

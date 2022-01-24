@@ -4,6 +4,7 @@ export interface CommentModel {
   text: string
   date: Date
   isNew: boolean
-  commentid?: string // tylko gdy jest to odpowiedz na jakis komentarz
+  isAnswer: boolean
+  commentId?: string // tylko gdy jest to odpowiedz na jakis komentarz
   id?: string // trzeba to ustawić recznie podczas pobierania komentarza ustawic mu id dokumenu
 }

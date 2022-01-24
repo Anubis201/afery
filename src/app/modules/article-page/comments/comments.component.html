@@ -3,6 +3,7 @@
     *ngFor="let comment of comments"
     [comment]="comment"
     [isAdmin]="isAdmin"
+    [isMenagaComponent]="false"
     (deleteComment)="deleteComment.emit($event)"
   ></app-comment>
 </div>

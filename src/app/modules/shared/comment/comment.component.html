@@ -4,14 +4,15 @@
     <div class="comment__texts--name">{{ comment.name }}</div>
     <div class="comment__texts--date">{{ comment.date | date:'dd.MM.yyyy HH:mm' }}</div>
     <div class="comment__texts--desc">{{ comment.text }}</div>
-    <div class="comment__texts--answers">
+    <div *ngIf="!isMenagaComponent" class="comment__texts--answers">
       <button
         mat-button
         (click)="handleOpenWriteComment.next(!handleOpenWriteComment.value)"
       >Odpowiedz</button>
       <button
+        *ngIf="(countAnswers | async) > 0"
         mat-button
-      >Zobacz odpowiedzi (4)</button>
+      >Zobacz odpowiedzi ({{ countAnswers.value }})</button>
     </div>
   </div>
   <div class="comment__buttons">
@@ -28,7 +29,7 @@
 </div>
 <!-- Pisanie odpowiedzi -->
 <app-write-comment
-  *ngIf="handleOpenWriteComment | async"
+  *ngIf="(handleOpenWriteComment | async)"
   [isSavingComment]="isSaving | async"
   [answerMode]="true"
   (addComment)="addAnswer($event)"

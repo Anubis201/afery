@@ -33,7 +33,11 @@ export class ManageCommentsComponent implements OnInit {
       next: commentsDocs => {
         let allComments: CommentModel[] = [];
         commentsDocs.forEach(comment => {
-          allComments.push({ ...comment.data() as CommentModel, date: (comment.data() as any).date.toDate(), id: comment.id });
+          allComments.push({
+            ...comment.data() as CommentModel,
+            date: (comment.data() as any).date.toDate(),
+            id: comment.id
+          });
         });
         this.comments.next(allComments);
       },
