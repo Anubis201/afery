@@ -55,7 +55,7 @@ export class CommentComponent implements OnInit {
       next: docs => {
         let data: CommentModel[] = [];
 
-        docs.forEach(doc => data.push(doc.data() as CommentModel));
+        docs.forEach(doc => data.push({ ...doc.data() as CommentModel, date: (doc.data() as any).date.toDate() }));
 
         this.answers.next(data);
         this.handleOpenAnswers.next(true);
