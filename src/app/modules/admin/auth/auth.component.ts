@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BanService } from 'src/app/services/collections/ban/ban.service';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
@@ -19,17 +19,12 @@ export class AuthComponent implements OnInit {
   isBanned = new BehaviorSubject<boolean>(false)
   isLoading = new BehaviorSubject<boolean>(true)
 
-  private ip: string
-  private formSub: Subscription
-
   constructor(
-    private banService: BanService,
     private userService: UserService,
   ) { }
 
   ngOnInit() {
-    this.getIdAndCheckBan()
-    this.formSub = this.form.valueChanges.subscribe((value: { email: string, password: string }) => {
+    this.form.valueChanges.subscribe((value: { email: string, password: string }) => {
       if (this.isBanned.value || this.isLoading.value) return
 
       if (value.email === 'mikolaj@swieta.fin' && value.password === 'prezenty') {
@@ -44,32 +39,6 @@ export class AuthComponent implements OnInit {
 
   // Prezent dla włamywacza
   private gift() {
-    this.banService.addElement(this.ip, true)
-    this.formSub.unsubscribe()
     this.isBanned.next(true)
-  }
-
-  private checkBan() {
-    this.banService.getElement(this.ip).subscribe(doc => {
-      if (!doc.exists) {
-        this.isBanned.next(false)
-      } else {
-        this.isBanned.next((doc.data() as { ban: boolean }).ban)
-      }
-
-      this.isLoading.next(false)
-    })
-  }
-
-  private getIdAndCheckBan() {
-    this.banService.getIp().subscribe({
-      next: value => {
-        this.ip = value.ipAddress
-        this.checkBan()
-      },
-      error: () => {
-        this.isLoading.next(false)
-      }
-    })
   }
 }
