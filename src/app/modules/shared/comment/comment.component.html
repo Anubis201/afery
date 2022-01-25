@@ -9,6 +9,20 @@
         mat-button
         (click)="handleOpenWriteComment.next(!handleOpenWriteComment.value)"
       >Odpowiedz</button>
+
+      <div class="actions">
+        <div
+          class="action"
+        >
+          <span>0</span>
+          <img class="plus" src="/assets/icons/comment/plus.svg" alt="plus icon">
+        </div>
+        <div class="action">
+          <span>0</span>
+          <img class="minus" src="/assets/icons/comment/minus.svg" alt="minus icon">
+        </div>
+      </div>
+
       <button
         *ngIf="(countAnswers | async) > 0 && !handleOpenAnswers.value"
         mat-button
