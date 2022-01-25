@@ -41,7 +41,10 @@
   (addComment)="addAnswer($event)"
 ></app-write-comment>
 <!-- Odpowiedzi -->
-<ng-container *ngIf="handleOpenAnswers | async">
+<div
+  *ngIf="handleOpenAnswers | async"
+  class="answer"
+>
   <ng-container *ngFor="let answer of answers | async">
     <app-answer
       [data]="answer"
@@ -49,4 +52,4 @@
       (deleteComment)="deleteComment.emit($event)"
     ></app-answer>
   </ng-container>
-</ng-container>
+</div>
