@@ -1,18 +1,23 @@
 :host {
   display: flex;
   flex-direction: column;
-  gap: 15px;
   color: white;
   margin-bottom: 3rem;
   margin-top: 5px;
 }
 
+.all {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+}
+
 .poll {
   width: 330px;
 
-
   @media (min-width: 767px) {
-    width: 500px;
+    width: 450px;
   }
 
   &__title {
@@ -35,5 +40,5 @@
   font-size: 20px;
   letter-spacing: 1px;
   padding-bottom: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
