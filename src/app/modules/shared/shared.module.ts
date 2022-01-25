@@ -10,6 +10,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { WriteCommentComponent } from './write-comment/write-comment.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AnswerComponent } from './answer/answer.component';
 
 const declarations = [
   MillionsPipe,
@@ -18,6 +19,7 @@ const declarations = [
 
   CommentComponent,
   WriteCommentComponent,
+  AnswerComponent,
 ]
 
 const imports = [
@@ -31,7 +33,7 @@ const imports = [
 
 @NgModule({
   declarations: [
-    ...declarations
+    ...declarations,
   ],
   imports: [
     CommonModule,

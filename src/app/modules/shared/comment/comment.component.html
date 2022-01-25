@@ -10,9 +10,15 @@
         (click)="handleOpenWriteComment.next(!handleOpenWriteComment.value)"
       >Odpowiedz</button>
       <button
-        *ngIf="(countAnswers | async) > 0"
+        *ngIf="(countAnswers | async) > 0 && !handleOpenAnswers.value"
         mat-button
+        (click)="getAnswersToDisplay()"
       >Zobacz odpowiedzi ({{ countAnswers.value }})</button>
+      <button
+        *ngIf="handleOpenAnswers.value"
+        mat-button
+        (click)="handleOpenAnswers.next(false)"
+      >Ukryj odpowiedzi</button>
     </div>
   </div>
   <div class="comment__buttons">
@@ -29,8 +35,18 @@
 </div>
 <!-- Pisanie odpowiedzi -->
 <app-write-comment
-  *ngIf="(handleOpenWriteComment | async)"
+  *ngIf="handleOpenWriteComment | async"
   [isSavingComment]="isSaving | async"
   [answerMode]="true"
   (addComment)="addAnswer($event)"
 ></app-write-comment>
+<!-- Odpowiedzi -->
+<ng-container *ngIf="handleOpenAnswers | async">
+  <ng-container *ngFor="let answer of answers | async">
+    <app-answer
+      [data]="answer"
+      [isAdmin]="isAdmin"
+      (deleteComment)="deleteComment.emit($event)"
+    ></app-answer>
+  </ng-container>
+</ng-container>

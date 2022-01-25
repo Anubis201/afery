@@ -19,8 +19,10 @@ export class CommentComponent implements OnInit {
   constructor(private commentsService: CommentsService) {}
 
   handleOpenWriteComment = new BehaviorSubject<boolean>(false)
+  handleOpenAnswers = new BehaviorSubject<boolean>(false)
   isSaving = new BehaviorSubject<boolean>(false)
   countAnswers = new BehaviorSubject<number>(0)
+  answers = new BehaviorSubject<CommentModel[]>([])
 
   ngOnInit() {
     if (!this.isMenagaComponent && this.comment?.id) this.getCountAnswers()
@@ -39,10 +41,25 @@ export class CommentComponent implements OnInit {
     this.commentsService.addComment(rlyAnswer).subscribe({
       next: () => {
         this.isSaving.next(false);
+        this.countAnswers.next(this.countAnswers.value + 1);
+        this.answers.next([rlyAnswer, ...this.answers.value]);
       },
       error: () => {
         this.isSaving.next(false);
       }
+    })
+  }
+
+  getAnswersToDisplay() {
+    this.commentsService.getAnswers(this.comment.id).subscribe({
+      next: docs => {
+        let data: CommentModel[] = [];
+
+        docs.forEach(doc => data.push(doc.data() as CommentModel));
+
+        this.answers.next(data);
+        this.handleOpenAnswers.next(true);
+      },
     })
   }
 

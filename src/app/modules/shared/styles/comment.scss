@@ -1,0 +1,39 @@
+.comment {
+  display: flex;
+  gap: 1.2rem;
+
+  mat-icon {
+    font-size: 30px;
+  }
+
+  &__texts {
+    word-break: break-word;
+    letter-spacing: 1px;
+
+    &--name {
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    &--date {
+      margin-top: 5px;
+    }
+
+    &--desc {
+      margin-top: 10px;
+      line-height: 24px;
+    }
+
+    &--answers {
+      margin-top: 10px;
+    }
+  }
+
+  &__buttons {
+    margin-left: auto;
+
+    mat-icon {
+      font-size: 18px;
+    }
+  }
+}
