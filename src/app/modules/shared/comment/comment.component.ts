@@ -68,21 +68,45 @@ export class CommentComponent implements OnInit {
     })
   }
 
-  approve() {
-    this.usedLike.next(true);
-    this.commentsService.updateLikes(this.comment.id, 1).subscribe({
+  approve(forceMinus?: boolean) {
+    let value: -1 | 1
+
+    if (this.usedLike.value || forceMinus) {
+      value = -1;
+      this.usedLike.next(false);
+    } else {
+      if (this.usedDislike.value) this.dislike(true);
+      this.usedLike.next(true);
+      this.usedDislike.next(false);
+      value = 1;
+    }
+
+    this.commentsService.updateLikes(this.comment.id, value).subscribe({
       next: () => {
-        this.comment.likes = this.comment?.likes + 1 || 1;
+        this.comment.likes = this.comment?.likes + value;
+        this.comment.likes = isNaN(this.comment.likes) ? 1 : this.comment.likes;
         this.changeDetectorRef.detectChanges();
       },
     })
   }
 
-  dislike() {
-    this.usedDislike.next(true);
-    this.commentsService.updateDislikes(this.comment.id, 1).subscribe({
+  dislike(forceMinus?: boolean) {
+    let value: -1 | 1
+
+    if (this.usedDislike.value || forceMinus) {
+      value = -1;
+      this.usedDislike.next(false);
+    } else {
+      if (this.usedLike.value) this.approve(true);
+      this.usedDislike.next(true);
+      this.usedLike.next(false);
+      value = 1;
+    }
+
+    this.commentsService.updateDislikes(this.comment.id, value).subscribe({
       next: () => {
-        this.comment.dislikes = this.comment?.dislikes  + 1 || 1;
+        this.comment.dislikes = this.comment?.dislikes + value;
+        this.comment.dislikes = isNaN(this.comment.dislikes) ? 1 : this.comment.dislikes;
         this.changeDetectorRef.detectChanges();
       },
     })

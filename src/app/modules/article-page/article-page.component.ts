@@ -65,8 +65,8 @@ export class ArticlePageComponent implements OnInit {
     };
 
     this.commentsService.addComment(rlyComment).subscribe({
-      next: () => {
-        this.comments.next([rlyComment , ...this.comments.value]);
+      next: doc => {
+        this.comments.next([{ ...rlyComment, id: doc.id }, ...this.comments.value]);
         this.isSavingComment = false;
       },
       error: () => {
