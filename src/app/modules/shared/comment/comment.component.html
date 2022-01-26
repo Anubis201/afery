@@ -12,14 +12,18 @@
 
       <div class="actions">
         <div
-          class="action"
+          class="actions__action"
+          (click)="approve()"
         >
-          <span>0</span>
-          <img class="plus" src="/assets/icons/comment/plus.svg" alt="plus icon">
+          <img [class.choosed-plus]="usedLike | async" class="actions__action--plus" src="/assets/icons/comment/plus.svg" alt="plus icon">
+          <span>{{ comment?.likes ?? 0 }}</span>
         </div>
-        <div class="action">
-          <span>0</span>
-          <img class="minus" src="/assets/icons/comment/minus.svg" alt="minus icon">
+        <div
+          class="actions__action"
+          (click)="dislike()"
+        >
+          <img [class.choosed-minus]="usedDislike | async" class="actions__action--minus" src="/assets/icons/comment/minus.svg" alt="minus icon">
+          <span>{{ comment?.dislikes ?? 0 }}</span>
         </div>
       </div>
 

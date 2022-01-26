@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
@@ -16,13 +16,18 @@ export class CommentComponent implements OnInit {
 
   @Output() deleteComment = new EventEmitter<string>()
 
-  constructor(private commentsService: CommentsService) {}
+  constructor(
+    private commentsService: CommentsService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   handleOpenWriteComment = new BehaviorSubject<boolean>(false)
   handleOpenAnswers = new BehaviorSubject<boolean>(false)
   isSaving = new BehaviorSubject<boolean>(false)
   countAnswers = new BehaviorSubject<number>(0)
   answers = new BehaviorSubject<CommentModel[]>([])
+  usedLike = new BehaviorSubject<boolean>(false)
+  usedDislike = new BehaviorSubject<boolean>(false)
 
   ngOnInit() {
     if (!this.isMenagaComponent && this.comment?.id) this.getCountAnswers()
@@ -59,6 +64,26 @@ export class CommentComponent implements OnInit {
 
         this.answers.next(data);
         this.handleOpenAnswers.next(true);
+      },
+    })
+  }
+
+  approve() {
+    this.usedLike.next(true);
+    this.commentsService.updateLikes(this.comment.id, 1).subscribe({
+      next: () => {
+        this.comment.likes = this.comment?.likes + 1 || 1;
+        this.changeDetectorRef.detectChanges();
+      },
+    })
+  }
+
+  dislike() {
+    this.usedDislike.next(true);
+    this.commentsService.updateDislikes(this.comment.id, 1).subscribe({
+      next: () => {
+        this.comment.dislikes = this.comment?.dislikes  + 1 || 1;
+        this.changeDetectorRef.detectChanges();
       },
     })
   }
