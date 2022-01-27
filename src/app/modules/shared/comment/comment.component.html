@@ -15,14 +15,14 @@
           class="actions__action"
           (click)="approve()"
         >
-          <img [class.choosed-plus]="usedLike | async" class="actions__action--plus" src="/assets/icons/comment/plus.svg" alt="plus icon">
+          <img [class.choosed-plus]="(commentMode | async) === 'like'" class="actions__action--plus" src="/assets/icons/comment/plus.svg" alt="plus icon">
           <span>{{ comment?.likes ?? 0 }}</span>
         </div>
         <div
           class="actions__action"
           (click)="dislike()"
         >
-          <img [class.choosed-minus]="usedDislike | async" class="actions__action--minus" src="/assets/icons/comment/minus.svg" alt="minus icon">
+          <img [class.choosed-minus]="commentMode.value === 'dislike'" class="actions__action--minus" src="/assets/icons/comment/minus.svg" alt="minus icon">
           <span>{{ comment?.dislikes ?? 0 }}</span>
         </div>
       </div>

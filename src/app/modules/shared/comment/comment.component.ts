@@ -4,6 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
 
+type CommentMode = 'like' | 'dislike' | null;
+
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -29,15 +31,15 @@ export class CommentComponent implements OnInit {
   isSaving = new BehaviorSubject<boolean>(false)
   countAnswers = new BehaviorSubject<number>(0)
   answers = new BehaviorSubject<CommentModel[]>([])
-  usedLike = new BehaviorSubject<boolean>(false)
-  usedDislike = new BehaviorSubject<boolean>(false)
+  commentMode = new BehaviorSubject<CommentMode>(null)
 
   ngOnInit() {
     if (!this.isMenagaComponent && this.comment?.id) this.getCountAnswers();
 
-    if (localStorage.getItem(this.comment.id) === 'like') this.usedLike.next(true);
-
-    else if (localStorage.getItem(this.comment.id) === 'dislike') this.usedDislike.next(true);
+    if (localStorage.getItem(this.comment.id) === 'like')
+      this.commentMode.next('like');
+    else if (localStorage.getItem(this.comment.id) === 'dislike')
+      this.commentMode.next('dislike');
   }
 
   addAnswer(answer: CommentModel) {
@@ -78,14 +80,13 @@ export class CommentComponent implements OnInit {
   approve(forceMinus?: boolean) {
     let value: -1 | 1
 
-    if (this.usedLike.value || forceMinus) {
-      if (this.usedLike.value) localStorage.removeItem(this.comment.id);
+    if (this.commentMode.value === 'like' || forceMinus) {
+      if (this.commentMode.value === 'like') localStorage.removeItem(this.comment.id);
       value = -1;
-      this.usedLike.next(false);
+      this.commentMode.next(null);
     } else {
-      if (this.usedDislike.value) this.dislike(true);
-      this.usedLike.next(true);
-      this.usedDislike.next(false);
+      if (this.commentMode.value === 'dislike') this.dislike(true);
+      this.commentMode.next('like');
       localStorage.setItem(this.comment.id, 'like');
       value = 1;
     }
@@ -94,6 +95,29 @@ export class CommentComponent implements OnInit {
       next: () => {
         this.comment.likes = this.comment?.likes + value;
         this.comment.likes = isNaN(this.comment.likes) ? 1 : this.comment.likes;
+        this.changeDetectorRef.detectChanges();
+      },
+    })
+  }
+
+  dislike(forceMinus?: boolean) {
+    let value: -1 | 1
+
+    if (this.commentMode.value === 'dislike' || forceMinus) {
+      if (this.commentMode.value === 'dislike') localStorage.removeItem(this.comment.id);
+      value = -1;
+      this.commentMode.next(null);
+    } else {
+      if (this.commentMode.value === 'like') this.approve(true);
+      this.commentMode.next('dislike');
+      localStorage.setItem(this.comment.id, 'dislike');
+      value = 1;
+    }
+
+    this.commentsService.updateDislikes(this.comment.id, value).subscribe({
+      next: () => {
+        this.comment.dislikes = this.comment?.dislikes + value;
+        this.comment.dislikes = isNaN(this.comment.dislikes) ? 1 : this.comment.dislikes;
         this.changeDetectorRef.detectChanges();
       },
     })
@@ -108,30 +132,6 @@ export class CommentComponent implements OnInit {
       error: () => {
         this._snackBar.open('Błąd', 'close');
       }
-    })
-  }
-
-  dislike(forceMinus?: boolean) {
-    let value: -1 | 1
-
-    if (this.usedDislike.value || forceMinus) {
-      if (this.usedDislike.value) localStorage.removeItem(this.comment.id);
-      value = -1;
-      this.usedDislike.next(false);
-    } else {
-      if (this.usedLike.value) this.approve(true);
-      this.usedDislike.next(true);
-      this.usedLike.next(false);
-      localStorage.setItem(this.comment.id, 'dislike');
-      value = 1;
-    }
-
-    this.commentsService.updateDislikes(this.comment.id, value).subscribe({
-      next: () => {
-        this.comment.dislikes = this.comment?.dislikes + value;
-        this.comment.dislikes = isNaN(this.comment.dislikes) ? 1 : this.comment.dislikes;
-        this.changeDetectorRef.detectChanges();
-      },
     })
   }
 
