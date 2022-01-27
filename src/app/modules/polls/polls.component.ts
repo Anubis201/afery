@@ -70,8 +70,6 @@ export class PollsComponent implements OnInit {
   }
 
   private metaTags() {
-    this.meta.addTags([
-      { name: 'description', content: 'Tu znajdziesz średnią oraz najnowsze sondaże polskich partii.' },
-    ])
+    this.meta.updateTag({ name:'description', content:'Tu znajdziesz najnowsze sondaże polskich partii. Zapraszam na inne strony, gdzie zobaczysz żałosne afery naszej polityki.' }, "name='description'");
   }
 }

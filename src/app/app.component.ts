@@ -1,5 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { OrderEnum } from './models/articles/enums/order.enum';
@@ -32,9 +33,11 @@ export class AppComponent implements OnInit {
 
   constructor(
     private route: Router,
+    private meta: Meta,
   ) {}
 
   ngOnInit() {
+    this.metaTags();
     this.items = [
       {
         label: 'Najnowsze',
@@ -60,5 +63,11 @@ export class AppComponent implements OnInit {
 
   handleMenu() {
     this.isOpenMenu.next(!this.isOpenMenu.value)
+  }
+
+  private metaTags() {
+    this.meta.addTags([
+      { name: 'description', content: 'Afery naszych kochanych partii, polityków oraz bonusowo sondaże.' },
+    ])
   }
 }
