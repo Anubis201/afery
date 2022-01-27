@@ -62,7 +62,7 @@ $border: 5px;
     margin-left: auto;
     margin-right: 7px;
     margin-top: 4px;
-    color: black;
+    color: crimson;
   }
 
   &__footer {
@@ -119,7 +119,9 @@ $border: 5px;
       @include costs;
 
       &--comments {
-        font-size: 22px;
+        font-size: 19px;
+        margin-left: 18px;
+        color: crimson;
       }
     }
 
