@@ -1,6 +1,4 @@
-<mat-spinner *ngIf="(isLoading | async)"></mat-spinner>
-
-<form *ngIf="!(isBanned | async) && !(isLoading | async)" [formGroup]="form" class="auth">
+<form *ngIf="!(isBanned | async)" [formGroup]="form" class="auth">
   <div class="auth__title">Czy na pewno jesteś adminem? hmmm...</div>
   <mat-form-field appearance="fill">
     <mat-label>Email</mat-label>
@@ -13,6 +11,6 @@
   <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid" (click)="login()">Zaloguj się</button>
 </form>
 
-<div *ngIf="(isBanned | async) && !(isLoading | async)" class="ban">
+<div *ngIf="(isBanned | async)" class="ban">
   Niespodzianka BANNED
 </div>

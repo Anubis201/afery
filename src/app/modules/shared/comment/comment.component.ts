@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
@@ -15,10 +16,12 @@ export class CommentComponent implements OnInit {
   @Input() isMenagaComponent: boolean = false
 
   @Output() deleteComment = new EventEmitter<string>()
+  @Output() deleteAnswer = new EventEmitter<string>()
 
   constructor(
     private commentsService: CommentsService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private _snackBar: MatSnackBar,
   ) {}
 
   handleOpenWriteComment = new BehaviorSubject<boolean>(false)
@@ -64,7 +67,7 @@ export class CommentComponent implements OnInit {
       next: docs => {
         let data: CommentModel[] = [];
 
-        docs.forEach(doc => data.push({ ...doc.data() as CommentModel, date: (doc.data() as any).date.toDate() }));
+        docs.forEach(doc => data.push({ ...doc.data() as CommentModel, date: (doc.data() as any).date.toDate(), id: doc.id }));
 
         this.answers.next(data);
         this.handleOpenAnswers.next(true);
@@ -93,6 +96,18 @@ export class CommentComponent implements OnInit {
         this.comment.likes = isNaN(this.comment.likes) ? 1 : this.comment.likes;
         this.changeDetectorRef.detectChanges();
       },
+    })
+  }
+
+  handleDeleteAnswer(id: string) {
+    this.commentsService.deteleComment(id).subscribe({
+      next: () => {
+        this.answers.next(this.answers.value.filter(filterV => filterV.id !== id));
+        this._snackBar.open('Odpowiedż została usunięta', 'close');
+      },
+      error: () => {
+        this._snackBar.open('Błąd', 'close');
+      }
     })
   }
 

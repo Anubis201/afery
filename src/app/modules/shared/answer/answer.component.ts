@@ -10,5 +10,5 @@ export class AnswerComponent {
   @Input() data: CommentModel
   @Input() isAdmin: boolean
 
-  @Output() deleteComment = new EventEmitter<string>()
+  @Output() deleteAnswer = new EventEmitter<string>()
 }

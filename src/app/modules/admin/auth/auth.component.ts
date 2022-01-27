@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BanService } from 'src/app/services/collections/ban/ban.service';
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from 'src/app/services/global/user/user.service';
 
@@ -17,7 +16,6 @@ export class AuthComponent implements OnInit {
   })
 
   isBanned = new BehaviorSubject<boolean>(false)
-  isLoading = new BehaviorSubject<boolean>(true)
 
   constructor(
     private userService: UserService,
@@ -25,13 +23,13 @@ export class AuthComponent implements OnInit {
 
   ngOnInit() {
     this.form.valueChanges.subscribe((value: { email: string, password: string }) => {
-      if (this.isBanned.value || this.isLoading.value) return
+      if (this.isBanned.value) return
 
       if (value.email === 'mikolaj@swieta.fin' && value.password === 'prezenty') {
         this.gift()
       }
     })
-  }
+}
 
   login() {
     this.userService.loginAsAdmin(this.form.get('email')?.value, this.form.get('password')?.value)
