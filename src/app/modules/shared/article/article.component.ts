@@ -23,7 +23,7 @@ export class ArticleComponent implements OnInit {
   constructor(private commentsService: CommentsService) {}
 
   get toArticlePage() {
-    return `${location.href}/artykul/${this.article.id}/${ChangePolishChars(this.article.title)}`
+    return `/artykul/${this.article.id}/${ChangePolishChars(this.article.title)}`
   }
 
   ngOnInit() {

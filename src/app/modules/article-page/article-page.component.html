@@ -3,15 +3,24 @@
 <div class="container page d-none d-sm-block">
   <ng-container *ngIf="(isExists | async) && (article | async)?.imageSrc">
     <div class="page__organization">
-      <img *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
-      <span *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties">{{ PartiesEnum[$any(article.value?.entity)] }}</span>
-
-      <div class="page__organization--action">
-        <img src="/assets/icons/hand/like-64px.png" alt="Łapka w góre">
+      <ng-container *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties">
+        <img [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
+        <span *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties">{{ PartiesEnum[$any(article.value?.entity)] }}</span>
+        <div class="page__organization--border"></div>
+      </ng-container>
+      <div
+        class="page__organization--action"
+        [style.paddingLeft]="article.value?.type === ArticlesTypesEnum.PoliticalParties ? '7px' : '0'"
+      >
+        <button mat-icon-button>
+          <img class="plus" src="/assets/icons/comment/plus.svg" alt="Plus">
+        </button>
         <span>100</span>
       </div>
       <div class="page__organization--action">
-        <img src="/assets/icons/hand/dislike-64px.png" alt="Łapka w dół">
+        <button mat-icon-button>
+          <img class="minus" src="/assets/icons/comment/minus.svg" alt="Minus">
+        </button>
         <span>200</span>
       </div>
     </div>
@@ -114,7 +123,21 @@
         {{ article.value?.title }}
       </div>
       <div class="page-mobile__content__time">
-        <div>{{ article.value?.createDate | date:'dd.MM.yyyy, HH:mm' }}</div>
+        <div class="page-mobile__content__time__rest">
+          <div>
+            {{ article.value?.createDate | date:'dd.MM.yyyy, HH:mm' }}
+          </div>
+          <div class="page-mobile__content__time__rest__actions">
+            <div class="page-mobile__content__time__rest__actions__action">
+              <img class="plus" src="/assets/icons/comment/plus.svg" alt="Plus">
+              <span>100</span>
+            </div>
+            <div class="page-mobile__content__time__rest__actions__action">
+              <img class="minus" src="/assets/icons/comment/minus.svg" alt="Minus">
+              <span>200</span>
+            </div>
+          </div>
+        </div>
         <div class="page-mobile__content__time__all">
           <div>
             {{ article.value?.text | timeToRead }} min czytania
