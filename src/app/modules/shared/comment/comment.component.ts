@@ -30,7 +30,11 @@ export class CommentComponent implements OnInit {
   usedDislike = new BehaviorSubject<boolean>(false)
 
   ngOnInit() {
-    if (!this.isMenagaComponent && this.comment?.id) this.getCountAnswers()
+    if (!this.isMenagaComponent && this.comment?.id) this.getCountAnswers();
+
+    if (localStorage.getItem(this.comment.id) === 'like') this.usedLike.next(true);
+
+    else if (localStorage.getItem(this.comment.id) === 'dislike') this.usedDislike.next(true);
   }
 
   addAnswer(answer: CommentModel) {
@@ -72,12 +76,14 @@ export class CommentComponent implements OnInit {
     let value: -1 | 1
 
     if (this.usedLike.value || forceMinus) {
+      if (this.usedLike.value) localStorage.removeItem(this.comment.id);
       value = -1;
       this.usedLike.next(false);
     } else {
       if (this.usedDislike.value) this.dislike(true);
       this.usedLike.next(true);
       this.usedDislike.next(false);
+      localStorage.setItem(this.comment.id, 'like');
       value = 1;
     }
 
@@ -94,12 +100,14 @@ export class CommentComponent implements OnInit {
     let value: -1 | 1
 
     if (this.usedDislike.value || forceMinus) {
+      if (this.usedDislike.value) localStorage.removeItem(this.comment.id);
       value = -1;
       this.usedDislike.next(false);
     } else {
       if (this.usedLike.value) this.approve(true);
       this.usedDislike.next(true);
       this.usedLike.next(false);
+      localStorage.setItem(this.comment.id, 'dislike');
       value = 1;
     }
 
