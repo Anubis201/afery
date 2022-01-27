@@ -2,9 +2,18 @@
 
 <div class="container page d-none d-sm-block">
   <ng-container *ngIf="(isExists | async) && (article | async)?.imageSrc">
-    <div class="page__organization" >
+    <div class="page__organization">
       <img *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
-      <span>{{ PartiesEnum[$any(article.value?.entity)] }}</span>
+      <span *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties">{{ PartiesEnum[$any(article.value?.entity)] }}</span>
+
+      <div class="page__organization--action">
+        <img src="/assets/icons/hand/like-64px.png" alt="Łapka w góre">
+        <span>100</span>
+      </div>
+      <div class="page__organization--action">
+        <img src="/assets/icons/hand/dislike-64px.png" alt="Łapka w dół">
+        <span>200</span>
+      </div>
     </div>
     <div class="page__title">
       {{ article.value?.title }}

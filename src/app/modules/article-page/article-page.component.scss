@@ -37,6 +37,22 @@ $image-border-radius: 5px;
     margin-bottom: 1.5rem;
     align-items: center;
 
+    &--action {
+      display: flex;
+      align-items: center;
+
+      &:first-of-type {
+        padding-left: 12px;
+        margin-right: 5px;
+        border-left: 1px solid #c2c2c2;
+      }
+
+      img {
+        margin-right: 8px;
+      }
+
+    }
+
     img {
       height: 30px;
       border-radius: $image-border-radius;
