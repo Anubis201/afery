@@ -47,6 +47,7 @@ $border: 5px;
     width: calc(100% + 32px);
     margin: 0 -16px 16px -16px;
     border-radius: $border;
+    display: flex;
   }
 
   &__organization {
@@ -55,6 +56,13 @@ $border: 5px;
     border-top-left-radius: calc($border - 1px);
     width: 30px;
     vertical-align: inherit;
+  }
+
+  &__comments {
+    margin-left: auto;
+    margin-right: 7px;
+    margin-top: 4px;
+    color: black;
   }
 
   &__footer {
@@ -109,6 +117,10 @@ $border: 5px;
       display: flex;
 
       @include costs;
+
+      &--comments {
+        font-size: 22px;
+      }
     }
 
     &--title {

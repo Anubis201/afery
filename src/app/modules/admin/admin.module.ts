@@ -13,7 +13,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { ManageCommentsComponent } from './manage-comments/manage-comments.component';
 import { SharedModule } from '../shared/shared.module';
-import { MatBadgeModule } from '@angular/material/badge';
 import { AddPollsComponent } from './add-polls/add-polls.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { PartiesComponent } from './add-polls/parties/parties.component';
@@ -47,7 +46,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatListModule,
     EditorModule,
     SharedModule,
-    MatBadgeModule,
   ]
 })
 export class AdminModule { }

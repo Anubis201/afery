@@ -2,7 +2,12 @@
   <!-- TODO SPRAWDZIC czy teraz przechodzi dalej -->
   <a [href]="toArticlePage">
     <div class="article__image" [style.background-image]="'url(' + article.imageSrc + ')'">
-      <img *ngIf="article.type === ArticlesTypesEnum.PoliticalParties" class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
+      <img
+        *ngIf="article.type === ArticlesTypesEnum.PoliticalParties"
+        class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
+        alt="Logo"
+      >
+      <mat-icon class="article__comments" [matBadge]="countComments | async">insert_comment</mat-icon>
     </div>
     <mat-card-content>
       <p class="truncate article__title">{{ article.title }}</p>
@@ -25,7 +30,8 @@
   <div class="mobile-article__content">
     <div class="mobile-article__content--title">{{ article.title }}</div>
     <div class="mobile-article__content__footer">
-      <span>{{ article.createDate | date:'d/M/yy' }}</span>
+      <!-- <span>{{ article.createDate | date:'d/M/yy' }}</span> -->
+      <mat-icon class="mobile-article__content__footer--comments" [matBadge]="countComments.value">insert_comment</mat-icon>
       <span *ngIf="article.costs" class="mobile-article__content__footer--costs">
         <mat-icon>money_off</mat-icon>
         {{ article.costs | millions }}

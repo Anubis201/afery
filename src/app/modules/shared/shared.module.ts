@@ -11,6 +11,7 @@ import { WriteCommentComponent } from './write-comment/write-comment.component';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AnswerComponent } from './answer/answer.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 const declarations = [
   MillionsPipe,
@@ -29,6 +30,7 @@ const imports = [
   MatInputModule,
   ReactiveFormsModule,
   FormsModule,
+  MatBadgeModule,
 ]
 
 @NgModule({
