@@ -6,17 +6,17 @@
         class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
         alt="Logo"
       >
-      <mat-icon class="article__comments" [matBadge]="countComments | async">insert_comment</mat-icon>
     </div>
     <mat-card-content>
       <p class="truncate article__title">{{ article.title }}</p>
     </mat-card-content>
     <mat-card-footer class="article__footer">
       <span class="article__footer--time">{{ article.createDate | date:'dd.MM.yyyy' }}</span>
-      <span *ngIf="article.costs" class="article__footer--costs">
+      <mat-icon class="article__comments" [matBadge]="countComments | async">insert_comment</mat-icon>
+      <!-- <span *ngIf="article.costs" class="article__footer--costs">
         <mat-icon>money_off</mat-icon>
         {{ article.costs | millions }}
-      </span>
+      </span> -->
     </mat-card-footer>
   </a>
 </mat-card>
