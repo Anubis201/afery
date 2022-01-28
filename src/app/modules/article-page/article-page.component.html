@@ -149,7 +149,7 @@
                 class="plus"
                 src="/assets/icons/comment/plus.svg"
                 alt="Plus"
-                [class.choosed-plus]="actionMode === 'like'"
+                [class.choosed-plus]="actionMode.value === 'like'"
               >
               <span>{{ article.value.likes ?? 0 }}</span>
             </div>
@@ -158,7 +158,7 @@
                 class="minus"
                 src="/assets/icons/comment/minus.svg"
                 alt="Minus"
-                [class.choosed-minus]="actionMode === 'dislike'"
+                [class.choosed-minus]="actionMode.value === 'dislike'"
               >
               <span>{{ article.value.dislikes ?? 0 }}</span>
             </div>
