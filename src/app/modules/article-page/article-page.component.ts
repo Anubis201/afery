@@ -246,7 +246,7 @@ export class ArticlePageComponent implements OnInit {
     this.titleService.setTitle(this.article.value.title);
 
     let tmp = document.createElement('DIV');
-    tmp.innerHTML = this.article.value.text.split(/\s+/).slice(0,10).join(' ');
+    tmp.innerHTML = this.article.value.text.split(/\s+/).slice(0, 20).join(' ');
 
     const content =
       this.article.value?.subtitle
