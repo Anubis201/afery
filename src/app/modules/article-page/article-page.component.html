@@ -191,6 +191,7 @@
           <span>{{ article.value?.viewership }}</span>
         </span>
       </span>
+      <div *ngIf="article.value?.subtitle?.length" class="page-mobile__content__subtitle">{{ article.value?.subtitle }}</div>
       <div class="page-mobile__content__desc" [innerHtml]="article.value?.text"></div>
       <app-write-comment
         [isSavingComment]="isSavingComment"
