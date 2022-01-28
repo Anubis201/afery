@@ -13,6 +13,7 @@ export interface ArticleModel {
   entity: PartiesEnum
   costs: number | null
   customName: string
+  subtitle?: string
   likes?: number
   dislikes?: number
   viewership: number

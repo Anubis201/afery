@@ -5,6 +5,7 @@
   margin-top: 5rem;
   margin-left: 9rem;
   min-height: 80vh;
+  margin-bottom: 2rem;
 }
 
 .inputs {
@@ -23,6 +24,7 @@
 .file-input {
   font-size: 1.1rem;
   margin: 6px 0;
+  margin-top: 1.5rem;
 
   &__text {
     color: white;
@@ -55,6 +57,10 @@ mat-radio-group {
 
 .title-input {
   font-size: 1.4rem;
+}
+
+.subtitle-input {
+  font-size: 1rem;
 }
 
 .desc-input {

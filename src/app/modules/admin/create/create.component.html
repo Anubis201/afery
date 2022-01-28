@@ -4,6 +4,11 @@
     <input matInput class="title-input" formControlName="title" autocomplete="off" type="text">
   </mat-form-field>
 
+  <mat-form-field appearance="fill">
+    <mat-label>Podtytuł</mat-label>
+    <textarea class="subtitle-input" formControlName="subtitle" autocomplete="off" matInput rows="2"></textarea>
+  </mat-form-field>
+
   <editor
     [formControl]="form.get('text')"
     [init]="{

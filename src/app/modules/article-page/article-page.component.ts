@@ -15,7 +15,6 @@ import { ChangePolishChars } from 'src/app/services/global/support-functions/cha
 import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
-
   selector: 'app-article-page',
   templateUrl: './article-page.component.html',
   styleUrls: ['./article-page.component.scss'],
@@ -243,20 +242,23 @@ export class ArticlePageComponent implements OnInit {
   }
 
   // TODO Czeka na naprawienie bledu angular universe i sprawdzenie tego rozwiozania
-  private prepereTagsAndTitle(title: string, image: string) {
-    this.titleService.setTitle(title);
+  private prepereTagsAndTitle() {
+    this.titleService.setTitle(this.article.value.title);
+    const content = this.article.value?.subtitle || this.article.value.text.split(/\s+/).slice(0,10).join(' ').replace('<p>', '')
+
+    this.meta.updateTag({ name:'description', content }, "name='description'");
 
     this.meta.addTags([
       { property: 'og:type', content: 'article' },
-      { property: 'og:title', content: title },
-      { property: 'og:image', content: image },
+      { property: 'og:title', content: this.article.value.title },
+      { property: 'og:image', content: this.article.value.imageSrc },
       { property: 'og:local', content: 'pl_PL' },
       { property: 'og:site_name', content: 'Afery' },
       { property: 'og:url', content: window.location.href },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:site', content: 'Afery' },
-      { name: 'twitter:title', content: title },
-      { name: 'twitter:image', content: image },
+      { name: 'twitter:title', content: this.article.value.title },
+      { name: 'twitter:image', content: this.article.value.imageSrc },
       { name: 'detailType', content: 'article' },
     ]);
   }
@@ -265,7 +267,7 @@ export class ArticlePageComponent implements OnInit {
     this.articlesService.getArticle(articleId).subscribe(article => {
       if (article.exists) {
         this.article.next({ ...article.data() as ArticleModel, id: article.id, createDate: (article.data() as any).createDate.toDate() });
-        this.prepereTagsAndTitle(this.article.value?.title as string, this.article.value?.imageSrc as string);
+        this.prepereTagsAndTitle();
 
         if (location.href.slice(-5) !== 'zmien') this.router.navigate(['artykul/', this.article.value.id, ChangePolishChars(this.article.value.title.replace(/\s/g, '-'))]);
 
