@@ -25,6 +25,7 @@ export class ArticlePageComponent implements OnInit {
   article = new BehaviorSubject<ArticleModel | null>(null)
   isExists = new BehaviorSubject<boolean>(true)
   comments = new BehaviorSubject<CommentModel[]>([])
+  actionMode = new BehaviorSubject<'like' | 'dislike' | null>(null)
   isSavingComment = false
 
   readonly PartiesEnum = PartiesEnum
@@ -167,6 +168,62 @@ export class ArticlePageComponent implements OnInit {
     })
   }
 
+  approve(forceMinus?: boolean) {
+    let value: -1 | 1
+
+    if (this.actionMode.value === 'like' || forceMinus) {
+      if (this.actionMode.value === 'like') localStorage.removeItem(this.article.value.id);
+      value = -1;
+      this.actionMode.next(null);
+    } else {
+      if (this.actionMode.value === 'dislike') this.dislike(true);
+      this.actionMode.next('like');
+      localStorage.setItem(this.article.value.id, 'like');
+      value = 1;
+    }
+
+    this.articlesService.updateLikes(this.article.value.id, value).subscribe({
+      next: () => {
+        this.article.next({
+          ...this.article.value,
+         likes: this.article?.value.likes + value,
+        });
+        this.article.next({
+          ...this.article.value,
+          likes: isNaN(this.article.value.likes) ? 1 : this.article.value.likes
+        })
+      },
+    })
+  }
+
+  dislike(forceMinus?: boolean) {
+    let value: -1 | 1
+
+    if (this.actionMode.value === 'dislike' || forceMinus) {
+      if (this.actionMode.value === 'dislike') localStorage.removeItem(this.article.value.id);
+      value = -1;
+      this.actionMode.next(null);
+    } else {
+      if (this.actionMode.value === 'like') this.approve(true);
+      this.actionMode.next('dislike');
+      localStorage.setItem(this.article.value.id, 'dislike');
+      value = 1;
+    }
+
+    this.articlesService.updateDislikes(this.article.value.id, value).subscribe({
+      next: () => {
+        this.article.next({
+          ...this.article.value,
+          dislikes: this.article.value?.dislikes + value
+        });
+        this.article.next({
+          ...this.article.value,
+          dislikes: this.article.value.dislikes = isNaN(this.article.value.dislikes) ? 1 : this.article.value.dislikes,
+        });
+      },
+    })
+  }
+
   // TODO WAŻNE !!! 500max komentarzy na jeden batch. KIEDYS TRZEBA BEDZIE TO NAPRAWIC :D
   // DODAC USUWANIE ODPOWIEDZI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   private removeAllComments(id: string) {
@@ -209,7 +266,14 @@ export class ArticlePageComponent implements OnInit {
       if (article.exists) {
         this.article.next({ ...article.data() as ArticleModel, id: article.id, createDate: (article.data() as any).createDate.toDate() });
         this.prepereTagsAndTitle(this.article.value?.title as string, this.article.value?.imageSrc as string);
+
         if (location.href.slice(-5) !== 'zmien') this.router.navigate(['artykul/', this.article.value.id, ChangePolishChars(this.article.value.title.replace(/\s/g, '-'))]);
+
+        if (localStorage.getItem(this.article.value.id) === 'like')
+          this.actionMode.next('like');
+        else if (localStorage.getItem(this.article.value.id) === 'dislike')
+          this.actionMode.next('dislike');
+
       } else this.isExists.next(false);
     })
   }

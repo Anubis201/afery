@@ -12,16 +12,32 @@
         class="page__organization--action"
         [style.paddingLeft]="article.value?.type === ArticlesTypesEnum.PoliticalParties ? '7px' : '0'"
       >
-        <button mat-icon-button>
-          <img class="plus" src="/assets/icons/comment/plus.svg" alt="Plus">
+        <button
+          mat-icon-button
+          (click)="approve()"
+        >
+          <img
+            class="plus"
+            src="/assets/icons/comment/plus.svg"
+            alt="Plus"
+            [class.choosed-plus]="actionMode.value === 'like'"
+          >
         </button>
-        <span>100</span>
+        <span>{{ article.value.likes ?? 0 }}</span>
       </div>
       <div class="page__organization--action">
-        <button mat-icon-button>
-          <img class="minus" src="/assets/icons/comment/minus.svg" alt="Minus">
+        <button
+          mat-icon-button
+          (click)="dislike()"
+        >
+          <img
+            class="minus"
+            src="/assets/icons/comment/minus.svg"
+            alt="Minus"
+            [class.choosed-minus]="(actionMode | async) === 'dislike'"
+          >
         </button>
-        <span>200</span>
+        <span>{{ article.value.dislikes ?? 0 }}</span>
       </div>
     </div>
     <div class="page__title">
@@ -128,13 +144,23 @@
             {{ article.value?.createDate | date:'dd.MM.yyyy, HH:mm' }}
           </div>
           <div class="page-mobile__content__time__rest__actions">
-            <div class="page-mobile__content__time__rest__actions__action">
-              <img class="plus" src="/assets/icons/comment/plus.svg" alt="Plus">
-              <span>100</span>
+            <div class="page-mobile__content__time__rest__actions__action" (click)="approve()">
+              <img
+                class="plus"
+                src="/assets/icons/comment/plus.svg"
+                alt="Plus"
+                [class.choosed-plus]="actionMode === 'like'"
+              >
+              <span>{{ article.value.likes ?? 0 }}</span>
             </div>
-            <div class="page-mobile__content__time__rest__actions__action">
-              <img class="minus" src="/assets/icons/comment/minus.svg" alt="Minus">
-              <span>200</span>
+            <div class="page-mobile__content__time__rest__actions__action" (click)="dislike()">
+              <img
+                class="minus"
+                src="/assets/icons/comment/minus.svg"
+                alt="Minus"
+                [class.choosed-minus]="actionMode === 'dislike'"
+              >
+              <span>{{ article.value.dislikes ?? 0 }}</span>
             </div>
           </div>
         </div>

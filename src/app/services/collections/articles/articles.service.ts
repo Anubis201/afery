@@ -50,4 +50,12 @@ export class ArticlesService {
   deleteArticle(docId: string) {
     return from(this.firestore.collection('articles').doc(docId).delete())
   }
+
+  updateDislikes(articleId: string, incrementValue: number) {
+    return from(this.getRef().doc(articleId).update({ dislikes: increment(incrementValue) }))
+  }
+
+  updateLikes(articleId: string, incrementValue: number) {
+    return from(this.getRef().doc(articleId).update({ likes: increment(incrementValue) }))
+  }
 }

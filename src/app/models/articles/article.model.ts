@@ -13,6 +13,8 @@ export interface ArticleModel {
   entity: PartiesEnum
   costs: number | null
   customName: string
+  likes?: number
+  dislikes?: number
   viewership: number
   isHide?: boolean
 }
