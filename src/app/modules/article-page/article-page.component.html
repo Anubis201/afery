@@ -39,6 +39,18 @@
         </button>
         <span>{{ article.value.dislikes ?? 0 }}</span>
       </div>
+      <span *ngIf="article.value?.costs" class="page__costs">
+        <span class="page__costs--title">Koszty: </span>
+        <span class="page__costs--icons">
+          <mat-icon>money_off</mat-icon>
+          {{ article.value?.costs | millions }}
+          <span *ngIf="$any(article.value?.viewership) >= 100" class="page__costs--break"> | </span>
+        </span>
+        <span *ngIf="$any(article.value?.viewership) >= 100" class="page__viewership page__costs--icons">
+          <mat-icon>remove_red_eye</mat-icon>
+          {{ article.value?.viewership }}
+        </span>
+      </span>
     </div>
     <div class="page__title">
       {{ article.value?.title }}
@@ -98,17 +110,6 @@
     </div>
     <div *ngIf="article.value?.subtitle?.length" class="page__subtitle">{{ article.value?.subtitle }}</div>
     <div class="page__image" [style.background-image]="'url(' + article.value?.imageSrc + ')'"></div>
-    <span class="page__costs">
-      <span class="page__costs--icons" *ngIf="article.value?.costs">
-        <mat-icon>money_off</mat-icon>
-        {{ article.value?.costs | millions }}
-        <span *ngIf="$any(article.value?.viewership) >= 100" class="page__costs--break"> | </span>
-      </span>
-      <span *ngIf="$any(article.value?.viewership) >= 100" class="page__viewership page__costs--icons">
-        <mat-icon>remove_red_eye</mat-icon>
-        {{ article.value?.viewership }}
-      </span>
-    </span>
     <div class="page__desc" [innerHtml]="article.value?.text"></div>
     <app-write-comment
       [isSavingComment]="isSavingComment"
