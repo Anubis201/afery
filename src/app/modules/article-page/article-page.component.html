@@ -96,6 +96,7 @@
         </a>
       </div>
     </div>
+    <div *ngIf="article.value?.subtitle?.length" class="page__subtitle">{{ article.value?.subtitle }}</div>
     <div class="page__image" [style.background-image]="'url(' + article.value?.imageSrc + ')'"></div>
     <span class="page__costs">
       <span class="page__costs--icons" *ngIf="article.value?.costs">

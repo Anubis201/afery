@@ -147,6 +147,7 @@ export class CreateComponent implements OnInit {
       costs: this.form.get('costs')?.value,
       createDate: new Date(),
       customName: this.form.get('customName')?.value,
+      subtitle: this.form.get('subtitle')?.value,
       viewership: 1,
       imageSrc,
     }, ref).pipe(first()).subscribe({
