@@ -244,7 +244,13 @@ export class ArticlePageComponent implements OnInit {
   // TODO Czeka na naprawienie bledu angular universe i sprawdzenie tego rozwiozania
   private prepereTagsAndTitle() {
     this.titleService.setTitle(this.article.value.title);
-    const content = this.article.value?.subtitle || this.article.value.text.split(/\s+/).slice(0,10).join(' ').replace('<p>', '')
+
+    let tmp = document.createElement('DIV');
+    tmp.innerHTML = this.article.value.text.split(/\s+/).slice(0,10).join(' ');
+
+    const content =
+      this.article.value?.subtitle
+      || (tmp.textContent || tmp.innerText || "")
 
     this.meta.updateTag({ name:'description', content }, "name='description'");
 
