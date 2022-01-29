@@ -181,19 +181,20 @@
           </div>
         </div>
       </div>
-      <span class="page__costs">
-        <span class="page__costs--icons god" *ngIf="article.value?.costs">
-          <mat-icon>money_off</mat-icon>
-          <span>{{ article.value?.costs | millions }}</span>
-          <span *ngIf="$any(article.value?.viewership) >= 100" class="page__costs--break"> | </span>
-        </span>
-        <span *ngIf="$any(article.value?.viewership) >= 100" class="page__viewership page__costs--icons god">
-          <mat-icon>remove_red_eye</mat-icon>
-          <span>{{ article.value?.viewership }}</span>
-        </span>
-      </span>
       <div *ngIf="article.value?.subtitle?.length" class="page-mobile__content__subtitle">{{ article.value?.subtitle }}</div>
       <div class="page-mobile__content__desc" [innerHtml]="article.value?.text"></div>
+      <span *ngIf="article.value?.costs" class="page__costs page__costs__mobile">
+        <span class="page__costs--title">Koszty: </span>
+        <span class="page__costs--icons">
+          <mat-icon>money_off</mat-icon>
+          {{ article.value?.costs | millions }}
+          <span *ngIf="$any(article.value?.viewership) >= 100" class="page__costs--break"> | </span>
+        </span>
+        <span *ngIf="$any(article.value?.viewership) >= 100" class="page__viewership page__costs--icons">
+          <mat-icon>remove_red_eye</mat-icon>
+          {{ article.value?.viewership }}
+        </span>
+      </span>
       <app-write-comment
         [isSavingComment]="isSavingComment"
         [countComment]="(comments | async)?.length"
