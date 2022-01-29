@@ -6,39 +6,7 @@
       <ng-container *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties">
         <img [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
         <span *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties">{{ PartiesEnum[$any(article.value?.entity)] }}</span>
-        <div class="page__organization--border"></div>
       </ng-container>
-      <div
-        class="page__organization--action"
-        [style.paddingLeft]="article.value?.type === ArticlesTypesEnum.PoliticalParties ? '7px' : '0'"
-      >
-        <button
-          mat-icon-button
-          (click)="approve()"
-        >
-          <img
-            class="plus"
-            src="/assets/icons/comment/plus.svg"
-            alt="Plus"
-            [class.choosed-plus]="actionMode.value === 'like'"
-          >
-        </button>
-        <span>{{ article.value.likes ?? 0 }}</span>
-      </div>
-      <div class="page__organization--action">
-        <button
-          mat-icon-button
-          (click)="dislike()"
-        >
-          <img
-            class="minus"
-            src="/assets/icons/comment/minus.svg"
-            alt="Minus"
-            [class.choosed-minus]="(actionMode | async) === 'dislike'"
-          >
-        </button>
-        <span>{{ article.value.dislikes ?? 0 }}</span>
-      </div>
       <span *ngIf="article.value?.costs" class="page__costs">
         <span class="page__costs--title">Koszty: </span>
         <span class="page__costs--icons">
@@ -98,6 +66,37 @@
           {{ article.value?.text | timeToRead }} min czytania
         </div>
       </div>
+      <div class="page__links__time__read"></div>
+      <div class="page__links__actions">
+        <div class="page__links__actions--action">
+          <button
+            mat-icon-button
+            (click)="approve()"
+          >
+            <img
+              class="plus"
+              src="/assets/icons/comment/plus.svg"
+              alt="Plus"
+              [class.choosed-plus]="actionMode.value === 'like'"
+            >
+          </button>
+          <span>{{ article.value.likes ?? 0 }}</span>
+        </div>
+        <div class="page__links__actions--action">
+          <button
+            mat-icon-button
+            (click)="dislike()"
+          >
+            <img
+              class="minus"
+              src="/assets/icons/comment/minus.svg"
+              alt="Minus"
+              [class.choosed-minus]="(actionMode | async) === 'dislike'"
+            >
+          </button>
+          <span>{{ article.value.dislikes ?? 0 }}</span>
+        </div>
+      </div>
       <div class="page__links__socials">
         <div>Udostępnij</div>
         <a mat-icon-button [href]="'https://www.facebook.com/share.php?u=' + pageUrl()" target="_blank" rel="noopener noreferrer">
@@ -145,30 +144,41 @@
           <div>
             {{ article.value?.createDate | date:'dd.MM.yyyy, HH:mm' }}
           </div>
-          <div class="page-mobile__content__time__rest__actions">
-            <div class="page-mobile__content__time__rest__actions__action" (click)="approve()">
-              <img
-                class="plus"
-                src="/assets/icons/comment/plus.svg"
-                alt="Plus"
-                [class.choosed-plus]="actionMode.value === 'like'"
-              >
-              <span>{{ article.value.likes ?? 0 }}</span>
-            </div>
-            <div class="page-mobile__content__time__rest__actions__action" (click)="dislike()">
-              <img
-                class="minus"
-                src="/assets/icons/comment/minus.svg"
-                alt="Minus"
-                [class.choosed-minus]="actionMode.value === 'dislike'"
-              >
-              <span>{{ article.value.dislikes ?? 0 }}</span>
-            </div>
-          </div>
         </div>
         <div class="page-mobile__content__time__all">
           <div>
             {{ article.value?.text | timeToRead }} min czytania
+          </div>
+          <div class="page__links__time__read"></div>
+          <div class="page__links__actions">
+            <div class="page__links__actions--action">
+              <button
+                mat-icon-button
+                (click)="approve()"
+              >
+                <img
+                  class="plus"
+                  src="/assets/icons/comment/plus.svg"
+                  alt="Plus"
+                  [class.choosed-plus]="actionMode.value === 'like'"
+                >
+              </button>
+              <span>{{ article.value.likes ?? 0 }}</span>
+            </div>
+            <div class="page__links__actions--action">
+              <button
+                mat-icon-button
+                (click)="dislike()"
+              >
+                <img
+                  class="minus"
+                  src="/assets/icons/comment/minus.svg"
+                  alt="Minus"
+                  [class.choosed-minus]="(actionMode | async) === 'dislike'"
+                >
+              </button>
+              <span>{{ article.value.dislikes ?? 0 }}</span>
+            </div>
           </div>
           <div class="page-mobile__content__time__all__socials">
             <div>Udostępnij</div>
