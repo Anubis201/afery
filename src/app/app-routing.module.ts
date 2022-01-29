@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/polls/polls.module').then(m => m.PollsModule),
   },
   {
+    path: 'szukaj',
+    loadChildren: () => import('./modules/search/search.module').then(m => m.SearchModule),
+  },
+  {
     path: '**',
     redirectTo: '/',
     pathMatch: 'full',

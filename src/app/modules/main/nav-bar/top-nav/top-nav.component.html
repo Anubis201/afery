@@ -11,10 +11,16 @@
 
 <!-- Social links -->
 <div class="socials">
-  <a *ngIf="isAdmin" matTooltip="Do strony admina" mat-icon-button [routerLink]="['/admin/create']">
-    <mat-icon>supervised_user_circle</mat-icon>
+  <a mat-icon-button [routerLink]="['/szukaj']">
+    <mat-icon>search</mat-icon>
   </a>
-  <a *ngIf="isAdmin" matTooltip="Wyloguj mnie" mat-icon-button (click)="logout.emit()">
-    <mat-icon>delete_outline</mat-icon>
-  </a>
+
+  <ng-container *ngIf="isAdmin">
+    <a matTooltip="Do strony admina" mat-icon-button [routerLink]="['/admin/create']">
+      <mat-icon>supervised_user_circle</mat-icon>
+    </a>
+    <a matTooltip="Wyloguj mnie" mat-icon-button (click)="logout.emit()">
+      <mat-icon>delete_outline</mat-icon>
+    </a>
+  </ng-container>
 </div>

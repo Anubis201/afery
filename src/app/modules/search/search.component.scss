@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  min-height: 85vh;
+  align-items: center;
+  flex-direction: column;
+}
+
+.search {
+  margin-top: 4rem;
+
+  @media (min-width: 767px) {
+    margin-top: 9.5rem;
+  }
+}
