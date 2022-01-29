@@ -25,3 +25,21 @@
     }
   }
 }
+
+.title {
+  color: white;
+  font-weight: 500;
+  font-size: 2rem;
+  padding: 2.3rem 0;
+  border-top: 1px solid #949494;
+  border-bottom: 1px solid #949494;
+  margin-top: 1.8rem;
+}
+
+.articles {
+  margin-top: 3rem;
+
+  &__loading {
+    text-align: -webkit-center;
+  }
+}

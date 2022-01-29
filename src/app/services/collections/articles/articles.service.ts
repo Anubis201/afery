@@ -58,4 +58,8 @@ export class ArticlesService {
   updateLikes(articleId: string, incrementValue: number) {
     return from(this.getRef().doc(articleId).update({ likes: increment(incrementValue) }))
   }
+
+  likeQuery(searched: string) {
+    return from(this.getRef().ref.orderBy('title').startAt(searched).endAt(searched + '\uf8ff').get())
+  }
 }
