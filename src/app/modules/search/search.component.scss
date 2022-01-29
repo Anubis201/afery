@@ -5,10 +5,23 @@
   flex-direction: column;
 }
 
-.search {
+.container {
   margin-top: 4rem;
 
   @media (min-width: 767px) {
     margin-top: 9.5rem;
+  }
+}
+
+.search {
+  mat-form-field {
+    max-width: 650px;
+    width: 100%;
+    font-size: 18px;
+
+    mat-icon {
+      color: white;
+      cursor: pointer;
+    }
   }
 }
