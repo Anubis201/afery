@@ -86,6 +86,41 @@ $border: 5px;
   gap: $gap;
   transition: opacity 200ms ease-out 100ms;
 
+  &--fake-mobile {
+    .mobile-article__image {
+      width: 30vw;
+      height: 11vw;
+      min-width: 150px;
+      min-height: 90px;
+      max-width: 260px;
+      max-height: 135px;
+    }
+
+   .mobile-article__content--title {
+      font-size: 1rem;
+
+      @media (min-width: 767px) {
+        font-size: 1.6rem;
+      }
+   }
+
+   .mobile-article__content {
+      padding: 2px 0;
+
+      @media (min-width: 767px) {
+        padding: 8px 0;
+      }
+   }
+
+   .mobile-article__content__footer {
+      font-size: 1rem;
+
+      @media (min-width: 767px) {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
   &:hover {
     opacity: .6;
   }
@@ -109,6 +144,7 @@ $border: 5px;
     width: calc(100% - ($gap + $image-width));
     display: flex;
     flex-direction: column;
+    padding: 2px 0;
 
     &__footer {
       margin-top: auto;

@@ -10,12 +10,21 @@
   </div>
 
   <div class="title">
-    Znalazłem {{ (articles | async).length }} afer
+    Znalazłem {{ (articles | async).length === 1 ? '' : articles.value.length }} afer{{ articles.value.length === 1 ? 'e' : '' }}
   </div>
 
   <div class="articles">
     <div *ngIf="isLoading | async" class="articles__loading">
       <mat-spinner></mat-spinner>
+    </div>
+
+    <div
+      *ngFor="let article of articles.value"
+    >
+      <app-article
+        [article]="article"
+        [fakeMobileVersion]="true"
+      ></app-article>
     </div>
   </div>
 </div>

@@ -14,6 +14,7 @@ import { ChangePolishChars } from 'src/app/services/global/support-functions/cha
 })
 export class ArticleComponent implements OnInit {
   @Input() article: ArticleModel
+  @Input() fakeMobileVersion = false
 
   countComments = new BehaviorSubject<number>(0)
 

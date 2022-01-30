@@ -12,6 +12,9 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AnswerComponent } from './answer/answer.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { ArticleComponent } from './article/article.component';
+import { MatCardModule } from '@angular/material/card';
+import { RouterModule } from '@angular/router';
 
 const declarations = [
   MillionsPipe,
@@ -21,6 +24,7 @@ const declarations = [
   CommentComponent,
   WriteCommentComponent,
   AnswerComponent,
+  ArticleComponent,
 ]
 
 const imports = [
@@ -31,6 +35,8 @@ const imports = [
   ReactiveFormsModule,
   FormsModule,
   MatBadgeModule,
+  MatCardModule,
+  RouterModule,
 ]
 
 @NgModule({
