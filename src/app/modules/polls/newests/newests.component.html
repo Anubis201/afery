@@ -5,9 +5,11 @@
     class="poll"
   >
     <div class="poll__title">
-      <span>{{ poll.surveying }}</span>
+      <div>
+        <span>{{ poll.surveying }}</span>
+        <div class="poll__title__date">{{ poll.when | date:'dd.MM.yyyy' }}</div>
+      </div>
       <span class="poll__title__others">
-        {{ poll.when | date:'dd.MM.yyyy' }}
         <div *ngIf="isAdmin">
           <button
             mat-icon-button

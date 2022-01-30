@@ -9,8 +9,12 @@
 .all {
   display: flex;
   flex-wrap: wrap;
-  gap: 25px;
+  gap: 2rem;
   justify-content: center;
+
+  @media (min-width: 1200px) {
+    gap: 4rem;
+  }
 }
 
 .poll {
@@ -23,7 +27,6 @@
   &__title {
     display: flex;
     font-size: 16px;
-    letter-spacing: 1px;
     font-weight: 500;
     align-items: center;
     justify-content: space-between;
@@ -31,6 +34,12 @@
     &__others {
       display: flex;
       align-items: center;
+    }
+
+    &__date {
+      margin-top: 7px;
+      font-size: 12px;
+      color: #c1c1c1;
     }
   }
 }
