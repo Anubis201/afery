@@ -18,7 +18,7 @@ $image-border-radius: 5px;
 }
 
 @mixin text($font) {
-  line-height: 2.1rem;
+  line-height: 30px;
   font-size: $font;
 }
 
@@ -34,8 +34,8 @@ $image-border-radius: 5px;
   &__subtitle {
     margin-top: 1rem;
     font-weight: 500;
-    font-size: 22px;
-    line-height: 2rem;
+    font-size: 20px;
+    line-height: 30px;
   }
 
   &__organization {
@@ -128,7 +128,7 @@ $image-border-radius: 5px;
   }
 
   &__desc {
-    @include text(20px);
+    @include text(18px);
     padding-bottom: 2rem;
   }
 
@@ -239,10 +239,10 @@ $image-border-radius: 5px;
 
     &__subtitle {
       font-weight: 500;
-      margin-bottom: 17px;
-      margin-top: 16px;
-      line-height: 1.9rem;
-      font-size: 18px;
+      margin-bottom: 12px;
+      margin-top: 11px;
+      line-height: 27px;
+      font-size: 19px;
     }
 
     &__title {
@@ -293,7 +293,7 @@ $image-border-radius: 5px;
     &__desc {
       @include text(16px);
       padding-bottom: 2rem;
-      line-height: 1.9rem;
+      line-height: 28px;
     }
   }
 }
@@ -354,3 +354,5 @@ $image-border-radius: 5px;
 .choosed-plus {
   filter: invert(46%) sepia(57%) saturate(3921%) hue-rotate(91deg) brightness(109%) contrast(110%);
 }
+
+
