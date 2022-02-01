@@ -176,7 +176,10 @@ export class ArticlePageComponent implements OnInit {
     this.pollsService.getNewestPoll().subscribe({
       next: doc => {
         doc.forEach(e => {
-          this.poll.next(e.data() as PollModel);
+          this.poll.next({
+            ...e.data() as PollModel,
+            when: (e.data() as any).when.toDate(),
+          });
         })
       },
     })

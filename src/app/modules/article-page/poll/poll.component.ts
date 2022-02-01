@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import * as d3 from 'd3';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
@@ -10,10 +10,12 @@ import { PollModel } from 'src/app/models/polls/poll.model';
   styleUrls: ['./poll.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PollComponent implements OnInit {
+export class PollComponent implements AfterViewInit {
   @Input() poll: PollModel
+  @Input() idSvg: string
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    this.draw(this.poll.parties);
   }
 
   private margin = 30;
@@ -37,7 +39,7 @@ export class PollComponent implements OnInit {
       .range([this.height, 0]);
 
     const chartContainer = d3
-      .select(`#articlePoll`)
+      .select('#' + this.idSvg)
       .attr('width', this.width)
       .classed('chart-container', true)
       .attr('height', this.height + (this.margin * 2))
@@ -84,5 +86,4 @@ export class PollComponent implements OnInit {
       .attr('fill', 'white')
       .attr('text-anchor', 'middle');
   }
-
 }

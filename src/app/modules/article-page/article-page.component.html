@@ -110,7 +110,11 @@
     <div *ngIf="article.value?.subtitle?.length" class="page__subtitle">{{ article.value?.subtitle }}</div>
     <div class="page__image" [style.background-image]="'url(' + article.value?.imageSrc + ')'"></div>
     <div class="page__desc" [innerHtml]="article.value?.text"></div>
-    <app-poll></app-poll>
+    <app-poll
+      *ngIf="poll | async"
+      [poll]="poll.value"
+      [idSvg]="'pcSvg'"
+    ></app-poll>
     <app-write-comment
       [isSavingComment]="isSavingComment"
       [countComment]="(comments | async)?.length"
@@ -206,7 +210,11 @@
           {{ article.value?.viewership }}
         </span>
       </span>
-      <app-poll></app-poll>
+      <app-poll
+        *ngIf="poll.value"
+        [poll]="poll.value"
+        [idSvg]="'mobileSvg'"
+      ></app-poll>
       <app-write-comment
         [isSavingComment]="isSavingComment"
         [countComment]="(comments | async)?.length"

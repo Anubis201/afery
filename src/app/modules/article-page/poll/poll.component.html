@@ -1,1 +1,10 @@
-<svg id="articlePoll"></svg>
+<div class="poll">
+  <div class="poll__title">Najnowszy sondaż</div>
+
+  <div class="poll__company">
+    <span>{{ poll.surveying }}</span>
+    <div class="poll__company__date">{{ poll.when | date:'dd.MM.yyyy' }}</div>
+  </div>
+
+  <svg [attr.id]="idSvg"></svg>
+</div>

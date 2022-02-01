@@ -129,7 +129,6 @@ $image-border-radius: 5px;
 
   &__desc {
     @include text(18px);
-    padding-bottom: 2rem;
     line-height: 32px;
   }
 
@@ -293,7 +292,6 @@ $image-border-radius: 5px;
 
     &__desc {
       @include text(16px);
-      padding-bottom: 2rem;
       line-height: 29px;
     }
   }

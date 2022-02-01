@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+.poll {
+  width: 330px;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+
+  &__title {
+    font-size: 28px;
+    font-weight: 500;
+  }
+
+  &__company {
+    margin-top: 1rem;
+
+    &__date {
+      margin-top: 4px;
+      font-size: 12px;
+      color: #c1c1c1;
+    }
+  }
+
+  @media (min-width: 767px) {
+    width: 450px;
+    margin-top: 1.4rem;
+    margin-bottom: 0.8rem;
+  }
+}
