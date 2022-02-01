@@ -36,7 +36,7 @@ $image-border-radius: 5px;
     margin-top: 1rem;
     font-weight: 500;
     font-size: 20px;
-    line-height: 30px;
+    line-height: 31px;
   }
 
   &__organization {
@@ -58,8 +58,7 @@ $image-border-radius: 5px;
   }
 
   &__title {
-    @include title(44px, 3rem);
-    margin-bottom: 10px;
+    @include title(41px, 3.4rem);
     display: flex;
 
     &--buttons {
@@ -131,6 +130,7 @@ $image-border-radius: 5px;
   &__desc {
     @include text(18px);
     padding-bottom: 2rem;
+    line-height: 32px;
   }
 
   &__links {
@@ -240,14 +240,14 @@ $image-border-radius: 5px;
 
     &__subtitle {
       font-weight: 500;
-      margin-bottom: 7px;
+      margin-bottom: 15px;
       margin-top: 11px;
-      line-height: 27px;
+      line-height: 29px;
       font-size: 17px;
     }
 
     &__title {
-      @include title(2rem, 2.8rem);
+      @include title(1.7rem, 2.5rem);
       margin-top: 1rem;
       margin-bottom: .5rem;
     }
@@ -294,7 +294,7 @@ $image-border-radius: 5px;
     &__desc {
       @include text(16px);
       padding-bottom: 2rem;
-      line-height: 28px;
+      line-height: 29px;
     }
   }
 }
@@ -355,5 +355,3 @@ $image-border-radius: 5px;
 .choosed-plus {
   filter: invert(46%) sepia(57%) saturate(3921%) hue-rotate(91deg) brightness(109%) contrast(110%);
 }
-
-
