@@ -20,6 +20,13 @@ $border: 5px;
   }
 }
 
+@mixin truncateMultipleLine($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .article {
   cursor: pointer;
   transition: opacity 200ms ease-out 100ms;
@@ -37,6 +44,8 @@ $border: 5px;
     font-weight: 600;
     font-size: 17px;
     font-family: monospace, sans-serif;
+    @include truncateMultipleLine(2);
+    height: 41px;
   }
 
   &__image {
@@ -164,11 +173,8 @@ $border: 5px;
       font-size: 1rem;
       font-weight: 500;
       line-height: 1.4rem;
-      display: -webkit-box;
       max-width: calc(100% - 10px);
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      @include truncateMultipleLine(3)
     }
   }
 }
