@@ -8,9 +8,11 @@ import { ArticleModel } from 'src/app/models/articles/article.model';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
+import { PollModel } from 'src/app/models/polls/poll.model';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
 import { ImagesService } from 'src/app/services/collections/images/images.service';
+import { PollsService } from 'src/app/services/collections/polls/polls.service';
 import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
 import { UserService } from 'src/app/services/global/user/user.service';
 
@@ -25,6 +27,8 @@ export class ArticlePageComponent implements OnInit {
   isExists = new BehaviorSubject<boolean>(true)
   comments = new BehaviorSubject<CommentModel[]>([])
   actionMode = new BehaviorSubject<'like' | 'dislike' | null>(null)
+  poll = new BehaviorSubject<PollModel>(null)
+
   isSavingComment = false
 
   readonly PartiesEnum = PartiesEnum
@@ -41,6 +45,7 @@ export class ArticlePageComponent implements OnInit {
     private imagesService: ImagesService,
     private router: Router,
     private titleService: Title,
+    private pollsService: PollsService,
   ) { }
 
   get isAdmin() {
@@ -167,6 +172,16 @@ export class ArticlePageComponent implements OnInit {
     })
   }
 
+  getNewestPoll() {
+    this.pollsService.getNewestPoll().subscribe({
+      next: doc => {
+        doc.forEach(e => {
+          this.poll.next(e.data() as PollModel);
+        })
+      },
+    })
+  }
+
   approve(forceMinus?: boolean) {
     let value: -1 | 1
 
@@ -281,6 +296,8 @@ export class ArticlePageComponent implements OnInit {
           this.actionMode.next('like');
         else if (localStorage.getItem(this.article.value.id) === 'dislike')
           this.actionMode.next('dislike');
+
+        this.getNewestPoll();
 
       } else this.isExists.next(false);
     })

@@ -24,6 +24,10 @@ export class PollsService {
     return from(this.getRef().ref.orderBy('when', 'desc').get())
   }
 
+  getNewestPoll() {
+    return from(this.getRef().ref.orderBy('when', 'desc').limit(1).get())
+  }
+
   getSinglePoll(id: string) {
     return from(this.getRef().doc(id).get())
   }

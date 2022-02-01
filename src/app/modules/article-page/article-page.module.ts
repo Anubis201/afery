@@ -6,6 +6,7 @@ import { CommentsComponent } from './comments/comments.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SharedModule } from '../shared/shared.module';
 import { ReadingProgressBarComponent } from './reading-progress-bar/reading-progress-bar.component';
+import { PollComponent } from './poll/poll.component';
 
 
 
@@ -14,6 +15,7 @@ import { ReadingProgressBarComponent } from './reading-progress-bar/reading-prog
     ArticlePageComponent,
     CommentsComponent,
     ReadingProgressBarComponent,
+    PollComponent,
   ],
   imports: [
     CommonModule,
