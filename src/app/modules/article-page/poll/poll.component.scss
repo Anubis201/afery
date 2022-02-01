@@ -1,19 +1,15 @@
 :host {
   display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
 }
 
 .poll {
   width: 330px;
-  margin-top: 1rem;
   margin-bottom: 0.5rem;
-
-  &__title {
-    font-size: 28px;
-    font-weight: 500;
-  }
+  margin-top: 1rem;
 
   &__company {
-    margin-top: 1rem;
 
     &__date {
       margin-top: 4px;
@@ -24,7 +20,13 @@
 
   @media (min-width: 767px) {
     width: 450px;
-    margin-top: 1.4rem;
     margin-bottom: 0.8rem;
   }
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 500;
+  border-bottom: 1px solid #c2c2c2;
+  padding-bottom: 0.8rem;
 }
