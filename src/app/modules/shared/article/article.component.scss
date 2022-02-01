@@ -45,7 +45,7 @@ $border: 5px;
     font-size: 17px;
     font-family: monospace, sans-serif;
     @include truncateMultipleLine(3);
-    height: 64px;
+    height: 63px;
   }
 
   &__image {
