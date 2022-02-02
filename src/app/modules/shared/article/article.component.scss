@@ -10,16 +10,11 @@ $border: 5px;
 }
 
 .article {
-  cursor: pointer;
   transition: opacity 200ms ease-out 100ms;
 
   a {
     text-decoration: none;
     color: inherit;
-  }
-
-  &:hover {
-    opacity: .7;
   }
 
   &__title {
@@ -154,5 +149,13 @@ $border: 5px;
       max-width: calc(100% - 10px);
       @include truncateMultipleLine(3)
     }
+  }
+}
+
+mat-card > div {
+  cursor: pointer;
+
+  &:hover {
+    opacity: .7;
   }
 }

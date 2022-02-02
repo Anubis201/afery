@@ -28,5 +28,16 @@
   font-size: 28px;
   font-weight: 500;
   border-bottom: 1px solid #c2c2c2;
-  padding-bottom: 0.8rem;
+  padding-bottom: 2px;
+  display: flex;
+  align-items: center;
+
+  a {
+    margin-left: auto;
+    color: white;
+
+    &:hover {
+      color: rgb(196, 195, 195);
+    }
+  }
 }
