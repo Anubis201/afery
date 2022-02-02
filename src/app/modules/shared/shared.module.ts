@@ -15,6 +15,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { ArticleComponent } from './article/article.component';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const declarations = [
   MillionsPipe,
@@ -37,6 +38,7 @@ const imports = [
   MatBadgeModule,
   MatCardModule,
   RouterModule,
+  MatDialogModule,
 ]
 
 @NgModule({

@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
 import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
+import { ShortArticleComponent } from '../short-article/short-article.component';
 
 @Component({
   selector: 'app-article',
@@ -21,7 +23,10 @@ export class ArticleComponent implements OnInit {
   readonly PartiesEnum = PartiesEnum
   readonly ArticlesTypesEnum = ArticlesTypesEnum
 
-  constructor(private commentsService: CommentsService) {}
+  constructor(
+    private commentsService: CommentsService,
+    private dialog: MatDialog,
+  ) {}
 
   get toArticlePage() {
     return `/artykul/${this.article.id}/${ChangePolishChars(this.article.title)}`
@@ -29,6 +34,10 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit() {
     this.getCountComments();
+  }
+
+  seeComments() {
+    const dialogRef = this.dialog.open(ShortArticleComponent);
   }
 
   private getCountComments() {
