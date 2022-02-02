@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ArticleModel } from 'src/app/models/articles/article.model';
+import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 
 @Component({
   selector: 'app-section',
@@ -14,4 +15,6 @@ export class SectionComponent {
   @Input() isLoading: boolean
 
   @Output() handlePage = new EventEmitter<void>()
+
+  readonly OrderEnum = OrderEnum
 }

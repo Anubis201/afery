@@ -40,15 +40,8 @@ export class AppComponent implements OnInit {
     this.metaTags();
     this.items = [
       {
-        label: 'Najnowsze',
+        label: 'Wszystkie afery',
         href: '/',
-      },
-      {
-        label: 'Popularne',
-        href: '/',
-        queryParams: {
-          order: OrderEnum.Popular,
-        }
       },
       {
         label: 'Sondaże',

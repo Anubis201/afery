@@ -2,6 +2,17 @@
   <div class="container">
     <div class="articles__title">
       <span>{{ name }}</span>
+      <div>
+        <a
+          [routerLink]="['/']"
+          mat-button
+        >Najnowsze</a>
+        <a
+          mat-button
+          [routerLink]="['/']"
+          [queryParams]="{ order: OrderEnum.Popular }"
+        >Popularne</a>
+      </div>
     </div>
     <div class="row articles__list">
       <div *ngFor="let article of articles" class="col-12 col-sm-6 col-lg-3 col-xl-3">
