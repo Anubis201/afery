@@ -17,6 +17,25 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    span {
+      line-height: 32px;
+    }
+
+    &__order {
+      display: flex;
+      align-self: end;
+
+      a {
+        padding: 0 6px;
+        font-size: 13px;
+
+        @media (min-width: 576px) {
+          font-size: 14px;
+          padding: 0 16px;
+        }
+      }
+    }
   }
 
   &__list {
