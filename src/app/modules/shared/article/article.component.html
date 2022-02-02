@@ -13,14 +13,11 @@
     <mat-card-content>
       <p class="article__title">{{ article.title }}</p>
     </mat-card-content>
-    <mat-card-footer class="article__footer">
-      <span class="article__footer--time">{{ article.createDate | date:'dd.MM.yyyy' }}</span>
-      <!-- <mat-icon class="article__comments" [matBadge]="countComments | async">insert_comment</mat-icon> -->
-      <!-- <span *ngIf="article.costs" class="article__footer--costs">
-        <mat-icon>money_off</mat-icon>
-        {{ article.costs | millions }}
-      </span> -->
-    </mat-card-footer>
+    <!-- <mat-card-footer class="article__footer">
+      <button mat-button>
+        Zobacz komentarze ({{ countComments | async }})
+      </button>
+    </mat-card-footer> -->
   </a>
 </mat-card>
 
@@ -36,12 +33,7 @@
   <div class="mobile-article__content">
     <div class="mobile-article__content--title">{{ article.title }}</div>
     <div class="mobile-article__content__footer">
-      <span>{{ article.createDate | date:'d/M/yy' }}</span>
-      <!-- <mat-icon class="mobile-article__content__footer--comments" [matBadge]="countComments.value">insert_comment</mat-icon> -->
-      <!-- <span *ngIf="article.costs" class="mobile-article__content__footer--costs">
-        <mat-icon>money_off</mat-icon>
-        {{ article.costs | millions }}
-      </span> -->
+      <span>{{ article.createDate | date:'dd.MM.yyyy' }}</span>
     </div>
   </div>
 </a>

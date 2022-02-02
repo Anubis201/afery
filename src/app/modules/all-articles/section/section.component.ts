@@ -17,4 +17,8 @@ export class SectionComponent {
   @Output() handlePage = new EventEmitter<void>()
 
   readonly OrderEnum = OrderEnum
+
+  getFirstWord(str: string) {
+    return str.split(' ')[0];
+  }
 }

@@ -1,7 +1,7 @@
 <div class="articles">
   <div class="container">
     <div class="articles__title">
-      <span>{{ name }}</span>
+      <span>{{ getFirstWord(name) }}</span>
       <div class="articles__title__order">
         <a
           [routerLink]="['/']"
