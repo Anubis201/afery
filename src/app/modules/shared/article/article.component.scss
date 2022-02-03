@@ -4,6 +4,10 @@ $border: 5px;
 
 
 .article {
+  flex-direction: column;
+  color: white;
+  padding-bottom: 10px;
+
   a {
     text-decoration: none;
     color: inherit;
@@ -13,6 +17,13 @@ $border: 5px;
     font-weight: 600;
     font-size: 17px;
     font-family: monospace, sans-serif;
+    padding: 0 10px;
+    margin-top: 4px;
+    transition: opacity 200ms ease-out 100ms;
+
+    &:hover {
+      opacity: .7;
+    }
   }
 
   &__image {
@@ -35,14 +46,13 @@ $border: 5px;
   }
 
   &__comments {
-    margin-left: auto;
-    color: #e3e3e3;
-  }
-
-  &__footer {
-    padding-bottom: 10px;
     display: flex;
-    margin-top: auto;
+    margin-top: -18px;
+
+    button {
+      padding: 0 10px;
+      font-family: monospace, sans-serif;
+    }
   }
 
   p {
@@ -53,6 +63,7 @@ $border: 5px;
 .mobile-article {
   $gap: 15px;
   $image-width: 120px;
+  font-family: monospace, sans-serif;
 
   display: flex;
   padding-bottom: 15px;

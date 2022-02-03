@@ -1,27 +1,32 @@
-<mat-card
+<div
   *ngIf="!fakeMobileVersion"
   class="article d-none d-sm-flex"
 >
-  <div>
-    <a [routerLink]="[toArticlePage]">
-      <div class="article__image" [style.background-image]="'url(' + article.imageSrc + ')'">
-        <img
-          *ngIf="article.type === ArticlesTypesEnum.PoliticalParties"
-          class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
-          alt="Logo"
-        >
-      </div>
-      <mat-card-content>
-        <p class="article__title">{{ article.title }}</p>
-      </mat-card-content>
-    </a>
-  </div>
-  <mat-card-footer class="article__footer">
+  <mat-card>
+    <div>
+      <a [routerLink]="[toArticlePage]">
+        <div class="article__image" [style.background-image]="'url(' + article.imageSrc + ')'">
+          <img
+            *ngIf="article.type === ArticlesTypesEnum.PoliticalParties"
+            class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
+            alt="Logo"
+          >
+        </div>
+      </a>
+    </div>
+  </mat-card>
+  <div class="article__comments">
     <button mat-button (click)="seeComments()">
-      Zobacz komentarze ({{ countComments | async }})
+      Komentarze {{ countComments | async }}
     </button>
-  </mat-card-footer>
-</mat-card>
+  </div>
+  <a
+    class="article__title"
+    [routerLink]="[toArticlePage]"
+  >
+    <p>{{ article.title }}</p>
+  </a>
+</div>
 
 <a
   [routerLink]="[toArticlePage]"
