@@ -18,6 +18,20 @@ a:hover {
   background: inherit;
 }
 
+.cdk-overlay-pane {
+  max-width: 100% !important;
+}
+
+
+.mat-dialog-container {
+  // padding: 10px ;
+  overflow: hidden !important;
+
+  // @media (min-width: 576px) {
+  //   padding: 20px ;
+  // }
+}
+
 .mat-card:not([class*=mat-elevation-z]) {
   box-shadow: inherit;
 }
