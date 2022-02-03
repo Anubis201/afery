@@ -42,6 +42,7 @@ $border: 5px;
   &__footer {
     padding-bottom: 10px;
     display: flex;
+    margin-top: auto;
   }
 
   p {
@@ -138,11 +139,16 @@ $border: 5px;
   }
 }
 
-mat-card > div {
-  cursor: pointer;
-  transition: opacity 200ms ease-out 100ms;
+mat-card {
+  height: 100%;
+  flex-direction: column;
 
-  &:hover {
-    opacity: .7;
+  > div {
+    cursor: pointer;
+    transition: opacity 200ms ease-out 100ms;
+
+    &:hover {
+      opacity: .7;
+    }
   }
 }
