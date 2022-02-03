@@ -1,38 +1,6 @@
-<h2 mat-dialog-title>
+<div class="title">
   {{ dialogData.article.title }}
-</h2>
-
-<div>
-  <div class="page__links__actions--action">
-    <button
-      mat-icon-button
-      (click)="approve()"
-    >
-      <img
-        class="plus"
-        src="/assets/icons/comment/plus.svg"
-        alt="Plus"
-        [class.choosed-plus]="actionMode.value === 'like'"
-      >
-    </button>
-    <span>{{ dialogData.article.likes ?? 0 }}</span>
-  </div>
-  <div class="page__links__actions--action">
-    <button
-      mat-icon-button
-      (click)="dislike()"
-    >
-      <img
-        class="minus"
-        src="/assets/icons/comment/minus.svg"
-        alt="Minus"
-        [class.choosed-minus]="(actionMode | async) === 'dislike'"
-      >
-    </button>
-    <span>{{ dialogData.article.dislikes ?? 0 }}</span>
-  </div>
 </div>
-
 
 <mat-dialog-content class="mat-typography">
   <app-write-comment

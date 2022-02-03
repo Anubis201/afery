@@ -41,6 +41,10 @@
   &__list {
     margin-top: $text-space;
     min-height: auto;
+
+    div {
+      margin-top: 5px;
+    }
   }
 
   &__more {
