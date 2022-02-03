@@ -2,3 +2,9 @@ mat-dialog-content {
   width: 60vw;
   min-width: 300px;
 }
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}

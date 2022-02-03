@@ -49,6 +49,7 @@
 .actions {
   display: inline;
   margin-left: 22px;
+  position: relative;
 
   &__action {
     display: inline;
@@ -57,7 +58,7 @@
     span {
       cursor: pointer;
       position: absolute;
-      margin-top: 8px;
+      margin-top: 10px;
     }
 
     &--plus {

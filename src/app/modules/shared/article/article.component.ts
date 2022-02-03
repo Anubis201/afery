@@ -40,6 +40,7 @@ export class ArticleComponent implements OnInit {
     const dialogRef = this.dialog.open(ShortArticleComponent, {
       data: {
         article: this.article,
+        link: this.toArticlePage
       }
     });
   }
