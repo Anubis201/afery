@@ -16,6 +16,7 @@ import { ArticleComponent } from './article/article.component';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ShortArticleComponent } from './short-article/short-article.component';
 
 const declarations = [
   MillionsPipe,
@@ -26,6 +27,7 @@ const declarations = [
   WriteCommentComponent,
   AnswerComponent,
   ArticleComponent,
+  ShortArticleComponent
 ]
 
 const imports = [

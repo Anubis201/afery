@@ -37,7 +37,11 @@ export class ArticleComponent implements OnInit {
   }
 
   seeComments() {
-    const dialogRef = this.dialog.open(ShortArticleComponent);
+    const dialogRef = this.dialog.open(ShortArticleComponent, {
+      data: {
+        article: this.article,
+      }
+    });
   }
 
   private getCountComments() {

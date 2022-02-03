@@ -10,8 +10,6 @@ $border: 5px;
 }
 
 .article {
-  transition: opacity 200ms ease-out 100ms;
-
   a {
     text-decoration: none;
     color: inherit;
@@ -154,6 +152,7 @@ $border: 5px;
 
 mat-card > div {
   cursor: pointer;
+  transition: opacity 200ms ease-out 100ms;
 
   &:hover {
     opacity: .7;
