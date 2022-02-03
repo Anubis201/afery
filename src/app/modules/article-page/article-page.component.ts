@@ -92,10 +92,6 @@ export class ArticlePageComponent implements OnInit {
           });
         });
         this.comments.next(allComments);
-      },
-      error: err => {
-        console.log(err)
-        this._snackBar.open('Nie udało się pobrać komentarzy', 'close');
       }
     })
   }
