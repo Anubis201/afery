@@ -37,7 +37,7 @@ export class ArticleComponent implements OnInit {
   }
 
   seeComments() {
-    const dialogRef = this.dialog.open(ShortArticleComponent, {
+    this.dialog.open(ShortArticleComponent, {
       data: {
         article: this.article,
         link: this.toArticlePage

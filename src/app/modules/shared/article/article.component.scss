@@ -2,12 +2,6 @@
 
 $border: 5px;
 
-@mixin truncateMultipleLine($lines) {
-  display: -webkit-box;
-  -webkit-line-clamp: $lines;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
 
 .article {
   a {
@@ -19,8 +13,6 @@ $border: 5px;
     font-weight: 600;
     font-size: 17px;
     font-family: monospace, sans-serif;
-    @include truncateMultipleLine(3);
-    height: 63px;
   }
 
   &__image {
@@ -142,7 +134,6 @@ $border: 5px;
       font-weight: 500;
       line-height: 1.4rem;
       max-width: calc(100% - 10px);
-      @include truncateMultipleLine(3)
     }
   }
 }

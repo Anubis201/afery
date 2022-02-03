@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
     this.metaTags();
     this.items = [
       {
-        label: 'Wszystkie afery',
+        label: 'Afery',
         href: '/',
       },
       {
