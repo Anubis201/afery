@@ -2,6 +2,15 @@
 
 $border: 5px;
 
+@mixin hover() {
+  transition: opacity 200ms ease-out 100ms;
+  cursor: pointer;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
 
 .article {
   flex-direction: column;
@@ -19,11 +28,7 @@ $border: 5px;
     font-family: monospace, sans-serif;
     padding: 0 10px;
     margin-top: 4px;
-    transition: opacity 200ms ease-out 100ms;
-
-    &:hover {
-      opacity: .7;
-    }
+    @include hover();
   }
 
   &__image {
@@ -67,10 +72,8 @@ $border: 5px;
 
   display: flex;
   padding-bottom: 15px;
-  cursor: pointer;
   color: white;
   gap: $gap;
-  transition: opacity 200ms ease-out 100ms;
 
   &--fake-mobile {
     .mobile-article__image {
@@ -107,15 +110,12 @@ $border: 5px;
     }
   }
 
-  &:hover {
-    opacity: .6;
-  }
-
   &__image {
     width: $image-width;
     height: 80px;
     border-radius: $border;
     @include image.imageBackground;
+    @include hover();
 
     &--entity {
       height: 20px;
@@ -133,12 +133,8 @@ $border: 5px;
     padding: 2px 0;
 
     &__footer {
-      margin-top: auto;
       font-size: 12px;
-
-      &:hover {
-        color: #cccccc;
-      }
+      @include hover();
     }
 
     &--title {
@@ -146,6 +142,15 @@ $border: 5px;
       font-weight: 500;
       line-height: 1.4rem;
       max-width: calc(100% - 10px);
+      color: inherit;
+      display: -webkit-box;
+      max-width: calc(100% - 10px);
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+      @include hover();
+
     }
   }
 }
@@ -155,11 +160,6 @@ mat-card {
   flex-direction: column;
 
   > div {
-    cursor: pointer;
-    transition: opacity 200ms ease-out 100ms;
-
-    &:hover {
-      opacity: .7;
-    }
+    @include hover();
   }
 }

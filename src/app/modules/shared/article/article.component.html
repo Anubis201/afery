@@ -28,21 +28,24 @@
   </a>
 </div>
 
-<a
-  [routerLink]="[toArticlePage]"
+<div
   class="mobile-article"
   [class.d-sm-none]="!fakeMobileVersion"
   [class.mobile-article--fake-mobile]="fakeMobileVersion"
 >
-  <div class="mobile-article__image" [style.background-image]="'url(' + article.imageSrc + ')'">
+  <a
+    class="mobile-article__image"
+    [style.background-image]="'url(' + article.imageSrc + ')'"
+    [routerLink]="[toArticlePage]"
+  >
     <img *ngIf="article.type === ArticlesTypesEnum.PoliticalParties" class="mobile-article__image--entity" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
-  </div>
+  </a>
   <div class="mobile-article__content">
-    <div class="mobile-article__content--title">{{ article.title }}</div>
+    <a class="mobile-article__content--title" [routerLink]="[toArticlePage]">{{ article.title }}</a>
     <div class="mobile-article__content__footer">
-      <!-- <div>
-        Zobacz komentarze ({{ countComments | async }})
-      </div> -->
+      <div (click)="seeComments()">
+        Komentarze {{ countComments | async }}
+      </div>
     </div>
   </div>
-</a>
+</div>
