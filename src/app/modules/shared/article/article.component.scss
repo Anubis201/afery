@@ -11,6 +11,9 @@ $border: 5px;
   }
 }
 
+@mixin font {
+  font-family: 'Fira Sans', Arial, sans-serif;
+}
 
 .article {
   flex-direction: column;
@@ -25,10 +28,10 @@ $border: 5px;
   &__title {
     font-weight: 600;
     font-size: 17px;
-    font-family: monospace, sans-serif;
     padding: 0 10px;
     margin-top: 4px;
     @include hover();
+    @include font();
   }
 
   &__image {
@@ -133,13 +136,13 @@ $border: 5px;
     padding: 2px 0;
 
     &__footer {
-      font-size: 12px;
+      font-size: 13px;
       @include hover();
     }
 
     &--title {
       font-size: 1rem;
-      font-weight: 500;
+      font-weight: 600;
       line-height: 1.4rem;
       max-width: calc(100% - 10px);
       color: inherit;
@@ -150,7 +153,7 @@ $border: 5px;
       overflow: hidden;
       flex: 1;
       @include hover();
-
+      @include font();
     }
   }
 }
