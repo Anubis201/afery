@@ -18,4 +18,5 @@ export interface ArticleModel {
   dislikes?: number
   viewership: number
   isHide?: boolean
+  isFirstArticle?: boolean
 }

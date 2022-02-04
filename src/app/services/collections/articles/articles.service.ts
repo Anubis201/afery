@@ -39,6 +39,10 @@ export class ArticlesService {
     else return from(ref.startAt(lastItem).get())
   }
 
+  getFirstTOPArticle() {
+    return from(this.firestore.collection('articles').ref.where('isFirstArticle', '==', true).get())
+  }
+
   getArticle(docId: string) {
     return this.firestore.collection('articles').doc(docId).get()
   }

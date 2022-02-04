@@ -49,6 +49,11 @@ export class MenuListComponent implements OnInit {
         href: 'polls',
         text: 'Dodaj sondaż',
         icon: 'poll'
+      },
+      {
+        href: 'polls',
+        text: 'Rozkład artykułów',
+        icon: 'table_chart'
       }
     ]);
     this.checkNewComments();

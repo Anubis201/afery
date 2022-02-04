@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, catchError, from, map, throwError, zip } from 'rxjs';
+import { BehaviorSubject, catchError, from, map, of, switchMap, throwError, zip } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
@@ -237,6 +237,27 @@ export class ArticlePageComponent implements OnInit {
     })
   }
 
+  setToFirstArticle(id: string) {
+    this.articlesService.getFirstTOPArticle().pipe(
+      map(value => {
+        if (value.size) {
+          value.forEach(doc => {
+            return from(doc.ref.update({ isFirstArticle: false }))
+          })
+        }
+
+        return of();
+      }),
+      map(() => {
+        return this.articlesService.editArticle({ isFirstArticle: true }, id)
+      })
+    ).subscribe({
+      next: () => {
+        this._snackBar.open('Wszystko się udało', 'close');
+      },
+    })
+  }
+
   // TODO WAŻNE !!! 500max komentarzy na jeden batch. KIEDYS TRZEBA BEDZIE TO NAPRAWIC :D
   // DODAC USUWANIE ODPOWIEDZI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   private removeAllComments(id: string) {
@@ -255,7 +276,7 @@ export class ArticlePageComponent implements OnInit {
     )
   }
 
-  // TODO Czeka na naprawienie bledu angular universe i sprawdzenie tego rozwiozania
+  // TODO Czeka na naprawienie bledu angular universe i sprawdzenie tego rozwiozania twitter i facebook nie widzi javascripta
   private prepereTagsAndTitle() {
     this.titleService.setTitle(this.article.value.title);
 
