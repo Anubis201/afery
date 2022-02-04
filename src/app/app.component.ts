@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { OrderEnum } from './models/articles/enums/order.enum';
 import { NavModel } from './models/articles/nav.model';
 
 @Component({
@@ -60,7 +59,7 @@ export class AppComponent implements OnInit {
 
   private metaTags() {
     this.meta.addTags([
-      { name: 'description', content: 'Afery naszych kochanych partii, polityków oraz bonusowo sondaże.' },
+      { name: 'description', content: 'Afery naszych polskich polityków oraz partii, gdzie nie ustalamy, kto jest gorszy, a na jego wyniki oraz skutki poprzez sondaże partii.' },
     ])
   }
 }

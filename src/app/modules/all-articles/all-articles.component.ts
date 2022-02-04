@@ -51,7 +51,7 @@ export class AllArticlesComponent implements OnInit {
       // Pobiera 4 artykuły z kategori polityycy
       this.getArticles(ArticlesTypesEnum.Politicians, order);
 
-      this.titleService.setTitle('Afery')
+      this.titleService.setTitle('Afery - Polityka i Sondaże')
     })
   }
 
