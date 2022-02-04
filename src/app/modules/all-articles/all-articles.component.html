@@ -1,4 +1,8 @@
 <div class="all-articles">
+  <app-top-article
+
+  ></app-top-article>
+
   <ng-container *ngFor="let section of data | async | keyvalue">
    <app-section
     *ngIf="section.value.articles.length"
