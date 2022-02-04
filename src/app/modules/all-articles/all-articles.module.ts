@@ -5,7 +5,8 @@ import { AllArticlesRoutingModule } from './all-articles-routing.module';
 import { SectionComponent } from './section/section.component';
 import { SharedModule } from '../shared/shared.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TopArticleComponent } from './top-article/top-article.component';
+import { TopArticlesComponent } from './top-articles/top-articles.component';
+import { ImportantArticleComponent } from './important-article/important-article.component';
 
 
 
@@ -13,7 +14,8 @@ import { TopArticleComponent } from './top-article/top-article.component';
   declarations: [
     AllArticlesComponent,
     SectionComponent,
-    TopArticleComponent,
+    TopArticlesComponent,
+    ImportantArticleComponent,
   ],
   imports: [
     CommonModule,

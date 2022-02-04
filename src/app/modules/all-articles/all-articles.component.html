@@ -1,7 +1,8 @@
 <div class="all-articles">
-  <app-top-article
-
-  ></app-top-article>
+  <app-top-articles
+    [importantArticle]=""
+    [restArticle]=""
+  ></app-top-articles>
 
   <ng-container *ngFor="let section of data | async | keyvalue">
    <app-section
