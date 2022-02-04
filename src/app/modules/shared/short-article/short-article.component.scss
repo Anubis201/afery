@@ -1,4 +1,4 @@
-mat-dialog-content {
+mat-dialog-content, .title {
   width: 60vw;
   min-width: 410px;
   max-width: 650px;
@@ -12,7 +12,8 @@ mat-dialog-content {
 
 .title {
   margin-top: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-weight: 500;
   font-size: 28px;
+  line-height: 33px;
 }
