@@ -71,7 +71,7 @@ $border: 5px;
 .mobile-article {
   $gap: 15px;
   $image-width: 120px;
-  font-family: monospace, sans-serif;
+  @include font();
 
   display: flex;
   padding-bottom: 15px;
@@ -153,7 +153,7 @@ $border: 5px;
       overflow: hidden;
       flex: 1;
       @include hover();
-      @include font();
+      font-family: monospace, sans-serif;
     }
   }
 }
