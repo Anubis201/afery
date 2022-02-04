@@ -24,12 +24,12 @@ a:hover {
 
 
 .mat-dialog-container {
-  // padding: 10px ;
+  padding: 18px 10px !important;
   overflow: hidden !important;
 
-  // @media (min-width: 576px) {
-  //   padding: 20px ;
-  // }
+  @media (min-width: 576px) {
+    padding: 24px !important;
+  }
 }
 
 .mat-card:not([class*=mat-elevation-z]) {
