@@ -1,4 +1,4 @@
-<div class="article d-none d-sm-flex">
+<div class="article d-flex">
   <mat-card>
     <div>
       <a [routerLink]="[toArticlePage]">
@@ -8,6 +8,7 @@
             class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
             alt="Logo"
           >
+          <div class="article__title">{{ article.title }}</div>
         </div>
       </a>
     </div>
@@ -17,10 +18,4 @@
       Komentarze 0
     </button>
   </div>
-  <a
-    class="article__title"
-    [routerLink]="[toArticlePage]"
-  >
-    <p>{{ article.title }}</p>
-  </a>
 </div>

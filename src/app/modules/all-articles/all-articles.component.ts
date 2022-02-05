@@ -113,14 +113,8 @@ export class AllArticlesComponent implements OnInit {
 
   getTopArticle() {
     this.articlesService.getFirstTOPArticle().subscribe(snap => {
-      snap.forEach(doc => this.topArticle.next(doc.data() as ArticleModel))
+      snap.forEach(doc => this.topArticle.next({ ...doc.data() as ArticleModel, id: doc.id }))
     })
-  }
-
-  restArticle() {
-    return this.data.value['Partie polityczne'].articles.length && this.data.value.Politycy.articles.length ?
-           [this.data.value['Partie polityczne'].articles[0], this.data.value.Politycy.articles[0]]
-           : [];
   }
 
   private changeSectionLoading(type: ArticlesTypesEnum, isLoading: boolean) {
