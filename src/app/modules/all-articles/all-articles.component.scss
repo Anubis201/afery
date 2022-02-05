@@ -11,6 +11,7 @@ $text-space: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: $text-space;
 }
 
 :host {
@@ -44,7 +45,6 @@ $text-space: 1rem;
   }
 
   &__list {
-    margin-top: $text-space;
     min-height: auto;
 
     div {

@@ -1,1 +1,26 @@
-<p>important-article works!</p>
+<div class="article d-none d-sm-flex">
+  <mat-card>
+    <div>
+      <a [routerLink]="[toArticlePage]">
+        <div class="article__image" [style.background-image]="'url(' + article.imageSrc + ')'">
+          <img
+            *ngIf="article.type === ArticlesTypesEnum.PoliticalParties"
+            class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
+            alt="Logo"
+          >
+        </div>
+      </a>
+    </div>
+  </mat-card>
+  <div class="article__comments">
+    <button mat-button (click)="seeComments()">
+      Komentarze 0
+    </button>
+  </div>
+  <a
+    class="article__title"
+    [routerLink]="[toArticlePage]"
+  >
+    <p>{{ article.title }}</p>
+  </a>
+</div>

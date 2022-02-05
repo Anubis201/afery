@@ -28,6 +28,7 @@ type DataType = {
 })
 export class AllArticlesComponent implements OnInit {
   data = new BehaviorSubject<DataType>(this.createPageTree() as DataType)
+  topArticle = new BehaviorSubject<ArticleModel>(null)
 
   order: OrderEnum
 
@@ -45,6 +46,8 @@ export class AllArticlesComponent implements OnInit {
       order = order ?? OrderEnum.Latest;
 
       if (order !== this.order) this.data.next(this.createPageTree() as DataType)
+
+      this.getTopArticle();
 
       // Pobiera 4 artykuły z kategori parti
       this.getArticles(ArticlesTypesEnum.PoliticalParties, order);
@@ -106,6 +109,18 @@ export class AllArticlesComponent implements OnInit {
           this.changeSectionLoading(type, false);
         },
       });
+  }
+
+  getTopArticle() {
+    this.articlesService.getFirstTOPArticle().subscribe(snap => {
+      snap.forEach(doc => this.topArticle.next(doc.data() as ArticleModel))
+    })
+  }
+
+  restArticle() {
+    return this.data.value['Partie polityczne'].articles.length && this.data.value.Politycy.articles.length ?
+           [this.data.value['Partie polityczne'].articles[0], this.data.value.Politycy.articles[0]]
+           : [];
   }
 
   private changeSectionLoading(type: ArticlesTypesEnum, isLoading: boolean) {

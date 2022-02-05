@@ -1,9 +1,17 @@
-<div class="container">
+<div *ngIf="importantArticle" class="container">
   <div class="title">
     Najważniejsze
   </div>
 
-  <div>
-    <app-important-article [article]="importantArticle"></app-important-article>
+  <div class="row">
+    <div class="col">
+      <app-important-article
+        [article]="importantArticle"
+      ></app-important-article>
+    </div>
+
+    <div *ngFor="let article of restArticle" class="col-12 col-sm-6 col-lg-4 col-xl-3">
+      <app-article [article]="article"></app-article>
+    </div>
   </div>
 </div>
