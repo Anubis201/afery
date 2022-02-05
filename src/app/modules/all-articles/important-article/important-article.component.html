@@ -15,7 +15,7 @@
   </mat-card>
   <div class="article__comments">
     <button mat-button (click)="seeComments()">
-      Komentarze 0
+      Komentarze {{ countComments | async }}
     </button>
   </div>
 </div>

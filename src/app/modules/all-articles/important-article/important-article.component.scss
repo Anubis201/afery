@@ -17,7 +17,11 @@ $border: 5px;
 .article {
   flex-direction: column;
   color: white;
-  padding-bottom: 10px;
+  padding-bottom: 24px;
+
+  @media (min-width: 576px) {
+    padding-bottom: 10px;
+  }
 
   a {
     text-decoration: none;
@@ -28,15 +32,15 @@ $border: 5px;
     font-weight: 600;
     font-size: 32px;
     margin-top: auto;
-    padding: 0 10px 10px;
+    padding: 10px;
     line-height: 32px;
-    background-color: rgba(#000000, 0.1);
+    background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.5) 30px, rgba(0, 0, 0, 0.5));
     @include font();
   }
 
   &__image {
     @include image.imageBackground;
-    height: 230px;
+    height: 250px;
     min-width: 240px;
     margin-top: -16px !important;
     width: calc(100% + 32px);
@@ -45,6 +49,10 @@ $border: 5px;
     display: flex;
     flex-direction: column;
     @include hover();
+
+    @media (min-width: 576px) {
+      height: 235px;
+    }
   }
 
   &__organization {
