@@ -17,6 +17,7 @@ import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ShortArticleComponent } from './short-article/short-article.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const declarations = [
   MillionsPipe,
@@ -41,6 +42,7 @@ const imports = [
   MatCardModule,
   RouterModule,
   MatDialogModule,
+  MatProgressSpinnerModule,
 ]
 
 @NgModule({

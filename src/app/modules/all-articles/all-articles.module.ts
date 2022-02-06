@@ -4,7 +4,6 @@ import { AllArticlesComponent } from './all-articles.component';
 import { AllArticlesRoutingModule } from './all-articles-routing.module';
 import { SectionComponent } from './section/section.component';
 import { SharedModule } from '../shared/shared.module';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TopArticlesComponent } from './top-articles/top-articles.component';
 import { ImportantArticleComponent } from './important-article/important-article.component';
 
@@ -21,7 +20,6 @@ import { ImportantArticleComponent } from './important-article/important-article
     CommonModule,
     AllArticlesRoutingModule,
     SharedModule,
-    MatProgressSpinnerModule,
   ],
 })
 export class AllArticlesModule { }
