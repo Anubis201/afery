@@ -84,6 +84,7 @@ export class PollComponent implements AfterViewInit {
       .attr('x', d => xScale(d.party as unknown as string) + xScale.bandwidth() / 2)
       .attr('y', d => yScale(d.percentage) - 15)
       .attr('fill', 'white')
+      .attr('font-weight', 500)
       .attr('text-anchor', 'middle');
   }
 }

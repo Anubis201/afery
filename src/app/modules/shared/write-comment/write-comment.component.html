@@ -9,7 +9,7 @@
   [class.left-margin]="answerMode"
 >
   <div class="name">
-    <mat-form-field appearance="standard">
+    <mat-form-field appearance="fill">
       <mat-label>Nazwa</mat-label>
       <input matInput formControlName="name" autocomplete="off" type="text">
       <mat-error *ngIf="!form.get('name')?.hasError('required')">Max długośc to {{ nameLength }} znaków</mat-error>
@@ -17,7 +17,7 @@
   </div>
 
   <div class="desc">
-    <mat-form-field appearance="standard">
+    <mat-form-field appearance="fill">
       <mat-label>Treść komentarza</mat-label>
       <textarea matInput formControlName="text" autocomplete="off" type="text" rows="2"></textarea>
       <mat-error *ngIf="!form.get('text')?.hasError('required')">Max długośc to {{ commentLength }} znaków</mat-error>
