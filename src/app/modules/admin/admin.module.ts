@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AuthComponent } from './auth/auth.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MenuListComponent } from './menu-list/menu-list.component';
 import { MatListModule } from '@angular/material/list';
 import { CreateComponent } from './create/create.component';
@@ -41,7 +40,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatExpansionModule,
     MatCheckboxModule,
     AdminRoutingModule,
-    MatProgressSpinnerModule,
     MatSelectModule,
     MatListModule,
     EditorModule,

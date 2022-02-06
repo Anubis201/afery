@@ -1,6 +1,9 @@
-<div class="container all">
+<div
+  *ngIf="(rlyPoll | async).length"
+  class="container all"
+>
   <div
-    *ngFor="let poll  of rlyPoll | async; let index = index"
+    *ngFor="let poll  of rlyPoll.value; let index = index"
     [style.display]="(isLoading | async) ? 'none' : 'block'"
     class="poll"
   >
@@ -30,4 +33,8 @@
     </div>
     <svg [attr.id]="'chart' + index"></svg>
   </div>
+</div>
+
+<div *ngIf="!rlyPoll.value.length" class="loading">
+  <mat-spinner [diameter]="65"></mat-spinner>
 </div>
