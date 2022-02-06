@@ -11,16 +11,21 @@
   align-self: center;
 
   &__company {
+    margin-left: 14px;
+
+    span {
+      font-size: 18px;
+    }
 
     &__date {
-      margin-top: 4px;
-      font-size: 12px;
+      margin-top: 6px;
+      font-size: 14px;
       color: #c1c1c1;
     }
   }
 
   @media (min-width: 576px) {
-    width: 90%;
+    width: 85%;
     margin-bottom: 0.8rem;
   }
 }
