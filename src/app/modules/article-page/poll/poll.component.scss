@@ -8,6 +8,7 @@
   width: 330px;
   margin-bottom: 0.5rem;
   margin-top: 2rem;
+  align-self: center;
 
   &__company {
 
@@ -18,8 +19,8 @@
     }
   }
 
-  @media (min-width: 767px) {
-    width: 450px;
+  @media (min-width: 576px) {
+    width: 90%;
     margin-bottom: 0.8rem;
   }
 }
