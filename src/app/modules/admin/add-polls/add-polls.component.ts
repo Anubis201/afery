@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
 
@@ -14,7 +15,7 @@ import { PollsService } from 'src/app/services/collections/polls/polls.service';
 })
 export class AddPollsComponent implements OnInit {
   form = new FormGroup({
-    parties: new FormArray([ this.createItem() ]),
+    parties: new FormArray([]),
     surveying: new FormControl(null, Validators.required),
     when: new FormControl(null, Validators.required),
     people: new FormControl(null),
@@ -33,9 +34,11 @@ export class AddPollsComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(({ id }) => {
       if (id) {
+        this.addEmptyItem();
         this.getPollDataForEdit(id);
       } else {
         this.idPoll.next('');
+        this.createDefualtArray();
       }
     })
   }
@@ -49,13 +52,14 @@ export class AddPollsComponent implements OnInit {
     }
   }
 
-  addItem() {
+  addEmptyItem() {
     (this.form.get('parties') as FormArray).push(this.createItem());
   }
 
   deleteItem(index: number) {
     (this.form.get('parties') as FormArray).removeAt(index);
   }
+
 
   private editPoll() {
     this.isLoading.next(true);
@@ -111,10 +115,20 @@ export class AddPollsComponent implements OnInit {
     })
   }
 
-  private createItem() {
+  private createDefualtArray() {
+    const ref = (this.form.get('parties') as FormArray);
+    ref.push(this.createItem(PartiesEnum.pis));
+    ref.push(this.createItem(PartiesEnum.po));
+    ref.push(this.createItem(PartiesEnum.polska2050));
+    ref.push(this.createItem(PartiesEnum.konfederacja));
+    ref.push(this.createItem(PartiesEnum.lewica));
+    ref.push(this.createItem(PartiesEnum.psl));
+  }
+
+  private createItem(party: PartiesEnum | null = null, pertcantage: number | null = null) {
     return new FormGroup({
-      party: new FormControl(null, Validators.required),
-      percentage: new FormControl(null, Validators.required),
+      party: new FormControl(party, Validators.required),
+      percentage: new FormControl(pertcantage, Validators.required),
     })
   }
 }
