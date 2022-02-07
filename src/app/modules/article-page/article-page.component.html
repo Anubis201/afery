@@ -117,6 +117,7 @@
     </div>
     <div *ngIf="article.value?.subtitle?.length" class="page__subtitle">{{ article.value?.subtitle }}</div>
     <div class="page__image" [style.background-image]="'url(' + article.value?.imageSrc + ')'"></div>
+    <div>{{ article.value?.imageDesc }}</div>
     <div class="page__desc" [innerHtml]="article.value?.text"></div>
     <app-poll
       *ngIf="poll | async"
