@@ -66,7 +66,7 @@ export class NewestsComponent {
       .call(d3.axisBottom(xScale))
       .selectAll('.tick')
       .append('svg:image')
-      .attr('xlink:href', party => `/assets/icons/parties/${PartiesEnum[party as PartiesEnum]}.jpg`)
+      .attr('xlink:href', party => `/assets/icons/parties/${PartiesEnum[party as PartiesEnum]}.png`)
       .attr('width', 30)
       .attr('height', 30)
       .attr('y', 10)
