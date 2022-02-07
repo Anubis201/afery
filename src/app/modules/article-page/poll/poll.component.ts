@@ -52,11 +52,11 @@ export class PollComponent implements AfterViewInit {
       .call(d3.axisBottom(xScale))
       .selectAll('.tick')
       .append('svg:image')
-      .attr('xlink:href', party => `/assets/icons/parties/${PartiesEnum[party as PartiesEnum]}.jpg`)
-      .attr('width', 30)
+      .attr('xlink:href', party => `/assets/icons/parties/${PartiesEnum[party as PartiesEnum]}.png`)
       .attr('height', 30)
+      .attr('width', 40)
       .attr('y', 10)
-      .attr('x', -15);
+      .attr('x', -20);
 
     chart
       .select('g')
