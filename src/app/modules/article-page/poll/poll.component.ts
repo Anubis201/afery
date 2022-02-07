@@ -26,6 +26,7 @@ export class PollComponent implements AfterViewInit {
 
   private draw(data: PartyCharModel[]) {
     this.width = parseInt(d3.select('.poll').style('width'), 10);
+    const isMobileVersion = this.width <= 330;
 
     const xScale = d3
       .scaleBand()
@@ -53,10 +54,10 @@ export class PollComponent implements AfterViewInit {
       .selectAll('.tick')
       .append('svg:image')
       .attr('xlink:href', party => `/assets/icons/parties/${PartiesEnum[party as PartiesEnum]}.png`)
-      .attr('height', 30)
-      .attr('width', 40)
+      .attr('height', isMobileVersion ? 25 : 30)
+      .attr('width', isMobileVersion ? 30 : 40)
       .attr('y', 10)
-      .attr('x', -20);
+      .attr('x', isMobileVersion ? -14 : -20);
 
     chart
       .select('g')

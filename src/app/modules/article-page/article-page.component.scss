@@ -58,8 +58,12 @@ $image-border-radius: 5px;
   }
 
   &__title {
-    @include title(41px, 3.4rem);
     display: flex;
+
+    h1 {
+      @include title(41px, 3.4rem);
+      margin: 0;
+    }
 
     &--buttons {
       margin-left: auto;
@@ -246,9 +250,12 @@ $image-border-radius: 5px;
     }
 
     &__title {
-      @include title(1.7rem, 2.5rem);
       margin-top: 1rem;
       margin-bottom: .5rem;
+
+      h1 {
+        @include title(1.7rem, 2.5rem);
+      }
     }
 
     &__time {
