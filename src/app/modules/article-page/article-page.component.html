@@ -4,7 +4,7 @@
   <ng-container *ngIf="(isExists | async) && (article | async)?.imageSrc">
     <div class="page__organization">
       <ng-container *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties">
-        <img [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
+        <img [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" [alt]="'Logo ' + PartiesEnum[article.value.entity]">
         <span *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties">{{ PartiesEnum[$any(article.value?.entity)] }}</span>
       </ng-container>
       <span *ngIf="article.value?.costs" class="page__costs">
@@ -146,7 +146,11 @@
 <div class="d-sm-none page-mobile">
   <ng-container *ngIf="(isExists | async) && (article | async)?.imageSrc">
     <div class="page-mobile__image" [style.background-image]="'url(' + article.value?.imageSrc + ')'">
-      <img *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties" class="page-mobile__image--org" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" alt="Logo">
+      <img
+        *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties"
+        class="page-mobile__image--org" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'"
+        [alt]="'Logo ' + PartiesEnum[article.value.entity]"
+      >
     </div>
     <div class="page-mobile__content">
       <div class="page-mobile__content__title">

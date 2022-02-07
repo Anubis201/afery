@@ -6,7 +6,7 @@
           <img
             *ngIf="article.type === ArticlesTypesEnum.PoliticalParties"
             class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
-            alt="Logo"
+            [alt]="'Logo ' + PartiesEnum[article.entity]"
           >
           <div class="article__title">{{ article.title }}</div>
         </div>

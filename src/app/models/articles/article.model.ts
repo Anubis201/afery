@@ -11,6 +11,8 @@ export interface ArticleModel {
   id?: string // Dodaje id do meduly tylko gdy potrzebuje pobrać zdjęcie artykułu
   imageSrc: string // tylko przy pokazniu zdjęcia trzeba dodać jego zdjęcie
   entity: PartiesEnum
+  alt?: string
+  imageDesc?: string
   costs: number | null
   customName: string
   subtitle?: string

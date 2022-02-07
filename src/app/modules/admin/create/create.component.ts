@@ -24,6 +24,8 @@ export class CreateComponent implements OnInit {
     subtitle: new FormControl(null, Validators.required),
     text: new FormControl(null),
     image: new FormControl(null, Validators.required),
+    alt: new FormControl(null),
+    imageDesc: new FormControl(null),
     type: new FormControl(null, Validators.required),
     kind: new FormControl(ArticlesKindsEnum.Confirmed, Validators.required),
     entity: new FormControl(null, Validators.required), // partie // jest required ponieważ domyślnie przyjmuje partie jako domyślny tryb
@@ -145,9 +147,11 @@ export class CreateComponent implements OnInit {
       kind: this.form.get('kind')?.value,
       entity: this.form.get('entity')?.value,
       costs: this.form.get('costs')?.value,
-      createDate: new Date(),
       customName: this.form.get('customName')?.value,
       subtitle: this.form.get('subtitle')?.value,
+      alt: this.form.get('alt')?.value,
+      imageDesc: this.form.get('imageDesc')?.value,
+      createDate: new Date(),
       viewership: 1,
       imageSrc,
     }, ref).pipe(first()).subscribe({

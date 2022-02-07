@@ -33,6 +33,16 @@
     <input #image formControlName="image" type="file" accept="image/png, image/jpeg">
   </div>
 
+  <mat-form-field class="alt" appearance="fill">
+    <mat-label>Alt zdjęcia</mat-label>
+    <input matInput class="title-input" formControlName="alt" autocomplete="off" type="text">
+  </mat-form-field>
+
+  <mat-form-field class="image-desc" appearance="fill">
+    <mat-label>Opis zdjęcia (np. autor)</mat-label>
+    <input matInput class="title-input" formControlName="imageDesc" autocomplete="off" type="text">
+  </mat-form-field>
+
   <mat-radio-group class="type" formControlName="type">
     <div>Typ</div>
     <mat-radio-button *ngFor="let type of articleTypes" [value]="type">{{ type }}</mat-radio-button>

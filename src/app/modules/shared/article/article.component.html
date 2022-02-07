@@ -9,7 +9,7 @@
           <img
             *ngIf="article.type === ArticlesTypesEnum.PoliticalParties"
             class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
-            alt="Logo"
+            [alt]="'Logo ' + PartiesEnum[article.entity]"
           >
         </div>
       </a>
@@ -38,7 +38,11 @@
     [style.background-image]="'url(' + article.imageSrc + ')'"
     [routerLink]="[toArticlePage]"
   >
-    <img *ngIf="article.type === ArticlesTypesEnum.PoliticalParties" class="mobile-article__image--entity" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'" alt="Logo">
+    <img
+      *ngIf="article.type === ArticlesTypesEnum.PoliticalParties"
+      class="mobile-article__image--entity" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
+      [alt]="'Logo ' + PartiesEnum[article.entity]"
+    >
   </a>
   <div class="mobile-article__content">
     <a class="mobile-article__content--title" [routerLink]="[toArticlePage]">{{ article.title }}</a>
