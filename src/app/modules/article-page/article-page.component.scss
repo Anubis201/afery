@@ -114,20 +114,30 @@ $image-border-radius: 5px;
     color: rgb(255, 0, 255);
   }
 
-  &__image {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 100%;
-    border-radius: $image-border-radius;
-    height: 250px;
-    @include image.imageBackground;
+  &__image-section {
+    margin-top: 1.6rem;
+    margin-bottom: 2rem;
 
-    @media (min-width: 576px) {
-      height: 300px;
-    }
+   &--author {
+     margin-top: 3px;
+     font-size: .75rem;
+     color: #e4e4e4;
+     font-family: "Raleway", "Helvetica", "Arial", sans-serif;
+   }
 
-    @media (min-width: 768px) {
-      height: 400px;
+    &--image {
+      width: 100%;
+      border-radius: $image-border-radius;
+      height: 250px;
+      @include image.imageBackground;
+
+      @media (min-width: 576px) {
+        height: 300px;
+      }
+
+      @media (min-width: 768px) {
+        height: 400px;
+      }
     }
   }
 
@@ -224,6 +234,14 @@ $image-border-radius: 5px;
   margin-top: 5rem;
   min-height: 70vh;
 
+  &__author {
+    margin-top: 2px;
+    padding: 0 0.7rem;
+    font-size: .55rem;
+    color: #e4e4e4;
+    font-family: "Raleway", "Helvetica", "Arial", sans-serif;
+  }
+
   &__image {
     width: 100%;
     height: 25vh;
@@ -250,7 +268,7 @@ $image-border-radius: 5px;
     }
 
     &__title {
-      margin-top: 1rem;
+      margin-top: .8rem;
       margin-bottom: .5rem;
 
       h1 {
@@ -265,7 +283,6 @@ $image-border-radius: 5px;
 
       &__rest {
         display: flex;
-        margin-bottom: 2px;
       }
 
       &__all {

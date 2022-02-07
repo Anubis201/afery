@@ -24,7 +24,7 @@ export class CreateComponent implements OnInit {
     subtitle: new FormControl(null, Validators.required),
     text: new FormControl(null),
     image: new FormControl(null, Validators.required),
-    alt: new FormControl(null, Validators.required),
+    alt: new FormControl(null),
     imageDesc: new FormControl(null),
     type: new FormControl(null, Validators.required),
     kind: new FormControl(ArticlesKindsEnum.Confirmed, Validators.required),
