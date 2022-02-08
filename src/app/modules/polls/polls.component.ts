@@ -16,6 +16,10 @@ import { UserService } from 'src/app/services/global/user/user.service';
 export class PollsComponent implements OnInit {
   allPolls = new BehaviorSubject<PollModel[]>([])
   isLoading = new BehaviorSubject<boolean>(false)
+  showMore = new BehaviorSubject<boolean>(false)
+
+  private lastItemSnapshot = null
+  private readonly limit = 10
 
   get isAdmin() {
     return this.userService.isAdmin
@@ -52,20 +56,33 @@ export class PollsComponent implements OnInit {
     })
   }
 
-  private getPolls() {
+  getPolls(isMore = false) {
     this.isLoading.next(true);
-    this.pollsService.getPolls().subscribe({
+    this.pollsService.getPolls(11, isMore, this.lastItemSnapshot).subscribe({
       next: docs => {
-        this.isLoading.next(false);
         let data: PollModel[] = [];
-        docs.forEach(d =>{
+        let i = 0;
+
+        docs.forEach(d => {
           data.push({ ...d.data() as PollModel, when: (d.data() as any).when.toDate(), id: d.id })
+          if (this.limit - 1 === i) this.lastItemSnapshot = d;
+          i++;
         })
-        this.allPolls.next(data);
-      },
-      error: () => {
+
+        if (data.length === this.limit + 1) {
+          this.showMore.next(true);
+          data.pop();
+        } else {
+          this.showMore.next(false);
+        }
+
+        this.allPolls.next([
+          ...this.allPolls.value,
+          ...data,
+        ]);
         this.isLoading.next(false);
-      }
+      },
+      error: () => this.isLoading.next(false)
     })
   }
 

@@ -13,6 +13,7 @@ import { PollModel } from 'src/app/models/polls/poll.model';
 })
 export class NewestsComponent {
   @Input() isAdmin: boolean
+  @Input() showMore: boolean
   @Input() set polls (polls: PollModel[]) {
     if (!polls.length) return
 
@@ -22,6 +23,7 @@ export class NewestsComponent {
 
   @Output() editPoll = new EventEmitter<string>()
   @Output() deletePoll = new EventEmitter<string>()
+  @Output() handlePage = new EventEmitter<void>()
 
   rlyPoll = new BehaviorSubject<PollModel[]>([])
   isLoading = new BehaviorSubject<boolean>(true)

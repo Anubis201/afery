@@ -6,6 +6,8 @@
 <app-newests
   [polls]="allPolls | async"
   [isAdmin]="isAdmin | async"
+  [showMore]="showMore | async"
   (deletePoll)="handleDeletePoll($event)"
   (editPoll)="handleEditPoll($event)"
+  (handlePage)="getPolls(true)"
 ></app-newests>

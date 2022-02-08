@@ -35,6 +35,17 @@
   </div>
 </div>
 
+<div class="more">
+  <button
+    *ngIf="showMore"
+    mat-icon-button
+    matTooltip="Wjęcej"
+    (click)="handlePage.emit()"
+  >
+    <mat-icon>expand_more</mat-icon>
+  </button>
+</div>
+
 <div *ngIf="!rlyPoll.value.length" class="loading">
   <mat-spinner [diameter]="65"></mat-spinner>
 </div>
