@@ -4,7 +4,8 @@ import { PollsComponent } from './polls.component';
 import { SharedModule } from '../shared/shared.module';
 import { PollsRoutingModule } from './article-page-routing.module';
 import { NewestsComponent } from './newests/newests.component';
-import { AvarageComponent } from './avarage/avarage.component';
+import { PollPcComponent } from './poll-pc/poll-pc.component';
+import { PollMobileComponent } from './poll-mobile/poll-mobile.component';
 
 
 
@@ -12,7 +13,8 @@ import { AvarageComponent } from './avarage/avarage.component';
   declarations: [
     PollsComponent,
     NewestsComponent,
-    AvarageComponent
+    PollPcComponent,
+    PollMobileComponent
   ],
   imports: [
     CommonModule,
