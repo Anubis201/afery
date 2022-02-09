@@ -1,5 +1,11 @@
-<div class="work">
-  Trwają prace nad stroną!
+<app-nav-bar [isOpenMenu]="isOpenMenu | async" [items]="items" (handleMenu)="handleMenu()"></app-nav-bar>
+
+<app-aside-menu *ngIf="isOpenMenu | async" [items]="items" @menu></app-aside-menu>
+
+<!-- <app-snow-animation></app-snow-animation> -->
+
+<div>
+  <router-outlet></router-outlet>
 </div>
 
-<router-outlet></router-outlet>
+<app-toolbar></app-toolbar>

@@ -1,0 +1,22 @@
+<div class="title">
+  <span>
+    Najnowszy sondaż
+  </span>
+
+  <a
+    mat-icon-button
+    [routerLink]="['/sondaze']"
+    [matTooltip]="'Wjęcej sondaży'"
+  >
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </a>
+</div>
+<div class="poll">
+
+  <div class="poll__company">
+    <span>{{ poll.surveying }}</span>
+    <div class="poll__company__date">{{ poll.when | date:'dd.MM.yyyy' }}</div>
+  </div>
+
+  <svg [attr.id]="idSvg"></svg>
+</div>

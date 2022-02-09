@@ -1,0 +1,28 @@
+<form [formGroup]="form">
+  <app-parties
+    [items]="form.get('parties')"
+    (addItem)="addEmptyItem()"
+    (deleteItem)="deleteItem($event)"
+  ></app-parties>
+
+  <app-details
+    [surveying]="form.get('surveying')"
+    [when]="form.get('when')"
+    [people]="form.get('people')"
+    [forWhom]="form.get('forWhom')"
+  ></app-details>
+
+  <button
+    mat-raised-button
+    class="create"
+    type="submit"
+    color="primary"
+    [disabled]="form.invalid || isLoading.value"
+    (click)="handleSubmit()"
+  >
+    <div class="loading-button">
+      <mat-spinner *ngIf="isLoading | async" [diameter]="20"></mat-spinner>
+      <span>{{ (idPoll | async).length ? 'Edytuj' : 'Dodaj' }}</span>
+    </div>
+  </button>
+</form>

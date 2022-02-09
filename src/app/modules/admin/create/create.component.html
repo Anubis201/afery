@@ -1,0 +1,83 @@
+<form [formGroup]="form" class="inputs">
+  <mat-form-field appearance="fill">
+    <mat-label>Tytuł</mat-label>
+    <input matInput class="title-input" formControlName="title" autocomplete="off" type="text">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Podtytuł</mat-label>
+    <textarea class="subtitle-input" formControlName="subtitle" autocomplete="off" matInput rows="2"></textarea>
+  </mat-form-field>
+
+  <editor
+    [formControl]="form.get('text')"
+    [init]="{
+      height: 500,
+      menubar: false,
+      content_css: 'dark',
+      plugins: [
+        'advlist autolink lists link image charmap print preview anchor',
+        'searchreplace visualblocks code fullscreen',
+        'insertdatetime media table paste code help wordcount'
+      ],
+      toolbar:
+        'undo redo | formatselect | bold italic backcolor | \
+        alignleft aligncenter alignright alignjustify | \
+        bullist numlist outdent indent | removeformat | help'
+    }"
+  ></editor>
+
+  <!-- TODO Kiedys dorobic edycje zdjecia artykulu, ale to jesli bedzie bardzo przeskadzac -->
+  <div [class.hide]="(articleId | async).length" class="file-input">
+    <span class="file-input__text">Zdjęcie artykułu(max 1MB): </span>
+    <input #image formControlName="image" type="file" accept="image/png, image/jpeg">
+  </div>
+
+  <mat-form-field class="alt" appearance="fill">
+    <mat-label>Alt zdjęcia</mat-label>
+    <input matInput class="title-input" formControlName="alt" autocomplete="off" type="text">
+  </mat-form-field>
+
+  <mat-form-field class="image-desc" appearance="fill">
+    <mat-label>Opis zdjęcia (np. autor)</mat-label>
+    <input matInput class="title-input" formControlName="imageDesc" autocomplete="off" type="text">
+  </mat-form-field>
+
+  <mat-radio-group class="type" formControlName="type">
+    <div>Typ</div>
+    <mat-radio-button *ngFor="let type of articleTypes" [value]="type">{{ type }}</mat-radio-button>
+  </mat-radio-group>
+
+  <mat-form-field *ngIf="ArticlesTypesEnum.PoliticalParties === form.get('type')?.value" class="entity" appearance="fill">
+    <mat-label>Partia</mat-label>
+    <mat-select formControlName="entity">
+      <mat-option *ngFor="let item of entityItems | async" [value]="item">
+        <img class="entity__img" [src]="'/assets/icons/parties/' + PartiesEnum[item] + '.jpg'" alt="">
+        <span>{{ PartiesEnum[item] }}</span>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="[ArticlesTypesEnum.Politicians, ArticlesTypesEnum.Others].includes(form.get('type')?.value)" class="others" appearance="fill">
+    <mat-label>Osoba lub organizacja</mat-label>
+    <input matInput class="desc-input" formControlName="customName" autocomplete="off" type="text">
+  </mat-form-field>
+
+  <mat-radio-group formControlName="kind">
+    <div>Rodzaj</div>
+    <mat-radio-button *ngFor="let kind of articleKinds" [value]="kind">{{ kind }}</mat-radio-button>
+  </mat-radio-group>
+
+  <mat-form-field class="costs" appearance="fill">
+    <mat-label>Koszty</mat-label>
+    <input matInput formControlName="costs" autocomplete="off" type="number">
+    <span class="costs__zl" matSuffix>ZŁ</span>
+  </mat-form-field>
+
+  <button mat-raised-button class="create" type="submit" color="primary" [disabled]="form.invalid || (isLoading | async)" (click)="handleSubmit(image.files)">
+    <div class="loading-button">
+      <mat-spinner *ngIf="isLoading | async" [diameter]="20"></mat-spinner>
+      <span>{{ articleId.value.length ? 'Edytuj' : 'Stwórz' }}</span>
+    </div>
+  </button>
+</form>

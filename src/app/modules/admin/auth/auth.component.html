@@ -1,0 +1,16 @@
+<form *ngIf="!(isBanned | async)" [formGroup]="form" class="auth">
+  <div class="auth__title">Czy na pewno jesteś adminem? hmmm...</div>
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" autocomplete="off" type="text" placeholder="A napisz mikolaj@swieta.fin">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Hasło</mat-label>
+    <input matInput formControlName="password" autocomplete="off" type="password" placeholder="Co daje mikołaj?">
+  </mat-form-field>
+  <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid" (click)="login()">Zaloguj się</button>
+</form>
+
+<div *ngIf="(isBanned | async)" class="ban">
+  Niespodzianka BANNED
+</div>

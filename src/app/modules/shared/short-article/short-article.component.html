@@ -1,0 +1,34 @@
+<mat-dialog-content class="title">
+  {{ dialogData.article.title }}
+</mat-dialog-content>
+
+<mat-dialog-content class="mat-typography">
+  <app-write-comment
+    [isSavingComment]="isSavingComment | async"
+    [countComment]="(comments | async)?.length"
+    (addComment)="handleAddComment($event)"
+  ></app-write-comment>
+
+  <div class="comments">
+    <app-comment
+      *ngFor="let comment of comments | async"
+      [comment]="comment"
+      [isAdmin]="isAdmin"
+      [isMenagaComponent]="false"
+      (deleteComment)="deleteComment.emit($event)"
+    ></app-comment>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <a
+    mat-button
+    mat-dialog-close
+    cdkFocusInitial
+    [routerLink]="[dialogData.link]"
+  >Artykuł</a>
+  <button
+    mat-button
+    mat-dialog-close
+  >Close</button>
+</mat-dialog-actions>

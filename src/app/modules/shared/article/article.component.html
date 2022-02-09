@@ -1,0 +1,55 @@
+<div
+  *ngIf="!fakeMobileVersion"
+  class="article d-none d-sm-flex"
+>
+  <mat-card>
+    <div>
+      <a [routerLink]="[toArticlePage]">
+        <div class="article__image" [style.background-image]="'url(' + article.imageSrc + ')'">
+          <img
+            *ngIf="article.type === ArticlesTypesEnum.PoliticalParties"
+            class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
+            [alt]="'Logo ' + PartiesEnum[article.entity]"
+          >
+        </div>
+      </a>
+    </div>
+  </mat-card>
+  <div class="article__comments">
+    <button mat-button (click)="seeComments()">
+      Komentarze {{ countComments | async }}
+    </button>
+  </div>
+  <a
+    class="article__title"
+    [routerLink]="[toArticlePage]"
+  >
+    <p>{{ article.title }}</p>
+  </a>
+</div>
+
+<div
+  class="mobile-article"
+  [class.d-sm-none]="!fakeMobileVersion"
+  [class.mobile-article--fake-mobile]="fakeMobileVersion"
+>
+  <a
+    class="mobile-article__image"
+    [style.background-image]="'url(' + article.imageSrc + ')'"
+    [routerLink]="[toArticlePage]"
+  >
+    <img
+      *ngIf="article.type === ArticlesTypesEnum.PoliticalParties"
+      class="mobile-article__image--entity" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
+      [alt]="'Logo ' + PartiesEnum[article.entity]"
+    >
+  </a>
+  <div class="mobile-article__content">
+    <a class="mobile-article__content--title" [routerLink]="[toArticlePage]">{{ article.title }}</a>
+    <div class="mobile-article__content__footer">
+      <div (click)="seeComments()">
+        Komentarze {{ countComments | async }}
+      </div>
+    </div>
+  </div>
+</div>

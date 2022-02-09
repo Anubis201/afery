@@ -1,0 +1,11 @@
+<mat-nav-list>
+  <a
+    *ngFor="let item of items | async"
+    mat-list-item
+    [routerLink]="[item.href]"
+    (click)="item.function ? item.function() : null"
+  >
+    <mat-icon [matBadge]="item.badgeNumber || null">{{ item.icon }}</mat-icon>
+    {{ item.text }}
+  </a>
+</mat-nav-list>

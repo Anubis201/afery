@@ -1,0 +1,120 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5rem;
+  margin-left: 9rem;
+  min-height: 80vh;
+  margin-bottom: 2rem;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  margin-top: 30px;
+}
+
+.others {
+  margin-top: 15px;
+  margin-bottom: 6px;
+  width: 100%;
+}
+
+.file-input {
+  font-size: 1.1rem;
+  margin: 6px 0;
+  margin-top: 1.5rem;
+
+  &__text {
+    color: white;
+  }
+}
+
+.loading-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  mat-spinner {
+    margin-right: 80px;
+    position: absolute;
+  }
+}
+
+mat-radio-group {
+  color: white;
+
+  div:first-child {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+  }
+
+  mat-radio-button {
+    margin-right: 10px;
+  }
+}
+
+.title-input {
+  font-size: 1.4rem;
+}
+
+.subtitle-input {
+  font-size: 1rem;
+}
+
+.desc-input {
+  font-size: 1.2rem;
+}
+
+mat-label {
+  font-size: 1.1rem;
+}
+
+.create {
+  margin-top: 5px;
+}
+
+.entity {
+  margin-top: 15px;
+  margin-bottom: 6px;
+  width: 25%;
+
+  &__img {
+    width: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+}
+
+.type {
+  margin-top: 14px;
+}
+
+.costs {
+  margin-top: 18px;
+  width: 25%;
+
+  &__zl {
+    color: white;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .inputs {
+    width: 97%;
+  }
+}
+
+.hide {
+  opacity: .5;
+  pointer-events: none;
+}
+
+.alt {
+  margin-top: 1rem;
+}
+
+.image-desc {
+  margin-top: 0.5rem;
+}

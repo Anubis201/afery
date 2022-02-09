@@ -1,0 +1,42 @@
+:host {
+  display: flex;
+  height: 70px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+
+}
+
+.mobile-menu {
+  color: white;
+
+  button {
+    width: 50px;
+    height: 50px;
+  }
+
+  mat-icon {
+    font-size: 35px;
+    margin-right: 10px;
+  }
+}
+
+.logo {
+  color: white;
+  font-weight: 600;
+  font-size: 1.9rem;
+  letter-spacing: .8rem;
+  font-family: 'Material Icons';
+  padding-bottom: 7px;
+  line-height: 3rem;
+  cursor: pointer;
+}
+
+.socials {
+  filter: invert(94%) sepia(0%) saturate(24%) hue-rotate(24deg) brightness(105%) contrast(108%);
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}

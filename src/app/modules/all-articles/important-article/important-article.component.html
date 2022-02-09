@@ -1,0 +1,21 @@
+<div class="article d-flex">
+  <mat-card>
+    <div>
+      <a [routerLink]="[toArticlePage]">
+        <div class="article__image" [style.background-image]="'url(' + article.imageSrc + ')'">
+          <img
+            *ngIf="article.type === ArticlesTypesEnum.PoliticalParties"
+            class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
+            [alt]="'Logo ' + PartiesEnum[article.entity]"
+          >
+          <div class="article__title">{{ article.title }}</div>
+        </div>
+      </a>
+    </div>
+  </mat-card>
+  <div class="article__comments">
+    <button mat-button (click)="seeComments()">
+      Komentarze {{ countComments | async }}
+    </button>
+  </div>
+</div>

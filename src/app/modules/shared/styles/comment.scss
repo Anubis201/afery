@@ -1,0 +1,94 @@
+@mixin activePLus {
+  filter: invert(46%) sepia(57%) saturate(3921%) hue-rotate(91deg) brightness(109%) contrast(110%);
+}
+
+@mixin activeMinus {
+  filter: invert(13%) sepia(82%) saturate(4837%) hue-rotate(356deg) brightness(100%) contrast(117%);
+}
+
+.comment {
+  display: flex;
+  gap: 1.2rem;
+
+  mat-icon {
+    font-size: 30px;
+  }
+
+  &__texts {
+    word-break: break-word;
+    letter-spacing: 1px;
+
+    &--name {
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    &--date {
+      margin-top: 5px;
+    }
+
+    &--desc {
+      margin-top: 10px;
+      line-height: 24px;
+    }
+
+    &--answers {
+      margin-top: 10px;
+    }
+  }
+
+  &__buttons {
+    margin-left: auto;
+
+    mat-icon {
+      font-size: 18px;
+    }
+  }
+}
+
+.actions {
+  display: inline;
+  margin-left: 22px;
+  position: relative;
+
+  &__action {
+    display: inline;
+    margin-right: 40px;
+
+    span {
+      cursor: pointer;
+      position: absolute;
+      margin-top: 10px;
+    }
+
+    &--plus {
+      filter: invert(20%) sepia(90%) saturate(2406%) hue-rotate(100deg) brightness(104%) contrast(104%);
+      cursor: pointer;
+      width: 26px;
+      padding-right: 8px;
+
+      &:hover {
+        @include activePLus;
+      }
+    }
+
+    &--minus {
+      filter: invert(11%) sepia(100%) saturate(6468%) hue-rotate(26deg) brightness(81%) contrast(129%);
+      cursor: pointer;
+      width: 26px;
+      padding-right: 8px;
+
+      &:hover {
+        @include activeMinus;
+      }
+    }
+  }
+}
+
+.choosed-minus {
+  @include activeMinus;
+}
+
+.choosed-plus {
+  @include activePLus;
+}

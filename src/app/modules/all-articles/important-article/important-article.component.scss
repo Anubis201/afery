@@ -1,0 +1,79 @@
+@use '../../shared/styles/image';
+$border: 5px;
+
+@mixin hover() {
+  transition: opacity 200ms ease-out 100ms;
+  cursor: pointer;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
+@mixin font {
+  font-family: 'Fira Sans', Arial, sans-serif;
+}
+
+.article {
+  flex-direction: column;
+  color: white;
+  padding-bottom: 24px;
+
+  @media (min-width: 576px) {
+    padding-bottom: 10px;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 32px;
+    margin-top: auto;
+    padding: 10px;
+    line-height: 35px;
+    background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.5) 30px, rgba(0, 0, 0, 0.5));
+    @include font();
+  }
+
+  &__image {
+    @include image.imageBackground;
+    height: 250px;
+    min-width: 240px;
+    margin-top: -16px !important;
+    width: calc(100% + 32px);
+    margin: 0 -16px 16px -16px;
+    border-radius: $border;
+    display: flex;
+    flex-direction: column;
+    @include hover();
+
+    @media (min-width: 576px) {
+      height: 235px;
+    }
+  }
+
+  &__organization {
+    height: 30px;
+    border-bottom-right-radius: $border;
+    border-top-left-radius: calc($border - 1px);
+    width: 30px;
+    vertical-align: inherit;
+  }
+
+  &__comments {
+    display: flex;
+    margin-top: -18px;
+
+    button {
+      padding: 0 10px;
+      font-family: monospace, sans-serif;
+    }
+  }
+
+  p {
+    line-height: 1.4rem;
+  }
+}

@@ -1,0 +1,25 @@
+<div *ngIf="importantArticle" class="container">
+  <div class="title">
+    Najważniejsze
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-sm-6 col-xl-3 d-none d-xl-block">
+      <app-article [article]="restArticle[0]"></app-article>
+    </div>
+
+    <div class="col-12 col-xl-6">
+      <app-important-article
+        [article]="importantArticle"
+      ></app-important-article>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+      <app-article [article]="restArticle[1]"></app-article>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3 d-xl-none">
+      <app-article [article]="restArticle[0]"></app-article>
+    </div>
+  </div>
+</div>

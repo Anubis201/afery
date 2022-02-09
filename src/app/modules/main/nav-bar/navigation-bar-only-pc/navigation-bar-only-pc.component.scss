@@ -1,0 +1,44 @@
+.jd {
+  border-top: 1px solid #464646;
+  border-bottom: 1px solid #7c7c7c;
+  padding-top: 3px;
+  padding-bottom: 4px;
+
+  &__navigation {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    text-transform: uppercase;
+
+    a {
+      font-family: monospace, sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: 1px;
+      opacity: 1;
+
+      &:hover {
+        color: #dadada;
+      }
+    }
+
+    @media (min-width: 576px) {
+        max-width: 540px;
+    }
+
+    @media (min-width: 768px) {
+      max-width: 720px;
+    }
+
+    @media (min-width: 992px) {
+      max-width: 960px;
+    }
+
+    @media (min-width: 1200px) {
+      max-width: 1140px;
+    }
+  }
+}
+

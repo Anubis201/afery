@@ -1,0 +1,49 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+
+.poll {
+  width: 330px;
+  margin-bottom: 0.5rem;
+  margin-top: 2rem;
+  align-self: center;
+
+  &__company {
+    margin-left: 14px;
+
+    span {
+      font-size: 18px;
+    }
+
+    &__date {
+      margin-top: 6px;
+      font-size: 14px;
+      color: #c1c1c1;
+    }
+  }
+
+  @media (min-width: 576px) {
+    width: 85%;
+    margin-bottom: 0.8rem;
+  }
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 500;
+  border-bottom: 1px solid #c2c2c2;
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+
+  a {
+    margin-left: auto;
+    color: white;
+
+    &:hover {
+      color: rgb(196, 195, 195);
+    }
+  }
+}

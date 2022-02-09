@@ -1,0 +1,34 @@
+$margin-content: 1.3rem;
+
+form {
+  mat-form-field {
+    width: 100%;
+
+  }
+
+  .name {
+    margin-top: $margin-content;
+  }
+
+  .desc {
+    margin-top: 3px;
+  }
+
+  .create {
+    text-align: right;
+  }
+}
+
+.loading {
+  margin-top: $margin-content;
+  align-items: center;
+  height: 200px;
+}
+
+.left-margin {
+  margin-left: 43px;
+}
+
+.label {
+  margin-top: 1rem;
+}

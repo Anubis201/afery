@@ -1,0 +1,169 @@
+@use '../styles/image';
+
+$border: 5px;
+
+@mixin hover() {
+  transition: opacity 200ms ease-out 100ms;
+  cursor: pointer;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
+@mixin font {
+  font-family: 'Fira Sans', Arial, sans-serif;
+}
+
+.article {
+  flex-direction: column;
+  color: white;
+  padding-bottom: 10px;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 17px;
+    padding: 0 10px;
+    margin-top: 4px;
+    @include hover();
+    @include font();
+  }
+
+  &__image {
+    @include image.imageBackground;
+    height: 150px;
+    min-width: 240px;
+    margin-top: -16px !important;
+    width: calc(100% + 32px);
+    margin: 0 -16px 16px -16px;
+    border-radius: $border;
+    display: flex;
+  }
+
+  &__organization {
+    height: 30px;
+    border-bottom-right-radius: $border;
+    border-top-left-radius: calc($border - 1px);
+    width: 30px;
+    vertical-align: inherit;
+  }
+
+  &__comments {
+    display: flex;
+    margin-top: -18px;
+
+    button {
+      padding: 0 10px;
+      font-family: monospace, sans-serif;
+    }
+  }
+
+  p {
+    line-height: 1.6rem;
+  }
+}
+
+.mobile-article {
+  $gap: 15px;
+  $image-width: 120px;
+  @include font();
+
+  display: flex;
+  padding-bottom: 15px;
+  color: white;
+  gap: $gap;
+
+  &--fake-mobile {
+    .mobile-article__image {
+      width: 30vw;
+      height: 11vw;
+      min-width: 150px;
+      min-height: 90px;
+      max-width: 260px;
+      max-height: 135px;
+    }
+
+   .mobile-article__content--title {
+      font-size: 1rem;
+
+      @media (min-width: 767px) {
+        font-size: 1.6rem;
+      }
+   }
+
+   .mobile-article__content {
+      padding: 2px 0;
+
+      @media (min-width: 767px) {
+        padding: 8px 0;
+      }
+   }
+
+   .mobile-article__content__footer {
+      font-size: 1rem;
+
+      @media (min-width: 767px) {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  &__image {
+    width: $image-width;
+    height: 80px;
+    border-radius: $border;
+    @include image.imageBackground;
+    @include hover();
+
+    &--entity {
+      height: 20px;
+      width: 20px;
+      vertical-align: initial;
+      border-bottom-right-radius: $border;
+      border-top-left-radius: calc($border - 1px);
+    }
+  }
+
+  &__content {
+    width: calc(100% - ($gap + $image-width));
+    display: flex;
+    flex-direction: column;
+    padding: 2px 0;
+
+    &__footer {
+      font-size: 13px;
+      @include hover();
+    }
+
+    &--title {
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.3rem;
+      padding-bottom: 3px;
+      max-width: calc(100% - 10px);
+      color: inherit;
+      display: -webkit-box;
+      max-width: calc(100% - 10px);
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+      @include hover();
+      font-family: monospace, sans-serif;
+    }
+  }
+}
+
+mat-card {
+  height: 100%;
+  flex-direction: column;
+
+  > div {
+    @include hover();
+  }
+}

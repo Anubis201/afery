@@ -1,0 +1,5 @@
+@use '../all-articles.component.scss' as all;
+
+.title {
+  @include all.title();
+}

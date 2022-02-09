@@ -1,0 +1,26 @@
+<!-- Mobile menu -->
+<div class="mobile-menu">
+  <button mat-icon-button (click)="handleMenuNav.emit()">
+    <mat-icon *ngIf="!isOpenMenu">menu</mat-icon>
+    <mat-icon *ngIf="isOpenMenu">close</mat-icon>
+  </button>
+</div>
+
+<!-- Logo -->
+<div class="logo" [routerLink]="['/']">AFERY</div>
+
+<!-- Social links -->
+<div class="socials">
+  <a mat-icon-button [routerLink]="['/szukaj']">
+    <mat-icon>search</mat-icon>
+  </a>
+
+  <ng-container *ngIf="isAdmin">
+    <a matTooltip="Do strony admina" mat-icon-button [routerLink]="['/admin/create']">
+      <mat-icon>supervised_user_circle</mat-icon>
+    </a>
+    <a matTooltip="Wyloguj mnie" mat-icon-button (click)="logout.emit()">
+      <mat-icon>delete_outline</mat-icon>
+    </a>
+  </ng-container>
+</div>

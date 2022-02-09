@@ -1,4 +1,84 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; background-color: black; }
+html, body { height: 100%; background-color: #161616  !important; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+input, textarea {
+  color: white !important;
+}
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.mat-card {
+  background: inherit;
+}
+
+.cdk-overlay-pane {
+  max-width: 100% !important;
+}
+
+
+.mat-dialog-container {
+  padding: 18px 10px !important;
+  overflow: hidden !important;
+
+  @media (min-width: 576px) {
+    padding: 24px !important;
+  }
+}
+
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: inherit;
+}
+
+.mat-card-content {
+  margin: 0 -16px;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.4rem;
+  margin-bottom: 8px !important;
+}
+
+.b, strong {
+  font-weight: bold;
+}
+
+.mat-select-min-line, .mat-option-text {
+  text-transform: uppercase;
+}
+
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: white;
+}
+
+.truncate {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 1.5rem;
+  border-bottom: 1px solid rgb(194, 194, 194);
+  padding-bottom: 0.7rem;
+}
+
+.loading {
+  display: flex;
+  place-content: center;
+}
+
+.mat-tab-nav-bar, .mat-tab-header {
+  border-bottom: initial;
+}
+
+h2 {
+  font-size: 30px !important;
+  margin: 25px 0 !important;
+}

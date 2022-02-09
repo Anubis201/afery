@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="search">
+    <form [formGroup]="form" (ngSubmit)="search()">
+      <mat-form-field appearance="standard">
+        <mat-label>Szukaj afery...</mat-label>
+        <input matInput formControlName="searched" autocomplete="off" type="text">
+        <mat-icon matSuffix (click)="search()">search</mat-icon>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <div class="title">
+    Znaleziono {{ (articles | async).length === 1 ? '' : articles.value.length }} afer{{ articles.value.length === 1 ? 'e' : '' }}
+  </div>
+
+  <div class="articles">
+    <div *ngIf="isLoading | async" class="articles__loading">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <div
+      *ngFor="let article of articles.value"
+    >
+      <app-article
+        [article]="article"
+        [fakeMobileVersion]="true"
+      ></app-article>
+    </div>
+  </div>
+</div>

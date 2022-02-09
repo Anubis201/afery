@@ -1,0 +1,19 @@
+<div class="all-articles">
+  <app-top-articles
+    *ngIf="data.value['Partie polityczne'].articles.length && data.value.Politycy.articles.length"
+    [importantArticle]="topArticle | async"
+    [restArticle]="[data.value['Partie polityczne'].articles[0], data.value.Politycy.articles[0]]"
+  ></app-top-articles>
+
+  <ng-container *ngFor="let section of data | async | keyvalue">
+   <app-section
+    *ngIf="section.value.articles.length"
+     class="section"
+     [name]="section.key"
+     [articles]="section.value.articles"
+     [reachedMaxArticles]="section.value.isLastPage"
+     [isLoading]="section.value.isLoading"
+     (handlePage)="getArticles($any(section.key), order)"
+   ></app-section>
+  </ng-container>
+</div>

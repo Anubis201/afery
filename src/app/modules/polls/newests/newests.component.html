@@ -1,0 +1,51 @@
+<div
+  *ngIf="(rlyPoll | async).length"
+  class="container all"
+>
+  <div
+    *ngFor="let poll  of rlyPoll.value; let index = index"
+    [style.display]="(isLoading | async) ? 'none' : 'block'"
+    class="poll"
+  >
+    <div class="poll__title">
+      <div>
+        <span>{{ poll.surveying }}</span>
+        <div class="poll__title__date">{{ poll.when | date:'dd.MM.yyyy' }}</div>
+      </div>
+      <span class="poll__title__others">
+        <div *ngIf="isAdmin">
+          <button
+            mat-icon-button
+            matTooltip="Edytuj"
+            (click)="editPoll.emit(poll.id)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            matTooltip="Usuń"
+            (click)="deletePoll.emit(poll.id)"
+          >
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </div>
+      </span>
+    </div>
+    <svg [attr.id]="'chart' + index"></svg>
+  </div>
+</div>
+
+<div class="more">
+  <button
+    *ngIf="showMore"
+    mat-icon-button
+    matTooltip="Wjęcej"
+    (click)="handlePage.emit()"
+  >
+    <mat-icon>expand_more</mat-icon>
+  </button>
+</div>
+
+<div *ngIf="!rlyPoll.value.length" class="loading">
+  <mat-spinner [diameter]="65"></mat-spinner>
+</div>

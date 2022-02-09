@@ -1,0 +1,37 @@
+<div class="articles">
+  <div class="container">
+    <div class="articles__title">
+      <span>{{ getFirstWord(name) }}</span>
+      <div class="articles__title__order">
+        <a
+          [routerLink]="['/']"
+          mat-button
+        >Najnowsze</a>
+        <a
+          mat-button
+          [routerLink]="['/']"
+          [queryParams]="{ order: OrderEnum.Popular }"
+        >Popularne</a>
+      </div>
+    </div>
+    <div class="row articles__list">
+      <div *ngFor="let article of articles" class="col-12 col-sm-6 col-lg-4 col-xl-3">
+        <app-article [article]="article"></app-article>
+      </div>
+    </div>
+    <div class="articles__more">
+      <button
+        *ngIf="!reachedMaxArticles"
+        mat-icon-button
+        matTooltip="Wjęcej"
+        [disabled]="isLoading"
+        (click)="handlePage.emit()"
+      >
+        <mat-icon>expand_more</mat-icon>
+      </button>
+      <div *ngIf="isLoading" class="articles__more--loading">
+        <mat-spinner [diameter]="25"></mat-spinner>
+      </div>
+    </div>
+  </div>
+</div>
