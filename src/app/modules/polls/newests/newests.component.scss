@@ -43,3 +43,16 @@
     }
   }
 }
+
+.more {
+  text-align: center;
+
+  button {
+
+    mat-icon {
+      font-size: 35px;
+      margin-right: 10px;
+      margin-top: 4px;
+    }
+  }
+}

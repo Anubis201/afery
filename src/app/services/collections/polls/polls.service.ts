@@ -20,8 +20,13 @@ export class PollsService {
     return from(this.getRef().add(data))
   }
 
-  getPolls() {
-    return from(this.getRef().ref.orderBy('when', 'desc').get())
+  getPolls(limit: number, isMore: boolean, snapshot: any) {
+    const ref = this.getRef().ref.orderBy('when', 'desc').limit(limit)
+
+    if (isMore)
+      return from(ref.startAfter(snapshot).get())
+    else
+      return from(ref.get())
   }
 
   getNewestPoll() {

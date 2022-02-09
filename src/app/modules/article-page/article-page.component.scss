@@ -233,6 +233,7 @@ $image-border-radius: 5px;
   width: 100%;
   margin-top: 5rem;
   min-height: 70vh;
+  position: relative;
 
   &__author {
     margin-top: 2px;
@@ -253,6 +254,7 @@ $image-border-radius: 5px;
       height: 40px;
       width: 40px;
       border-bottom-right-radius: $image-border-radius;
+      position: absolute;
     }
   }
 
