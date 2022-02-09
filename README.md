@@ -1,5 +1,3 @@
 # Afery
 
-IN PROGRESS!
-
-Page: https://afery.org/
+Link: https://afery.org/
