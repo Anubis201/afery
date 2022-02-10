@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-poll-pc',
   templateUrl: './poll-pc.component.html',
-  styleUrls: ['./poll-pc.component.scss']
+  styleUrls: ['./poll-pc.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PollPcComponent implements OnInit {
 

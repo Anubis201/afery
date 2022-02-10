@@ -2,4 +2,5 @@
 
 .title {
   @include all.title();
+  padding-bottom: .8rem;
 }

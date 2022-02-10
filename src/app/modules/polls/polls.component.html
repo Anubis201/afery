@@ -1,8 +1,21 @@
-<app-newests
+<!-- <app-newests
   [polls]="allPolls | async"
   [isAdmin]="isAdmin | async"
   [showMore]="showMore | async"
   (deletePoll)="handleDeletePoll($event)"
   (editPoll)="handleEditPoll($event)"
   (handlePage)="getPolls(true)"
-></app-newests>
+></app-newests> -->
+<div class="newest container">
+
+  <div class="label">
+    Najnowsze
+  </div>
+
+  <div class="row">
+    <app-poll-pc
+      *ngFor="let poll of allPolls | async"
+      class="col-6"
+    ></app-poll-pc>
+  </div>
+</div>
