@@ -25,8 +25,6 @@ export class PollPcComponent {
 
   private draw(data: PartyCharModel[]) {
     const width = parseInt(this.image.nativeElement.offsetWidth, 10);
-    const isMobileVersion = width <= 330;
-    console.log(width)
 
     const xScale = d3
       .scaleBand()
