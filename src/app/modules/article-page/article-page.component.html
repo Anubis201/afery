@@ -121,11 +121,11 @@
       <div class="page__image-section--author">{{ article.value?.imageDesc }}</div>
     </div>
     <div class="page__desc" [innerHtml]="article.value?.text"></div>
-    <app-poll
+    <!-- <app-poll
       *ngIf="poll | async"
       [poll]="poll.value"
       [idSvg]="'pcSvg'"
-    ></app-poll>
+    ></app-poll> -->
     <app-write-comment
       [isSavingComment]="isSavingComment"
       [countComment]="(comments | async)?.length"
@@ -225,11 +225,11 @@
           {{ article.value?.viewership }}
         </span>
       </span> -->
-      <app-poll
+      <!-- <app-poll
         *ngIf="poll.value"
         [poll]="poll.value"
         [idSvg]="'mobileSvg'"
-      ></app-poll>
+      ></app-poll> -->
       <app-write-comment
         [isSavingComment]="isSavingComment"
         [countComment]="(comments | async)?.length"

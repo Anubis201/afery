@@ -7,17 +7,30 @@
   (handlePage)="getPolls(true)"
 ></app-newests> -->
 <div class="newest container">
-
-  <div class="label">
+  <div
+    *ngIf="allPolls.value.length"
+    class="label"
+  >
     Najnowsze
   </div>
 
   <div class="row">
     <app-poll-pc
       *ngFor="let poll of allPolls | async; let index = index"
-      class="col-12 col-md-6 newest__item"
+      class="col-12 col-sm-6 col-lg-4 newest__item"
       [poll]="poll"
       [idSvg]="'halo' + index"
     ></app-poll-pc>
+  </div>
+
+  <div class="more">
+    <button
+      *ngIf="showMore | async"
+      mat-icon-button
+      matTooltip="Wjęcej"
+      (click)="getPolls(true)"
+    >
+      <mat-icon>expand_more</mat-icon>
+    </button>
   </div>
 </div>

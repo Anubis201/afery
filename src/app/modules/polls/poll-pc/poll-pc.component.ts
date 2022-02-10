@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild } from
 import { PollModel } from 'src/app/models/polls/poll.model';
 import * as d3 from 'd3';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 
 @Component({
@@ -18,7 +17,6 @@ export class PollPcComponent {
   @ViewChild('image') image: ElementRef;
 
   private margin = 30;
-  private width;
   private height = 200 - (this.margin * 2);
 
   ngAfterViewInit() {
@@ -26,12 +24,13 @@ export class PollPcComponent {
   }
 
   private draw(data: PartyCharModel[]) {
-    this.width = parseInt(this.image.nativeElement.offsetWidth, 10);
-    const isMobileVersion = this.width <= 330;
+    const width = parseInt(this.image.nativeElement.offsetWidth, 10);
+    const isMobileVersion = width <= 330;
+    console.log(width)
 
     const xScale = d3
       .scaleBand()
-      .range([0, this.width])
+      .range([0, width])
       .domain(data.map(d => d.party as unknown as string))
       .padding(0.2);
 
@@ -42,7 +41,7 @@ export class PollPcComponent {
 
     const chartContainer = d3
       .select('#' + this.idSvg)
-      .attr('width', this.width)
+      .attr('width', width)
       .classed('chart-container', true)
       .attr('height', this.height + (this.margin * 2))
 
@@ -55,10 +54,10 @@ export class PollPcComponent {
       .selectAll('.tick')
       .append('svg:image')
       .attr('xlink:href', party => `/assets/icons/parties/${PartiesEnum[party as PartiesEnum]}.png`)
-      .attr('height', isMobileVersion ? 25 : 30)
-      .attr('width', isMobileVersion ? 30 : 40)
+      .attr('height', 25)
+      .attr('width', 30)
       .attr('y', 10)
-      .attr('x', isMobileVersion ? -14 : -20);
+      .attr('x', -14);
 
     chart
       .select('g')
@@ -87,6 +86,7 @@ export class PollPcComponent {
       .attr('y', d => yScale(d.percentage) - 15)
       .attr('fill', 'white')
       .attr('font-weight', 500)
+      .attr('font-size', '14px')
       .attr('text-anchor', 'middle');
   }
 }

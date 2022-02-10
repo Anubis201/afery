@@ -2,5 +2,10 @@
   <div #image class="poll__image">
     <svg [attr.id]="idSvg"></svg>
   </div>
-  <div>{{ poll.title }}</div>
+  <div class="poll__title">{{ poll.title }}</div>
+  <div class="poll__others">
+    <span>{{ poll.surveying }}</span>
+    <span class="break"></span>
+    <span>{{ poll.when  | date:'dd.MM.yyyy' }}</span>
+  </div>
 </div>
