@@ -16,6 +16,7 @@ import { PollsService } from 'src/app/services/collections/polls/polls.service';
 export class AddPollsComponent implements OnInit {
   form = new FormGroup({
     parties: new FormArray([]),
+    title: new FormControl(null),
     surveying: new FormControl(null, Validators.required),
     when: new FormControl(null, Validators.required),
     people: new FormControl(null),
@@ -44,6 +45,9 @@ export class AddPollsComponent implements OnInit {
   }
 
   handleSubmit() {
+    this.isLoading.next(true);
+    this.checkTitle();
+
     if (this.idPoll.value.length) {
       // edycja artykulu
       this.editPoll();
@@ -60,9 +64,13 @@ export class AddPollsComponent implements OnInit {
     (this.form.get('parties') as FormArray).removeAt(index);
   }
 
+  private checkTitle() {
+    if (!this.form.get('title').value?.length) {
+      this.form.get('title').patchValue('Sondaż ' + this.form.get('surveying').value);
+    }
+  }
 
   private editPoll() {
-    this.isLoading.next(true);
     this.pollsService.editPoll(this.form.value, this.idPoll.value).subscribe({
       next: () => {
         this.isLoading.next(false);
@@ -76,7 +84,6 @@ export class AddPollsComponent implements OnInit {
   }
 
   private addPoll() {
-    this.isLoading.next(true);
     this.pollsService.addPoll(this.form.value).subscribe({
       next: () => {
         this.isLoading.next(false);

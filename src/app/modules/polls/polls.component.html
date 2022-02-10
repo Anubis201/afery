@@ -16,6 +16,7 @@
     <app-poll-pc
       *ngFor="let poll of allPolls | async"
       class="col-12 col-md-6 newest__item"
+      [poll]="poll"
     ></app-poll-pc>
   </div>
 </div>

@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { PollModel } from 'src/app/models/polls/poll.model';
 
 @Component({
   selector: 'app-poll-pc',
@@ -6,11 +7,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./poll-pc.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PollPcComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class PollPcComponent {
+  @Input() poll: PollModel
 
 }
