@@ -8,6 +8,10 @@
 .newest {
   margin-top: 6.5rem;
 
+  &__item {
+    margin-bottom: 1rem;
+  }
+
   @media (min-width: 767px) {
     margin-top: 10.5rem;
   }
@@ -15,4 +19,5 @@
 
 .label {
   color: white;
+  margin-bottom: 1rem;
 }
