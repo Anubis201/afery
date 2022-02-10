@@ -3,8 +3,13 @@
   font-family: "Fira Sans", Arial, sans-serif;
   font-weight: 600;
   font-size: 17px;
+  // transition: opacity 200ms ease-out 100ms;
+  // cursor: pointer;
+
+  // &:hover {
+  //   opacity: .7;
+  // }
 }
 
 .poll {
-  height: 200px;
 }
