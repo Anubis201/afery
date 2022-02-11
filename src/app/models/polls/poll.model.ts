@@ -6,5 +6,6 @@ export interface PollModel {
   surveying: string
   when: Date
   parties: PartyCharModel[]
+  title: string
   id?: string
 }

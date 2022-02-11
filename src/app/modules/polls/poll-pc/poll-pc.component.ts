@@ -1,52 +1,34 @@
-import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
-import * as d3 from 'd3';
-import { BehaviorSubject } from 'rxjs';
-import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
-import { PartyCharModel } from 'src/app/models/articles/party-char.model';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { PollModel } from 'src/app/models/polls/poll.model';
+import * as d3 from 'd3';
+import { PartyCharModel } from 'src/app/models/articles/party-char.model';
+import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 
 @Component({
-  selector: 'app-newests',
-  templateUrl: './newests.component.html',
-  styleUrls: ['./newests.component.scss'],
+  selector: 'app-poll-pc',
+  templateUrl: './poll-pc.component.html',
+  styleUrls: ['./poll-pc.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NewestsComponent {
-  @Input() isAdmin: boolean
-  @Input() showMore: boolean
-  @Input() set polls (polls: PollModel[]) {
-    if (!polls.length) return
+export class PollPcComponent {
+  @Input() poll: PollModel
+  @Input() idSvg: string
 
-    this.rlyPoll.next(polls);
-    this.create();
-  }
-
-  @Output() editPoll = new EventEmitter<string>()
-  @Output() deletePoll = new EventEmitter<string>()
-  @Output() handlePage = new EventEmitter<void>()
-
-  rlyPoll = new BehaviorSubject<PollModel[]>([])
-  isLoading = new BehaviorSubject<boolean>(true)
+  @ViewChild('image') image: ElementRef;
 
   private margin = 30;
-  private width;
-  private height = 300 - (this.margin * 2);
+  private height = 200 - (this.margin * 2);
 
-  private create() {
-    this.rlyPoll.value.forEach((element, index) => {
-      setTimeout(() => {
-        this.draw(element.parties, index);
-      });
-    });
+  ngAfterViewInit() {
+    this.draw(this.poll.parties);
   }
 
-  private draw(data: PartyCharModel[], index: number) {
-    this.width = parseInt(d3.select('.poll').style('width'), 10);
-    const isMobileVersion = this.width <= 330;
+  private draw(data: PartyCharModel[]) {
+    const width = parseInt(this.image.nativeElement.offsetWidth, 10);
 
     const xScale = d3
       .scaleBand()
-      .range([0, this.width])
+      .range([0, width])
       .domain(data.map(d => d.party as unknown as string))
       .padding(0.2);
 
@@ -56,8 +38,8 @@ export class NewestsComponent {
       .range([this.height, 0]);
 
     const chartContainer = d3
-      .select(`#chart${index}`)
-      .attr('width', this.width)
+      .select('#' + this.idSvg)
+      .attr('width', width)
       .classed('chart-container', true)
       .attr('height', this.height + (this.margin * 2))
 
@@ -70,10 +52,10 @@ export class NewestsComponent {
       .selectAll('.tick')
       .append('svg:image')
       .attr('xlink:href', party => `/assets/icons/parties/${PartiesEnum[party as PartiesEnum]}.png`)
-      .attr('height', isMobileVersion ? 25 : 30)
-      .attr('width', isMobileVersion ? 30 : 40)
+      .attr('height', 25)
+      .attr('width', 30)
       .attr('y', 10)
-      .attr('x', isMobileVersion ? -14 : -20);
+      .attr('x', -14);
 
     chart
       .select('g')
@@ -102,8 +84,7 @@ export class NewestsComponent {
       .attr('y', d => yScale(d.percentage) - 15)
       .attr('fill', 'white')
       .attr('font-weight', 500)
+      .attr('font-size', '14px')
       .attr('text-anchor', 'middle');
-
-      this.isLoading.next(false);
   }
 }

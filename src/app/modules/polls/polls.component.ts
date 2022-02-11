@@ -19,7 +19,7 @@ export class PollsComponent implements OnInit {
   showMore = new BehaviorSubject<boolean>(false)
 
   private lastItemSnapshot = null
-  private readonly limit = 10
+  private readonly limit = 6
 
   get isAdmin() {
     return this.userService.isAdmin
@@ -58,7 +58,7 @@ export class PollsComponent implements OnInit {
 
   getPolls(isMore = false) {
     this.isLoading.next(true);
-    this.pollsService.getPolls(11, isMore, this.lastItemSnapshot).subscribe({
+    this.pollsService.getPolls(this.limit + 1, isMore, this.lastItemSnapshot).subscribe({
       next: docs => {
         let data: PollModel[] = [];
         let i = 0;

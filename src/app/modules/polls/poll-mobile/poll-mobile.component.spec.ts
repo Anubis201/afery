@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewestsComponent } from './newests.component';
+import { PollMobileComponent } from './poll-mobile.component';
 
-describe('NewestsComponent', () => {
-  let component: NewestsComponent;
-  let fixture: ComponentFixture<NewestsComponent>;
+describe('PollMobileComponent', () => {
+  let component: PollMobileComponent;
+  let fixture: ComponentFixture<PollMobileComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewestsComponent ]
+      declarations: [ PollMobileComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewestsComponent);
+    fixture = TestBed.createComponent(PollMobileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
