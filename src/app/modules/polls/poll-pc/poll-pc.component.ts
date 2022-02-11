@@ -84,7 +84,7 @@ export class PollPcComponent {
       .attr('y', d => yScale(d.percentage) - 15)
       .attr('fill', 'white')
       .attr('font-weight', 500)
-      .attr('font-size', '14px')
+      .attr('font-size', '13px')
       .attr('text-anchor', 'middle');
   }
 }
