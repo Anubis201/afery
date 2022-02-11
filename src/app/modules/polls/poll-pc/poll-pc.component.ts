@@ -23,7 +23,7 @@ export class PollPcComponent {
   @ViewChild('image') image: ElementRef;
 
   private margin = 30;
-  private height = 200 - (this.margin * 2);
+  private height = 280 - (this.margin * 2);
 
   get toPage() {
     return `/sondaz/${this.poll.id}/${ChangePolishChars(this.poll.title ?? 'Sondaż' + this.poll.surveying)}`
