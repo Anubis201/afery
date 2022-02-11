@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import * as d3 from 'd3';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
@@ -14,6 +14,10 @@ import { Election2019 } from 'src/app/services/global/data/election-2019';
 export class PollPcComponent {
   @Input() poll: PollModel
   @Input() idSvg: string
+  @Input() isAdmin: boolean
+
+  @Output() deletePoll = new EventEmitter<string>()
+  @Output() editPoll = new EventEmitter<string>()
 
   @ViewChild('image') image: ElementRef;
 
@@ -83,7 +87,7 @@ export class PollPcComponent {
       .enter()
       .append('text')
       .text(d => d.percentage === 0 ? '' : d.percentage + '%')
-      .attr('x', d => (xScale(d.party as unknown as string) + xScale.bandwidth() / 2) + 28)
+      .attr('x', d => (xScale(d.party as unknown as string) + xScale.bandwidth() / 2) + 30)
       .attr('y', d => yScale(d.percentage) - yLabelSpace)
       .attr('fill', 'white')
       .attr('font-weight', 500)
