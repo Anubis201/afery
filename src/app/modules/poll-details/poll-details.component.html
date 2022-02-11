@@ -1,7 +1,9 @@
 <div class="details container">
+  <ng-container *ngIf="data | async">
+    <app-header
+      [title]="data.value.title"
+    ></app-header>
+  </ng-container>
 
-  <app-header
-    [title]="(data | async)?.title"
-  ></app-header>
 
 </div>
