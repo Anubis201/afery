@@ -23,6 +23,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/search/search.module').then(m => m.SearchModule),
   },
   {
+    path: 'sondaz',
+    loadChildren: () => import('./modules/poll-details/poll-details.module').then(m => m.PollDetailsModule),
+  },
+  {
     path: '**',
     redirectTo: '/',
     pathMatch: 'full',

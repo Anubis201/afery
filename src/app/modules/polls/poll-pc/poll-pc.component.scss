@@ -1,15 +1,15 @@
 :host {
-  color: white;
   font-family: "Fira Sans", Arial, sans-serif;
-  // transition: opacity 200ms ease-out 100ms;
-  // cursor: pointer;
+  transition: opacity 200ms ease-out 100ms;
+  cursor: pointer;
 
-  // &:hover {
-  //   opacity: .7;
-  // }
+  &:hover {
+    opacity: .8;
+  }
 }
 
 .poll {
+  color: white;
 
   &__image {
   }

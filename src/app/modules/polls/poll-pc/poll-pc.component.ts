@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { Election2019 } from 'src/app/services/global/data/election-2019';
+import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
 
 @Component({
   selector: 'app-poll-pc',
@@ -23,6 +24,10 @@ export class PollPcComponent {
 
   private margin = 30;
   private height = 200 - (this.margin * 2);
+
+  get toPage() {
+    return `/sondaz/${this.poll.id}/${ChangePolishChars(this.poll.title ?? 'Sondaż' + this.poll.surveying)}`
+  }
 
   ngAfterViewInit() {
     this.draw(this.poll.parties);

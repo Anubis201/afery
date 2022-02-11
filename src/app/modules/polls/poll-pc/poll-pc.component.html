@@ -1,4 +1,7 @@
-<div class="poll">
+<a
+  class="poll"
+  [routerLink]="toPage"
+>
   <div #image class="poll__image">
     <svg [attr.id]="idSvg"></svg>
   </div>
@@ -17,4 +20,4 @@
       <mat-icon>edit</mat-icon>
     </div>
   </div>
-</div>
+</a>
