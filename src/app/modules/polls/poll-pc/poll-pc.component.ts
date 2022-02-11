@@ -3,6 +3,7 @@ import { PollModel } from 'src/app/models/polls/poll.model';
 import * as d3 from 'd3';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
+import { Election2019 } from 'src/app/services/global/data/election-2019';
 
 @Component({
   selector: 'app-poll-pc',
@@ -25,6 +26,7 @@ export class PollPcComponent {
 
   private draw(data: PartyCharModel[]) {
     const width = parseInt(this.image.nativeElement.offsetWidth, 10);
+    const yLabelSpace = 7;
 
     const xScale = d3
       .scaleBand()
@@ -63,14 +65,41 @@ export class PollPcComponent {
       .remove();
 
     chart
+      .selectAll('.amen')
+      .data(Election2019)
+      .enter()
+      .append('rect')
+      .classed('amen', true )
+      .attr('x', d => xScale(d.party as unknown as string) + 25)
+      .attr('y', d => yScale(d.percentage))
+      .attr('width', xScale.bandwidth() - 23)
+      .attr('height', d => this.height - yScale(d.percentage))
+      .attr('opacity', 0.3)
+      .attr('fill', '#db00db');
+
+    chart
+      .selectAll('.label')
+      .data(Election2019)
+      .enter()
+      .append('text')
+      .text(d => d.percentage === 0 ? '' : d.percentage + '%')
+      .attr('x', d => (xScale(d.party as unknown as string) + xScale.bandwidth() / 2) + 25)
+      .attr('y', d => yScale(d.percentage) - yLabelSpace)
+      .attr('fill', 'white')
+      .attr('font-weight', 500)
+      .attr('font-size', '8px')
+      .attr('opacity', 0.4)
+      .attr('text-anchor', 'middle');
+
+    chart
       .selectAll('.bar')
       .data(data)
       .enter()
       .append('rect')
       .classed('bar', true )
-      .attr('x', d => xScale(d.party as unknown as string))
+      .attr('x', d => xScale(d.party as unknown as string) + 5)
       .attr('y', d => yScale(d.percentage))
-      .attr('width', xScale.bandwidth())
+      .attr('width', xScale.bandwidth() - 13)
       .attr('height', d => this.height - yScale(d.percentage))
       .attr('fill', '#db00db');
 
@@ -79,12 +108,12 @@ export class PollPcComponent {
       .data(data)
       .enter()
       .append('text')
-      .text(d => d.percentage as unknown as string + '%')
-      .attr('x', d => xScale(d.party as unknown as string) + xScale.bandwidth() / 2)
-      .attr('y', d => yScale(d.percentage) - 15)
+      .text(d => d.percentage + '%')
+      .attr('x', d => (xScale(d.party as unknown as string) + xScale.bandwidth() / 2) + 2)
+      .attr('y', d => yScale(d.percentage) - yLabelSpace)
       .attr('fill', 'white')
       .attr('font-weight', 500)
-      .attr('font-size', '13px')
+      .attr('font-size', '11px')
       .attr('text-anchor', 'middle');
   }
 }
