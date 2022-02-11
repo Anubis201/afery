@@ -41,7 +41,7 @@ export class PollPcComponent {
 
     const chartContainer = d3
       .select('#' + this.idSvg)
-      .attr('width', width)
+      .attr('width', width + 10)
       .classed('chart-container', true)
       .attr('height', this.height + (this.margin * 2))
 
@@ -83,7 +83,7 @@ export class PollPcComponent {
       .enter()
       .append('text')
       .text(d => d.percentage === 0 ? '' : d.percentage + '%')
-      .attr('x', d => (xScale(d.party as unknown as string) + xScale.bandwidth() / 2) + 25)
+      .attr('x', d => (xScale(d.party as unknown as string) + xScale.bandwidth() / 2) + 28)
       .attr('y', d => yScale(d.percentage) - yLabelSpace)
       .attr('fill', 'white')
       .attr('font-weight', 500)
