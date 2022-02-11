@@ -5,6 +5,7 @@ import { PartyCharModel } from 'src/app/models/articles/party-char.model';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { Election2019 } from 'src/app/services/global/data/election-2019';
 import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-poll-pc',
@@ -26,8 +27,11 @@ export class PollPcComponent {
   private height = 280 - (this.margin * 2);
 
   get toPage() {
-    return `/sondaz/${this.poll.id}/${ChangePolishChars(this.poll.title ?? 'Sondaż' + this.poll.surveying)}`
+    const date = this.datePipe.transform(this.poll.when,'yyyy-MM-dd');
+    return `/sondaz/${this.poll.id}/${ChangePolishChars(`${this.poll.surveying}-${date}`)}`
   }
+
+  constructor(private datePipe: DatePipe) {}
 
   ngAfterViewInit() {
     this.draw(this.poll.parties);
