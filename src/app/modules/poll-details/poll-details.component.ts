@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
+import { Election2019 } from 'src/app/services/global/data/election-2019';
 
 @Component({
   selector: 'app-poll-details',
@@ -12,6 +13,8 @@ import { PollsService } from 'src/app/services/collections/polls/polls.service';
 })
 export class PollDetailsComponent implements OnInit {
   data = new BehaviorSubject<PollModel>(null)
+  previousData = new BehaviorSubject<PollModel>(null)
+  private dataSnapshot: any
 
   constructor(
     private pollsService: PollsService,
@@ -21,12 +24,30 @@ export class PollDetailsComponent implements OnInit {
   ngOnInit() {
     this.router.params.subscribe(({ id, title }: { id: string, title: string }) => {
       this.getData(id);
+      this.previousElection();
     })
+  }
+
+  previousPoll() {
+    this.pollsService.getPreviousPoll(this.data.value.surveying, this.dataSnapshot).subscribe({
+      next: docs => {
+        // this.previousData.next({
+        //   ...doc.data() as PollModel,
+        //   when: (doc.data() as any).when.toDate(),
+        // })
+        console.log(docs)
+      },
+    })
+  }
+
+  previousElection() {
+    this.previousData.next(Election2019);
   }
 
   private getData(id: string) {
     this.pollsService.getSinglePoll(id).subscribe({
       next: doc => {
+        this.dataSnapshot = doc;
         this.data.next({
           ...doc.data() as PollModel,
           when: (doc.data() as any).when.toDate(),

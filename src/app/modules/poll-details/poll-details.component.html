@@ -1,7 +1,14 @@
 <div class="details container">
   <ng-container *ngIf="data | async">
-    <app-header [title]="data.value.title"></app-header>
+    <app-header
+      [title]="data.value.title"
+      (comparePreviousPoll)="previousPoll()"
+      (comparePreviousElection)="previousElection()"
+    ></app-header>
 
-    <app-main-poll [poll]="data.value"></app-main-poll>
+    <app-main-poll
+      [poll]="data.value"
+      [compareData]="(previousData | async).parties"
+    ></app-main-poll>
   </ng-container>
 </div>

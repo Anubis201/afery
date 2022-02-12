@@ -79,7 +79,7 @@ export class PollPcComponent {
 
     chart
       .selectAll('.amen')
-      .data(Election2019)
+      .data(Election2019.parties)
       .enter()
       .append('rect')
       .classed('amen', true )
@@ -92,7 +92,7 @@ export class PollPcComponent {
 
     chart
       .selectAll('.label')
-      .data(Election2019)
+      .data(Election2019.parties)
       .enter()
       .append('text')
       .text(d => d.percentage === 0 ? '' : d.percentage + '%')

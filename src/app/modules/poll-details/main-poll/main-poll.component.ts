@@ -3,7 +3,6 @@ import * as d3 from 'd3';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
 import { PollModel } from 'src/app/models/polls/poll.model';
-import { Election2019 } from 'src/app/services/global/data/election-2019';
 
 @Component({
   selector: 'app-main-poll',
@@ -13,9 +12,10 @@ import { Election2019 } from 'src/app/services/global/data/election-2019';
 })
 export class MainPollComponent implements AfterViewInit {
   @Input() poll: PollModel
+  @Input() compareData: PartyCharModel[]
 
   ngAfterViewInit() {
-    this.draw(this.poll.parties, Election2019);
+    this.draw(this.poll.parties);
   }
 
   @ViewChild('main') image: ElementRef;
@@ -23,7 +23,7 @@ export class MainPollComponent implements AfterViewInit {
   private margin = 30;
   private height = 400 - (this.margin * 2);
 
-  private draw(data: PartyCharModel[], compareData: PartyCharModel[]) {
+  private draw(data: PartyCharModel[]) {
     const width = parseInt(this.image.nativeElement.offsetWidth, 10);
     const yLabelSpace = 7;
     const isMobile = width <= 700;
@@ -66,7 +66,7 @@ export class MainPollComponent implements AfterViewInit {
 
     chart
       .selectAll('.amen')
-      .data(compareData)
+      .data(this.compareData)
       .enter()
       .append('rect')
       .classed('amen', true )
@@ -79,7 +79,7 @@ export class MainPollComponent implements AfterViewInit {
 
     chart
       .selectAll('.label')
-      .data(compareData)
+      .data(this.compareData)
       .enter()
       .append('text')
       .text(d => d.percentage === 0 ? '' : d.percentage + '%')
