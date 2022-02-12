@@ -14,6 +14,7 @@ import { Election2019 } from 'src/app/services/global/data/election-2019';
 export class PollDetailsComponent implements OnInit {
   data = new BehaviorSubject<PollModel>(null)
   previousData = new BehaviorSubject<PollModel>(null)
+
   private dataSnapshot: any
 
   constructor(
@@ -30,12 +31,8 @@ export class PollDetailsComponent implements OnInit {
 
   previousPoll() {
     this.pollsService.getPreviousPoll(this.data.value.surveying, this.dataSnapshot).subscribe({
-      next: docs => {
-        // this.previousData.next({
-        //   ...doc.data() as PollModel,
-        //   when: (doc.data() as any).when.toDate(),
-        // })
-        console.log(docs)
+      next: data => {
+        this.previousData.next(data);
       },
     })
   }

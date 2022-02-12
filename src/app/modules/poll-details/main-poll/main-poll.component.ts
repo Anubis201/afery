@@ -12,10 +12,19 @@ import { PollModel } from 'src/app/models/polls/poll.model';
 })
 export class MainPollComponent implements AfterViewInit {
   @Input() poll: PollModel
-  @Input() compareData: PartyCharModel[]
+  @Input() set compareData(data: PartyCharModel[]) {
+    if (this.image) {
+      this.removeContent();
+      this.draw(this.poll.parties, data);
+    }
+
+    this.compare = data;
+  }
+
+  compare: PartyCharModel[]
 
   ngAfterViewInit() {
-    this.draw(this.poll.parties);
+    this.draw(this.poll.parties, this.compare);
   }
 
   @ViewChild('main') image: ElementRef;
@@ -23,7 +32,13 @@ export class MainPollComponent implements AfterViewInit {
   private margin = 30;
   private height = 400 - (this.margin * 2);
 
-  private draw(data: PartyCharModel[]) {
+  private removeContent() {
+    d3
+      .select('#mainPoll g')
+      .remove();
+  }
+
+  private draw(data: PartyCharModel[], compare: PartyCharModel[]) {
     const width = parseInt(this.image.nativeElement.offsetWidth, 10);
     const yLabelSpace = 7;
     const isMobile = width <= 700;
@@ -66,7 +81,7 @@ export class MainPollComponent implements AfterViewInit {
 
     chart
       .selectAll('.amen')
-      .data(this.compareData)
+      .data(compare)
       .enter()
       .append('rect')
       .classed('amen', true )
@@ -79,7 +94,7 @@ export class MainPollComponent implements AfterViewInit {
 
     chart
       .selectAll('.label')
-      .data(this.compareData)
+      .data(compare)
       .enter()
       .append('text')
       .text(d => d.percentage === 0 ? '' : d.percentage + '%')

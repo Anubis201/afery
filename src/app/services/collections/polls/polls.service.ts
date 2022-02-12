@@ -46,11 +46,18 @@ export class PollsService {
   }
 
   getPreviousPoll(surveying: string, dataSnapshot: any) {
-    return from(this.getRef().ref.startAt(dataSnapshot).where('surveying', '==', surveying).orderBy('when', 'desc').get())
-      .pipe(map(data => {
-        data.forEach(doc => {
-          console.log(doc.data());
+    return from(this.getRef().ref.orderBy('when', 'desc').startAfter(dataSnapshot).where('surveying', '==', surveying).limit(1).get())
+      .pipe(map(docs => {
+        let data: PollModel = null;
+
+        docs.forEach(doc => {
+          data = {
+            ...doc.data() as PollModel,
+            when: (doc.data() as any).when.toDate(),
+          }
         })
+
+        return data;
       }))
   }
 }
