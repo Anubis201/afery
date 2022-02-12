@@ -14,6 +14,7 @@ import { Election2019 } from 'src/app/services/global/data/election-2019';
 export class PollDetailsComponent implements OnInit {
   data = new BehaviorSubject<PollModel>(null)
   previousData = new BehaviorSubject<PollModel>(null)
+  sortingMethod = new BehaviorSubject<'poll' | 'election'>('election')
 
   private dataSnapshot: any
 
@@ -33,12 +34,14 @@ export class PollDetailsComponent implements OnInit {
     this.pollsService.getPreviousPoll(this.data.value.surveying, this.dataSnapshot).subscribe({
       next: data => {
         this.previousData.next(data);
+        this.sortingMethod.next('poll');
       },
     })
   }
 
   previousElection() {
     this.previousData.next(Election2019);
+    this.sortingMethod.next('election');
   }
 
   private getData(id: string) {

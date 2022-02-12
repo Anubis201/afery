@@ -5,10 +5,12 @@
   <div class="label__actions">
     <button
       mat-button
+      [class.active]="sortingMethod === 'election'"
       (click)="comparePreviousElection.emit()"
     >Wybory</button>
     <button
       mat-button
+      [class.active]="sortingMethod === 'poll'"
       (click)="comparePreviousPoll.emit()"
     >Sondaż</button>
   </div>

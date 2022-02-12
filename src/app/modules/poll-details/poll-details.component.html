@@ -2,6 +2,7 @@
   <ng-container *ngIf="data | async">
     <app-header
       [title]="data.value.title"
+      [sortingMethod]="sortingMethod | async"
       (comparePreviousPoll)="previousPoll()"
       (comparePreviousElection)="previousElection()"
     ></app-header>
