@@ -1,4 +1,6 @@
+import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { PollModel } from 'src/app/models/polls/poll.model';
@@ -21,6 +23,9 @@ export class PollDetailsComponent implements OnInit {
   constructor(
     private pollsService: PollsService,
     private router: ActivatedRoute,
+    private titleService: Title,
+    private datePipe: DatePipe,
+    private meta: Meta,
   ) { }
 
   ngOnInit() {
@@ -53,6 +58,8 @@ export class PollDetailsComponent implements OnInit {
           when: (doc.data() as any).when.toDate(),
           id: doc.id,
         })
+        this.titleService.setTitle(this.data.value.title);
+        this.meta.updateTag({ name:'description', content: `Sondaż ${this.data.value.surveying} z dnia ${this.datePipe.transform(this.data.value.when, 'yyyy.MM.dd')}` }, "name='description'");
       },
     })
   }

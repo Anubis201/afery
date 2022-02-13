@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { PollDetailsComponent } from './poll-details.component';
 import { PollDetailsRoutingModule } from './poll-details-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -14,6 +14,7 @@ import { MainPollComponent } from './main-poll/main-poll.component';
     HeaderComponent,
     MainPollComponent
   ],
+  providers: [DatePipe],
   imports: [
     CommonModule,
     PollDetailsRoutingModule,
