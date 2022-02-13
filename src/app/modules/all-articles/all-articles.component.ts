@@ -56,7 +56,10 @@ export class AllArticlesComponent implements OnInit {
     let lastItem: Date | number | null = null;
 
     // przypisz snapshot
-    if (this.data.value[type].articles.length) lastItem = this.data.value[type].lastArticlesnapshot
+    if (this.data.value[type].articles.length && !orderChange)
+      lastItem = this.data.value[type].lastArticlesnapshot;
+    else
+      lastItem = null;
 
     this.articlesService
       .getArticles(type, this.limit, orderChange || this.data.value[type].order, lastItem)
