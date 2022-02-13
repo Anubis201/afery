@@ -80,6 +80,33 @@ export class MainPollComponent implements AfterViewInit {
       .remove();
 
     chart
+      .selectAll('.bar')
+      .data(data)
+      .enter()
+      .append('rect')
+      .classed('bar', true )
+      .attr('x', d => xScale(d.party as unknown as string) + (isMobile ? 5 : 23))
+      .attr('y', d => yScale(d.percentage))
+      .attr('width', xScale.bandwidth() - (isMobile ? 13 : 45))
+      .attr('height', d => this.height - yScale(d.percentage))
+      .attr('fill', '#db00db');
+
+    chart
+      .selectAll('.label')
+      .data(data)
+      .enter()
+      .append('text')
+      .text(d => d.percentage + '%')
+      .attr('x', d => (xScale(d.party as unknown as string) + xScale.bandwidth() / 2))
+      .attr('y', d => yScale(d.percentage) - yLabelSpace)
+      .attr('fill', 'white')
+      .attr('font-weight', 500)
+      .attr('font-size', isMobile ? '11px' : '16px')
+      .attr('text-anchor', 'middle');
+
+    if (!compare) return
+
+    chart
       .selectAll('.amen')
       .data(compare)
       .enter()
@@ -104,31 +131,6 @@ export class MainPollComponent implements AfterViewInit {
       .attr('font-weight', 500)
       .attr('font-size', isMobile ? '8px' : '12px')
       .attr('opacity', 0.4)
-      .attr('text-anchor', 'middle');
-
-    chart
-      .selectAll('.bar')
-      .data(data)
-      .enter()
-      .append('rect')
-      .classed('bar', true )
-      .attr('x', d => xScale(d.party as unknown as string) + (isMobile ? 5 : 23))
-      .attr('y', d => yScale(d.percentage))
-      .attr('width', xScale.bandwidth() - (isMobile ? 13 : 45))
-      .attr('height', d => this.height - yScale(d.percentage))
-      .attr('fill', '#db00db');
-
-    chart
-      .selectAll('.label')
-      .data(data)
-      .enter()
-      .append('text')
-      .text(d => d.percentage + '%')
-      .attr('x', d => (xScale(d.party as unknown as string) + xScale.bandwidth() / 2))
-      .attr('y', d => yScale(d.percentage) - yLabelSpace)
-      .attr('fill', 'white')
-      .attr('font-weight', 500)
-      .attr('font-size', isMobile ? '11px' : '16px')
       .attr('text-anchor', 'middle');
   }
 }

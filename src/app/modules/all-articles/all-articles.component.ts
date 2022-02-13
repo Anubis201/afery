@@ -100,7 +100,6 @@ export class AllArticlesComponent implements OnInit {
               isLoading: false
             }
           })
-          // this.order = order;
         },
         error: () => this.changeSection(type, false)
       });
