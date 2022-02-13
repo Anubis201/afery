@@ -1,6 +1,14 @@
-<app-nav-bar [isOpenMenu]="isOpenMenu | async" [items]="items" (handleMenu)="handleMenu()"></app-nav-bar>
+<app-nav-bar
+  [isOpenMenu]="isOpenMenu | async"
+  [items]="items"
+  (handleMenu)="handleMenu()"
+></app-nav-bar>
 
-<app-aside-menu *ngIf="isOpenMenu | async" [items]="items" @menu></app-aside-menu>
+<app-aside-menu
+  *ngIf="isOpenMenu | async"
+  [items]="items"
+  @menu
+></app-aside-menu>
 
 <!-- <app-snow-animation></app-snow-animation> -->
 

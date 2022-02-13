@@ -37,20 +37,19 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.metaTags();
+    this.route.events.subscribe(() => this.isOpenMenu.next(false))
     this.items = [
       {
         label: 'Afery',
         href: '/',
+        isActive: false,
       },
       {
         label: 'Sondaże',
         href: '/sondaze',
+        isActive: false,
       },
     ]
-
-    this.route.events.subscribe(() => {
-      this.isOpenMenu.next(false);
-    })
   }
 
   handleMenu() {
