@@ -3,7 +3,7 @@
     mat-button
     routerLinkActive="active"
     [routerLink]="[item.href]"
-    [queryParams]="item.queryParams"
+    [routerLinkActiveOptions]="{ exact: true }"
   >
     <mat-icon>arrow_forward</mat-icon>
     {{ item.label }}

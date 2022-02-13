@@ -5,6 +5,7 @@
         *ngFor="let item of items"
         mat-tab-link
         routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
         [routerLink]="item.href"
       >{{ item.label }}</a>
     </nav>

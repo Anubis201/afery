@@ -42,12 +42,10 @@ export class AppComponent implements OnInit {
       {
         label: 'Afery',
         href: '/',
-        isActive: false,
       },
       {
         label: 'Sondaże',
         href: '/sondaze',
-        isActive: false,
       },
     ]
   }

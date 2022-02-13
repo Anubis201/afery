@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
@@ -12,6 +11,7 @@ import { ConvertEnum } from 'src/app/services/global/support-functions/convert-e
 interface SectionModel {
   articles: ArticleModel[]
   lastArticlesnapshot: any
+  order: OrderEnum
   isLastPage: boolean
   isLoading: boolean
 }
@@ -30,43 +30,36 @@ export class AllArticlesComponent implements OnInit {
   data = new BehaviorSubject<DataType>(this.createPageTree() as DataType)
   topArticle = new BehaviorSubject<ArticleModel>(null)
 
-  order: OrderEnum
-
   readonly ArticlesTypesEnum = ArticlesTypesEnum
   private readonly limit = 5
 
   constructor(
     private articlesService: ArticlesService,
-    private activatedRoute: ActivatedRoute,
     private titleService: Title,
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe(({ order }) => {
-      order = order ?? OrderEnum.Latest;
+    this.data.next(this.createPageTree() as DataType)
 
-      if (order !== this.order) this.data.next(this.createPageTree() as DataType)
+    this.getTopArticle();
 
-      this.getTopArticle();
+    // Pobiera 4 artykuły z kategori parti
+    this.getArticles(ArticlesTypesEnum.PoliticalParties);
+    // Pobiera 4 artykuły z kategori polityycy
+    this.getArticles(ArticlesTypesEnum.Politicians);
 
-      // Pobiera 4 artykuły z kategori parti
-      this.getArticles(ArticlesTypesEnum.PoliticalParties, order);
-      // Pobiera 4 artykuły z kategori polityycy
-      this.getArticles(ArticlesTypesEnum.Politicians, order);
-
-      this.titleService.setTitle('Afery - Polityka i Sondaże')
-    })
+    this.titleService.setTitle('Afery - Polityka i Sondaże')
   }
 
-  getArticles(type: ArticlesTypesEnum,  order: OrderEnum) {
-    this.changeSectionLoading(type, true);
+  getArticles(type: ArticlesTypesEnum, orderChange?: OrderEnum) {
+    this.changeSection(type, true);
     let lastItem: Date | number | null = null;
 
     // przypisz snapshot
     if (this.data.value[type].articles.length) lastItem = this.data.value[type].lastArticlesnapshot
 
     this.articlesService
-      .getArticles(type, this.limit, order, lastItem)
+      .getArticles(type, this.limit, orderChange || this.data.value[type].order, lastItem)
       .subscribe({
         next: doc => {
           let articles: ArticleModel[] = [];
@@ -97,17 +90,16 @@ export class AllArticlesComponent implements OnInit {
           this.data.next({
             ...this.data.value,
             [type]: {
-              articles: [...this.data.value[type].articles, ...articles],
+              articles: orderChange ? articles : [...this.data.value[type].articles, ...articles],
               lastArticlesnapshot: snap,
+              order: orderChange || this.data.value[type].order,
               isLastPage: isLimit,
               isLoading: false
             }
           })
-          this.order = order;
+          // this.order = order;
         },
-        error: () => {
-          this.changeSectionLoading(type, false);
-        },
+        error: () => this.changeSection(type, false)
       });
   }
 
@@ -117,7 +109,7 @@ export class AllArticlesComponent implements OnInit {
     })
   }
 
-  private changeSectionLoading(type: ArticlesTypesEnum, isLoading: boolean) {
+  private changeSection(type: ArticlesTypesEnum, isLoading: boolean) {
     this.data.next({
       ...this.data.value,
       [type]: {
@@ -133,6 +125,7 @@ export class AllArticlesComponent implements OnInit {
     ConvertEnum(ArticlesTypesEnum, 'string').forEach((value: ArticlesTypesEnum) => {
       object[value] = {
         articles: [],
+        order: OrderEnum.Latest,
         lastArticlesnapshot: null,
         isLastPage: false,
         isLoading: false,
