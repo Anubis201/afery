@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
-import { PollModel } from 'src/app/models/polls/poll.model';
+import { PartyCharModel } from 'src/app/models/articles/party-char.model';
+import { TablePollModel } from 'src/app/models/polls/table-poll.model';
+
+type Columns = keyof TablePollModel
 
 @Component({
   selector: 'app-table-poll',
@@ -9,9 +13,18 @@ import { PollModel } from 'src/app/models/polls/poll.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TablePollComponent {
-  @Input() poll: PollModel
+  @Input() parties: PartyCharModel[]
+  @Input() set compareData(data: PartyCharModel[]) {
+    this.dataSource.next(this.parties.map(current => ({
+      party: current.party,
+      previousValue: data ? data.find(v => v.party === current.party).percentage : 0,
+      difference: parseFloat((data ? data.find(v => v.party === current.party).percentage - current.percentage : current.percentage).toFixed(1)),
+      percentage: current.percentage,
+    })));
+  }
 
-  displayedColumns: string[] = ['party', 'percentage']
+  dataSource = new BehaviorSubject<TablePollModel[]>([])
+  displayedColumns: Columns[] = ['party', 'difference', 'percentage', 'previousValue']
 
   readonly PartiesEnum = PartiesEnum
 }

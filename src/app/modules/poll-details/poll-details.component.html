@@ -13,7 +13,8 @@
     ></app-main-poll>
 
     <app-table-poll
-      [poll]="data.value"
+      [parties]="data.value.parties"
+      [compareData]="previousData.value?.parties"
     ></app-table-poll>
   </ng-container>
 </div>

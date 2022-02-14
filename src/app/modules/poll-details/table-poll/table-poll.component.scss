@@ -10,5 +10,31 @@ table {
 }
 
 .party {
-  width: 25px;
+  width: 20px;
+
+  @media (min-width: 576px) {
+    width: 25px;
+  }
+}
+
+.mat-column-party {
+  width: 20px;
+  padding-right: 1.5rem;
+  text-align: center;
+
+  @media (min-width: 576px) {
+    padding-right: 4rem;
+  }
+}
+
+.mat-column-percentage {
+  width: 25%;
+
+  @media (min-width: 576px) {
+    width: 32%;
+  }
+}
+
+.mat-column-previousValue {
+  width: 28%;
 }
