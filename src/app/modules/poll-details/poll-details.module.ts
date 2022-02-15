@@ -7,6 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { MainPollComponent } from './main-poll/main-poll.component';
 import { MatTableModule } from '@angular/material/table';
 import { TablePollComponent } from './table-poll/table-poll.component';
+import { MandatesComponent } from './mandates/mandates.component';
 
 
 
@@ -15,7 +16,8 @@ import { TablePollComponent } from './table-poll/table-poll.component';
     PollDetailsComponent,
     HeaderComponent,
     MainPollComponent,
-    TablePollComponent
+    TablePollComponent,
+    MandatesComponent
   ],
   providers: [DatePipe],
   imports: [

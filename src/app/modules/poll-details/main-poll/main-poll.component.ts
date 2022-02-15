@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, V
 import * as d3 from 'd3';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
+import { PartiesColorsEnum } from 'src/app/models/polls/enums/parties-colors.enum';
 import { PollModel } from 'src/app/models/polls/poll.model';
 
 @Component({
@@ -105,6 +106,8 @@ export class MainPollComponent implements AfterViewInit {
       .attr('text-anchor', 'middle');
 
     if (!compare) return
+    console.log(data[0].party)
+    console.log(PartiesColorsEnum[data[0].party])
 
     chart
       .selectAll('.amen')
@@ -117,7 +120,7 @@ export class MainPollComponent implements AfterViewInit {
       .attr('width', xScale.bandwidth() - (isMobile ? 23 : 80))
       .attr('height', d => this.height - yScale(d.percentage))
       .attr('opacity', 0.3)
-      .attr('fill', '#db00db');
+      .attr('fill', d => PartiesColorsEnum[d.party]);
 
     chart
       .selectAll('.label')

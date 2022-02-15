@@ -1,3 +1,4 @@
+// zmieniając coś tutaj pamiętaj o pliku parties-colors.enum.ts
 export enum PartiesEnum {
   po = 0,
   pis = 1,
