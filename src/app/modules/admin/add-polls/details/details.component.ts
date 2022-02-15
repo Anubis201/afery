@@ -8,10 +8,9 @@ import { FormControl } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DetailsComponent {
-
+  @Input() title: FormControl
   @Input() surveying: FormControl
   @Input() when: FormControl
   @Input() people: FormControl
   @Input() forWhom: FormControl
-
 }

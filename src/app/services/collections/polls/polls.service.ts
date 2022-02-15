@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { from } from 'rxjs';
+import { from, map } from 'rxjs';
 import { PollModel } from 'src/app/models/polls/poll.model';
 
 @Injectable({
@@ -43,5 +43,21 @@ export class PollsService {
 
   editPoll(data: PollModel, id: string) {
     return from(this.getRef().doc(id).update(data))
+  }
+
+  getPreviousPoll(surveying: string, dataSnapshot: any) {
+    return from(this.getRef().ref.orderBy('when', 'desc').startAfter(dataSnapshot).where('surveying', '==', surveying).limit(1).get())
+      .pipe(map(docs => {
+        let data: PollModel = null;
+
+        docs.forEach(doc => {
+          data = {
+            ...doc.data() as PollModel,
+            when: (doc.data() as any).when.toDate(),
+          }
+        })
+
+        return data;
+      }))
   }
 }

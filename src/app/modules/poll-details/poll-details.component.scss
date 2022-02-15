@@ -1,0 +1,9 @@
+.details {
+  margin-top: 5rem;
+  min-height: 90vh;
+
+  @media (min-width: 767px) {
+    margin-top: 10rem;
+  }
+
+}

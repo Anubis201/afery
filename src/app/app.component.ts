@@ -37,6 +37,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.metaTags();
+    this.route.events.subscribe(() => this.isOpenMenu.next(false))
     this.items = [
       {
         label: 'Afery',
@@ -47,10 +48,6 @@ export class AppComponent implements OnInit {
         href: '/sondaze',
       },
     ]
-
-    this.route.events.subscribe(() => {
-      this.isOpenMenu.next(false);
-    })
   }
 
   handleMenu() {
@@ -59,7 +56,7 @@ export class AppComponent implements OnInit {
 
   private metaTags() {
     this.meta.addTags([
-      { name: 'description', content: 'Afery naszych polskich polityków oraz partii, gdzie nie ustalamy, kto jest gorszy, a na jego wyniki oraz skutki poprzez sondaże partii.' },
+      { name: 'description', content: 'Afery polskich polityków oraz partii. Nie piszemy, kto jest gorszy, ponieważ nikt nam za to nie płaci. Dlatego niech nas ktoś kupi. Błagam!' },
     ])
   }
 }

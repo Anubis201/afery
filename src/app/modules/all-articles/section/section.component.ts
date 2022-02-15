@@ -13,8 +13,10 @@ export class SectionComponent {
   @Input() articles: ArticleModel[]
   @Input() reachedMaxArticles: boolean
   @Input() isLoading: boolean
+  @Input() orderSection: OrderEnum
 
   @Output() handlePage = new EventEmitter<void>()
+  @Output() changeOrder = new EventEmitter<OrderEnum>()
 
   readonly OrderEnum = OrderEnum
 

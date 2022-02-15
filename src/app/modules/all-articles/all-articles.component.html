@@ -13,7 +13,9 @@
      [articles]="section.value.articles"
      [reachedMaxArticles]="section.value.isLastPage"
      [isLoading]="section.value.isLoading"
-     (handlePage)="getArticles($any(section.key), order)"
+     [orderSection]="section.value.order"
+     (handlePage)="getArticles(section.key)"
+     (changeOrder)="getArticles(section.key, $event)"
    ></app-section>
   </ng-container>
 </div>

@@ -3,15 +3,16 @@
     <div class="articles__title">
       <span>{{ getFirstWord(name) }}</span>
       <div class="articles__title__order">
-        <a
-          [routerLink]="['/']"
+        <button
           mat-button
-        >Najnowsze</a>
-        <a
+          [class.active]="orderSection === OrderEnum.Latest"
+          (click)="changeOrder.emit(OrderEnum.Latest)"
+        >Najnowsze</button>
+        <button
           mat-button
-          [routerLink]="['/']"
-          [queryParams]="{ order: OrderEnum.Popular }"
-        >Popularne</a>
+          [class.active]="orderSection === OrderEnum.Popular"
+          (click)="changeOrder.emit(OrderEnum.Popular)"
+        >Popularne</button>
       </div>
     </div>
     <div class="row articles__list">

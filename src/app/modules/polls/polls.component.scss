@@ -1,14 +1,45 @@
 :host {
   display: flex;
-  min-height: 80vh;
+  min-height: 90vh;
   align-items: center;
   flex-direction: column;
 }
 
-app-newests {
-  margin-top: 6.5rem;
+.newest {
+  margin-top: 5rem;
+
+  &__item {
+    margin-bottom: 2rem;
+
+    @media (min-width: 576px) {
+      margin-bottom: 2.5rem;
+    }
+  }
 
   @media (min-width: 767px) {
     margin-top: 10.5rem;
+  }
+}
+
+.label {
+  color: white;
+  margin-bottom: 1rem;
+  font-family: monospace, sans-serif;
+  font-weight: 700;
+  padding-bottom: .8rem;
+  letter-spacing: 1px;
+}
+
+.more {
+  text-align: center;
+  color: white;
+
+  button {
+
+    mat-icon {
+      font-size: 35px;
+      margin-right: 10px;
+      margin-top: 4px;
+    }
   }
 }

@@ -1,17 +1,15 @@
-$text-space: 1rem;
-
 @mixin title() {
   color: white;
   font-size: 1.5rem;
   font-family: monospace, sans-serif;
   font-weight: 700;
   letter-spacing: 1px;
-  padding-bottom: $text-space;
+  padding-bottom: .3rem;
   border-bottom: 1px solid rgb(194, 194, 194);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: $text-space;
+  margin-bottom: 1rem;
 }
 
 :host {
@@ -32,8 +30,8 @@ $text-space: 1rem;
       display: flex;
       align-self: end;
 
-      a {
-        padding: 0 6px;
+      button {
+        padding: 0 10px;
         font-size: 13px;
 
         @media (min-width: 576px) {
@@ -80,6 +78,10 @@ $text-space: 1rem;
   min-height: 75vh;
 
   @media (min-width: 767px) {
-    margin-top: 9.5rem;
+    margin-top: 10.5rem;
   }
+}
+
+.active {
+  background: #242424;
 }

@@ -2,13 +2,12 @@
   <div class="jd__navigation">
     <nav mat-tab-nav-bar>
       <a
+        *ngFor="let item of items"
         mat-tab-link
-        [routerLink]="['/']"
-      >Afery</a>
-      <a
-        mat-tab-link
-        [routerLink]="['/sondaze']"
-      >Sondaże</a>
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [routerLink]="item.href"
+      >{{ item.label }}</a>
     </nav>
   </div>
 </div>
