@@ -18,7 +18,7 @@ export class TablePollComponent {
     this.dataSource.next(this.parties.map(current => ({
       party: current.party,
       previousValue: data ? data.find(v => v.party === current.party).percentage : 0,
-      difference: parseFloat((data ? data.find(v => v.party === current.party).percentage - current.percentage : current.percentage).toFixed(1)),
+      difference: parseFloat((data ? current.percentage - data.find(v => v.party === current.party).percentage : current.percentage).toFixed(1)),
       percentage: current.percentage,
     })));
   }
