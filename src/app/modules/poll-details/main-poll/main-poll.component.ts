@@ -90,7 +90,7 @@ export class MainPollComponent implements AfterViewInit {
       .attr('y', d => yScale(d.percentage))
       .attr('width', xScale.bandwidth() - (isMobile ? 13 : 45))
       .attr('height', d => this.height - yScale(d.percentage))
-      .attr('fill', '#db00db');
+      .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);
 
     chart
       .selectAll('.label')
@@ -106,8 +106,6 @@ export class MainPollComponent implements AfterViewInit {
       .attr('text-anchor', 'middle');
 
     if (!compare) return
-    console.log(data[0].party)
-    console.log(PartiesColorsEnum[data[0].party])
 
     chart
       .selectAll('.amen')
@@ -120,7 +118,7 @@ export class MainPollComponent implements AfterViewInit {
       .attr('width', xScale.bandwidth() - (isMobile ? 23 : 80))
       .attr('height', d => this.height - yScale(d.percentage))
       .attr('opacity', 0.3)
-      .attr('fill', d => PartiesColorsEnum[d.party]);
+      .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);
 
     chart
       .selectAll('.label')

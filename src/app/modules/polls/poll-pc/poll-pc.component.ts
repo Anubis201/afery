@@ -6,6 +6,7 @@ import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { Election2019 } from 'src/app/services/global/data/election-2019';
 import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
 import { DatePipe } from '@angular/common';
+import { PartiesColorsEnum } from 'src/app/models/polls/enums/parties-colors.enum';
 
 @Component({
   selector: 'app-poll-pc',
@@ -88,7 +89,7 @@ export class PollPcComponent {
       .attr('width', xScale.bandwidth() - 23)
       .attr('height', d => this.height - yScale(d.percentage))
       .attr('opacity', 0.3)
-      .attr('fill', '#db00db');
+      .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);
 
     chart
       .selectAll('.label')
@@ -114,7 +115,7 @@ export class PollPcComponent {
       .attr('y', d => yScale(d.percentage))
       .attr('width', xScale.bandwidth() - 13)
       .attr('height', d => this.height - yScale(d.percentage))
-      .attr('fill', '#db00db');
+      .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);
 
     chart
       .selectAll('.label')
