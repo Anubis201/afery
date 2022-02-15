@@ -17,11 +17,6 @@ export class MandatesComponent {
   mandates = new BehaviorSubject<any[]>([])
 
   private countMandates(parties: PartyCharModel[]) {
-    parties.forEach(party => {
-      // omijanie partii, które mają poniżej 5%
-      if (party.percentage < 5) return
 
-
-    })
   }
 }
