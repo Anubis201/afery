@@ -5,8 +5,12 @@
     <div class="page__organization">
       <ng-container *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties">
         <img [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" [alt]="'Logo ' + PartiesEnum[article.value.entity]">
-        <span *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties">{{ PartiesEnum[$any(article.value?.entity)] }}</span>
+        <span>{{ PartiesEnum[$any(article.value?.entity)] }}</span>
+        <span class="page__organization--break"></span>
       </ng-container>
+      <div class="page__author">
+        Bartosz Karczmarski
+      </div>
       <span *ngIf="article.value?.costs" class="page__costs">
         <span class="page__costs--title">Koszty: </span>
         <span class="page__costs--icons">

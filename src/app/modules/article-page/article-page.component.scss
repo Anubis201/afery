@@ -32,6 +32,10 @@ $image-border-radius: 5px;
     margin-top: 9rem;
   }
 
+  &__author {
+    font-weight: 500;
+  }
+
   &__subtitle {
     margin-top: 1rem;
     font-weight: 500;
@@ -44,6 +48,12 @@ $image-border-radius: 5px;
     gap: 10px;
     margin-bottom: 1.5rem;
     align-items: center;
+
+    &--break {
+      border-right: 0.5px solid white;
+      border-left: 0.5px solid white;
+      height: 12px;
+    }
 
     img {
       height: 30px;
