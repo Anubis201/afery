@@ -8,9 +8,6 @@
         <span>{{ PartiesEnum[$any(article.value?.entity)] }}</span>
         <span class="page__organization--break"></span>
       </ng-container>
-      <div class="page__author">
-        Bartosz Karczmarski
-      </div>
       <span *ngIf="article.value?.costs" class="page__costs">
         <span class="page__costs--title">Koszty: </span>
         <span class="page__costs--icons">
@@ -72,8 +69,15 @@
     </div>
     <div class="page__links">
       <div class="page__links__time">
-        <div>{{ article.value?.createDate | date:'dd.MM.yyyy, HH:mm' }}</div>
         <div>
+          <div class="page__links__time__author">
+            Bartosz Karczmarski
+          </div>
+          <div>
+            {{ article.value?.createDate | date:'dd.MM.yyyy, HH:mm' }}
+          </div>
+        </div>
+        <div class="page__links__time--align">
           <div class="page__links__time__read"></div>
           {{ article.value?.text | timeToRead }} min czytania
         </div>
@@ -165,9 +169,8 @@
       </div>
       <div class="page-mobile__content__time">
         <div class="page-mobile__content__time__rest">
-          <div>
-            {{ article.value?.createDate | date:'dd.MM.yyyy, HH:mm' }}
-          </div>
+          <div>Bartosz Karczmarski</div>
+          <div>{{ article.value?.createDate | date:'dd.MM.yyyy, HH:mm' }}</div>
         </div>
         <div class="page-mobile__content__time__all">
           <div>
