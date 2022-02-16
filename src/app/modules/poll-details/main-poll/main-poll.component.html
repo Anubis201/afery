@@ -1,10 +1,12 @@
 <div #main>
   <div class="header">
-    <div class="header__title">{{ poll.surveying }}</div>
+    <div class="header__top">
+      <div class="header__top__page">AFERY.ORG</div>
+      <div class="header__top__title">Sondaż {{ poll.surveying }}</div>
+    </div>
     <div class="header__rest">
-      <div>{{ poll.when | date }}</div>
-      <div class="header__rest--break"></div>
-      <div>{{ poll.people || 1000 }}</div>
+      <span>Wykonany w {{ poll.when | date:'dd.MM.yyyy' }}</span>
+      <span>na liczbie {{ poll.people || 1000 }} osób</span>
     </div>
   </div>
   <svg id="mainPoll"></svg>
