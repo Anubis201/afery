@@ -18,6 +18,7 @@ import { PartiesComponent } from './add-polls/parties/parties.component';
 import { DetailsComponent } from './add-polls/details/details.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ChooseTypeComponent } from './add-polls/choose-type/choose-type.component';
 
 
 
@@ -31,6 +32,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     AddPollsComponent,
     PartiesComponent,
     DetailsComponent,
+    ChooseTypeComponent,
   ],
   imports: [
     CommonModule,
