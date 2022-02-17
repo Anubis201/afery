@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
+import { PollDataEnum } from 'src/app/models/polls/enums/poll-data.enum';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
 
@@ -23,8 +24,10 @@ export class AddPollsComponent implements OnInit {
     forWhom: new FormControl(null),
   })
 
+  typeDataControl = new FormControl(PollDataEnum.Partie)
   isLoading = new BehaviorSubject<boolean>(false)
   idPoll = new BehaviorSubject<string>('')
+  readonly PollDataEnum = PollDataEnum
 
   constructor(
     private pollsService: PollsService,

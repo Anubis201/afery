@@ -5,12 +5,12 @@ import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { ConvertEnum } from 'src/app/services/global/support-functions/convert-enum';
 
 @Component({
-  selector: 'app-parties',
-  templateUrl: './parties.component.html',
-  styleUrls: ['./parties.component.scss'],
+  selector: 'app-poll-item',
+  templateUrl: './poll-item.component.html',
+  styleUrls: ['./poll-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PartiesComponent {
+export class PollItemComponent {
   @Input() items: FormArray
 
   @Output() addItem = new EventEmitter<void>()

@@ -1,13 +1,13 @@
 <form [formGroup]="form">
   <app-choose-type
-
+    [typeDataControl]="typeDataControl"
   ></app-choose-type>
 
-  <app-parties
+  <app-poll-item
     [items]="form.get('parties')"
     (addItem)="addEmptyItem()"
     (deleteItem)="deleteItem($event)"
-  ></app-parties>
+  ></app-poll-item>
 
   <app-details
     [title]="form.get('title')"
