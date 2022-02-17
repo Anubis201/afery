@@ -1,6 +1,7 @@
 <a
   class="poll"
   [routerLink]="toPage"
+  [style.visibility]="(isLoading | async) ? 'hidden' : 'unset'"
 >
   <div #image class="poll__image">
     <svg [attr.id]="idSvg"></svg>

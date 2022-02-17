@@ -7,6 +7,8 @@ import { Election2019 } from 'src/app/services/global/data/election-2019';
 import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
 import { DatePipe } from '@angular/common';
 import { PartiesColorsEnum } from 'src/app/models/polls/enums/parties-colors.enum';
+import { PollsService } from 'src/app/services/collections/polls/polls.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-poll-pc',
@@ -24,6 +26,8 @@ export class PollPcComponent {
 
   @ViewChild('image') image: ElementRef;
 
+  isLoading = new BehaviorSubject<boolean>(true)
+
   private margin = 30;
   private height = 280 - (this.margin * 2);
 
@@ -32,13 +36,23 @@ export class PollPcComponent {
     return `/sondaz/${this.poll.id}/${ChangePolishChars(`${this.poll.surveying}-${date}`)}`
   }
 
-  constructor(private datePipe: DatePipe) {}
+  constructor(
+    private datePipe: DatePipe,
+    private pollsService: PollsService,
+  ) {}
 
   ngAfterViewInit() {
-    this.draw(this.poll.parties);
+    this.previousPoll();
   }
 
-  private draw(data: PartyCharModel[]) {
+  private previousPoll() {
+    this.pollsService.getPreviousPoll(this.poll.surveying, this.poll.when).subscribe({
+      next: data => this.draw(this.poll.parties, data?.parties),
+      complete: () => this.isLoading.next(false)
+    })
+  }
+
+  private draw(data: PartyCharModel[], previousElection: PartyCharModel[]) {
     const width = parseInt(this.image.nativeElement.offsetWidth, 10);
     const yLabelSpace = 7;
 
@@ -79,33 +93,6 @@ export class PollPcComponent {
       .remove();
 
     chart
-      .selectAll('.amen')
-      .data(Election2019.parties)
-      .enter()
-      .append('rect')
-      .classed('amen', true )
-      .attr('x', d => xScale(d.party as unknown as string) + 27)
-      .attr('y', d => yScale(d.percentage))
-      .attr('width', xScale.bandwidth() - 23)
-      .attr('height', d => this.height - yScale(d.percentage))
-      .attr('opacity', 0.3)
-      .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);
-
-    chart
-      .selectAll('.label')
-      .data(Election2019.parties)
-      .enter()
-      .append('text')
-      .text(d => d.percentage === 0 ? '' : d.percentage + '%')
-      .attr('x', d => (xScale(d.party as unknown as string) + xScale.bandwidth() / 2) + 29)
-      .attr('y', d => yScale(d.percentage) - yLabelSpace)
-      .attr('fill', 'white')
-      .attr('font-weight', 500)
-      .attr('font-size', '8px')
-      .attr('opacity', 0.4)
-      .attr('text-anchor', 'middle');
-
-    chart
       .selectAll('.bar')
       .data(data)
       .enter()
@@ -128,6 +115,35 @@ export class PollPcComponent {
       .attr('fill', 'white')
       .attr('font-weight', 500)
       .attr('font-size', '11px')
+      .attr('text-anchor', 'middle');
+
+    if (!previousElection) return
+
+    chart
+      .selectAll('.amen')
+      .data(previousElection)
+      .enter()
+      .append('rect')
+      .classed('amen', true )
+      .attr('x', d => xScale(d.party as unknown as string) + 27)
+      .attr('y', d => yScale(d.percentage))
+      .attr('width', xScale.bandwidth() - 23)
+      .attr('height', d => this.height - yScale(d.percentage))
+      .attr('opacity', 0.3)
+      .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);
+
+    chart
+      .selectAll('.label')
+      .data(previousElection)
+      .enter()
+      .append('text')
+      .text(d => d.percentage === 0 ? '' : d.percentage + '%')
+      .attr('x', d => (xScale(d.party as unknown as string) + xScale.bandwidth() / 2) + 29)
+      .attr('y', d => yScale(d.percentage) - yLabelSpace)
+      .attr('fill', 'white')
+      .attr('font-weight', 500)
+      .attr('font-size', '8px')
+      .attr('opacity', 0.4)
       .attr('text-anchor', 'middle');
   }
 }

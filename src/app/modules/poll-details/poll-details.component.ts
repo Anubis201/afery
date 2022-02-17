@@ -16,7 +16,7 @@ import { Election2019 } from 'src/app/services/global/data/election-2019';
 export class PollDetailsComponent implements OnInit {
   data = new BehaviorSubject<PollModel>(null)
   previousData = new BehaviorSubject<PollModel>(null)
-  sortingMethod = new BehaviorSubject<'poll' | 'election'>('election')
+  sortingMethod = new BehaviorSubject<'poll' | 'election'>('poll')
 
   private dataSnapshot: any
 
@@ -31,7 +31,11 @@ export class PollDetailsComponent implements OnInit {
   ngOnInit() {
     this.router.params.subscribe(({ id, title }: { id: string, title: string }) => {
       this.getData(id);
-      this.previousElection();
+      this.data.subscribe(d => {
+        if (!d) return
+
+        this.previousPoll();
+      })
     })
   }
 

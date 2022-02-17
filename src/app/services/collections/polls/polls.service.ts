@@ -45,8 +45,8 @@ export class PollsService {
     return from(this.getRef().doc(id).update(data))
   }
 
-  getPreviousPoll(surveying: string, dataSnapshot: any) {
-    return from(this.getRef().ref.orderBy('when', 'desc').startAfter(dataSnapshot).where('surveying', '==', surveying).limit(1).get())
+  getPreviousPoll(surveying: string, after: any) {
+    return from(this.getRef().ref.orderBy('when', 'desc').startAfter(after).where('surveying', '==', surveying).limit(1).get())
       .pipe(map(docs => {
         let data: PollModel = null;
 
