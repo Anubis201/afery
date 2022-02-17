@@ -9,9 +9,7 @@
       *ngFor="let poll of allPolls | async; let index = index"
       class="col-12 col-sm-6 col-lg-4 newest__item"
       [poll]="poll"
-      [isAdmin]="isAdmin | async"
       [idSvg]="'halo' + index"
-      (editPoll)="handleEditPoll($event)"
     ></app-poll-pc>
   </div>
 

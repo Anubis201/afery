@@ -11,14 +11,5 @@
     <div>{{ poll.surveying }}</div>
     <span class="break"></span>
     <div>{{ poll.when  | date:'dd.MM.yyyy' }}</div>
-    <div
-      *ngIf="isAdmin"
-      mat-icon-button
-      matTooltip="Edytuj"
-      class="button"
-      (click)="editPoll.emit(poll.id)"
-    >
-      <mat-icon>edit</mat-icon>
-    </div>
   </div>
 </a>

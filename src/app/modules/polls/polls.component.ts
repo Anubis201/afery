@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
-import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
   selector: 'app-polls',
@@ -21,14 +20,9 @@ export class PollsComponent implements OnInit {
   private lastItemSnapshot = null
   private readonly limit = 6
 
-  get isAdmin() {
-    return this.userService.isAdmin
-  }
-
   constructor(
     private pollsService: PollsService,
     private meta: Meta,
-    private userService: UserService,
     private _snackBar: MatSnackBar,
     private router: Router,
     private titleService: Title,
@@ -55,6 +49,15 @@ export class PollsComponent implements OnInit {
         this._snackBar.open('Nie udało sie usunąć sondażu', 'close');
       }
     })
+  // <div
+  //   *ngIf="isAdmin"
+  //   mat-icon-button
+  //   matTooltip="Edytuj"
+  //   class="button"
+  //   (click)="editPoll.emit(poll.id)"
+  // >
+  //   <mat-icon>edit</mat-icon>
+  // </div>
   }
 
   getPolls(isMore = false) {

@@ -3,7 +3,6 @@ import { PollModel } from 'src/app/models/polls/poll.model';
 import * as d3 from 'd3';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
-import { Election2019 } from 'src/app/services/global/data/election-2019';
 import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
 import { DatePipe } from '@angular/common';
 import { PartiesColorsEnum } from 'src/app/models/polls/enums/parties-colors.enum';
@@ -19,10 +18,8 @@ import { BehaviorSubject } from 'rxjs';
 export class PollPcComponent {
   @Input() poll: PollModel
   @Input() idSvg: string
-  @Input() isAdmin: boolean
 
   @Output() deletePoll = new EventEmitter<string>()
-  @Output() editPoll = new EventEmitter<string>()
 
   @ViewChild('image') image: ElementRef;
 
