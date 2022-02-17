@@ -9,16 +9,16 @@
 
     <app-main-poll
       [poll]="data.value"
-      [compareData]="(previousData | async)?.parties"
+      [compareData]="(previousData | async)?.items"
     ></app-main-poll>
 
     <app-table-poll
-      [parties]="data.value.parties"
-      [compareData]="previousData.value?.parties"
+      [parties]="data.value.items"
+      [compareData]="previousData.value?.items"
     ></app-table-poll>
 
     <!-- <app-mandates
-      [parties]="data.value.parties"
+      [parties]="data.value.items"
     ></app-mandates> -->
   </ng-container>
 </div>

@@ -16,7 +16,7 @@ import { PollsService } from 'src/app/services/collections/polls/polls.service';
 })
 export class AddPollsComponent implements OnInit {
   form = new FormGroup({
-    parties: new FormArray([]),
+    items: new FormArray([]),
     title: new FormControl(null),
     surveying: new FormControl(null, Validators.required),
     when: new FormControl(null, Validators.required),
@@ -60,11 +60,11 @@ export class AddPollsComponent implements OnInit {
   }
 
   addEmptyItem() {
-    (this.form.get('parties') as FormArray).push(this.createItem());
+    (this.form.get('items') as FormArray).push(this.createItem());
   }
 
   deleteItem(index: number) {
-    (this.form.get('parties') as FormArray).removeAt(index);
+    (this.form.get('items') as FormArray).removeAt(index);
   }
 
   private checkTitle() {
@@ -109,10 +109,10 @@ export class AddPollsComponent implements OnInit {
           when: (data as any).when.toDate(),
         });
 
-        (this.form.get('parties') as FormArray).controls = [];
+        (this.form.get('items') as FormArray).controls = [];
 
-        data.parties.forEach(element => {
-          (this.form.get('parties') as FormArray).push(
+        data.items.forEach(element => {
+          (this.form.get('items') as FormArray).push(
             new FormGroup({
               party: new FormControl(element.party, Validators.required),
               percentage: new FormControl(element.percentage, Validators.required),
@@ -126,7 +126,7 @@ export class AddPollsComponent implements OnInit {
   }
 
   private createDefualtArray() {
-    const ref = (this.form.get('parties') as FormArray);
+    const ref = (this.form.get('items') as FormArray);
     ref.push(this.createItem(PartiesEnum.pis));
     ref.push(this.createItem(PartiesEnum.po));
     ref.push(this.createItem(PartiesEnum.polska2050));

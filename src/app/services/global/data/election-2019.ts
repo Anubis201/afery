@@ -7,7 +7,7 @@ export const Election2019: PollModel = {
   forWhom: null,
   when: new Date(2019, 9, 13),
   title: null,
-  parties: [
+  items: [
     {
       party: PartiesEnum.pis,
       percentage: 43.6

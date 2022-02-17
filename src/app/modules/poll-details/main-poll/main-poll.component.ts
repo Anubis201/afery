@@ -16,7 +16,7 @@ export class MainPollComponent implements AfterViewInit {
   @Input() set compareData(data: PartyCharModel[]) {
     if (this.image) {
       this.removeContent();
-      this.draw(this.poll.parties, data);
+      this.draw(this.poll.items, data);
     }
 
     this.compare = data;
@@ -25,7 +25,7 @@ export class MainPollComponent implements AfterViewInit {
   compare: PartyCharModel[]
 
   ngAfterViewInit() {
-    this.draw(this.poll.parties, this.compare);
+    this.draw(this.poll.items, this.compare);
   }
 
   @ViewChild('main') image: ElementRef;
