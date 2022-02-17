@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Meta } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { PollModel } from 'src/app/models/polls/poll.model';
@@ -31,6 +31,7 @@ export class PollsComponent implements OnInit {
     private userService: UserService,
     private _snackBar: MatSnackBar,
     private router: Router,
+    private titleService: Title,
   ) { }
 
   ngOnInit() {
@@ -87,6 +88,7 @@ export class PollsComponent implements OnInit {
   }
 
   private metaTags() {
+    this.titleService.setTitle('Sondaże');
     this.meta.updateTag({ name:'description', content:'Tu znajdziesz najnowsze sondaże polskich partii. Zapraszam na inne strony, gdzie zobaczysz afery naszej "niesamowitej" polityki.' }, "name='description'");
   }
 }
