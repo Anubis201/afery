@@ -9,12 +9,12 @@
 
     <app-main-poll
       [poll]="data.value"
-      [compareData]="(previousData | async)?.items"
+      [compareData]="(previousData | async)?.items || previousData.value?.parties"
     ></app-main-poll>
 
     <app-table-poll
-      [parties]="data.value.items"
-      [compareData]="previousData.value?.items"
+      [parties]="data.value?.items || data.value?.parties"
+      [compareData]="previousData.value?.items || previousData.value?.parties"
     ></app-table-poll>
 
     <!-- <app-mandates

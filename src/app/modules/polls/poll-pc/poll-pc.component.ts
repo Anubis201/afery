@@ -44,7 +44,7 @@ export class PollPcComponent {
 
   private previousPoll() {
     this.pollsService.getPreviousPoll(this.poll.surveying, this.poll.when).subscribe({
-      next: data => this.draw(this.poll.items, data?.items),
+      next: data => this.draw(this.poll?.items || this.poll?.parties, data?.items || data?.parties),
       complete: () => this.isLoading.next(false)
     })
   }
