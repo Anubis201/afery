@@ -64,7 +64,7 @@ export class AddPollsComponent implements OnInit {
   }
 
   addEmptyItem() {
-    (this.form.get('items') as FormArray).push(this.createItem());
+    (this.form.get('items') as FormArray).push(this.createPartyItem());
   }
 
   deleteItem(index: number) {
@@ -73,14 +73,20 @@ export class AddPollsComponent implements OnInit {
 
   private handleTypeChange() {
     this.typeDataControl.valueChanges.subscribe((value: PollDataEnum) => {
-      this.loadingItems.next(true)
+      (this.form.get('items') as FormArray).controls = [];
+      this.loadingItems.next(true);
 
       switch(value) {
         case PollDataEnum.Partie:
           this.createPartyDefault();
-        };
+          break
+        case PollDataEnum.Teksty:
+          this.createTextItem();
+          break
+      }
 
-      this.loadingItems.next(false)
+      this._ref.detectChanges();
+      this.loadingItems.next(false);
       })
   }
 
@@ -144,17 +150,23 @@ export class AddPollsComponent implements OnInit {
 
   private createPartyDefault() {
     const ref = (this.form.get('items') as FormArray);
-    ref.push(this.createItem(PartiesEnum.pis));
-    ref.push(this.createItem(PartiesEnum.po));
-    ref.push(this.createItem(PartiesEnum.polska2050));
-    ref.push(this.createItem(PartiesEnum.konfederacja));
-    ref.push(this.createItem(PartiesEnum.lewica));
-    ref.push(this.createItem(PartiesEnum.psl));
-    this.form.updateValueAndValidity();
-    this._ref.detectChanges();
+    ref.push(this.createPartyItem(PartiesEnum.pis));
+    ref.push(this.createPartyItem(PartiesEnum.po));
+    ref.push(this.createPartyItem(PartiesEnum.polska2050));
+    ref.push(this.createPartyItem(PartiesEnum.konfederacja));
+    ref.push(this.createPartyItem(PartiesEnum.lewica));
+    ref.push(this.createPartyItem(PartiesEnum.psl));
   }
 
-  private createItem(party: PartiesEnum | null = null, pertcantage: number | null = null) {
+  private createTextItem() {
+    const ref = (this.form.get('items') as FormArray);
+    ref.push(new FormGroup({
+      text: new FormControl(null, Validators.required),
+      percentage: new FormControl(null, Validators.required),
+    }));
+  }
+
+  private createPartyItem(party: PartiesEnum | null = null, pertcantage: number | null = null) {
     return new FormGroup({
       party: new FormControl(party, Validators.required),
       percentage: new FormControl(pertcantage, Validators.required),
