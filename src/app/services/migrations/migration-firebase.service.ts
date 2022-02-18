@@ -10,7 +10,7 @@ export class MigrationFirebaseService {
     private firestore: AngularFirestore,
   ) { }
 
-  changeFieldName(base: string, orginalFieldName: string, newFieldName: string) {
+  changeFieldNameForAll(base: string, orginalFieldName: string, newFieldName: string) {
     this.firestore.collection(base).get().subscribe({
       next: docs => {
         docs.forEach(doc => {
@@ -19,6 +19,16 @@ export class MigrationFirebaseService {
           }
 
           doc.ref.update({ [newFieldName]: doc.data()[orginalFieldName] });
+        })
+      }
+    })
+  }
+
+  addNewFieldForAll(base: string, newFieldName: string, data: any) {
+    this.firestore.collection(base).get().subscribe({
+      next: docs => {
+        docs.forEach(doc => {
+          doc.ref.update({ [newFieldName]: data });
         })
       }
     })
