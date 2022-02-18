@@ -14,7 +14,7 @@ import { ManageCommentsComponent } from './manage-comments/manage-comments.compo
 import { SharedModule } from '../shared/shared.module';
 import { AddPollsComponent } from './add-polls/add-polls.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { PollItemComponent } from './add-polls/poll-item/parties.component';
+import { PollItemsComponent } from './add-polls/poll-item/poll-items.component';
 import { DetailsComponent } from './add-polls/details/details.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -30,7 +30,7 @@ import { ChooseTypeComponent } from './add-polls/choose-type/choose-type.compone
     CreateComponent,
     ManageCommentsComponent,
     AddPollsComponent,
-    PollItemComponent,
+    PollItemsComponent,
     DetailsComponent,
     ChooseTypeComponent,
   ],

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -27,12 +27,14 @@ export class AddPollsComponent implements OnInit {
   typeDataControl = new FormControl(PollDataEnum.Partie)
   isLoading = new BehaviorSubject<boolean>(false)
   idPoll = new BehaviorSubject<string>('')
+  loadingItems = new BehaviorSubject<boolean>(false)
   readonly PollDataEnum = PollDataEnum
 
   constructor(
     private pollsService: PollsService,
     private _snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
+    private _ref: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -42,8 +44,10 @@ export class AddPollsComponent implements OnInit {
         this.getPollDataForEdit(id);
       } else {
         this.idPoll.next('');
-        this.createDefualtArray();
+        this.createPartyDefault();
       }
+
+      this.handleTypeChange();
     })
   }
 
@@ -65,6 +69,19 @@ export class AddPollsComponent implements OnInit {
 
   deleteItem(index: number) {
     (this.form.get('items') as FormArray).removeAt(index);
+  }
+
+  private handleTypeChange() {
+    this.typeDataControl.valueChanges.subscribe((value: PollDataEnum) => {
+      this.loadingItems.next(true)
+
+      switch(value) {
+        case PollDataEnum.Partie:
+          this.createPartyDefault();
+        };
+
+      this.loadingItems.next(false)
+      })
   }
 
   private checkTitle() {
@@ -125,7 +142,7 @@ export class AddPollsComponent implements OnInit {
     })
   }
 
-  private createDefualtArray() {
+  private createPartyDefault() {
     const ref = (this.form.get('items') as FormArray);
     ref.push(this.createItem(PartiesEnum.pis));
     ref.push(this.createItem(PartiesEnum.po));
@@ -133,6 +150,8 @@ export class AddPollsComponent implements OnInit {
     ref.push(this.createItem(PartiesEnum.konfederacja));
     ref.push(this.createItem(PartiesEnum.lewica));
     ref.push(this.createItem(PartiesEnum.psl));
+    this.form.updateValueAndValidity();
+    this._ref.detectChanges();
   }
 
   private createItem(party: PartiesEnum | null = null, pertcantage: number | null = null) {
