@@ -1,12 +1,13 @@
 <form [formGroup]="form">
   <app-choose-type
     *ngIf="!idPoll.value"
-    [typeDataControl]="typeDataControl"
+    [typeDataControl]="form.get('typeItems')"
   ></app-choose-type>
 
   <app-poll-items
     *ngIf="!(loadingItems | async)"
     [items]="form.get('items')"
+    [typeDataControl]="form.get('typeItems')"
     (addItem)="addEmptyItem()"
     (deleteItem)="deleteItem($event)"
   ></app-poll-items>

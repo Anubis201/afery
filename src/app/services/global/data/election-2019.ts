@@ -1,4 +1,5 @@
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
+import { PollDataEnum } from 'src/app/models/polls/enums/poll-data.enum';
 import { PollModel } from 'src/app/models/polls/poll.model';
 
 export const Election2019: PollModel = {
@@ -7,6 +8,7 @@ export const Election2019: PollModel = {
   forWhom: null,
   when: new Date(2019, 9, 13),
   title: null,
+  typeItems: PollDataEnum.Partie,
   items: [
     {
       party: PartiesEnum.pis,

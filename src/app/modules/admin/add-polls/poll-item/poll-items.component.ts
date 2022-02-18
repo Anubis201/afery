@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormArray } from '@angular/forms';
+import { FormArray, FormControl } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
+import { PollDataEnum } from 'src/app/models/polls/enums/poll-data.enum';
 import { ConvertEnum } from 'src/app/services/global/support-functions/convert-enum';
 
 @Component({
@@ -12,6 +13,7 @@ import { ConvertEnum } from 'src/app/services/global/support-functions/convert-e
 })
 export class PollItemsComponent {
   @Input() items: FormArray
+  @Input() typeDataControl: FormControl
 
   @Output() addItem = new EventEmitter<void>()
   @Output() deleteItem = new EventEmitter<number>()
@@ -19,4 +21,5 @@ export class PollItemsComponent {
   entityItems = new BehaviorSubject<PartiesEnum[]>(ConvertEnum(PartiesEnum, 'number'))
 
   readonly PartiesEnum = PartiesEnum
+  readonly PollDataEnum = PollDataEnum
 }

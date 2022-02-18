@@ -22,12 +22,13 @@ export class AddPollsComponent implements OnInit {
     when: new FormControl(null, Validators.required),
     people: new FormControl(null),
     forWhom: new FormControl(null),
+    typeItems: new FormControl(PollDataEnum.Partie)
   })
 
-  typeDataControl = new FormControl(PollDataEnum.Partie)
   isLoading = new BehaviorSubject<boolean>(false)
   idPoll = new BehaviorSubject<string>('')
   loadingItems = new BehaviorSubject<boolean>(false)
+
   readonly PollDataEnum = PollDataEnum
 
   constructor(
@@ -64,7 +65,14 @@ export class AddPollsComponent implements OnInit {
   }
 
   addEmptyItem() {
-    (this.form.get('items') as FormArray).push(this.createPartyItem());
+    switch(this.form.get('typeItems').value) {
+      case PollDataEnum.Partie:
+        (this.form.get('items') as FormArray).push(this.createPartyItem());
+        break
+      case PollDataEnum.Teksty:
+        this.createTextItem();
+        break
+    }
   }
 
   deleteItem(index: number) {
@@ -72,7 +80,7 @@ export class AddPollsComponent implements OnInit {
   }
 
   private handleTypeChange() {
-    this.typeDataControl.valueChanges.subscribe((value: PollDataEnum) => {
+    this.form.get('typeItems').valueChanges.subscribe((value: PollDataEnum) => {
       (this.form.get('items') as FormArray).controls = [];
       this.loadingItems.next(true);
 

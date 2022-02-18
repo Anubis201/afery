@@ -2,7 +2,11 @@
   <mat-expansion-panel expanded="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Partie
+        {{
+          typeDataControl.value === PollDataEnum.Teksty
+            ? "Teskty/Pytania"
+            : "Partie"
+        }}
       </mat-panel-title>
 
       <mat-panel-description>
@@ -16,34 +20,55 @@
         [formGroup]="form"
         class="parties__items__item"
       >
-        <mat-form-field appearance="fill">
-          <mat-label>Partia</mat-label>
-          <mat-select class="parties__items__item--entity" formControlName="party">
-            <mat-option *ngFor="let item of entityItems | async" [value]="item">
-              <img class="parties__items__item--entity--image" [src]="'/assets/icons/parties/' + PartiesEnum[item] + '.jpg'" alt="partie">
-              <span>{{ PartiesEnum[item] }}</span>
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <ng-container [ngSwitch]="typeDataControl.value">
+          <mat-form-field *ngSwitchCase="PollDataEnum.Partie" appearance="fill">
+            <mat-label>Partia</mat-label>
+            <mat-select
+              class="parties__items__item--entity"
+              formControlName="party"
+            >
+              <mat-option
+                *ngFor="let item of entityItems | async"
+                [value]="item"
+              >
+                <img
+                  class="parties__items__item--entity--image"
+                  [src]="'/assets/icons/parties/' + PartiesEnum[item] + '.jpg'"
+                  alt="partie"
+                />
+                <span>{{ PartiesEnum[item] }}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field *ngSwitchCase="PollDataEnum.Teksty" appearance="fill">
+            <mat-label>Tekst</mat-label>
+            <input
+              matInput
+              formControlName="text"
+              autocomplete="off"
+              type="text"
+            />
+          </mat-form-field>
+        </ng-container>
 
         <mat-form-field appearance="fill">
           <mat-label>Procenty</mat-label>
-          <input matInput formControlName="percentage" autocomplete="off" type="number">
+          <input
+            matInput
+            formControlName="percentage"
+            autocomplete="off"
+            type="number"
+          />
         </mat-form-field>
 
-        <button
-          mat-icon-button
-          (click)="deleteItem.emit(index)"
-        >
+        <button mat-icon-button (click)="deleteItem.emit(index)">
           <mat-icon *ngIf="items.controls.length > 1">delete_outline</mat-icon>
         </button>
       </div>
     </div>
 
-    <div
-      class="parties__new"
-      (click)="addItem.emit()"
-    >
+    <div class="parties__new" (click)="addItem.emit()">
       <mat-icon>add_box</mat-icon>
       <div>Dodaj partię</div>
     </div>
