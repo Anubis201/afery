@@ -1,26 +1,28 @@
 <div class="newest container">
-  <div
-    *ngIf="allPolls.value.length"
-    class="label"
-  >Najnowsze</div>
+  <div *ngFor="let poll of PollDataArray">
+    <div
+      *ngIf="allPolls.value.length"
+      class="label"
+    >{{ poll }}</div>
 
-  <div class="row">
-    <app-poll-pc
-      *ngFor="let poll of allPolls | async; let index = index"
-      class="col-12 col-sm-6 col-lg-4 newest__item"
-      [poll]="poll"
-      [idSvg]="'halo' + index"
-    ></app-poll-pc>
-  </div>
+    <div class="row">
+      <app-poll-pc
+        *ngFor="let poll of allPolls | async; let index = index"
+        class="col-12 col-sm-6 col-lg-4 newest__item"
+        [poll]="poll"
+        [idSvg]="'halo' + index"
+      ></app-poll-pc>
+    </div>
 
-  <div class="more">
-    <button
-      *ngIf="showMore | async"
-      mat-icon-button
-      matTooltip="Wjęcej"
-      (click)="getPolls(true)"
-    >
-      <mat-icon>expand_more</mat-icon>
-    </button>
+    <div class="more">
+      <button
+        *ngIf="showMore | async"
+        mat-icon-button
+        matTooltip="Wjęcej"
+        (click)="getPolls(true)"
+      >
+        <mat-icon>expand_more</mat-icon>
+      </button>
+    </div>
   </div>
 </div>

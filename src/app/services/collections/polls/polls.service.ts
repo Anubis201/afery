@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { from, map } from 'rxjs';
+import { PollDataEnum } from 'src/app/models/polls/enums/poll-data.enum';
 import { PollModel } from 'src/app/models/polls/poll.model';
 
 @Injectable({
@@ -20,8 +21,8 @@ export class PollsService {
     return from(this.getRef().add(data))
   }
 
-  getPolls(limit: number, isMore: boolean, snapshot: any) {
-    const ref = this.getRef().ref.orderBy('when', 'desc').limit(limit)
+  getPolls(limit: number, isMore: boolean, snapshot: any, pollData: PollDataEnum) {
+    const ref = this.getRef().ref.where('typeItems', '==', pollData).orderBy('when', 'desc').limit(limit)
 
     if (isMore)
       return from(ref.startAfter(snapshot).get())

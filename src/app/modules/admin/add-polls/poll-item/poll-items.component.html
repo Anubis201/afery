@@ -3,7 +3,7 @@
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{
-          typeDataControl.value === PollDataEnum.Teksty
+          typeDataControl.value === PollDataEnum.Pytania
             ? "Teskty/Pytania"
             : "Partie"
         }}
@@ -41,7 +41,7 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field *ngSwitchCase="PollDataEnum.Teksty" appearance="fill">
+          <mat-form-field *ngSwitchCase="PollDataEnum.Pytania" appearance="fill">
             <mat-label>Tekst</mat-label>
             <input
               matInput
