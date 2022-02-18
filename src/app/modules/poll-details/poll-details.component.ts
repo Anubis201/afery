@@ -1,11 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
 import { Election2019 } from 'src/app/services/global/data/election-2019';
+import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
   selector: 'app-poll-details',
@@ -22,14 +23,16 @@ export class PollDetailsComponent implements OnInit {
 
   constructor(
     private pollsService: PollsService,
-    private router: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private titleService: Title,
     private datePipe: DatePipe,
     private meta: Meta,
+    private userService: UserService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
-    this.router.params.subscribe(({ id, title }: { id: string, title: string }) => {
+    this.activatedRoute.params.subscribe(({ id, title }: { id: string, title: string }) => {
       this.getData(id);
       this.data.subscribe(d => {
         if (!d) return
@@ -37,6 +40,17 @@ export class PollDetailsComponent implements OnInit {
         this.previousPoll();
       })
     })
+  }
+
+  get isAdmin() {
+    return this.userService.isAdmin
+  }
+
+  handleEditPoll() {
+    this.router.navigate(
+      ['/admin/polls'],
+      { queryParams: { id: this.data.value?.id } }
+    )
   }
 
   previousPoll() {

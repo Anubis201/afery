@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Meta, Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
@@ -23,41 +21,12 @@ export class PollsComponent implements OnInit {
   constructor(
     private pollsService: PollsService,
     private meta: Meta,
-    private _snackBar: MatSnackBar,
-    private router: Router,
     private titleService: Title,
   ) { }
 
   ngOnInit() {
     this.getPolls();
     this.metaTags();
-  }
-
-  handleEditPoll(id: string) {
-    this.router.navigate(
-      ['/admin/polls'],
-      { queryParams: { id } }
-    )
-  }
-
-  handleDeletePoll(id: string) {
-    this.pollsService.deletePoll(id).subscribe({
-      next: () => {
-        this.allPolls.next(this.allPolls.value.filter(element => element.id !== id));
-      },
-      error: () => {
-        this._snackBar.open('Nie udało sie usunąć sondażu', 'close');
-      }
-    })
-  // <div
-  //   *ngIf="isAdmin"
-  //   mat-icon-button
-  //   matTooltip="Edytuj"
-  //   class="button"
-  //   (click)="editPoll.emit(poll.id)"
-  // >
-  //   <mat-icon>edit</mat-icon>
-  // </div>
   }
 
   getPolls(isMore = false) {

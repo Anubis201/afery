@@ -3,8 +3,10 @@
     <app-header
       [title]="data.value.title"
       [sortingMethod]="sortingMethod | async"
+      [isAdmin]="isAdmin | async"
       (comparePreviousPoll)="previousPoll()"
       (comparePreviousElection)="previousElection()"
+      (editPoll)="handleEditPoll()"
     ></app-header>
 
     <app-main-poll

@@ -1,4 +1,16 @@
-<div class="title">{{ title }}</div>
+<div class="title">
+  <h1 class="title__text">{{ title }}</h1>
+  <div *ngIf="isAdmin">
+    <button
+      mat-icon-button
+      matTooltip="Edytuj"
+      class="button"
+      (click)="editPoll.emit()"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+</div>
 
 <div class="label">
   <div>Porównaj z</div>

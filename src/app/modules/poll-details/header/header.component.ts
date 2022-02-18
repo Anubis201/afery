@@ -8,8 +8,10 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 })
 export class HeaderComponent {
   @Input() title: string
+  @Input() isAdmin: boolean
   @Input() sortingMethod: 'poll' | 'election'
 
   @Output() comparePreviousElection = new EventEmitter<void>()
   @Output() comparePreviousPoll = new EventEmitter<void>()
+  @Output() editPoll = new EventEmitter<void>()
 }
