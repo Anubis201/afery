@@ -1,28 +1,33 @@
 <div class="newest container">
-  <div *ngFor="let poll of PollDataArray">
-    <div
-      *ngIf="allPolls.value.length"
-      class="label"
-    >{{ poll }}</div>
+  <ng-container *ngFor="let section of data | async | keyvalue">
+    <div *ngIf="section.value.polls.length">
+      <div class="label">{{ PollDataEnum[section.key] }}</div>
 
-    <div class="row">
-      <app-poll-pc
-        *ngFor="let poll of allPolls | async; let index = index"
-        class="col-12 col-sm-6 col-lg-4 newest__item"
-        [poll]="poll"
-        [idSvg]="'halo' + index"
-      ></app-poll-pc>
-    </div>
+      <div class="row">
+        <ng-container [ngSwitch]="section.key">
+          <ng-container *ngSwitchCase="PollDataEnum.Partie">
+            <app-poll-pc
+              *ngFor="let poll of section.value.polls; let index = index"
+              class="col-12 col-sm-6 col-lg-4 newest__item"
+              [poll]="poll"
+              [idSvg]="'halo' + index"
+            ></app-poll-pc>
+          </ng-container>
+        </ng-container>
+      </div>
 
-    <div class="more">
-      <button
-        *ngIf="showMore | async"
-        mat-icon-button
-        matTooltip="Wjęcej"
-        (click)="getPolls(true)"
-      >
-        <mat-icon>expand_more</mat-icon>
-      </button>
+      <div class="more">
+        <button
+          *ngIf="!section.value.isLastPage"
+          mat-icon-button
+          matTooltip="Wjęcej"
+          [disabled]="section.value.isLoading"
+          (click)="getPolls(true)"
+        ><mat-icon>expand_more</mat-icon></button>
+        <div *ngIf="section.value.isLoading" class="articles__more--loading">
+          <mat-spinner [diameter]="25"></mat-spinner>
+        </div>
+      </div>
     </div>
-  </div>
+  </ng-container>
 </div>

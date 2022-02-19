@@ -13,7 +13,7 @@ interface SectionPollModel {
   isLoading: boolean
 }
 
-type DataType = Record<PollDataEnum, SectionPollModel>;
+type DataType = Record<PollDataEnum, SectionPollModel>
 
 @Component({
   selector: 'app-polls',
@@ -22,9 +22,11 @@ type DataType = Record<PollDataEnum, SectionPollModel>;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PollsComponent implements OnInit {
-  data = new BehaviorSubject<DataType>(this.createPage() as DataType)
-  showMore = new BehaviorSubject<boolean>(false)
+  private readonly pollDataEnumArray = ConvertEnum(PollDataEnum, 'number')
 
+  data = new BehaviorSubject<DataType>(this.createPage() as DataType)
+
+  readonly PollDataEnum = PollDataEnum
   private readonly limit = 6
 
   constructor(
@@ -35,40 +37,42 @@ export class PollsComponent implements OnInit {
 
   ngOnInit() {
     this.metaTags();
+
+    // this.pollDataEnumArray.forEach(ele => this.getPolls(ele))
+    this.getPolls(PollDataEnum.Partie)
+    this.getPolls(PollDataEnum.Pytania)
   }
 
-  getPolls(pollData: PollDataEnum, isMore = false) {
-    this.pollsService.getPolls(this.limit + 1, isMore, this.data.value[pollData].lastPollsnapshot, pollData).subscribe({
+  getPolls(type: PollDataEnum, isMore = false) {
+    this.pollsService.getPolls(this.limit + 1, isMore, this.data.value[type].lastPollsnapshot, type).subscribe({
       next: docs => {
-        let data: PollModel[] = [];
+        let polls: PollModel[] = [];
         let i = 0;
         let snapshot: any;
 
         docs.forEach(d => {
-          data.push({ ...d.data() as PollModel, when: (d.data() as any).when.toDate(), id: d.id })
+          polls.push({ ...d.data() as PollModel, when: (d.data() as any).when.toDate(), id: d.id })
           if (this.limit - 1 === i) snapshot = d;
           i++;
         })
 
-        if (data.length === this.limit + 1) {
-          this.showMore.next(true);
-          data.pop();
-        } else {
-          this.showMore.next(false);
+        let isLimit = true;
+        if (polls.length === this.limit + 1) {
+          isLimit = false;
+          polls.pop();
         }
 
         this.data.next({
           ...this.data.value,
           [type]: {
-            articles: orderChange ? articles : [...this.data.value[type].articles, ...articles],
-            lastArticlesnapshot: snap,
-            order: orderChange || this.data.value[type].order,
+            polls: [...this.data.value[type].polls, ...polls],
+            lastPollsnapshot: snapshot,
             isLastPage: isLimit,
             isLoading: false
           }
         })
       },
-      error: () => this.changeLoading(pollData, false)
+      error: () => this.changeLoading(type, false)
     })
   }
 
@@ -90,7 +94,7 @@ export class PollsComponent implements OnInit {
   private createPage() {
     const object = {}
 
-    ConvertEnum(PollDataEnum, 'number').forEach((value: PollDataEnum) => {
+    this.pollDataEnumArray.forEach((value: PollDataEnum) => {
       object[value] = {
         polls: [],
         lastPollsnapshot: null,
