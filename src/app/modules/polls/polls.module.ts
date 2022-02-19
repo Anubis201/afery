@@ -4,6 +4,7 @@ import { PollsComponent } from './polls.component';
 import { SharedModule } from '../shared/shared.module';
 import { PollsRoutingModule } from './article-page-routing.module';
 import { PollPcComponent } from './poll-pc/poll-pc.component';
+import { SectionComponent } from './section/section.component';
 
 
 
@@ -11,6 +12,7 @@ import { PollPcComponent } from './poll-pc/poll-pc.component';
   declarations: [
     PollsComponent,
     PollPcComponent,
+    SectionComponent,
   ],
   providers: [DatePipe],
   imports: [

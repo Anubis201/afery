@@ -26,7 +26,6 @@ export class PollsComponent implements OnInit {
 
   data = new BehaviorSubject<DataType>(this.createPage() as DataType)
 
-  readonly PollDataEnum = PollDataEnum
   private readonly limit = 3
 
   constructor(
@@ -42,6 +41,10 @@ export class PollsComponent implements OnInit {
     // setTimeout(() => {
     //   this.getPolls(PollDataEnum.Pytania)
     // }, 500);
+  }
+
+  identify(index: number, item){
+    return item.key;
   }
 
   getPolls(type: PollDataEnum, isMore = false) {
