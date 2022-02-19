@@ -22,7 +22,7 @@
           mat-icon-button
           matTooltip="Wjęcej"
           [disabled]="section.value.isLoading"
-          (click)="getPolls(true)"
+          (click)="getPolls(section.key, true)"
         ><mat-icon>expand_more</mat-icon></button>
         <div *ngIf="section.value.isLoading" class="articles__more--loading">
           <mat-spinner [diameter]="25"></mat-spinner>

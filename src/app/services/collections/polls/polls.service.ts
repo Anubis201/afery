@@ -22,7 +22,7 @@ export class PollsService {
   }
 
   getPolls(limit: number, isMore: boolean, snapshot: any, pollData: PollDataEnum) {
-    const ref = this.getRef().ref.where('typeItems', '==', pollData).orderBy('when', 'desc').limit(limit)
+    const ref = this.getRef().ref.where('typeItems', '==', parseInt(pollData as any)).orderBy('when', 'desc').limit(limit)
 
     if (isMore)
       return from(ref.startAfter(snapshot).get())

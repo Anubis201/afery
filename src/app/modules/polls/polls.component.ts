@@ -27,7 +27,7 @@ export class PollsComponent implements OnInit {
   data = new BehaviorSubject<DataType>(this.createPage() as DataType)
 
   readonly PollDataEnum = PollDataEnum
-  private readonly limit = 6
+  private readonly limit = 3
 
   constructor(
     private pollsService: PollsService,
@@ -38,9 +38,10 @@ export class PollsComponent implements OnInit {
   ngOnInit() {
     this.metaTags();
 
-    // this.pollDataEnumArray.forEach(ele => this.getPolls(ele))
     this.getPolls(PollDataEnum.Partie)
-    this.getPolls(PollDataEnum.Pytania)
+    // setTimeout(() => {
+    //   this.getPolls(PollDataEnum.Pytania)
+    // }, 500);
   }
 
   getPolls(type: PollDataEnum, isMore = false) {

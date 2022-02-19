@@ -40,7 +40,6 @@ export class PollPcComponent {
 
   ngAfterViewInit() {
     this.previousPoll();
-    console.log(this.idSvg)
   }
 
   private previousPoll() {
