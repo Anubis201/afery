@@ -69,8 +69,11 @@ export class AddPollsComponent implements OnInit {
       case PollDataEnum.Partie:
         (this.form.get('items') as FormArray).push(this.createPartyItem());
         break
-      case PollDataEnum.Pytania:
+      case PollDataEnum.Odpowiedzi:
         this.createTextItem();
+        break
+      case PollDataEnum.Prezydenci:
+        this.createPresidentItem();
         break
     }
   }
@@ -88,8 +91,11 @@ export class AddPollsComponent implements OnInit {
         case PollDataEnum.Partie:
           this.createPartyDefault();
           break
-        case PollDataEnum.Pytania:
+        case PollDataEnum.Odpowiedzi:
           this.createTextItem();
+          break
+        case PollDataEnum.Prezydenci:
+          this.createPresidentItem()
           break
       }
 
@@ -164,6 +170,14 @@ export class AddPollsComponent implements OnInit {
     ref.push(this.createPartyItem(PartiesEnum.konfederacja));
     ref.push(this.createPartyItem(PartiesEnum.lewica));
     ref.push(this.createPartyItem(PartiesEnum.psl));
+  }
+
+  private createPresidentItem() {
+    const ref = (this.form.get('items') as FormArray);
+    ref.push(new FormGroup({
+      president: new FormControl(null, Validators.required),
+      percentage: new FormControl(null, Validators.required),
+    }));
   }
 
   private createTextItem() {

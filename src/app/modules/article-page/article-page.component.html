@@ -116,16 +116,16 @@
       <div class="page__links__socials">
         <div>Udostępnij</div>
         <a mat-icon-button [href]="'https://www.facebook.com/share.php?u=' + pageUrl()" target="_blank" rel="noopener noreferrer">
-          <img src="/assets/socials/facebook.svg" alt="Link do Facebooka">
+          <img src="/assets/socials/facebook.svg" alt="Ikona Facebooka">
         </a>
         <a mat-icon-button [href]="'https://twitter.com/intent/tweet?url=' + pageUrl()" target="_blank" rel="noopener noreferrer">
-          <img src="/assets/socials/twitter.svg" alt="Link do Twittera">
+          <img src="/assets/socials/twitter.svg" alt="Ikona Twittera">
         </a>
       </div>
     </div>
     <div *ngIf="article.value?.subtitle?.length" class="page__subtitle">{{ article.value?.subtitle }}</div>
     <div class="page__image-section">
-      <img class="page__image-section--image" [src]="article.value?.imageSrc" [alt]="article.value?.alt || 'Główne zdjęcie artykułu'">
+      <img class="page__image-section--image" [src]="article.value?.imageSrc" [alt]="article.value.title + ' - Afery'">
       <div class="page__image-section--author">{{ article.value?.imageDesc }}</div>
     </div>
     <div class="page__desc" [innerHtml]="article.value?.text"></div>
@@ -159,9 +159,9 @@
     <img
       *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties"
       class="page-mobile__image--org" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'"
-      [alt]="'Logo ' + PartiesEnum[article.value.entity]"
+      [alt]="'Logo partii ' + PartiesEnum[article.value.entity]"
     >
-    <img class="page-mobile__image" [src]="article.value?.imageSrc" [alt]="article.value?.alt || 'Główne zdjęcie artykułu'">
+    <img class="page-mobile__image" [src]="article.value?.imageSrc" [alt]="article.value.title + ' - Afery'">
     <div class="page-mobile__author">{{ article.value?.imageDesc }}</div>
     <div class="page-mobile__content">
       <div class="page-mobile__content__title">
@@ -210,10 +210,10 @@
           <div class="page-mobile__content__time__all__socials">
             <div>Udostępnij</div>
             <a mat-icon-button href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-              <img src="/assets/socials/facebook.svg" alt="Link do Facebooka">
+              <img src="/assets/socials/facebook.svg" alt="Ikona Facebooka">
             </a>
             <a mat-icon-button href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
-              <img src="/assets/socials/twitter.svg" alt="Link do Twittera">
+              <img src="/assets/socials/twitter.svg" alt="Ikona Twittera">
             </a>
           </div>
         </div>

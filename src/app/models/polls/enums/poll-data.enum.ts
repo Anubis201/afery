@@ -1,5 +1,5 @@
 export enum PollDataEnum {
   Partie,
-  Pytania,
+  Odpowiedzi,
   Prezydenci,
 }

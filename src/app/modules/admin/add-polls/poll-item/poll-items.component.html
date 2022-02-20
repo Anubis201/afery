@@ -1,17 +1,9 @@
 <mat-accordion class="parties">
   <mat-expansion-panel expanded="true">
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{
-          typeDataControl.value === PollDataEnum.Pytania
-            ? "Teskty/Pytania"
-            : "Partie"
-        }}
-      </mat-panel-title>
+      <mat-panel-title >{{ PollDataEnum[typeDataControl.value] }}</mat-panel-title>
 
-      <mat-panel-description>
-        Dodaj partie, które występowały w sondażu
-      </mat-panel-description>
+      <mat-panel-description>Dodaj partie, które występowały w sondażu</mat-panel-description>
     </mat-expansion-panel-header>
 
     <div class="parties__items">
@@ -28,20 +20,19 @@
               formControlName="party"
             >
               <mat-option
-                *ngFor="let item of entityItems | async"
+                *ngFor="let item of entityItems"
                 [value]="item"
               >
                 <img
                   class="parties__items__item--entity--image"
                   [src]="'/assets/icons/parties/' + PartiesEnum[item] + '.jpg'"
-                  alt="partie"
                 />
                 <span>{{ PartiesEnum[item] }}</span>
               </mat-option>
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field *ngSwitchCase="PollDataEnum.Pytania" appearance="fill">
+          <mat-form-field *ngSwitchCase="PollDataEnum.Odpowiedzi" appearance="fill">
             <mat-label>Tekst</mat-label>
             <input
               matInput
@@ -49,6 +40,25 @@
               autocomplete="off"
               type="text"
             />
+          </mat-form-field>
+
+          <mat-form-field *ngSwitchCase="PollDataEnum.Prezydenci" appearance="fill">
+            <mat-label>Kandydant</mat-label>
+            <mat-select
+              class="parties__items__item--entity"
+              formControlName="president"
+            >
+              <mat-option
+                *ngFor="let item of presidents"
+                [value]="item"
+              >
+                <img
+                  class="parties__items__item--entity--image"
+                  [src]="'/assets/icons/presidents/' + item + '.jpg'"
+                >
+                <span>{{ presidentName(PresidentsEnum[item]) }}</span>
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </ng-container>
 
