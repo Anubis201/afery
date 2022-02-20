@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { PollDataEnum } from 'src/app/models/polls/enums/poll-data.enum';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
 import { Election2019 } from 'src/app/services/global/data/election-2019';
@@ -21,6 +22,8 @@ export class PollDetailsComponent implements OnInit {
 
   private dataSnapshot: any
 
+  readonly PollDataEnum = PollDataEnum
+
   constructor(
     private pollsService: PollsService,
     private activatedRoute: ActivatedRoute,
@@ -35,7 +38,7 @@ export class PollDetailsComponent implements OnInit {
     this.activatedRoute.params.subscribe(({ id, title }: { id: string, title: string }) => {
       this.getData(id);
       this.data.subscribe(d => {
-        if (!d) return
+        if (!d || d.typeItems !== PollDataEnum.Partie) return
 
         this.previousPoll();
       })

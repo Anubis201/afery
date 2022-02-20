@@ -4,20 +4,31 @@
       [title]="data.value.title"
       [sortingMethod]="sortingMethod | async"
       [isAdmin]="isAdmin | async"
+      [typeItems]="data.value.typeItems"
       (comparePreviousPoll)="previousPoll()"
       (comparePreviousElection)="previousElection()"
       (editPoll)="handleEditPoll()"
     ></app-header>
 
-    <app-main-poll
-      [poll]="data.value"
-      [compareData]="(previousData | async)?.items"
-    ></app-main-poll>
+    <ng-container [ngSwitch]="data.value.typeItems">
+      <ng-container *ngSwitchCase="PollDataEnum.Partie">
+        <app-main-poll-party
+          [poll]="data.value"
+          [compareData]="(previousData | async)?.items"
+        ></app-main-poll-party>
 
-    <app-table-poll
-      [parties]="data.value?.items"
-      [compareData]="previousData.value?.items"
-    ></app-table-poll>
+        <app-table-poll
+          [parties]="data.value?.items"
+          [compareData]="previousData.value?.items"
+        ></app-table-poll>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="PollDataEnum.Prezydenci">
+        <app-main-poll-presidents
+          [poll]="data.value"
+        ></app-main-poll-presidents>
+      </ng-container>
+    </ng-container>
 
     <!-- <app-mandates
       [parties]="data.value.items"

@@ -6,12 +6,12 @@ import { PartiesColorsEnum } from 'src/app/models/polls/enums/parties-colors.enu
 import { PollModel } from 'src/app/models/polls/poll.model';
 
 @Component({
-  selector: 'app-main-poll',
-  templateUrl: './main-poll.component.html',
-  styleUrls: ['./main-poll.component.scss'],
+  selector: 'app-main-poll-party',
+  templateUrl: './main-poll-party.component.html',
+  styleUrls: ['./main-poll-party.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainPollComponent implements AfterViewInit {
+export class MainPollPartyComponent implements AfterViewInit {
   @Input() poll: PollModel
   @Input() set compareData(data: PartyCharModel[]) {
     if (this.image) {
@@ -30,8 +30,8 @@ export class MainPollComponent implements AfterViewInit {
 
   @ViewChild('main') image: ElementRef;
 
-  private margin = 30;
-  private height = 400 - (this.margin * 2);
+  private margin = 30
+  private height = 400 - (this.margin * 2)
 
   private removeContent() {
     d3
