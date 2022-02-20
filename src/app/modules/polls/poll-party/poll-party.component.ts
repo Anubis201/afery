@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import * as d3 from 'd3';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
@@ -10,23 +10,21 @@ import { PollsService } from 'src/app/services/collections/polls/polls.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: 'app-poll-pc',
-  templateUrl: './poll-pc.component.html',
-  styleUrls: ['./poll-pc.component.scss'],
+  selector: 'app-poll-party',
+  templateUrl: './poll-party.component.html',
+  styleUrls: ['./poll-party.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PollPcComponent {
+export class PollPartyComponent {
   @Input() poll: PollModel
   @Input() idSvg: string
 
-  @Output() deletePoll = new EventEmitter<string>()
-
-  @ViewChild('image') image: ElementRef;
+  @ViewChild('image') image: ElementRef
 
   isLoading = new BehaviorSubject<boolean>(true)
 
-  private margin = 30;
-  private height = 280 - (this.margin * 2);
+  private margin = 30
+  private height = 280 - (this.margin * 2)
 
   get toPage() {
     const date = this.datePipe.transform(this.poll.when,'yyyy-MM-dd');
@@ -44,7 +42,7 @@ export class PollPcComponent {
 
   private previousPoll() {
     this.pollsService.getPreviousPoll(this.poll.surveying, this.poll.when).subscribe({
-      next: data => this.draw(this.poll?.items, data?.items),
+      next: data => this.draw(this.poll?.items as PartyCharModel[], data?.items as PartyCharModel[]),
       complete: () => this.isLoading.next(false)
     })
   }

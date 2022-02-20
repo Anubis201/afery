@@ -3,16 +3,18 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { PollsComponent } from './polls.component';
 import { SharedModule } from '../shared/shared.module';
 import { PollsRoutingModule } from './article-page-routing.module';
-import { PollPcComponent } from './poll-pc/poll-pc.component';
+import { PollPartyComponent } from './poll-party/poll-party.component';
 import { SectionComponent } from './section/section.component';
+import { PollPresidentComponent } from './poll-president/poll-president.component';
 
 
 
 @NgModule({
   declarations: [
     PollsComponent,
-    PollPcComponent,
+    PollPartyComponent,
     SectionComponent,
+    PollPresidentComponent,
   ],
   providers: [DatePipe],
   imports: [

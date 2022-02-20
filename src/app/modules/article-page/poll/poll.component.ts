@@ -15,7 +15,7 @@ export class PollComponent implements AfterViewInit {
   @Input() idSvg: string
 
   ngAfterViewInit() {
-    this.draw(this.poll.items);
+    this.draw(this.poll.items as PartyCharModel[]);
   }
 
   private margin = 30;

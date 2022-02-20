@@ -38,9 +38,7 @@ export class PollsComponent implements OnInit {
     this.metaTags();
 
     this.getPolls(PollDataEnum.Partie)
-    // setTimeout(() => {
-    //   this.getPolls(PollDataEnum.Pytania)
-    // }, 500);
+    this.getPolls(PollDataEnum.Prezydenci)
   }
 
   identify(index: number, item){
@@ -48,6 +46,7 @@ export class PollsComponent implements OnInit {
   }
 
   getPolls(type: PollDataEnum, isMore = false) {
+    this.changeLoading(type, true);
     this.pollsService.getPolls(this.limit + 1, isMore, this.data.value[type].lastPollsnapshot, type).subscribe({
       next: docs => {
         let polls: PollModel[] = [];
