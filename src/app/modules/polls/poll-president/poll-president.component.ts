@@ -41,6 +41,7 @@ export class PollPresidentComponent implements AfterViewInit {
   private draw(data: PresidentPollModel[]) {
     const width = parseInt(this.image.nativeElement.offsetWidth, 10);
     const yLabelSpace = 7;
+    const thisIsBig = width >= 552;
 
     const xScale = d3
       .scaleBand()
@@ -68,10 +69,10 @@ export class PollPresidentComponent implements AfterViewInit {
       .selectAll('.tick')
       .append('svg:image')
       .attr('xlink:href', (party) => `/assets/icons/presidents/${party}.jpg`)
-      .attr('height', 25)
-      .attr('width', 30)
+      .attr('height', (thisIsBig ? 37 : 25))
+      .attr('width', (thisIsBig ? 40 : 30))
       .attr('y', 15)
-      .attr('x', -14);
+      .attr('x', (thisIsBig ? -20 : -14));
 
     chart
       .select('g')
@@ -100,7 +101,7 @@ export class PollPresidentComponent implements AfterViewInit {
       .attr('y', d => yScale(d.percentage) - yLabelSpace)
       .attr('fill', 'white')
       .attr('font-weight', 500)
-      .attr('font-size', '11px')
+      .attr('font-size', (thisIsBig ? '14px' : '11px'))
       .attr('text-anchor', 'middle');
   }
 }

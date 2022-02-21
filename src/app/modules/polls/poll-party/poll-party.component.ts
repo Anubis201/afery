@@ -37,8 +37,6 @@ export class PollPartyComponent {
   ) {}
 
   ngAfterViewInit() {
-    // console.log(this.idSvg)
-    // console.log(this.poll)
     this.previousPoll();
   }
 
@@ -52,7 +50,7 @@ export class PollPartyComponent {
   private draw(data: PartyCharModel[], previousElection: PartyCharModel[]) {
     const width = parseInt(this.image.nativeElement.offsetWidth, 10);
     const yLabelSpace = 7;
-    // console.log(width)
+    const thisIsBig = width >= 552;
 
     const xScale = d3
       .scaleBand()
@@ -80,10 +78,10 @@ export class PollPartyComponent {
       .selectAll('.tick')
       .append('svg:image')
       .attr('xlink:href', party => `/assets/icons/parties/${PartiesEnum[party as PartiesEnum]}.png`)
-      .attr('height', 25)
-      .attr('width', 30)
+      .attr('height', (thisIsBig ? 30 : 25))
+      .attr('width', (thisIsBig ? 35 : 30))
       .attr('y', 15)
-      .attr('x', -14);
+      .attr('x', (thisIsBig ? -17 : -14));
 
     chart
       .select('g')
@@ -112,7 +110,7 @@ export class PollPartyComponent {
       .attr('y', d => yScale(d.percentage) - yLabelSpace)
       .attr('fill', 'white')
       .attr('font-weight', 500)
-      .attr('font-size', '11px')
+      .attr('font-size', (thisIsBig ? '14px' : '11px'))
       .attr('text-anchor', 'middle');
 
     if (!previousElection) return
@@ -140,7 +138,7 @@ export class PollPartyComponent {
       .attr('y', d => yScale(d.percentage) - yLabelSpace)
       .attr('fill', 'white')
       .attr('font-weight', 500)
-      .attr('font-size', '8px')
+      .attr('font-size', (thisIsBig ? '10px' : '8px'))
       .attr('opacity', 0.4)
       .attr('text-anchor', 'middle');
   }
