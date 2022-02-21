@@ -85,9 +85,9 @@ export class PollPresidentComponent implements AfterViewInit {
       .enter()
       .append('rect')
       .classed('bar', true )
-      .attr('x', d => xScale(d.president as unknown as string) + 5)
+      .attr('x', d => xScale(d.president as unknown as string) + (thisIsBig ? 20 : 5))
       .attr('y', d => yScale(d.percentage))
-      .attr('width', xScale.bandwidth() - 13)
+      .attr('width', xScale.bandwidth() - (thisIsBig ? 45 : 13))
       .attr('height', d => this.height - yScale(d.percentage))
       .attr('fill', 'red');
 
