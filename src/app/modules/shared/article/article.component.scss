@@ -23,6 +23,7 @@ $border: 5px;
   a {
     text-decoration: none;
     color: inherit;
+    @include hover();
   }
 
   &__title {
@@ -30,7 +31,6 @@ $border: 5px;
     font-size: 17px;
     padding: 0 10px;
     margin-top: 4px;
-    @include hover();
     @include font();
   }
 
@@ -55,7 +55,7 @@ $border: 5px;
 
   &__comments {
     display: flex;
-    margin-top: -18px;
+    margin-top: -11px;
 
     button {
       padding: 0 10px;
@@ -118,7 +118,6 @@ $border: 5px;
     height: 80px;
     border-radius: $border;
     @include image.imageBackground;
-    @include hover();
 
     &--entity {
       height: 20px;
@@ -162,8 +161,5 @@ $border: 5px;
 mat-card {
   height: 100%;
   flex-direction: column;
-
-  > div {
-    @include hover();
-  }
+  padding-bottom: 0;
 }
