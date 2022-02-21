@@ -28,6 +28,10 @@ export class PollsComponent implements OnInit {
 
   private readonly limit = 3
 
+  get slides() {
+    return [this.data.value[0].polls[0], this.data.value[2].polls[0]]
+  }
+
   constructor(
     private pollsService: PollsService,
     private meta: Meta,
