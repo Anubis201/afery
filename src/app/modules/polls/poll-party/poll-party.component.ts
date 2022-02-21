@@ -94,9 +94,9 @@ export class PollPartyComponent {
       .enter()
       .append('rect')
       .classed('bar', true )
-      .attr('x', d => xScale(d.party as unknown as string) + 5)
+      .attr('x', d => xScale(d.party as unknown as string) + (thisIsBig ? 20 : 5))
       .attr('y', d => yScale(d.percentage))
-      .attr('width', xScale.bandwidth() - 13)
+      .attr('width', xScale.bandwidth() - (thisIsBig ? 40 : 13))
       .attr('height', d => this.height - yScale(d.percentage))
       .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);
 
@@ -110,7 +110,7 @@ export class PollPartyComponent {
       .attr('y', d => yScale(d.percentage) - yLabelSpace)
       .attr('fill', 'white')
       .attr('font-weight', 500)
-      .attr('font-size', (thisIsBig ? '14px' : '11px'))
+      .attr('font-size', (thisIsBig ? '13px' : '11px'))
       .attr('text-anchor', 'middle');
 
     if (!previousElection) return
@@ -121,9 +121,9 @@ export class PollPartyComponent {
       .enter()
       .append('rect')
       .classed('amen', true )
-      .attr('x', d => xScale(d.party as unknown as string) + 27)
+      .attr('x', d => xScale(d.party as unknown as string) + (thisIsBig ? 70 : 27))
       .attr('y', d => yScale(d.percentage))
-      .attr('width', xScale.bandwidth() - 23)
+      .attr('width', xScale.bandwidth() - (thisIsBig ? 68 : 23))
       .attr('height', d => this.height - yScale(d.percentage))
       .attr('opacity', 0.3)
       .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);
@@ -134,7 +134,7 @@ export class PollPartyComponent {
       .enter()
       .append('text')
       .text(d => d.percentage === 0 ? '' : d.percentage + '%')
-      .attr('x', d => (xScale(d.party as unknown as string) + xScale.bandwidth() / 2) + 29)
+      .attr('x', d => (xScale(d.party as unknown as string) + xScale.bandwidth() / 2) + (thisIsBig ? 58 : 29))
       .attr('y', d => yScale(d.percentage) - yLabelSpace)
       .attr('fill', 'white')
       .attr('font-weight', 500)
