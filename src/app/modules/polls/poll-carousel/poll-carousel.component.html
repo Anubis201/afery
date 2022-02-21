@@ -1,38 +1,42 @@
 <div class="carousel">
   <div class="important-label">Aktualności</div>
 
-  <mat-carousel
-    timings="250ms ease-in"
-    interval="5000"
-    color="accent"
-    maxWidth="auto"
-    proportion="25"
-    slides="2"
-    orientation="ltr"
-    [autoplay]="true"
-    [loop]="true"
-    [hideArrows]="false"
-    [hideIndicators]="true"
-    [useKeyboard]="true"
-    [useMouseWheel]="false"
-  >
-    <mat-carousel-slide
-      *ngFor="let slide of slides"
-      [hideOverlay]="false"
+  <div class="carousel__app">
+    <mat-carousel
+      timings="250ms ease-in"
+      interval="5000"
+      color="accent"
+      maxWidth="auto"
+      height="400px"
+      proportion="25"
+      slides="2"
+      orientation="ltr"
+      [autoplay]="true"
+      [loop]="true"
+      [hideArrows]="false"
+      [hideIndicators]="true"
+      [useKeyboard]="true"
+      [useMouseWheel]="false"
     >
-      <ng-container [ngSwitch]="slide.typeItems">
-        <app-poll-party
-          *ngSwitchCase="PollDataEnum.Partie"
-          [poll]="slide"
-          [idSvg]="'karuzelaPartia'"
-        ></app-poll-party>
+      <mat-carousel-slide
+        *ngFor="let slide of slides"
+        [hideOverlay]="false"
+      >
+        <ng-container [ngSwitch]="slide.typeItems">
+          <app-poll-party
+            *ngSwitchCase="PollDataEnum.Partie"
+            [poll]="slide"
+            [idSvg]="'karuzelaPartia'"
+          ></app-poll-party>
 
-        <app-poll-president
-          *ngSwitchCase="PollDataEnum.Prezydenci"
-          [poll]="slide"
-          [idSvg]="'karuzelaPrezynci1'"
-        ></app-poll-president>
-      </ng-container>
-    </mat-carousel-slide>
-  </mat-carousel>
+          <app-poll-president
+            *ngSwitchCase="PollDataEnum.Prezydenci"
+            [poll]="slide"
+            [isCarousel]="true"
+            [idSvg]="'karuzelaPrezynci1'"
+          ></app-poll-president>
+        </ng-container>
+      </mat-carousel-slide>
+    </mat-carousel>
+  </div>
 </div>

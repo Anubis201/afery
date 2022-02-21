@@ -37,6 +37,8 @@ export class PollPartyComponent {
   ) {}
 
   ngAfterViewInit() {
+    // console.log(this.idSvg)
+    // console.log(this.poll)
     this.previousPoll();
   }
 
@@ -50,6 +52,7 @@ export class PollPartyComponent {
   private draw(data: PartyCharModel[], previousElection: PartyCharModel[]) {
     const width = parseInt(this.image.nativeElement.offsetWidth, 10);
     const yLabelSpace = 7;
+    // console.log(width)
 
     const xScale = d3
       .scaleBand()

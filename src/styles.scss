@@ -93,3 +93,21 @@ h2 {
   padding-bottom: .8rem;
   letter-spacing: 1px;
 }
+
+.carousel-slide-content {
+  background-color: #161616;
+}
+
+.carousel-list {
+  height: 340px !important;
+}
+
+.carousel {
+  & > button:first-of-type {
+    left: 0 !important;
+  }
+
+  & > button:last-of-type {
+    right: 0 !important;
+  }
+}

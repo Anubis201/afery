@@ -14,8 +14,9 @@ import { ChangePolishChars } from 'src/app/services/global/support-functions/cha
 export class PollPresidentComponent implements AfterViewInit {
   @Input() poll: PollModel
   @Input() idSvg: string
+  @Input() isCarousel = false
 
-  @ViewChild('image') image: ElementRef
+  @ViewChild('ameno') image: ElementRef
 
   private margin = 30
   private height = 280 - (this.margin * 2)
@@ -23,7 +24,13 @@ export class PollPresidentComponent implements AfterViewInit {
   constructor(private datePipe: DatePipe) {}
 
   ngAfterViewInit() {
-    this.draw(this.poll.items as PresidentPollModel[]);
+    if (this.isCarousel) {
+      setTimeout(() => {
+        this.draw(this.poll.items as PresidentPollModel[]);
+      });
+    } else {
+      this.draw(this.poll.items as PresidentPollModel[]);
+    }
   }
 
   get toPage() {
