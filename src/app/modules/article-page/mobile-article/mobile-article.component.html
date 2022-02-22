@@ -1,115 +1,35 @@
-<div class="d-sm-none page-mobile">
+<div class="page-mobile">
   <ng-container *ngIf="article?.imageSrc">
-    <img
-      *ngIf="article?.type === ArticlesTypesEnum.PoliticalParties"
-      class="page-mobile__image--org"
-      [src]="'/assets/icons/parties/' + PartiesEnum[article?.entity] + '.jpg'"
-      [alt]="'Logo partii ' + PartiesEnum[article.entity]"
-    >
-    <img
-      class="page-mobile__image"
-      [src]="article?.imageSrc"
-      [alt]="article.title + ' - Afery'"
-    >
-    <div class="page-mobile__author">{{ article?.imageDesc }}</div>
-    <div class="page-mobile__content">
-      <div class="page-mobile__content__title">
-        <h1>{{ article?.title }}</h1>
-      </div>
-      <div class="page-mobile__content__time">
-        <div class="page-mobile__content__time__rest">
-          <div>Bartosz Karczmarski</div>
-          <div>{{ article?.createDate | date:'dd.MM.yyyy, HH:mm' }}</div>
-        </div>
-        <div class="page-mobile__content__time__all">
-          <div>{{ article?.text | timeToRead }} min czytania</div>
-          <div class="page__links__time__read"></div>
-          <div class="page__links__actions">
-            <div class="page__links__actions--action">
-              <button
-                mat-icon-button
-                (click)="approve()"
-              >
-                <img
-                  class="plus"
-                  src="/assets/icons/comment/plus.svg"
-                  alt="Plus"
-                  [class.choosed-plus]="actionMode === 'like'"
-                >
-              </button>
-              <span>{{ article.likes ?? 0 }}</span>
-            </div>
-            <div class="page__links__actions--action">
-              <button
-                mat-icon-button
-                (click)="dislike()"
-              >
-                <img
-                  class="minus"
-                  src="/assets/icons/comment/minus.svg"
-                  alt="Minus"
-                  [class.choosed-minus]="actionMode === 'dislike'"
-                >
-              </button>
-              <span>{{ article.dislikes ?? 0 }}</span>
-            </div>
-          </div>
-          <div class="page-mobile__content__time__all__socials">
-            <div>Udostępnij</div>
-            <a
-              mat-icon-button href="https://www.facebook.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="/assets/socials/facebook.svg"
-                alt="Ikona Facebooka"
-              >
-            </a>
-            <a
-              mat-icon-button
-              href="https://twitter.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="/assets/socials/twitter.svg"
-                alt="Ikona Twittera"
-              >
-            </a>
-          </div>
-        </div>
-      </div>
-      <div
-        *ngIf="article?.subtitle?.length"
-        class="page-mobile__content__subtitle"
-      >{{ article.value?.subtitle }}</div>
-      <div
-        class="page-mobile__content__desc"
-        [innerHtml]="article.value?.text"
-      ></div>
-      <!-- <span *ngIf="article.value?.costs" class="page__costs page__costs__mobile">
-        <span class="page__costs--title">Koszty: </span>
-        <span class="page__costs--icons">
-          <mat-icon>money_off</mat-icon>
-          {{ article.value?.costs | millions }}
-          <span *ngIf="$any(article.value?.viewership) >= 100" class="page__costs--break"> | </span>
-        </span>
-        <span *ngIf="$any(article.value?.viewership) >= 100" class="page__viewership page__costs--icons">
-          <mat-icon>remove_red_eye</mat-icon>
-          {{ article.value?.viewership }}
-        </span>
-      </span> -->
-      <app-write-comment
-        [isSavingComment]="isSavingComment"
-        [countComment]="comments?.length"
-        (addComment)="handleAddComment($event)"
-      ></app-write-comment>
-      <app-comments
-        [comments]="comments"
-        [isAdmin]="isAdmin"
-        (deleteComment)="handleDeleteComment($event)"
-      ></app-comments>
-    </div>
+    <app-mobile-header
+      [actionMode]="actionMode"
+      [type]="article?.type"
+      [entity]="article?.entity"
+      [title]="article?.title"
+      [createDate]="article?.createDate"
+      [text]="article?.text"
+      [likes]="article?.likes"
+      [dislikes]="article?.dislikes"
+      [imageDesc]="article?.imageDesc"
+      [imageSrc]="article?.imageSrc"
+      (approve)="approve.emit()"
+      (dislike)="dislike.emit()"
+    ></app-mobile-header>
+
+    <app-mobile-main
+      [text]="article?.text"
+      [subtitle]="article?.subtitle"
+    ></app-mobile-main>
+
+    <app-write-comment
+      [isSavingComment]="isSavingComment"
+      [countComment]="comments?.length"
+      (addComment)="handleAddComment($event)"
+    ></app-write-comment>
+
+    <app-comments
+      [comments]="comments"
+      [isAdmin]="isAdmin"
+      (deleteComment)="handleDeleteComment($event)"
+    ></app-comments>
   </ng-container>
 </div>

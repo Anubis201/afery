@@ -1,0 +1,16 @@
+<div
+  *ngIf="subtitle?.length"
+  class="subtitle"
+>{{ subtitle }}</div>
+<div class="image-section">
+  <img
+    class="image-section--image"
+    [src]="imageSrc"
+    [alt]="title + ' - Afery'"
+  >
+  <div class="image-section--author">{{ imageDesc }}</div>
+</div>
+<div
+  class="desc"
+  [innerHtml]="text"
+></div>

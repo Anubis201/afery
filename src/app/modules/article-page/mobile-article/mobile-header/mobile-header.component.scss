@@ -1,0 +1,123 @@
+@use '../../../shared/styles/image';
+@use '../../article-page.component' as main;
+
+:host {
+  display: block;
+}
+
+.author {
+  margin-top: 2px;
+  padding: 0 0.7rem;
+  font-size: .55rem;
+  color: #e4e4e4;
+  font-family: "Raleway", "Helvetica", "Arial", sans-serif;
+}
+
+.image {
+  width: 100%;
+  height: 25vh;
+  @include image.imageBackground;
+  border-bottom-right-radius: main.$image-border-radius;
+  border-bottom-left-radius: main.$image-border-radius;
+
+}
+
+.org {
+  height: 40px;
+  width: 40px;
+  border-bottom-right-radius: main.$image-border-radius;
+  position: absolute;
+}
+
+.content {
+  padding: 0 .7rem;
+
+  &__title {
+    margin-top: .8rem;
+    margin-bottom: .5rem;
+
+    h1 {
+      @include main.title(1.7rem, 2.5rem);
+      margin-bottom: 0;
+    }
+  }
+
+  &__time {
+    @include main.time(12px);
+    margin-bottom: .5rem;
+    border-bottom: 1px solid #c2c2c2;
+
+    &__rest {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__all {
+      display: flex;
+      place-content: space-between;
+      align-items: center;
+
+      &--read {
+        display: inline-block;
+        width: 0;
+        margin-right: 5px;
+        margin-left: 8px;
+        height: 10px;
+        align-self: center;
+        border-left: 0.5px solid #c3c3c3;
+        border-right: 0.5px solid #c3c3c3;
+      }
+
+      &__actions {
+        display: flex;
+        margin-right: auto;
+        margin-left: -3px;
+
+        &--action {
+          display: flex;
+          align-items: center;
+
+          &:first-of-type {
+            margin-right: 5px;
+          }
+
+          button {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+
+            img {
+              height: 16px;
+            }
+          }
+
+          span {
+            font-size: 14px;
+          }
+        }
+      }
+
+      &__socials {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 40px;
+
+        div {
+          margin-right: 4px;
+        }
+
+        a {
+          filter: invert(94%) sepia(0%) saturate(24%) hue-rotate(24deg) brightness(105%) contrast(108%);
+          height: 25px;
+          width: 25px;
+          line-height: 25px;
+
+          img {
+            width: 22px;
+          }
+        }
+      }
+    }
+  }
+}

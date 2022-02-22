@@ -2,12 +2,17 @@
   <app-reading-progress-bar></app-reading-progress-bar>
 
   <app-pc-article
-    class="d-none d-sm-block"
+    class="d-none d-sm-block container"
     [isSavingComment]="isSavingComment | async"
     [actionMode]="actionMode | async"
     [comments]="comments | async"
     [article]="article | async"
     [isAdmin]="isAdmin | async"
+    (setToFirstArticle)="setToFirstArticle()"
+    (handleEditArticle)="handleEditArticle()"
+    (handleDeleteArticle)="handleDeleteArticle()"
+    (approve)="approve()"
+    (dislike)="dislike()"
   ></app-pc-article>
 
   <app-mobile-article
@@ -17,6 +22,8 @@
     [comments]="comments.value"
     [article]="article.value"
     [isAdmin]="isAdmin.value"
+    (approve)="approve()"
+    (dislike)="dislike()"
   ></app-mobile-article>
 </ng-container>
 

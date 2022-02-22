@@ -1,21 +1,24 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ArticleModel } from 'src/app/models/articles/article.model';
-import { CommentModel } from 'src/app/models/articles/comment.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 
 @Component({
-  selector: 'app-mobile-article',
-  templateUrl: './mobile-article.component.html',
-  styleUrls: ['./mobile-article.component.scss'],
+  selector: 'app-mobile-header',
+  templateUrl: './mobile-header.component.html',
+  styleUrls: ['./mobile-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MobileArticleComponent {
-  @Input() article: ArticleModel
-  @Input() comments: CommentModel[]
-  @Input() isSavingComment: boolean
+export class MobileHeaderComponent {
+  @Input() type: ArticlesTypesEnum
+  @Input() entity: PartiesEnum
+  @Input() title: string
+  @Input() createDate: Date
+  @Input() text: string
   @Input() actionMode: 'like' | 'dislike' | null
-  @Input() isAdmin: boolean
+  @Input() likes: number
+  @Input() dislikes: number
+  @Input() imageDesc: string
+  @Input() imageSrc: string
 
   @Output() approve = new EventEmitter<void>()
   @Output() dislike = new EventEmitter<void>()

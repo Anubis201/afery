@@ -91,10 +91,6 @@ export class ArticlePageComponent implements OnInit {
     })
   }
 
-  pageUrl() {
-    return location.href
-  }
-
   handleDeleteComment(id: string) {
     this.commentsService.deteleComment(id).subscribe({
       next: () => {
@@ -107,15 +103,14 @@ export class ArticlePageComponent implements OnInit {
     })
   }
 
-  handleDeleteArticle(id: string) {
+  handleDeleteArticle() {
     // aby usunąć artykuł najpierw musi miec potwierdzenie ze usunieto zdjecie i komentarze
     zip(
-      this.removeAllComments(id),
-      this.imagesService.deleteImage(id),
+      this.removeAllComments(this.article.value.id),
+      this.imagesService.deleteImage(this.article.value.id),
     ).subscribe({
       next: ([]) => {
-
-        this.articlesService.deleteArticle(id).subscribe({
+        this.articlesService.deleteArticle(this.article.value.id).subscribe({
           next: () => {
             this._snackBar.open('Artykuł został usunięty', 'close');
             this.router.navigateByUrl('/');
@@ -124,16 +119,15 @@ export class ArticlePageComponent implements OnInit {
             this._snackBar.open('Błąd usuwania artykułu', 'close');
           }
         })
-
       },
       error: () => this._snackBar.open('Nie udało się usunąć artykułu', 'close')
     })
   }
 
-  handleEditArticle(id: string) {
+  handleEditArticle() {
     this.router.navigate(
       ['/admin/create'],
-      { queryParams: { id } }
+      { queryParams: { id: this.article.value.id } }
     )
   }
 
@@ -193,7 +187,7 @@ export class ArticlePageComponent implements OnInit {
     })
   }
 
-  setToFirstArticle(id: string) {
+  setToFirstArticle() {
     this.articlesService.getFirstTOPArticle().pipe(
       map(value => {
         if (value.size) {
@@ -205,7 +199,7 @@ export class ArticlePageComponent implements OnInit {
         return of();
       }),
       map(() => {
-        return this.articlesService.editArticle({ isFirstArticle: true }, id)
+        return this.articlesService.editArticle({ isFirstArticle: true }, this.article.value.id)
       })
     ).subscribe({
       next: () => {

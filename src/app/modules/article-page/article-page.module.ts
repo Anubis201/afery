@@ -7,6 +7,10 @@ import { SharedModule } from '../shared/shared.module';
 import { ReadingProgressBarComponent } from './reading-progress-bar/reading-progress-bar.component';
 import { PcArticleComponent } from './pc-article/pc-article.component';
 import { MobileArticleComponent } from './mobile-article/mobile-article.component';
+import { MobileHeaderComponent } from './mobile-article/mobile-header/mobile-header.component';
+import { MobileMainComponent } from './mobile-article/mobile-main/mobile-main.component';
+import { PcMainComponent } from './pc-article/pc-main/pc-main.component';
+import { PcHeaderComponent } from './pc-article/pc-header/pc-header.component';
 
 
 
@@ -17,6 +21,10 @@ import { MobileArticleComponent } from './mobile-article/mobile-article.componen
     ReadingProgressBarComponent,
     PcArticleComponent,
     MobileArticleComponent,
+    MobileHeaderComponent,
+    MobileMainComponent,
+    PcMainComponent,
+    PcHeaderComponent,
   ],
   imports: [
     CommonModule,
