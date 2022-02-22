@@ -5,7 +5,8 @@ import { ArticlePageRoutingModule } from './article-page-routing.module';
 import { CommentsComponent } from './comments/comments.component';
 import { SharedModule } from '../shared/shared.module';
 import { ReadingProgressBarComponent } from './reading-progress-bar/reading-progress-bar.component';
-import { PollComponent } from './poll/poll.component';
+import { PcArticleComponent } from './pc-article/pc-article.component';
+import { MobileArticleComponent } from './mobile-article/mobile-article.component';
 
 
 
@@ -14,7 +15,8 @@ import { PollComponent } from './poll/poll.component';
     ArticlePageComponent,
     CommentsComponent,
     ReadingProgressBarComponent,
-    PollComponent,
+    PcArticleComponent,
+    MobileArticleComponent,
   ],
   imports: [
     CommonModule,

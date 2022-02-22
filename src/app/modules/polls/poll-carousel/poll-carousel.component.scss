@@ -1,0 +1,18 @@
+.carousel {
+  &__app {
+    display: flex;
+    place-content: center;
+
+    mat-carousel {
+      width: 100%;
+
+      @media (min-width: 576px) {
+        width: 80%;
+      }
+    }
+  }
+}
+
+.important-label {
+  margin-bottom: 0;
+}

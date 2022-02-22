@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
+import { PollDataEnum } from 'src/app/models/polls/enums/poll-data.enum';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
 
@@ -15,21 +16,26 @@ import { PollsService } from 'src/app/services/collections/polls/polls.service';
 })
 export class AddPollsComponent implements OnInit {
   form = new FormGroup({
-    parties: new FormArray([]),
+    items: new FormArray([]),
     title: new FormControl(null),
     surveying: new FormControl(null, Validators.required),
     when: new FormControl(null, Validators.required),
     people: new FormControl(null),
     forWhom: new FormControl(null),
+    typeItems: new FormControl(PollDataEnum.Partie)
   })
 
   isLoading = new BehaviorSubject<boolean>(false)
   idPoll = new BehaviorSubject<string>('')
+  loadingItems = new BehaviorSubject<boolean>(false)
+
+  readonly PollDataEnum = PollDataEnum
 
   constructor(
     private pollsService: PollsService,
     private _snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
+    private _ref: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -39,8 +45,10 @@ export class AddPollsComponent implements OnInit {
         this.getPollDataForEdit(id);
       } else {
         this.idPoll.next('');
-        this.createDefualtArray();
+        this.createPartyDefault();
       }
+
+      this.handleTypeChange();
     })
   }
 
@@ -57,11 +65,43 @@ export class AddPollsComponent implements OnInit {
   }
 
   addEmptyItem() {
-    (this.form.get('parties') as FormArray).push(this.createItem());
+    switch(this.form.get('typeItems').value) {
+      case PollDataEnum.Partie:
+        (this.form.get('items') as FormArray).push(this.createPartyItem());
+        break
+      case PollDataEnum.Odpowiedzi:
+        this.createTextItem();
+        break
+      case PollDataEnum.Prezydenci:
+        this.createPresidentItem();
+        break
+    }
   }
 
   deleteItem(index: number) {
-    (this.form.get('parties') as FormArray).removeAt(index);
+    (this.form.get('items') as FormArray).removeAt(index);
+  }
+
+  private handleTypeChange() {
+    this.form.get('typeItems').valueChanges.subscribe((value: PollDataEnum) => {
+      (this.form.get('items') as FormArray).controls = [];
+      this.loadingItems.next(true);
+
+      switch(value) {
+        case PollDataEnum.Partie:
+          this.createPartyDefault();
+          break
+        case PollDataEnum.Odpowiedzi:
+          this.createTextItem();
+          break
+        case PollDataEnum.Prezydenci:
+          this.createPresidentItem()
+          break
+      }
+
+      this._ref.detectChanges();
+      this.loadingItems.next(false);
+      })
   }
 
   private checkTitle() {
@@ -106,10 +146,10 @@ export class AddPollsComponent implements OnInit {
           when: (data as any).when.toDate(),
         });
 
-        (this.form.get('parties') as FormArray).controls = [];
+        (this.form.get('items') as FormArray).controls = [];
 
-        data.parties.forEach(element => {
-          (this.form.get('parties') as FormArray).push(
+        data.items.forEach(element => {
+          (this.form.get('items') as FormArray).push(
             new FormGroup({
               party: new FormControl(element.party, Validators.required),
               percentage: new FormControl(element.percentage, Validators.required),
@@ -122,17 +162,33 @@ export class AddPollsComponent implements OnInit {
     })
   }
 
-  private createDefualtArray() {
-    const ref = (this.form.get('parties') as FormArray);
-    ref.push(this.createItem(PartiesEnum.pis));
-    ref.push(this.createItem(PartiesEnum.po));
-    ref.push(this.createItem(PartiesEnum.polska2050));
-    ref.push(this.createItem(PartiesEnum.konfederacja));
-    ref.push(this.createItem(PartiesEnum.lewica));
-    ref.push(this.createItem(PartiesEnum.psl));
+  private createPartyDefault() {
+    const ref = (this.form.get('items') as FormArray);
+    ref.push(this.createPartyItem(PartiesEnum.pis));
+    ref.push(this.createPartyItem(PartiesEnum.po));
+    ref.push(this.createPartyItem(PartiesEnum.polska2050));
+    ref.push(this.createPartyItem(PartiesEnum.konfederacja));
+    ref.push(this.createPartyItem(PartiesEnum.lewica));
+    ref.push(this.createPartyItem(PartiesEnum.psl));
   }
 
-  private createItem(party: PartiesEnum | null = null, pertcantage: number | null = null) {
+  private createPresidentItem() {
+    const ref = (this.form.get('items') as FormArray);
+    ref.push(new FormGroup({
+      president: new FormControl(null, Validators.required),
+      percentage: new FormControl(null, Validators.required),
+    }));
+  }
+
+  private createTextItem() {
+    const ref = (this.form.get('items') as FormArray);
+    ref.push(new FormGroup({
+      text: new FormControl(null, Validators.required),
+      percentage: new FormControl(null, Validators.required),
+    }));
+  }
+
+  private createPartyItem(party: PartiesEnum | null = null, pertcantage: number | null = null) {
     return new FormGroup({
       party: new FormControl(party, Validators.required),
       percentage: new FormControl(pertcantage, Validators.required),

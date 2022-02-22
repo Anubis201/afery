@@ -1,9 +1,16 @@
 <form [formGroup]="form">
-  <app-parties
-    [items]="form.get('parties')"
+  <app-choose-type
+    *ngIf="!idPoll.value"
+    [typeDataControl]="form.get('typeItems')"
+  ></app-choose-type>
+
+  <app-poll-items
+    *ngIf="!(loadingItems | async)"
+    [items]="form.get('items')"
+    [typeDataControl]="form.get('typeItems')"
     (addItem)="addEmptyItem()"
     (deleteItem)="deleteItem($event)"
-  ></app-parties>
+  ></app-poll-items>
 
   <app-details
     [title]="form.get('title')"

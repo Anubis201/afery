@@ -3,16 +3,14 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, catchError, from, map, of, switchMap, throwError, zip } from 'rxjs';
+import { BehaviorSubject, catchError, from, map, of, throwError, zip } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
-import { PollModel } from 'src/app/models/polls/poll.model';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
 import { ImagesService } from 'src/app/services/collections/images/images.service';
-import { PollsService } from 'src/app/services/collections/polls/polls.service';
 import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
 import { UserService } from 'src/app/services/global/user/user.service';
 
@@ -27,9 +25,7 @@ export class ArticlePageComponent implements OnInit {
   isExists = new BehaviorSubject<boolean>(true)
   comments = new BehaviorSubject<CommentModel[]>([])
   actionMode = new BehaviorSubject<'like' | 'dislike' | null>(null)
-  poll = new BehaviorSubject<PollModel>(null)
-
-  isSavingComment = false
+  isSavingComment = new BehaviorSubject<boolean>(false)
 
   readonly PartiesEnum = PartiesEnum
   readonly ArticlesTypesEnum = ArticlesTypesEnum
@@ -45,7 +41,6 @@ export class ArticlePageComponent implements OnInit {
     private imagesService: ImagesService,
     private router: Router,
     private titleService: Title,
-    private pollsService: PollsService,
   ) { }
 
   get isAdmin() {
@@ -61,7 +56,7 @@ export class ArticlePageComponent implements OnInit {
   }
 
   handleAddComment(comment: CommentModel) {
-    this.isSavingComment = true;
+    this.isSavingComment.next(true);
     const rlyComment: CommentModel = {
       ...comment,
       articleId: this.article.value?.id as string,
@@ -72,10 +67,10 @@ export class ArticlePageComponent implements OnInit {
     this.commentsService.addComment(rlyComment).subscribe({
       next: doc => {
         this.comments.next([{ ...rlyComment, id: doc.id }, ...this.comments.value]);
-        this.isSavingComment = false;
+        this.isSavingComment.next(false);
       },
       error: () => {
-        this.isSavingComment = false;
+        this.isSavingComment.next(false);
       }
     })
   }
@@ -140,45 +135,6 @@ export class ArticlePageComponent implements OnInit {
       ['/admin/create'],
       { queryParams: { id } }
     )
-  }
-
-  hideArticle(id: string) {
-    this.articlesService.editArticle({ isHide: true }, id).subscribe({
-      next: () => {
-        this.article.next({
-          ...this.article.value as ArticleModel,
-          isHide: true,
-        })
-        this._snackBar.open('Ukryto artykuł', 'close');
-      },
-      error: () => this._snackBar.open('Nie udało się ukryć artykułu', 'close')
-    })
-  }
-
-  showArticle(id: string) {
-    this.articlesService.editArticle({ isHide: false }, id).subscribe({
-      next: () => {
-        this.article.next({
-          ...this.article.value as ArticleModel,
-          isHide: false,
-        })
-        this._snackBar.open('Ukryto artykuł', 'close');
-      },
-      error: () => this._snackBar.open('Nie udało się ukryć artykułu', 'close')
-    })
-  }
-
-  getNewestPoll() {
-    this.pollsService.getNewestPoll().subscribe({
-      next: doc => {
-        doc.forEach(e => {
-          this.poll.next({
-            ...e.data() as PollModel,
-            when: (e.data() as any).when.toDate(),
-          });
-        })
-      },
-    })
   }
 
   approve(forceMinus?: boolean) {
@@ -316,8 +272,6 @@ export class ArticlePageComponent implements OnInit {
           this.actionMode.next('like');
         else if (localStorage.getItem(this.article.value.id) === 'dislike')
           this.actionMode.next('dislike');
-
-        this.getNewestPoll();
 
       } else this.isExists.next(false);
     })

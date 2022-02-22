@@ -1,252 +1,28 @@
-<app-reading-progress-bar></app-reading-progress-bar>
+<ng-container *ngIf="isExists | async">
+  <app-reading-progress-bar></app-reading-progress-bar>
 
-<div class="container page d-none d-sm-block">
-  <ng-container *ngIf="(isExists | async) && (article | async)?.imageSrc">
-    <div class="page__organization">
-      <ng-container *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties">
-        <img [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'" [alt]="'Logo ' + PartiesEnum[article.value.entity]">
-        <span *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties">{{ PartiesEnum[$any(article.value?.entity)] }}</span>
-      </ng-container>
-      <span *ngIf="article.value?.costs" class="page__costs">
-        <span class="page__costs--title">Koszty: </span>
-        <span class="page__costs--icons">
-          <mat-icon>money_off</mat-icon>
-          {{ article.value?.costs | millions }}
-          <span *ngIf="$any(article.value?.viewership) >= 100" class="page__costs--break"> | </span>
-        </span>
-        <span *ngIf="$any(article.value?.viewership) >= 100" class="page__viewership page__costs--icons">
-          <mat-icon>remove_red_eye</mat-icon>
-          {{ article.value?.viewership }}
-        </span>
-      </span>
-    </div>
-    <div class="page__title">
-      <h1>{{ article.value?.title }}</h1>
-      <div
-        *ngIf="isAdmin.value"
-        class="page__title--buttons"
-      >
-        <button
-          mat-icon-button
-          matTooltip="Edytuj artykuł"
-          (click)="handleEditArticle(article.value?.id)"
-        >
-          <mat-icon>edit</mat-icon>
-        </button>
-        <!-- <button
-          *ngIf="!article.value?.isHide"
-          mat-icon-button
-          matTooltip="Ukryj artykuł"
-          (click)="hideArticle(article.value?.id)"
-        >
-          <mat-icon>panorama_fish_eye</mat-icon>
-        </button> -->
-        <button
-          *ngIf="!article.value?.isHide"
-          mat-icon-button
-          matTooltip="Ustaw jako TOP artykuł"
-          (click)="setToFirstArticle(article.value?.id)"
-        >
-          <mat-icon>table_chart</mat-icon>
-        </button>
-        <button
-          *ngIf="article.value?.isHide"
-          mat-icon-button
-          matTooltip="Pokaż artykuł"
-          (click)="showArticle(article.value?.id)"
-        >
-          <mat-icon>remove_red_eye</mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          matTooltip="Usuń artykuł"
-          (click)="handleDeleteArticle(article.value?.id)"
-        >
-          <mat-icon>delete_outline</mat-icon>
-        </button>
-      </div>
-    </div>
-    <div class="page__links">
-      <div class="page__links__time">
-        <div>{{ article.value?.createDate | date:'dd.MM.yyyy, HH:mm' }}</div>
-        <div>
-          <div class="page__links__time__read"></div>
-          {{ article.value?.text | timeToRead }} min czytania
-        </div>
-      </div>
-      <div class="page__links__time__read"></div>
-      <div class="page__links__actions">
-        <div class="page__links__actions--action">
-          <button
-            mat-icon-button
-            (click)="approve()"
-          >
-            <img
-              class="plus"
-              src="/assets/icons/comment/plus.svg"
-              alt="Plus"
-              [class.choosed-plus]="actionMode.value === 'like'"
-            >
-          </button>
-          <span>{{ article.value.likes ?? 0 }}</span>
-        </div>
-        <div class="page__links__actions--action">
-          <button
-            mat-icon-button
-            (click)="dislike()"
-          >
-            <img
-              class="minus"
-              src="/assets/icons/comment/minus.svg"
-              alt="Minus"
-              [class.choosed-minus]="(actionMode | async) === 'dislike'"
-            >
-          </button>
-          <span>{{ article.value.dislikes ?? 0 }}</span>
-        </div>
-      </div>
-      <div class="page__links__socials">
-        <div>Udostępnij</div>
-        <a mat-icon-button [href]="'https://www.facebook.com/share.php?u=' + pageUrl()" target="_blank" rel="noopener noreferrer">
-          <img src="/assets/socials/facebook.svg" alt="Link do Facebooka">
-        </a>
-        <a mat-icon-button [href]="'https://twitter.com/intent/tweet?url=' + pageUrl()" target="_blank" rel="noopener noreferrer">
-          <img src="/assets/socials/twitter.svg" alt="Link do Twittera">
-        </a>
-      </div>
-    </div>
-    <div *ngIf="article.value?.subtitle?.length" class="page__subtitle">{{ article.value?.subtitle }}</div>
-    <div class="page__image-section">
-      <img class="page__image-section--image" [src]="article.value?.imageSrc" [alt]="article.value?.alt || 'Główne zdjęcie artykułu'">
-      <div class="page__image-section--author">{{ article.value?.imageDesc }}</div>
-    </div>
-    <div class="page__desc" [innerHtml]="article.value?.text"></div>
-    <!-- <app-poll
-      *ngIf="poll | async"
-      [poll]="poll.value"
-      [idSvg]="'pcSvg'"
-    ></app-poll> -->
-    <app-write-comment
-      [isSavingComment]="isSavingComment"
-      [countComment]="(comments | async)?.length"
-      (addComment)="handleAddComment($event)"
-    ></app-write-comment>
-    <app-comments
-      [comments]="comments.value"
-      [isAdmin]="isAdmin | async"
-      (deleteComment)="handleDeleteComment($event)"
-    ></app-comments>
-  </ng-container>
+  <app-pc-article
+    class="d-none d-sm-block"
+    [isSavingComment]="isSavingComment | async"
+    [actionMode]="actionMode | async"
+    [comments]="comments | async"
+    [article]="article | async"
+    [isAdmin]="isAdmin | async"
+  ></app-pc-article>
 
-  <ng-container *ngIf="!isExists.value">
-    <div class="not-exists">
-      <div class="not-exists--error">404</div>
-      Nie znaleziono takiej strony
-    </div>
-  </ng-container>
-</div>
+  <app-mobile-article
+    class="d-sm-none"
+    [isSavingComment]="isSavingComment.value"
+    [actionMode]="actionMode.value"
+    [comments]="comments.value"
+    [article]="article.value"
+    [isAdmin]="isAdmin.value"
+  ></app-mobile-article>
+</ng-container>
 
-<div class="d-sm-none page-mobile">
-  <ng-container *ngIf="(isExists | async) && (article | async)?.imageSrc">
-    <img
-      *ngIf="article.value?.type === ArticlesTypesEnum.PoliticalParties"
-      class="page-mobile__image--org" [src]="'/assets/icons/parties/' + PartiesEnum[$any(article.value?.entity)] + '.jpg'"
-      [alt]="'Logo ' + PartiesEnum[article.value.entity]"
-    >
-    <img class="page-mobile__image" [src]="article.value?.imageSrc" [alt]="article.value?.alt || 'Główne zdjęcie artykułu'">
-    <div class="page-mobile__author">{{ article.value?.imageDesc }}</div>
-    <div class="page-mobile__content">
-      <div class="page-mobile__content__title">
-        <h1>{{ article.value?.title }}</h1>
-      </div>
-      <div class="page-mobile__content__time">
-        <div class="page-mobile__content__time__rest">
-          <div>
-            {{ article.value?.createDate | date:'dd.MM.yyyy, HH:mm' }}
-          </div>
-        </div>
-        <div class="page-mobile__content__time__all">
-          <div>
-            {{ article.value?.text | timeToRead }} min czytania
-          </div>
-          <div class="page__links__time__read"></div>
-          <div class="page__links__actions">
-            <div class="page__links__actions--action">
-              <button
-                mat-icon-button
-                (click)="approve()"
-              >
-                <img
-                  class="plus"
-                  src="/assets/icons/comment/plus.svg"
-                  alt="Plus"
-                  [class.choosed-plus]="actionMode.value === 'like'"
-                >
-              </button>
-              <span>{{ article.value.likes ?? 0 }}</span>
-            </div>
-            <div class="page__links__actions--action">
-              <button
-                mat-icon-button
-                (click)="dislike()"
-              >
-                <img
-                  class="minus"
-                  src="/assets/icons/comment/minus.svg"
-                  alt="Minus"
-                  [class.choosed-minus]="(actionMode | async) === 'dislike'"
-                >
-              </button>
-              <span>{{ article.value.dislikes ?? 0 }}</span>
-            </div>
-          </div>
-          <div class="page-mobile__content__time__all__socials">
-            <div>Udostępnij</div>
-            <a mat-icon-button href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
-              <img src="/assets/socials/facebook.svg" alt="Link do Facebooka">
-            </a>
-            <a mat-icon-button href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
-              <img src="/assets/socials/twitter.svg" alt="Link do Twittera">
-            </a>
-          </div>
-        </div>
-      </div>
-      <div *ngIf="article.value?.subtitle?.length" class="page-mobile__content__subtitle">{{ article.value?.subtitle }}</div>
-      <div class="page-mobile__content__desc" [innerHtml]="article.value?.text"></div>
-      <!-- <span *ngIf="article.value?.costs" class="page__costs page__costs__mobile">
-        <span class="page__costs--title">Koszty: </span>
-        <span class="page__costs--icons">
-          <mat-icon>money_off</mat-icon>
-          {{ article.value?.costs | millions }}
-          <span *ngIf="$any(article.value?.viewership) >= 100" class="page__costs--break"> | </span>
-        </span>
-        <span *ngIf="$any(article.value?.viewership) >= 100" class="page__viewership page__costs--icons">
-          <mat-icon>remove_red_eye</mat-icon>
-          {{ article.value?.viewership }}
-        </span>
-      </span> -->
-      <!-- <app-poll
-        *ngIf="poll.value"
-        [poll]="poll.value"
-        [idSvg]="'mobileSvg'"
-      ></app-poll> -->
-      <app-write-comment
-        [isSavingComment]="isSavingComment"
-        [countComment]="(comments | async)?.length"
-        (addComment)="handleAddComment($event)"
-      ></app-write-comment>
-      <app-comments
-        [comments]="comments.value"
-        [isAdmin]="isAdmin | async"
-        (deleteComment)="handleDeleteComment($event)"
-      ></app-comments>
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="!isExists.value">
-    <div class="not-exists">
-      <div class="not-exists--error">404</div>
-      Nie znaleziono takiej strony
-    </div>
-  </ng-container>
-</div>
+<ng-container *ngIf="!isExists.value">
+  <div class="not-exists">
+    <div class="not-exists--error">404</div>
+    Nie znaleziono takiej strony
+  </div>
+</ng-container>

@@ -1,0 +1,124 @@
+@use '../../shared/styles/image';
+@use '../article-page.component' as main;
+
+.page-mobile {
+  color: white;
+  width: 100%;
+  margin-top: 5rem;
+  min-height: 70vh;
+  position: relative;
+
+  &__author {
+    margin-top: 2px;
+    padding: 0 0.7rem;
+    font-size: .55rem;
+    color: #e4e4e4;
+    font-family: "Raleway", "Helvetica", "Arial", sans-serif;
+  }
+
+  &__image {
+    width: 100%;
+    height: 25vh;
+    @include image.imageBackground;
+    border-bottom-right-radius: main.$image-border-radius;
+    border-bottom-left-radius: main.$image-border-radius;
+
+    &--org {
+      height: 40px;
+      width: 40px;
+      border-bottom-right-radius: main.$image-border-radius;
+      position: absolute;
+    }
+  }
+
+  &__content {
+    padding: 0 .7rem;
+
+    &__subtitle {
+      font-weight: 500;
+      margin-bottom: 15px;
+      margin-top: 11px;
+      line-height: 29px;
+      font-size: 17px;
+    }
+
+    &__title {
+      margin-top: .8rem;
+      margin-bottom: .5rem;
+
+      h1 {
+        @include main.title(1.7rem, 2.5rem);
+        margin-bottom: 0;
+      }
+    }
+
+    &__time {
+      @include main.time(12px);
+      margin-bottom: .5rem;
+      border-bottom: 1px solid #c2c2c2;
+
+      &__rest {
+        display: flex;
+        flex-direction: column;
+      }
+
+      &__all {
+        display: flex;
+        place-content: space-between;
+        align-items: center;
+
+        &__socials {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          height: 40px;
+
+          div {
+            margin-right: 4px;
+          }
+
+          a {
+            filter: invert(94%) sepia(0%) saturate(24%) hue-rotate(24deg) brightness(105%) contrast(108%);
+            height: 25px;
+            width: 25px;
+            line-height: 25px;
+
+            img {
+              width: 22px;
+            }
+          }
+        }
+      }
+    }
+
+    &__desc {
+      @include main.text(16px);
+      line-height: 29px;
+    }
+  }
+}
+
+.plus {
+  filter: invert(20%) sepia(90%) saturate(2406%) hue-rotate(100deg) brightness(104%) contrast(104%);
+
+  &:hover {
+    filter: invert(46%) sepia(57%) saturate(3921%) hue-rotate(91deg) brightness(109%) contrast(110%);
+  }
+}
+
+.minus {
+  filter: invert(11%) sepia(100%) saturate(6468%) hue-rotate(26deg) brightness(81%) contrast(129%);
+
+  &:hover {
+    filter: invert(13%) sepia(82%) saturate(4837%) hue-rotate(356deg) brightness(100%) contrast(117%);
+  }
+}
+
+
+.choosed-minus {
+  filter: invert(13%) sepia(82%) saturate(4837%) hue-rotate(356deg) brightness(100%) contrast(117%);
+}
+
+.choosed-plus {
+  filter: invert(46%) sepia(57%) saturate(3921%) hue-rotate(91deg) brightness(109%) contrast(110%);
+}

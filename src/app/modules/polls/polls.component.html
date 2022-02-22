@@ -1,38 +1,17 @@
-<!-- <app-newests
-  [polls]="allPolls | async"
-  [isAdmin]="isAdmin | async"
-  [showMore]="showMore | async"
-  (deletePoll)="handleDeletePoll($event)"
-  (editPoll)="handleEditPoll($event)"
-  (handlePage)="getPolls(true)"
-></app-newests> -->
 <div class="newest container">
-  <div
-    *ngIf="allPolls.value.length"
-    class="label"
-  >
-    Najnowsze
-  </div>
+  <app-poll-carousel
+    *ngIf="data.value[0].polls.length && data.value[2].polls.length"
+    [slides]="slides"
+  ></app-poll-carousel>
 
-  <div class="row">
-    <app-poll-pc
-      *ngFor="let poll of allPolls | async; let index = index"
-      class="col-12 col-sm-6 col-lg-4 newest__item"
-      [poll]="poll"
-      [isAdmin]="isAdmin | async"
-      [idSvg]="'halo' + index"
-      (editPoll)="handleEditPoll($event)"
-    ></app-poll-pc>
-  </div>
-
-  <div class="more">
-    <button
-      *ngIf="showMore | async"
-      mat-icon-button
-      matTooltip="Wjęcej"
-      (click)="getPolls(true)"
-    >
-      <mat-icon>expand_more</mat-icon>
-    </button>
-  </div>
+  <ng-container *ngFor="let section of data | async | keyvalue; trackBy:identify">
+    <app-section
+      *ngIf="section.value.polls.length"
+      [key]="section.key"
+      [polls]="section.value.polls"
+      [reachedMaxPolls]="section.value.isLastPage"
+      [isLoading]="section.value.isLoading"
+      (handlePage)="getPolls(section.key, true)"
+    ></app-section>
+  </ng-container>
 </div>

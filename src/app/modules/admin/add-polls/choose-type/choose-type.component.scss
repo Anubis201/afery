@@ -1,0 +1,16 @@
+:host {
+  margin-bottom: .7rem;
+}
+
+mat-radio-group {
+  color: white;
+
+  & > div {
+    margin-bottom: .8rem;
+    font-weight: 500;
+  }
+
+  mat-radio-button {
+    margin-right: .8rem;
+  }
+}

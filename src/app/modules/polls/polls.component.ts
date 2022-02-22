@@ -1,11 +1,19 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Meta } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
+import { PollDataEnum } from 'src/app/models/polls/enums/poll-data.enum';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
-import { UserService } from 'src/app/services/global/user/user.service';
+import { ConvertEnum } from 'src/app/services/global/support-functions/convert-enum';
+
+interface SectionPollModel {
+  polls: PollModel[]
+  lastPollsnapshot: any
+  isLastPage: boolean
+  isLoading: boolean
+}
+
+type DataType = Record<PollDataEnum, SectionPollModel>
 
 @Component({
   selector: 'app-polls',
@@ -14,79 +22,94 @@ import { UserService } from 'src/app/services/global/user/user.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PollsComponent implements OnInit {
-  allPolls = new BehaviorSubject<PollModel[]>([])
-  isLoading = new BehaviorSubject<boolean>(false)
-  showMore = new BehaviorSubject<boolean>(false)
+  private readonly pollDataEnumArray = ConvertEnum(PollDataEnum, 'number')
 
-  private lastItemSnapshot = null
-  private readonly limit = 6
+  data = new BehaviorSubject<DataType>(this.createPage() as DataType)
 
-  get isAdmin() {
-    return this.userService.isAdmin
+  private readonly limit = 3
+
+  get slides() {
+    return [this.data.value[0].polls[0], this.data.value[2].polls[0]]
   }
 
   constructor(
     private pollsService: PollsService,
     private meta: Meta,
-    private userService: UserService,
-    private _snackBar: MatSnackBar,
-    private router: Router,
+    private titleService: Title,
   ) { }
 
   ngOnInit() {
-    this.getPolls();
     this.metaTags();
+
+    this.getPolls(PollDataEnum.Partie)
+    this.getPolls(PollDataEnum.Prezydenci)
   }
 
-  handleEditPoll(id: string) {
-    this.router.navigate(
-      ['/admin/polls'],
-      { queryParams: { id } }
-    )
+  identify(index: number, item){
+    return item.key;
   }
 
-  handleDeletePoll(id: string) {
-    this.pollsService.deletePoll(id).subscribe({
-      next: () => {
-        this.allPolls.next(this.allPolls.value.filter(element => element.id !== id));
+  getPolls(type: PollDataEnum, isMore = false) {
+    this.changeLoading(type, true);
+    this.pollsService.getPolls(this.limit + 1, isMore, this.data.value[type].lastPollsnapshot, type).subscribe({
+      next: docs => {
+        let polls: PollModel[] = [];
+        let i = 0;
+        let snapshot: any;
+
+        docs.forEach(d => {
+          polls.push({ ...d.data() as PollModel, when: (d.data() as any).when.toDate(), id: d.id })
+          if (this.limit - 1 === i) snapshot = d;
+          i++;
+        })
+
+        let isLimit = true;
+        if (polls.length === this.limit + 1) {
+          isLimit = false;
+          polls.pop();
+        }
+
+        this.data.next({
+          ...this.data.value,
+          [type]: {
+            polls: [...this.data.value[type].polls, ...polls],
+            lastPollsnapshot: snapshot,
+            isLastPage: isLimit,
+            isLoading: false
+          }
+        })
       },
-      error: () => {
-        this._snackBar.open('Nie udało sie usunąć sondażu', 'close');
+      error: () => this.changeLoading(type, false)
+    })
+  }
+
+  private changeLoading(type: PollDataEnum, isLoading: boolean) {
+    this.data.next({
+      ...this.data.value,
+      [type]: {
+        ...this.data.value[type],
+        isLoading,
       }
     })
   }
 
-  getPolls(isMore = false) {
-    this.isLoading.next(true);
-    this.pollsService.getPolls(this.limit + 1, isMore, this.lastItemSnapshot).subscribe({
-      next: docs => {
-        let data: PollModel[] = [];
-        let i = 0;
-
-        docs.forEach(d => {
-          data.push({ ...d.data() as PollModel, when: (d.data() as any).when.toDate(), id: d.id })
-          if (this.limit - 1 === i) this.lastItemSnapshot = d;
-          i++;
-        })
-
-        if (data.length === this.limit + 1) {
-          this.showMore.next(true);
-          data.pop();
-        } else {
-          this.showMore.next(false);
-        }
-
-        this.allPolls.next([
-          ...this.allPolls.value,
-          ...data,
-        ]);
-        this.isLoading.next(false);
-      },
-      error: () => this.isLoading.next(false)
-    })
+  private metaTags() {
+    this.titleService.setTitle('Sondaże i badania');
+    this.meta.updateTag({ name:'description', content:'Tu znajdziesz najnowsze sondaże polskich partii. Zapraszam na inne strony, gdzie zobaczysz afery naszej "niesamowitej" polityki.' }, "name='description'");
   }
 
-  private metaTags() {
-    this.meta.updateTag({ name:'description', content:'Tu znajdziesz najnowsze sondaże polskich partii. Zapraszam na inne strony, gdzie zobaczysz afery naszej "niesamowitej" polityki.' }, "name='description'");
+  private createPage() {
+    const object = {}
+
+    this.pollDataEnumArray.forEach((value: PollDataEnum) => {
+      object[value] = {
+        polls: [],
+        lastPollsnapshot: null,
+        isLastPage: false,
+        isLoading: false,
+      }
+    })
+
+    return object;
   }
 }

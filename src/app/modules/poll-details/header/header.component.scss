@@ -3,10 +3,14 @@
 }
 
 .title {
-  font-weight: bold;
-  line-height: 2.5rem;
-  font-size: 30px;
-  margin-bottom: 2rem;
+  display: flex;
+
+  &__text {
+    font-weight: bold;
+    line-height: 2.5rem;
+    font-size: 30px;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .label {

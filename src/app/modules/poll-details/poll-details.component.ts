@@ -1,11 +1,13 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { PollDataEnum } from 'src/app/models/polls/enums/poll-data.enum';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
 import { Election2019 } from 'src/app/services/global/data/election-2019';
+import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
   selector: 'app-poll-details',
@@ -16,23 +18,42 @@ import { Election2019 } from 'src/app/services/global/data/election-2019';
 export class PollDetailsComponent implements OnInit {
   data = new BehaviorSubject<PollModel>(null)
   previousData = new BehaviorSubject<PollModel>(null)
-  sortingMethod = new BehaviorSubject<'poll' | 'election'>('election')
+  sortingMethod = new BehaviorSubject<'poll' | 'election'>('poll')
 
   private dataSnapshot: any
 
+  readonly PollDataEnum = PollDataEnum
+
   constructor(
     private pollsService: PollsService,
-    private router: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private titleService: Title,
     private datePipe: DatePipe,
     private meta: Meta,
+    private userService: UserService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
-    this.router.params.subscribe(({ id, title }: { id: string, title: string }) => {
+    this.activatedRoute.params.subscribe(({ id, title }: { id: string, title: string }) => {
       this.getData(id);
-      this.previousElection();
+      this.data.subscribe(d => {
+        if (!d || d.typeItems !== PollDataEnum.Partie) return
+
+        this.previousPoll();
+      })
     })
+  }
+
+  get isAdmin() {
+    return this.userService.isAdmin
+  }
+
+  handleEditPoll() {
+    this.router.navigate(
+      ['/admin/polls'],
+      { queryParams: { id: this.data.value?.id } }
+    )
   }
 
   previousPoll() {

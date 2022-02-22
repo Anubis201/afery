@@ -1,0 +1,4 @@
+<mat-radio-group [formControl]="typeDataControl">
+  <div>Typ</div>
+  <mat-radio-button *ngFor="let item of PollDataTypeArray" [value]="PollDataEnum[item]">{{ item }}</mat-radio-button>
+</mat-radio-group>

@@ -1,0 +1,86 @@
+<mat-accordion class="parties">
+  <mat-expansion-panel expanded="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title >{{ PollDataEnum[typeDataControl.value] }}</mat-panel-title>
+
+      <mat-panel-description>Dodaj partie, które występowały w sondażu</mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="parties__items">
+      <div
+        *ngFor="let form of items.controls; let index = index"
+        [formGroup]="form"
+        class="parties__items__item"
+      >
+        <ng-container [ngSwitch]="typeDataControl.value">
+          <mat-form-field *ngSwitchCase="PollDataEnum.Partie" appearance="fill">
+            <mat-label>Partia</mat-label>
+            <mat-select
+              class="parties__items__item--entity"
+              formControlName="party"
+            >
+              <mat-option
+                *ngFor="let item of entityItems"
+                [value]="item"
+              >
+                <img
+                  class="parties__items__item--entity--image"
+                  [src]="'/assets/icons/parties/' + PartiesEnum[item] + '.jpg'"
+                />
+                <span>{{ PartiesEnum[item] }}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field *ngSwitchCase="PollDataEnum.Odpowiedzi" appearance="fill">
+            <mat-label>Tekst</mat-label>
+            <input
+              matInput
+              formControlName="text"
+              autocomplete="off"
+              type="text"
+            />
+          </mat-form-field>
+
+          <mat-form-field *ngSwitchCase="PollDataEnum.Prezydenci" appearance="fill">
+            <mat-label>Kandydant</mat-label>
+            <mat-select
+              class="parties__items__item--entity"
+              formControlName="president"
+            >
+              <mat-option
+                *ngFor="let item of presidents"
+                [value]="item"
+              >
+                <img
+                  class="parties__items__item--entity--image"
+                  [src]="'/assets/icons/presidents/' + item + '.jpg'"
+                >
+                <span>{{ presidentName(PresidentsEnum[item]) }}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Procenty</mat-label>
+          <input
+            matInput
+            formControlName="percentage"
+            autocomplete="off"
+            type="number"
+          />
+        </mat-form-field>
+
+        <button mat-icon-button (click)="deleteItem.emit(index)">
+          <mat-icon *ngIf="items.controls.length > 1">delete_outline</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="parties__new" (click)="addItem.emit()">
+      <mat-icon>add_box</mat-icon>
+      <div>Dodaj partię</div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
