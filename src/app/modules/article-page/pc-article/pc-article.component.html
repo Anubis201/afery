@@ -40,7 +40,8 @@
     ></app-comments>
 
     <app-pc-short-article
-      [article]="article"
+      *ngIf="nextArticle"
+      [article]="nextArticle"
     ></app-pc-short-article>
   </ng-container>
 </div>

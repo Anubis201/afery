@@ -33,5 +33,10 @@
         (deleteComment)="handleDeleteComment($event)"
       ></app-comments>
     </div>
+
+    <app-mobile-short-article
+      *ngIf="nextArticle"
+      [article]="nextArticle"
+    ></app-mobile-short-article>
   </ng-container>
 </div>

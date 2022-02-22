@@ -1,1 +1,23 @@
-<p>mobile-short-article works!</p>
+<app-mobile-header
+  [type]="article?.type"
+  [entity]="article?.entity"
+  [title]="article?.title"
+  [createDate]="article?.createDate"
+  [text]="article?.text"
+  [imageDesc]="article?.imageDesc"
+  [imageSrc]="article?.imageSrc"
+  [isShort]="true"
+></app-mobile-header>
+
+<app-mobile-main
+  [subtitle]="article?.subtitle"
+></app-mobile-main>
+
+<div class="link">
+  <a
+    mat-raised-button
+    color="primary"
+    [href]="toArticlePage"
+  >Przeczytaj cały artykuł</a>
+</div>
+

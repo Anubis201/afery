@@ -280,7 +280,9 @@ export class ArticlePageComponent implements OnInit {
 
   private getNextArticle() {
     this.articlesService.getNextArticle(this.article.value.createDate).subscribe(docs => {
-      docs.forEach(doc => this.nextArticle.next(doc.data() as ArticleModel))
+      docs.forEach(doc => {
+        this.nextArticle.next({ ...doc.data() as ArticleModel, id: doc.id, createDate: (doc.data() as any).createDate.toDate() });
+      })
     })
   }
 

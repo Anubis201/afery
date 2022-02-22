@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ArticleModel } from 'src/app/models/articles/article.model';
+import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
 
 @Component({
   selector: 'app-mobile-short-article',
@@ -7,7 +9,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MobileShortArticleComponent {
+  @Input() article: ArticleModel
 
-
-
+  get toArticlePage() {
+    return `${location.origin}/artykul/${this.article.id}/${ChangePolishChars(this.article.title)}`
+  }
 }

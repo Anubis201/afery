@@ -25,12 +25,21 @@
       <div>{{ createDate | date: "dd.MM.yyyy, HH:mm" }}</div>
     </div>
 
-    <div class="content__time__all">
+    <div
+      class="content__time__all"
+      [style.margin-bottom]="isShort ? '7px' : '0'"
+    >
       <div>{{ text | timeToRead }} min czytania</div>
 
-      <div class="content__time__all--read"></div>
+      <div
+        *ngIf="!isShort"
+        class="content__time__all--read"
+      ></div>
 
-      <div class="content__time__all__actions">
+      <div
+        *ngIf="!isShort"
+        class="content__time__all__actions"
+      >
         <div class="content__time__all__actions--action">
           <button mat-icon-button (click)="approve.emit()">
             <img
@@ -54,9 +63,11 @@
           </button>
           <span>{{ dislikes ?? 0 }}</span>
         </div>
-
       </div>
-      <div class="content__time__all__socials">
+      <div
+        *ngIf="!isShort"
+        class="content__time__all__socials"
+      >
         <div>Udostępnij</div>
 
         <a

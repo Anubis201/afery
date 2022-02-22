@@ -2,6 +2,7 @@
   *ngIf="subtitle?.length"
   class="subtitle"
 >{{ subtitle }}</div>
+
 <div class="image-section">
   <img
     class="image-section--image"
@@ -10,7 +11,9 @@
   >
   <div class="image-section--author">{{ imageDesc }}</div>
 </div>
+
 <div
+  *ngIf="!isShort"
   class="desc"
   [innerHtml]="text"
 ></div>

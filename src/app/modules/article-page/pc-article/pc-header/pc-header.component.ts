@@ -22,6 +22,7 @@ export class PcHeaderComponent {
   @Input() likes: number
   @Input() dislikes: number
   @Input() nextArticle: ArticleModel
+  @Input() isShort = false
 
   readonly ArticlesTypesEnum = ArticlesTypesEnum
   readonly PartiesEnum = PartiesEnum
