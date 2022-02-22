@@ -16,6 +16,7 @@ export class MobileArticleComponent {
   @Input() isSavingComment: boolean
   @Input() actionMode: 'like' | 'dislike' | null
   @Input() isAdmin: boolean
+  @Input() nextArticle: ArticleModel
 
   @Output() approve = new EventEmitter<void>()
   @Output() dislike = new EventEmitter<void>()

@@ -1,9 +1,5 @@
 $image-border-radius: 5px;
 
-:host {
-  display: flex;
-}
-
 @mixin title($size, $line) {
   font-weight: bold;
   line-height: $line;

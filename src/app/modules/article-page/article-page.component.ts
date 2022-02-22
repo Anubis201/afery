@@ -26,6 +26,7 @@ export class ArticlePageComponent implements OnInit {
   comments = new BehaviorSubject<CommentModel[]>([])
   actionMode = new BehaviorSubject<'like' | 'dislike' | null>(null)
   isSavingComment = new BehaviorSubject<boolean>(false)
+  nextArticle = new BehaviorSubject<ArticleModel>(null)
 
   readonly PartiesEnum = PartiesEnum
   readonly ArticlesTypesEnum = ArticlesTypesEnum
@@ -260,14 +261,26 @@ export class ArticlePageComponent implements OnInit {
         this.article.next({ ...article.data() as ArticleModel, id: article.id, createDate: (article.data() as any).createDate.toDate() });
         this.prepereTagsAndTitle();
 
-        if (location.href.slice(-5) !== 'zmien') this.router.navigate(['artykul/', this.article.value.id, ChangePolishChars(this.article.value.title.replace(/\s/g, '-'))]);
+        // upewnia sie czy wszystko jest dobrze z linkiem
+        if (location.href.slice(-5) !== 'zmien')
+          this.router.navigate(['artykul/', this.article.value.id, ChangePolishChars(this.article.value.title.replace(/\s/g, '-'))]);
 
+        // sprawdza czy artykul zostal polubiony
         if (localStorage.getItem(this.article.value.id) === 'like')
           this.actionMode.next('like');
         else if (localStorage.getItem(this.article.value.id) === 'dislike')
           this.actionMode.next('dislike');
 
+        // pobiera kolejny artykul do pokazania, narazie proste wyszukiwanie kolejnego
+        this.getNextArticle();
+
       } else this.isExists.next(false);
+    })
+  }
+
+  private getNextArticle() {
+    this.articlesService.getNextArticle(this.article.value.createDate).subscribe(docs => {
+      docs.forEach(doc => this.nextArticle.next(doc.data() as ArticleModel))
     })
   }
 

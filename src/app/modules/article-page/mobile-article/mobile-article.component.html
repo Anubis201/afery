@@ -20,16 +20,18 @@
       [subtitle]="article?.subtitle"
     ></app-mobile-main>
 
-    <app-write-comment
-      [isSavingComment]="isSavingComment"
-      [countComment]="comments?.length"
-      (addComment)="handleAddComment($event)"
-    ></app-write-comment>
+    <div class="comments">
+      <app-write-comment
+        [isSavingComment]="isSavingComment"
+        [countComment]="comments?.length"
+        (addComment)="handleAddComment($event)"
+      ></app-write-comment>
 
-    <app-comments
-      [comments]="comments"
-      [isAdmin]="isAdmin"
-      (deleteComment)="handleDeleteComment($event)"
-    ></app-comments>
+      <app-comments
+        [comments]="comments"
+        [isAdmin]="isAdmin"
+        (deleteComment)="handleDeleteComment($event)"
+      ></app-comments>
+    </div>
   </ng-container>
 </div>
