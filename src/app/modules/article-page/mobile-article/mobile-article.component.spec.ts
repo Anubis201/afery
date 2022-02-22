@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PollComponent } from './poll.component';
+import { MobileArticleComponent } from './mobile-article.component';
 
-describe('PollComponent', () => {
-  let component: PollComponent;
-  let fixture: ComponentFixture<PollComponent>;
+describe('MobileArticleComponent', () => {
+  let component: MobileArticleComponent;
+  let fixture: ComponentFixture<MobileArticleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PollComponent ]
+      declarations: [ MobileArticleComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PollComponent);
+    fixture = TestBed.createComponent(MobileArticleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
