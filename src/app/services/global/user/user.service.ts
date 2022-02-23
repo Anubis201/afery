@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import * as admin from 'firebase-admin';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,9 @@ export class UserService {
     private router: Router,
   ) {
     this.fireAuth.user.subscribe(user => {
-      console.log(user)
+      admin.auth().createCustomToken(user.uid, { isAdmin: true }).then((e) => {
+        console.log(e)
+      })
       this.isAdmin.next(!!user)
     })
   }
