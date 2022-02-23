@@ -47,6 +47,10 @@ export class AppComponent implements OnInit {
         label: 'Sondaże',
         href: '/sondaze',
       },
+      {
+        label: 'Szukaj',
+        href: '/szukaj',
+      },
     ]
   }
 

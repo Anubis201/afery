@@ -27,9 +27,15 @@
   font-size: 1.9rem;
   letter-spacing: .8rem;
   font-family: 'Material Icons';
-  padding-bottom: 7px;
+  padding-bottom: 11px;
   line-height: 3rem;
   cursor: pointer;
+  margin-right: 1rem;
+
+  @media (min-width: 576px) {
+    margin-right: 0;
+    padding-bottom: 7px;
+  }
 }
 
 .socials {
