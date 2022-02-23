@@ -47,6 +47,10 @@ export class ArticlesService {
     return this.firestore.collection('articles').doc(docId).get()
   }
 
+  getNextArticle(date: Date) {
+    return from(this.firestore.collection('articles').ref.orderBy('createDate').startAfter(date).limit(1).get())
+  }
+
   updateViewershipArticle(docId: string) {
     return from(this.firestore.collection('articles').doc(docId).update({ viewership: increment(1) }))
   }

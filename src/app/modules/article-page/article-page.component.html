@@ -8,6 +8,7 @@
     [comments]="comments | async"
     [article]="article | async"
     [isAdmin]="isAdmin | async"
+    [nextArticle]="nextArticle | async"
     (setToFirstArticle)="setToFirstArticle()"
     (handleEditArticle)="handleEditArticle()"
     (handleDeleteArticle)="handleDeleteArticle()"
@@ -22,6 +23,7 @@
     [comments]="comments.value"
     [article]="article.value"
     [isAdmin]="isAdmin.value"
+    [nextArticle]="nextArticle.value"
     (approve)="approve()"
     (dislike)="dislike()"
   ></app-mobile-article>

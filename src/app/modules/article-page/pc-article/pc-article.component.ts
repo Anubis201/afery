@@ -14,6 +14,7 @@ export class PcArticleComponent {
   @Input() isSavingComment: boolean
   @Input() actionMode: 'like' | 'dislike' | null
   @Input() isAdmin: boolean
+  @Input() nextArticle: ArticleModel
 
   @Output() setToFirstArticle = new EventEmitter<void>()
   @Output() handleEditArticle = new EventEmitter<void>()

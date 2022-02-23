@@ -16,18 +16,6 @@
     <span class="costs--icons">
       <mat-icon>money_off</mat-icon>
       {{ costs | millions }}
-      <span
-        *ngIf="viewership >= 100"
-        class="costs--break"
-      > | </span>
-    </span>
-
-    <span
-      *ngIf="viewership >= 100"
-      class="viewership page__costs--icons"
-    >
-      <mat-icon>remove_red_eye</mat-icon>
-      {{ viewership }}
     </span>
   </span>
 </div>
@@ -76,8 +64,14 @@
       {{ text | timeToRead }} min czytania
     </div>
   </div>
-  <div class="links__time__read"></div>
-  <div class="links__actions">
+  <div
+    *ngIf="!isShort"
+    class="links__time__read"
+  ></div>
+  <div
+    *ngIf="!isShort"
+    class="links__actions"
+  >
     <div class="links__actions--action">
       <button
         mat-icon-button
@@ -107,7 +101,10 @@
       <span>{{ dislikes ?? 0 }}</span>
     </div>
   </div>
-  <div class="links__socials">
+  <div
+    *ngIf="!isShort"
+    class="links__socials"
+  >
     <div>Udostępnij</div>
     <a
       mat-icon-button

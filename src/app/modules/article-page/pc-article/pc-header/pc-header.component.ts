@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ArticleModel } from 'src/app/models/articles/article.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 
@@ -20,6 +21,8 @@ export class PcHeaderComponent {
   @Input() actionMode: 'like' | 'dislike' | null
   @Input() likes: number
   @Input() dislikes: number
+  @Input() nextArticle: ArticleModel
+  @Input() isShort = false
 
   readonly ArticlesTypesEnum = ArticlesTypesEnum
   readonly PartiesEnum = PartiesEnum

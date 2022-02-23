@@ -19,6 +19,7 @@ export class MobileHeaderComponent {
   @Input() dislikes: number
   @Input() imageDesc: string
   @Input() imageSrc: string
+  @Input() isShort = false
 
   @Output() approve = new EventEmitter<void>()
   @Output() dislike = new EventEmitter<void>()
