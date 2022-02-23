@@ -24,6 +24,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AsideMenuComponent } from './modules/main/aside-menu/aside-menu.component';
 import { ToolbarComponent } from './modules/main/toolbar/toolbar.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { ToolbarComponent } from './modules/main/toolbar/toolbar.component';
     HttpClientModule,
     MatSnackBarModule,
     MatTooltipModule,
+    MatMenuModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

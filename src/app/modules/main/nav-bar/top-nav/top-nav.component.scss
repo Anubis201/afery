@@ -38,11 +38,17 @@
   }
 }
 
-.socials {
-  filter: invert(94%) sepia(0%) saturate(24%) hue-rotate(24deg) brightness(105%) contrast(108%);
+.user {
+  color: white;
 
-  img {
-    width: 24px;
-    height: 24px;
+  &__menu {
+
+    span {
+      font-weight: 500;
+    }
+
+    &:hover {
+      color: white;
+    }
   }
 }

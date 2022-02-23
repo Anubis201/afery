@@ -16,6 +16,7 @@ export class UserService {
     private router: Router,
   ) {
     this.fireAuth.user.subscribe(user => {
+      console.log(user)
       this.isAdmin.next(!!user)
     })
   }
