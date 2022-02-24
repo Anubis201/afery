@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { NavModel } from './models/articles/nav.model';
 
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.metaTags();
-    this.route.events.subscribe(() => this.isOpenMenu.next(false))
+    this.onAnyRouteChange();
     this.items = [
       {
         label: 'Afery',
@@ -56,6 +56,15 @@ export class AppComponent implements OnInit {
 
   handleMenu() {
     this.isOpenMenu.next(!this.isOpenMenu.value)
+  }
+
+  private onAnyRouteChange() {
+    this.route.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.isOpenMenu.next(false);
+        window.scrollTo(0, 0);
+      }
+    })
   }
 
   private metaTags() {
