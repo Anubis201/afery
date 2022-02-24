@@ -9,8 +9,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 export class TopNavComponent {
   @Input() isAdmin: boolean
   @Input() isOpenMenu: boolean
-  @Input() isUser: boolean
+  @Input() isLogin: boolean
 
   @Output() logout = new EventEmitter<void>()
   @Output() handleMenuNav = new EventEmitter<void>()
+  @Output() login = new EventEmitter<void>()
 }

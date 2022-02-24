@@ -20,16 +20,16 @@
 
   <mat-menu #menuUser="matMenu">
     <button
-      *ngIf="!isUser"
+      *ngIf="!isLogin"
       class="user__menu"
       mat-menu-item
-      (click)="null"
+      (click)="login.emit()"
     >
       <span>Zaloguj się</span>
     </button>
 
     <button
-      *ngIf="isUser"
+      *ngIf="isLogin"
       class="user__menu"
       mat-menu-item
       (click)="logout.emit()"

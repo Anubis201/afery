@@ -3,24 +3,25 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import * as admin from 'firebase-admin';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   isAdmin = new BehaviorSubject<boolean>(false)
+  isLogin = new BehaviorSubject<boolean>(false)
 
   constructor(
     private fireAuth: AngularFireAuth,
     private _snackBar: MatSnackBar,
     private router: Router,
   ) {
+
     this.fireAuth.user.subscribe(user => {
-      admin.auth().createCustomToken(user.uid, { isAdmin: true }).then((e) => {
-        console.log(e)
-      })
-      this.isAdmin.next(!!user)
+      this.isLogin.next(!!user);
+
+      // NA CHWILE :D
+      this.isAdmin.next(user?.email === user?.photoURL && this.isLogin.value);
     })
   }
 

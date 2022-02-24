@@ -18,6 +18,7 @@ import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ShortArticleComponent } from './short-article/short-article.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoginComponent } from './login/login.component';
 
 const declarations = [
   MillionsPipe,
@@ -28,7 +29,8 @@ const declarations = [
   WriteCommentComponent,
   AnswerComponent,
   ArticleComponent,
-  ShortArticleComponent
+  ShortArticleComponent,
+  LoginComponent,
 ]
 
 const imports = [

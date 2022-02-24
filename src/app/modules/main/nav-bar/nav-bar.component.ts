@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { NavModel } from 'src/app/models/articles/nav.model';
 import { UserService } from 'src/app/services/global/user/user.service';
+import { LoginComponent } from '../../shared/login/login.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -28,10 +30,19 @@ export class NavBarComponent implements OnInit {
   constructor(
     private userService: UserService,
     private route: Router,
+    private dialog: MatDialog
   ) { }
 
   get isAdmin() {
     return this.userService.isAdmin
+  }
+
+  get isLogin() {
+    return this.userService.isLogin
+  }
+
+  login() {
+    this.dialog.open(LoginComponent);
   }
 
   logout() {
