@@ -16,7 +16,6 @@ export class UserService {
     private _snackBar: MatSnackBar,
     private router: Router,
   ) {
-
     this.fireAuth.user.subscribe(user => {
       this.isLogin.next(!!user);
 
@@ -37,5 +36,9 @@ export class UserService {
     .catch(() => {
       this._snackBar.open('Napewno jesteś mną?', 'close');
     })
+  }
+
+  loginAsGoogle() {
+
   }
 }

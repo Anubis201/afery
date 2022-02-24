@@ -1,27 +1,26 @@
-<mat-dialog-content class="title">
-  Zaloguj się przez:
-</mat-dialog-content>
+<mat-dialog-content class="title">Zaloguj się</mat-dialog-content>
 
 <mat-dialog-content class="mat-typography">
 
+  <!-- GOOGLE -->
   <button
     mat-raised-button
+    color="primary"
+    (click)="logiAsGoogle()"
   >
+    <img src="/assets/icons/auth/google.png" alt="ikona google">
     <span>google</span>
   </button>
 
-  <button
-    mat-raised-button
-  >
-    <span>google</span>
-  </button>
+  <!-- FACEBOOK -->
+
+  <!-- TWITTER -->
 
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
   <button
-    mat-raised-button
+    mat-button
     mat-dialog-close
-    color="primary"
-  >Close</button>
+  >Zamknij</button>
 </mat-dialog-actions>

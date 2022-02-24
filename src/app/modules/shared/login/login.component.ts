@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -8,5 +9,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class LoginComponent {
 
-  constructor() { }
+  constructor(
+    private userService: UserService
+  ) { }
+
+  logiAsGoogle() {
+    this.userService.loginAsGoogle()
+  }
 }
