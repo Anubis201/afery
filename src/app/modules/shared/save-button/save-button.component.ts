@@ -8,6 +8,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 })
 export class SaveButtonComponent {
   @Input() isSaving: boolean
+  @Input() color: string
 
   @Output() onClick = new EventEmitter<void>()
 }

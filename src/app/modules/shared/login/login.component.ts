@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/global/user/user.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
-  isAuth = new BehaviorSubject<boolean>(false)
+  isLoading = new BehaviorSubject<boolean>(false)
 
   constructor(
     private userService: UserService,
@@ -18,10 +18,10 @@ export class LoginComponent {
   ) { }
 
   logiAsGoogle() {
-    this.isAuth.next(true);
+    this.isLoading.next(true);
     this.userService.loginAsGoogle().subscribe({
       next: () => this.dialog.closeAll(),
-      complete: () => this.isAuth.next(false),
+      complete: () => this.isLoading.next(false),
     })
   }
 }

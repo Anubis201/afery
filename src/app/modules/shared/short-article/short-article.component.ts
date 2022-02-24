@@ -22,6 +22,7 @@ export class ShortArticleComponent implements OnInit {
   comments = new BehaviorSubject<CommentModel[]>([])
   isSavingComment = new BehaviorSubject<boolean>(false)
   actionMode = new BehaviorSubject<'like' | 'dislike' | null>(null)
+  isLoading = new BehaviorSubject<boolean>(false)
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public dialogData: DialogDataModel,
@@ -58,6 +59,7 @@ export class ShortArticleComponent implements OnInit {
   }
 
   getComments() {
+    this.isLoading.next(true);
     this.commentsService.getComments(this.dialogData.article.id).subscribe({
       next: commentsDocs => {
         let allComments: CommentModel[] = [];
@@ -71,7 +73,8 @@ export class ShortArticleComponent implements OnInit {
         });
 
         this.comments.next(allComments);
-      }
+      },
+      complete: () => this.isLoading.next(false)
     })
   }
 }

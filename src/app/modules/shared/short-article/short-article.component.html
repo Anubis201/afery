@@ -9,7 +9,15 @@
     (addComment)="handleAddComment($event)"
   ></app-write-comment>
 
-  <div class="comments">
+  <app-is-loading
+    *ngIf="isLoading.value"
+    [size]="60"
+  ></app-is-loading>
+
+  <div
+    *ngIf="!(isLoading | async)"
+    class="comments"
+  >
     <app-comment
       *ngFor="let comment of comments | async"
       [comment]="comment"

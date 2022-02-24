@@ -3,14 +3,14 @@
 <mat-dialog-content class="mat-typography">
 
   <!-- GOOGLE -->
-  <button
-    mat-raised-button
-    color="primary"
+  <app-save-button
+    [color]="'primary'"
     (click)="logiAsGoogle()"
+    [isSaving]="isLoading | async"
   >
     <img src="/assets/icons/auth/google.png" alt="ikona google">
-    <span>google</span>
-  </button>
+    <span>Google</span>
+  </app-save-button>
 
   <!-- FACEBOOK -->
 
