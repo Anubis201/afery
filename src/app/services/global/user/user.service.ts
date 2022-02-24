@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { GoogleAuthProvider } from 'firebase/auth';
+import { BehaviorSubject, catchError, from, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,15 @@ export class UserService {
   }
 
   loginAsGoogle() {
-
+    return from(this.fireAuth.signInWithPopup(new GoogleAuthProvider()))
+      .pipe(
+        map(() => {
+          this._snackBar.open('Zalogowałeś się', 'close');
+        }),
+        catchError(() => {
+          this._snackBar.open('Nie udało się zalogować', 'close');
+          return []
+        })
+      )
   }
 }

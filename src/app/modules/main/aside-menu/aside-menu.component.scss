@@ -9,6 +9,7 @@
   display: flex;
   top: 0;
   flex-direction: column;
+  max-width: initial;
 
   @media (min-width: 576px) {
     width: 50vw;
@@ -17,6 +18,7 @@
   @media (min-width: 768px) {
     width: 40vw;
     margin-top: 72px;
+    max-width: 300px;
   }
 
   @media (min-width: 992px) {
