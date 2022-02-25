@@ -14,7 +14,6 @@ export class PcHeaderComponent {
   @Input() type: ArticlesTypesEnum
   @Input() entity: PartiesEnum
   @Input() costs: number
-  @Input() viewership: number
   @Input() title: string
   @Input() createDate: Date
   @Input() text: string
