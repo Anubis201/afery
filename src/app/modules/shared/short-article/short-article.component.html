@@ -21,9 +21,9 @@
     <app-comment
       *ngFor="let comment of comments | async"
       [comment]="comment"
-      [isAdmin]="isAdmin"
+      [isAdmin]="isAdmin | async"
       [isMenagaComponent]="false"
-      (deleteComment)="deleteComment.emit($event)"
+      (deleteComment)="deleteComment($event)"
     ></app-comment>
   </div>
 </mat-dialog-content>

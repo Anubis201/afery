@@ -77,4 +77,12 @@ export class ShortArticleComponent implements OnInit {
       complete: () => this.isLoading.next(false)
     })
   }
+
+  deleteComment(id: string) {
+    this.commentsService.deteleComment(id).subscribe({
+      next: () => {
+        this.comments.next(this.comments.value.filter(filterV => filterV.id !== id));
+      },
+    })
+  }
 }
