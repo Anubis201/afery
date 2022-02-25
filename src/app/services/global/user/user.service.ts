@@ -51,4 +51,8 @@ export class UserService {
         })
       )
   }
+
+  LoginAnonymously() {
+    return from(this.fireAuth.signInAnonymously())
+  }
 }
