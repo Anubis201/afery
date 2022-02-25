@@ -17,9 +17,12 @@ export class MobileArticleComponent {
   @Input() actionMode: 'like' | 'dislike' | null
   @Input() isAdmin: boolean
   @Input() nextArticle: ArticleModel
+  @Input() userName: string
 
   @Output() approve = new EventEmitter<void>()
   @Output() dislike = new EventEmitter<void>()
+  @Output() addComment = new EventEmitter<CommentModel>()
+  @Output() handleDeleteComment = new EventEmitter<string>()
 
   readonly ArticlesTypesEnum = ArticlesTypesEnum
   readonly PartiesEnum = PartiesEnum

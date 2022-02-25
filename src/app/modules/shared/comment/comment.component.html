@@ -32,6 +32,7 @@
         mat-button
         (click)="getAnswersToDisplay()"
       >Zobacz odpowiedzi ({{ countAnswers.value }})</button>
+
       <button
         *ngIf="handleOpenAnswers.value"
         mat-button
@@ -51,13 +52,15 @@
     <ng-content select="[customButtons]"></ng-content>
   </div>
 </div>
+
 <!-- Pisanie odpowiedzi -->
 <app-write-comment
   *ngIf="handleOpenWriteComment | async"
   [isSavingComment]="isSaving | async"
-  [answerMode]="true"
   (addComment)="addAnswer($event)"
+  [answerMode]="true"
 ></app-write-comment>
+
 <!-- Odpowiedzi -->
 <div
   *ngIf="handleOpenAnswers | async"

@@ -5,6 +5,7 @@ import { ArticleModel } from 'src/app/models/articles/article.model';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
 import { UserService } from 'src/app/services/global/user/user.service';
+import { WorkingCommentsService } from 'src/app/services/global/working-comments/working-comments.service';
 
 interface DialogDataModel {
   article: ArticleModel
@@ -28,10 +29,15 @@ export class ShortArticleComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public dialogData: DialogDataModel,
     private commentsService: CommentsService,
     private userService: UserService,
+    private workingCommentsService: WorkingCommentsService,
   ) { }
 
   get isAdmin() {
     return this.userService.isAdmin
+  }
+
+  get userName() {
+    return this.userService.userName
   }
 
   ngOnInit() {
@@ -40,6 +46,7 @@ export class ShortArticleComponent implements OnInit {
 
   handleAddComment(comment: CommentModel) {
     this.isSavingComment.next(true);
+
     const rlyComment: CommentModel = {
       ...comment,
       articleId: this.dialogData.article?.id,
@@ -47,9 +54,9 @@ export class ShortArticleComponent implements OnInit {
       isAnswer: false,
     };
 
-    this.commentsService.addComment(rlyComment).subscribe({
+    this.workingCommentsService.extendedAddComment(rlyComment).subscribe({
       next: doc => {
-        this.comments.next([{ ...rlyComment, id: doc.id }, ...this.comments.value]);
+        this.comments.next([{ ...rlyComment, id: doc.id, name: this.userName.value }, ...this.comments.value]);
         this.isSavingComment.next(false);
       },
       error: () => {

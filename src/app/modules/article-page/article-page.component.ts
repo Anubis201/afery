@@ -13,6 +13,7 @@ import { CommentsService } from 'src/app/services/collections/comments/comments.
 import { ImagesService } from 'src/app/services/collections/images/images.service';
 import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
 import { UserService } from 'src/app/services/global/user/user.service';
+import { WorkingCommentsService } from 'src/app/services/global/working-comments/working-comments.service';
 
 @Component({
   selector: 'app-article-page',
@@ -42,10 +43,15 @@ export class ArticlePageComponent implements OnInit {
     private imagesService: ImagesService,
     private router: Router,
     private titleService: Title,
+    private workingCommentsService: WorkingCommentsService
   ) { }
 
   get isAdmin() {
     return this.userService.isAdmin
+  }
+
+  get userName() {
+    return this.userService.userName
   }
 
   ngOnInit() {
@@ -58,6 +64,7 @@ export class ArticlePageComponent implements OnInit {
 
   handleAddComment(comment: CommentModel) {
     this.isSavingComment.next(true);
+
     const rlyComment: CommentModel = {
       ...comment,
       articleId: this.article.value?.id as string,
@@ -65,15 +72,15 @@ export class ArticlePageComponent implements OnInit {
       isAnswer: false,
     };
 
-    this.commentsService.addComment(rlyComment).subscribe({
+    this.workingCommentsService.extendedAddComment(rlyComment).subscribe({
       next: doc => {
-        this.comments.next([{ ...rlyComment, id: doc.id }, ...this.comments.value]);
+        this.comments.next([{ ...rlyComment, id: doc.id, name: this.userService.userName.value }, ...this.comments.value]);
         this.isSavingComment.next(false);
       },
       error: () => {
         this.isSavingComment.next(false);
       }
-    })
+    });
   }
 
   getComments(articleId: string) {

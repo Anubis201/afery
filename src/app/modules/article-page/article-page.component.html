@@ -9,9 +9,12 @@
     [article]="article | async"
     [isAdmin]="isAdmin | async"
     [nextArticle]="nextArticle | async"
+    [userName]="userName | async"
     (setToFirstArticle)="setToFirstArticle()"
     (handleEditArticle)="handleEditArticle()"
     (handleDeleteArticle)="handleDeleteArticle()"
+    (addComment)="handleAddComment($event)"
+    (handleDeleteComment)="handleDeleteComment($event)"
     (approve)="approve()"
     (dislike)="dislike()"
   ></app-pc-article>
@@ -24,8 +27,11 @@
     [article]="article.value"
     [isAdmin]="isAdmin.value"
     [nextArticle]="nextArticle.value"
+    [userName]="userName.value"
     (approve)="approve()"
     (dislike)="dislike()"
+    (addComment)="handleAddComment($event)"
+    (handleDeleteComment)="handleDeleteComment($event)"
   ></app-mobile-article>
 </ng-container>
 

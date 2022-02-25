@@ -22,6 +22,7 @@
       *ngFor="let comment of comments | async"
       [comment]="comment"
       [isAdmin]="isAdmin | async"
+      [userName]="userName | async"
       [isMenagaComponent]="false"
       (deleteComment)="deleteComment($event)"
     ></app-comment>

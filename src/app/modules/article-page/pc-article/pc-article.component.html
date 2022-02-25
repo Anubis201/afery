@@ -29,13 +29,14 @@
     <app-write-comment
       [isSavingComment]="isSavingComment"
       [countComment]="comments?.length"
-      (addComment)="handleAddComment($event)"
+      (addComment)="addComment.emit($event)"
     ></app-write-comment>
 
     <app-comments
       [comments]="comments"
       [isAdmin]="isAdmin"
-      (deleteComment)="handleDeleteComment($event)"
+      [userName]="userName"
+      (deleteComment)="handleDeleteComment.emit($event)"
     ></app-comments>
 
     <app-pc-short-article

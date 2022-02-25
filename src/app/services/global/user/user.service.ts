@@ -9,8 +9,11 @@ import { BehaviorSubject, catchError, from, map } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
+  private readonly DefaultName = 'Anonim'
+
   isAdmin = new BehaviorSubject<boolean>(false)
   isLogin = new BehaviorSubject<boolean>(false)
+  userName = new BehaviorSubject<string>(this.DefaultName)
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -20,8 +23,10 @@ export class UserService {
     this.fireAuth.user.subscribe(user => {
       this.isLogin.next(!!user);
 
+      this.userName.next(user?.displayName || user?.email || this.DefaultName);
+
       // NA CHWILE :D
-      this.isAdmin.next(user?.email === user?.photoURL && this.isLogin.value);
+      this.isAdmin.next(user?.email && user.email === user?.photoURL && this.isLogin.value);
     })
   }
 
@@ -52,7 +57,7 @@ export class UserService {
       )
   }
 
-  LoginAnonymously() {
+  loginAnonymously() {
     return from(this.fireAuth.signInAnonymously())
   }
 }
