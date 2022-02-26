@@ -34,6 +34,7 @@ export class CommentComponent implements OnInit {
   countAnswers = new BehaviorSubject<number>(0)
   answers = new BehaviorSubject<CommentModel[]>([])
   commentMode = new BehaviorSubject<CommentMode>(null)
+  handleOpenAnswers = new BehaviorSubject<boolean>(false)
 
   ngOnInit() {
     if (!this.isMenagaComponent && this.comment?.id) this.getCountAnswers();
@@ -47,6 +48,7 @@ export class CommentComponent implements OnInit {
   hideAnswers() {
     this.answers.next([]);
     this.handleOpenWriteComment.next(false);
+    this.handleOpenAnswers.next(false);
   }
 
   addAnswer(answer: CommentModel) {
@@ -63,7 +65,6 @@ export class CommentComponent implements OnInit {
     this.workingCommentsService.extendedAddComment(rlyAnswer).subscribe({
       next: () => {
         this.answers.next([{ ...rlyAnswer, name: this.userName }, ...this.answers.value]);
-        console.log(this.answers.value)
         this.countAnswers.next(this.countAnswers.value + 1);
         this.isSaving.next(false);
       },
@@ -81,6 +82,7 @@ export class CommentComponent implements OnInit {
         docs.forEach(doc => data.push({ ...doc.data() as CommentModel, date: (doc.data() as any).date.toDate(), id: doc.id }));
 
         this.answers.next(data);
+        this.handleOpenAnswers.next(true);
       },
     })
   }

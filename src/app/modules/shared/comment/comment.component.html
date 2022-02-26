@@ -28,15 +28,15 @@
       </div>
 
       <button
-        *ngIf="(countAnswers | async) > 0 && !answers.value.length && handleOpenWriteComment.value"
+        *ngIf="(countAnswers | async) > 0 && !handleOpenAnswers.value"
         mat-button
         (click)="getAnswersToDisplay()"
       >Zobacz odpowiedzi ({{ countAnswers.value }})</button>
 
       <button
-        #hide
+        *ngIf="(countAnswers | async) > 0 && (handleOpenAnswers | async)"
         mat-button
-        (click)="hideAnswers()"
+        (click)="hideAnswers(false)"
       >Ukryj odpowiedzi</button>
     </div>
   </div>
