@@ -84,7 +84,7 @@ export class ArticlePageComponent implements OnInit {
   }
 
   getComments(articleId: string) {
-    this.commentsService.getComments(articleId).subscribe({
+    this.commentsService.getComments(articleId, 'articles').subscribe({
       next: commentsDocs => {
         let allComments: CommentModel[] = [];
         commentsDocs.forEach(comment => {

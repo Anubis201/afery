@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { increment } from 'firebase/firestore';
 import { from } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
+import { CommentsType } from 'src/app/models/others/comments.type';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,13 @@ export class CommentsService {
     return from(this.getRef().ref.where('articleId', '==', articleId).get())
   }
 
-  getComments(articleId: string) {
-    return from(this.getRef().ref.where('articleId', '==', articleId).where('isAnswer', '==', false).get())
+  getComments(parentId: string, pollsOrArticles: CommentsType) {
+    const ref = this.getRef().ref.where('isAnswer', '==', false);
+
+    if (pollsOrArticles === 'articles')
+      return from(ref.where('articleId', '==', parentId).get());
+    else
+      return from(ref.where('pollId', '==', parentId).get());
   }
 
   getAnswers(commentId: string) {

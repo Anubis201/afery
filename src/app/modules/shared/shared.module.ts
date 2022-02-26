@@ -21,6 +21,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoginComponent } from './login/login.component';
 import { SaveButtonComponent } from './save-button/save-button.component';
 import { IsLoadingComponent } from './is-loading/is-loading.component';
+import { GlobalCommentsComponent } from './global-comments/global-comments.component';
 
 const declarations = [
   MillionsPipe,
@@ -33,6 +34,7 @@ const declarations = [
   ArticleComponent,
   ShortArticleComponent,
   LoginComponent,
+  GlobalCommentsComponent,
 ]
 
 const imports = [

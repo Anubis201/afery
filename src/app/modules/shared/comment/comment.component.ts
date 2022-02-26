@@ -59,8 +59,10 @@ export class CommentComponent implements OnInit {
     this.workingCommentsService.extendedAddComment(rlyAnswer).subscribe({
       next: () => {
         this.answers.next([{ ...rlyAnswer, name: this.userName }, ...this.answers.value]);
+        console.log(this.answers.value)
         this.countAnswers.next(this.countAnswers.value + 1);
         this.isSaving.next(false);
+        this.handleOpenAnswers.next(true);
       },
       error: () => {
         this.isSaving.next(false);

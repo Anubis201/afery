@@ -67,7 +67,7 @@ export class ShortArticleComponent implements OnInit {
 
   getComments() {
     this.isLoading.next(true);
-    this.commentsService.getComments(this.dialogData.article.id).subscribe({
+    this.commentsService.getComments(this.dialogData.article.id, 'articles').subscribe({
       next: commentsDocs => {
         let allComments: CommentModel[] = [];
 

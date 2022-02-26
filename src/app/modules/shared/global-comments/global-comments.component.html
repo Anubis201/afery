@@ -1,0 +1,16 @@
+<app-write-comment
+  [isSavingComment]="isSavingComment | async"
+  [countComment]="(comments | async).length"
+  (addComment)="addComment($event)"
+></app-write-comment>
+
+
+<div class="comments">
+  <app-comment
+    *ngFor="let comment of comments.value"
+    [isAdmin]="isAdmin | async"
+    [userName]="userName | async"
+    [comment]="comment"
+    (deleteComment)="deleteComment($event)"
+  ></app-comment>
+</div>
