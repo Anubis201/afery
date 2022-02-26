@@ -30,7 +30,6 @@ export class CommentComponent implements OnInit {
   ) {}
 
   handleOpenWriteComment = new BehaviorSubject<boolean>(false)
-  handleOpenAnswers = new BehaviorSubject<boolean>(false)
   isSaving = new BehaviorSubject<boolean>(false)
   countAnswers = new BehaviorSubject<number>(0)
   answers = new BehaviorSubject<CommentModel[]>([])
@@ -43,6 +42,11 @@ export class CommentComponent implements OnInit {
       this.commentMode.next('like');
     else if (localStorage.getItem(this.comment.id) === 'dislike')
       this.commentMode.next('dislike');
+  }
+
+  hideAnswers() {
+    this.answers.next([]);
+    this.handleOpenWriteComment.next(false);
   }
 
   addAnswer(answer: CommentModel) {
@@ -62,7 +66,6 @@ export class CommentComponent implements OnInit {
         console.log(this.answers.value)
         this.countAnswers.next(this.countAnswers.value + 1);
         this.isSaving.next(false);
-        this.handleOpenAnswers.next(true);
       },
       error: () => {
         this.isSaving.next(false);
@@ -78,7 +81,6 @@ export class CommentComponent implements OnInit {
         docs.forEach(doc => data.push({ ...doc.data() as CommentModel, date: (doc.data() as any).date.toDate(), id: doc.id }));
 
         this.answers.next(data);
-        this.handleOpenAnswers.next(true);
       },
     })
   }
