@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
@@ -36,9 +36,11 @@ export class AllArticlesComponent implements OnInit {
   constructor(
     private articlesService: ArticlesService,
     private titleService: Title,
+    private meta: Meta,
   ) { }
 
   ngOnInit() {
+    this.metaTags();
     this.data.next(this.createPageTree() as DataType)
 
     this.getTopArticle();
@@ -47,8 +49,6 @@ export class AllArticlesComponent implements OnInit {
     this.getArticles(ArticlesTypesEnum.PoliticalParties);
     // Pobiera 4 artykuły z kategori polityycy
     this.getArticles(ArticlesTypesEnum.Politicians);
-
-    this.titleService.setTitle('Afery - Polityka i Sondaże')
   }
 
   getArticles(type: ArticlesTypesEnum, orderChange?: OrderEnum) {
@@ -109,6 +109,11 @@ export class AllArticlesComponent implements OnInit {
     this.articlesService.getFirstTOPArticle().subscribe(snap => {
       snap.forEach(doc => this.topArticle.next({ ...doc.data() as ArticleModel, id: doc.id }))
     })
+  }
+
+  private metaTags() {
+    this.titleService.setTitle('Afery - Polityka i inne tematy');
+    this.meta.updateTag({ name:'description', content:'Afery naszych polityków, partii i innych osobistości. Mamy miejsce, gdzie możesz pogadać o wszystkim bez żadnej cenzury oraz miejsce, gdzie zbieramy sondaże (nie tylko partii).' }, "name='description'");
   }
 
   private changeSection(type: ArticlesTypesEnum, isLoading: boolean) {

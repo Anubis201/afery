@@ -19,7 +19,7 @@ export class ChatComponent implements OnInit {
   }
 
   private metaTags() {
-    this.titleService.setTitle('');
-    this.meta.updateTag({ name:'description', content:'' }, "name='description'");
+    this.titleService.setTitle('Afery - Bulwar to rozmowy i dyskusje');
+    this.meta.updateTag({ name:'description', content:'Na naszym bulwarze możesz pisać o wszystkim bez żadnej cenzury.' }, "name='description'");
   }
 }
