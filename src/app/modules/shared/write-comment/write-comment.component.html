@@ -1,21 +1,13 @@
 <div
   *ngIf="!answerMode"
   class="label"
->Komentarza: {{ countComment }}</div>
+>Komentarze: {{ countComment }}</div>
 
 <form
   *ngIf="!isSavingComment"
   [formGroup]="form"
   [class.left-margin]="answerMode"
 >
-  <div class="name">
-    <mat-form-field appearance="fill">
-      <mat-label>Nazwa</mat-label>
-      <input matInput formControlName="name" autocomplete="off" type="text">
-      <mat-error *ngIf="!form.get('name')?.hasError('required')">Max długośc to {{ nameLength }} znaków</mat-error>
-    </mat-form-field>
-  </div>
-
   <div class="desc">
     <mat-form-field appearance="fill">
       <mat-label>Treść komentarza</mat-label>
@@ -30,5 +22,5 @@
 </form>
 
 <div *ngIf="isSavingComment" class="loading">
-  <mat-spinner></mat-spinner>
+  <mat-spinner [diameter]="60"></mat-spinner>
 </div>

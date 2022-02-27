@@ -1,164 +1,39 @@
-<div class="container page d-none d-sm-block">
+<div class="page">
   <ng-container *ngIf="article?.imageSrc">
-    <div class="page__organization">
-      <ng-container *ngIf="article?.type === ArticlesTypesEnum.PoliticalParties">
-        <img
-          [src]="'/assets/icons/parties/' + PartiesEnum[article?.entity] + '.jpg'"
-          [alt]="'Logo ' + PartiesEnum[article.entity]"
-        >
-        <span>{{ PartiesEnum[article?.entity] }}</span>
-        <span class="page__organization--break"></span>
-      </ng-container>
-      <span
-        *ngIf="article?.costs"
-        class="page__costs"
-      >
-        <span class="page__costs--title">Koszty: </span>
-        <span class="page__costs--icons">
-          <mat-icon>money_off</mat-icon>
-          {{ article?.costs | millions }}
-          <span
-            *ngIf="article?.viewership >= 100"
-            class="page__costs--break"
-          > | </span>
-        </span>
-        <span
-          *ngIf="article?.viewership >= 100"
-          class="page__viewership page__costs--icons"
-        >
-          <mat-icon>remove_red_eye</mat-icon>
-          {{ article?.viewership }}
-        </span>
-      </span>
-    </div>
-    <div class="page__title">
-      <h1>{{ article?.title }}</h1>
-      <div
-        *ngIf="isAdmin"
-        class="page__title--buttons"
-      >
-        <button
-          mat-icon-button
-          matTooltip="Edytuj artykuł"
-          (click)="handleEditArticle(article?.id)"
-        >
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button
-          *ngIf="!article?.isHide"
-          mat-icon-button
-          matTooltip="Ustaw jako TOP artykuł"
-          (click)="setToFirstArticle(article?.id)"
-        >
-          <mat-icon>table_chart</mat-icon>
-        </button>
-        <button
-          *ngIf="article?.isHide"
-          mat-icon-button
-          matTooltip="Pokaż artykuł"
-          (click)="showArticle(article?.id)"
-        >
-          <mat-icon>remove_red_eye</mat-icon>
-        </button>
-        <button
-          mat-icon-button
-          matTooltip="Usuń artykuł"
-          (click)="handleDeleteArticle(article?.id)"
-        >
-          <mat-icon>delete_outline</mat-icon>
-        </button>
-      </div>
-    </div>
-    <div class="page__links">
-      <div class="page__links__time">
-        <div>
-          <div class="page__links__time__author">Bartosz Karczmarski</div>
-          <div>{{ article?.createDate | date:'dd.MM.yyyy, HH:mm' }}</div>
-        </div>
-        <div class="page__links__time--align">
-          <div class="page__links__time__read"></div>
-          {{ article?.text | timeToRead }} min czytania
-        </div>
-      </div>
-      <div class="page__links__time__read"></div>
-      <div class="page__links__actions">
-        <div class="page__links__actions--action">
-          <button
-            mat-icon-button
-            (click)="approve()"
-          >
-            <img
-              class="plus"
-              src="/assets/icons/comment/plus.svg"
-              alt="Plus"
-              [class.choosed-plus]="actionMode === 'like'"
-            >
-          </button>
-          <span>{{ article.likes ?? 0 }}</span>
-        </div>
-        <div class="page__links__actions--action">
-          <button
-            mat-icon-button
-            (click)="dislike()"
-          >
-            <img
-              class="minus"
-              src="/assets/icons/comment/minus.svg"
-              alt="Minus"
-              [class.choosed-minus]="actionMode === 'dislike'"
-            >
-          </button>
-          <span>{{ article.dislikes ?? 0 }}</span>
-        </div>
-      </div>
-      <div class="page__links__socials">
-        <div>Udostępnij</div>
-        <a
-          mat-icon-button
-          target="_blank"
-          rel="noopener noreferrer"
-          [href]="'https://www.facebook.com/share.php?u=' + pageUrl()"
-        >
-          <img
-            src="/assets/socials/facebook.svg"
-            alt="Ikona Facebooka"
-          >
-        </a>
-        <a
-          mat-icon-button
-          target="_blank"
-          rel="noopener noreferrer"
-          [href]="'https://twitter.com/intent/tweet?url=' + pageUrl()"
-        >
-          <img
-            src="/assets/socials/twitter.svg"
-            alt="Ikona Twittera"
-          >
-        </a>
-      </div>
-    </div>
-    <div *ngIf="article?.subtitle?.length" class="page__subtitle">{{ article?.subtitle }}</div>
-    <div class="page__image-section">
-      <img
-        class="page__image-section--image"
-        [src]="article?.imageSrc"
-        [alt]="article.title + ' - Afery'"
-      >
-      <div class="page__image-section--author">{{ article?.imageDesc }}</div>
-    </div>
-    <div
-      class="page__desc"
-      [innerHtml]="article?.text"
-    ></div>
-    <app-write-comment
-      [isSavingComment]="isSavingComment"
-      [countComment]="comments?.length"
-      (addComment)="handleAddComment($event)"
-    ></app-write-comment>
-    <app-comments
-      [comments]="comments"
+    <app-pc-header
       [isAdmin]="isAdmin"
-      (deleteComment)="handleDeleteComment($event)"
-    ></app-comments>
+      [actionMode]="actionMode"
+      [type]="article?.type"
+      [entity]="article?.entity"
+      [costs]="article?.costs"
+      [title]="article?.title"
+      [createDate]="article?.createDate"
+      [text]="article?.text"
+      [likes]="article?.likes"
+      [dislikes]="article?.dislikes"
+      (setToFirstArticle)="setToFirstArticle.emit()"
+      (handleEditArticle)="handleEditArticle.emit()"
+      (handleDeleteArticle)="handleDeleteArticle.emit()"
+      (approve)="approve.emit()"
+      (dislike)="dislike.emit()"
+    ></app-pc-header>
+
+    <app-pc-main
+      [subtitle]="article?.subtitle"
+      [imageSrc]="article?.imageSrc"
+      [title]="article?.title"
+      [text]="article?.text"
+      [imageDesc]="article?.imageDesc"
+    ></app-pc-main>
+
+    <app-global-comments
+      [parentId]="article.id"
+      [commentType]="'articles'"
+    ></app-global-comments>
+
+    <app-pc-short-article
+      *ngIf="nextArticle"
+      [article]="nextArticle"
+    ></app-pc-short-article>
   </ng-container>
 </div>

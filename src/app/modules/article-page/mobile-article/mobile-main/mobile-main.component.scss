@@ -1,0 +1,19 @@
+@use '../../article-page.component' as main;
+
+:host {
+  display: block;
+  padding: 0 0.7rem;
+}
+
+.subtitle {
+  font-weight: 500;
+  margin-bottom: 15px;
+  margin-top: 11px;
+  line-height: 29px;
+  font-size: 17px;
+}
+
+.desc {
+  @include main.text(16px);
+  line-height: 29px;
+}

@@ -2,13 +2,18 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { GoogleAuthProvider } from 'firebase/auth';
+import { BehaviorSubject, catchError, from, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  private readonly DefaultName = 'Anonim'
+
   isAdmin = new BehaviorSubject<boolean>(false)
+  isLogin = new BehaviorSubject<boolean>(false)
+  userName = new BehaviorSubject<string>(this.DefaultName)
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -16,7 +21,12 @@ export class UserService {
     private router: Router,
   ) {
     this.fireAuth.user.subscribe(user => {
-      this.isAdmin.next(!!user)
+      this.isLogin.next(!!user);
+
+      this.userName.next(user?.displayName || user?.email || this.DefaultName);
+
+      // NA CHWILE :D
+      this.isAdmin.next(user?.email && user.email === user?.photoURL && this.isLogin.value);
     })
   }
 
@@ -32,5 +42,22 @@ export class UserService {
     .catch(() => {
       this._snackBar.open('Napewno jesteś mną?', 'close');
     })
+  }
+
+  loginAsGoogle() {
+    return from(this.fireAuth.signInWithPopup(new GoogleAuthProvider()))
+      .pipe(
+        map(() => {
+          this._snackBar.open('Zalogowałeś się', 'close');
+        }),
+        catchError(() => {
+          this._snackBar.open('Nie udało się zalogować', 'close');
+          return []
+        })
+      )
+  }
+
+  loginAnonymously() {
+    return from(this.fireAuth.signInAnonymously())
   }
 }

@@ -5,7 +5,6 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, catchError, from, map, of, throwError, zip } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
-import { CommentModel } from 'src/app/models/articles/comment.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
@@ -23,9 +22,8 @@ import { UserService } from 'src/app/services/global/user/user.service';
 export class ArticlePageComponent implements OnInit {
   article = new BehaviorSubject<ArticleModel | null>(null)
   isExists = new BehaviorSubject<boolean>(true)
-  comments = new BehaviorSubject<CommentModel[]>([])
   actionMode = new BehaviorSubject<'like' | 'dislike' | null>(null)
-  isSavingComment = new BehaviorSubject<boolean>(false)
+  nextArticle = new BehaviorSubject<ArticleModel>(null)
 
   readonly PartiesEnum = PartiesEnum
   readonly ArticlesTypesEnum = ArticlesTypesEnum
@@ -50,72 +48,18 @@ export class ArticlePageComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(({ articleId }) => {
       this.getData(articleId);
-      this.getComments(articleId);
       this.updateViewership(articleId);
     })
   }
 
-  handleAddComment(comment: CommentModel) {
-    this.isSavingComment.next(true);
-    const rlyComment: CommentModel = {
-      ...comment,
-      articleId: this.article.value?.id as string,
-      isNew: true,
-      isAnswer: false,
-    };
-
-    this.commentsService.addComment(rlyComment).subscribe({
-      next: doc => {
-        this.comments.next([{ ...rlyComment, id: doc.id }, ...this.comments.value]);
-        this.isSavingComment.next(false);
-      },
-      error: () => {
-        this.isSavingComment.next(false);
-      }
-    })
-  }
-
-  getComments(articleId: string) {
-    this.commentsService.getComments(articleId).subscribe({
-      next: commentsDocs => {
-        let allComments: CommentModel[] = [];
-        commentsDocs.forEach(comment => {
-          allComments.push({
-            ...comment.data() as CommentModel,
-            date: (comment.data() as any).date.toDate(),
-            id: comment.id
-          });
-        });
-        this.comments.next(allComments);
-      }
-    })
-  }
-
-  pageUrl() {
-    return location.href
-  }
-
-  handleDeleteComment(id: string) {
-    this.commentsService.deteleComment(id).subscribe({
-      next: () => {
-        this.comments.next(this.comments.value.filter(filterV => filterV.id !== id));
-        this._snackBar.open('Komentarz został usunięty', 'close');
-      },
-      error: () => {
-        this._snackBar.open('Błąd', 'close');
-      }
-    })
-  }
-
-  handleDeleteArticle(id: string) {
+  handleDeleteArticle() {
     // aby usunąć artykuł najpierw musi miec potwierdzenie ze usunieto zdjecie i komentarze
     zip(
-      this.removeAllComments(id),
-      this.imagesService.deleteImage(id),
+      this.removeAllComments(this.article.value.id),
+      this.imagesService.deleteImage(this.article.value.id),
     ).subscribe({
       next: ([]) => {
-
-        this.articlesService.deleteArticle(id).subscribe({
+        this.articlesService.deleteArticle(this.article.value.id).subscribe({
           next: () => {
             this._snackBar.open('Artykuł został usunięty', 'close');
             this.router.navigateByUrl('/');
@@ -124,16 +68,15 @@ export class ArticlePageComponent implements OnInit {
             this._snackBar.open('Błąd usuwania artykułu', 'close');
           }
         })
-
       },
       error: () => this._snackBar.open('Nie udało się usunąć artykułu', 'close')
     })
   }
 
-  handleEditArticle(id: string) {
+  handleEditArticle() {
     this.router.navigate(
       ['/admin/create'],
-      { queryParams: { id } }
+      { queryParams: { id: this.article.value.id } }
     )
   }
 
@@ -193,7 +136,7 @@ export class ArticlePageComponent implements OnInit {
     })
   }
 
-  setToFirstArticle(id: string) {
+  setToFirstArticle() {
     this.articlesService.getFirstTOPArticle().pipe(
       map(value => {
         if (value.size) {
@@ -205,7 +148,7 @@ export class ArticlePageComponent implements OnInit {
         return of();
       }),
       map(() => {
-        return this.articlesService.editArticle({ isFirstArticle: true }, id)
+        return this.articlesService.editArticle({ isFirstArticle: true }, this.article.value.id)
       })
     ).subscribe({
       next: () => {
@@ -266,14 +209,28 @@ export class ArticlePageComponent implements OnInit {
         this.article.next({ ...article.data() as ArticleModel, id: article.id, createDate: (article.data() as any).createDate.toDate() });
         this.prepereTagsAndTitle();
 
-        if (location.href.slice(-5) !== 'zmien') this.router.navigate(['artykul/', this.article.value.id, ChangePolishChars(this.article.value.title.replace(/\s/g, '-'))]);
+        // upewnia sie czy wszystko jest dobrze z linkiem
+        if (location.href.slice(-5) !== 'zmien')
+          this.router.navigate(['artykul/', this.article.value.id, ChangePolishChars(this.article.value.title.replace(/\s/g, '-'))]);
 
+        // sprawdza czy artykul zostal polubiony
         if (localStorage.getItem(this.article.value.id) === 'like')
           this.actionMode.next('like');
         else if (localStorage.getItem(this.article.value.id) === 'dislike')
           this.actionMode.next('dislike');
 
+        // pobiera kolejny artykul do pokazania, narazie proste wyszukiwanie kolejnego
+        this.getNextArticle();
+
       } else this.isExists.next(false);
+    })
+  }
+
+  private getNextArticle() {
+    this.articlesService.getNextArticle(this.article.value.createDate).subscribe(docs => {
+      docs.forEach(doc => {
+        this.nextArticle.next({ ...doc.data() as ArticleModel, id: doc.id, createDate: (doc.data() as any).createDate.toDate() });
+      })
     })
   }
 

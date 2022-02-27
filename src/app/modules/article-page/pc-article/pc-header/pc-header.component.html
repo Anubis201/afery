@@ -1,0 +1,132 @@
+<div class="organization">
+  <ng-container *ngIf="type === ArticlesTypesEnum.PoliticalParties">
+    <img
+      [src]="'/assets/icons/parties/' + PartiesEnum[entity] + '.jpg'"
+      [alt]="'Logo ' + PartiesEnum[entity]"
+    >
+    <span>{{ PartiesEnum[entity] }}</span>
+  </ng-container>
+
+  <span
+    *ngIf="costs"
+    class="costs"
+  >
+    <span class="costs--title">Koszty: </span>
+
+    <span class="costs--icons">
+      <mat-icon>money_off</mat-icon>
+      {{ costs | millions }}
+    </span>
+  </span>
+</div>
+
+<div class="title">
+  <h1>{{ title }}</h1>
+
+  <div
+    *ngIf="isAdmin"
+    class="title--buttons"
+  >
+    <button
+      mat-icon-button
+      matTooltip="Edytuj artykuł"
+      (click)="handleEditArticle.emit()"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      matTooltip="Ustaw jako TOP artykuł"
+      (click)="setToFirstArticle.emit()"
+    >
+      <mat-icon>table_chart</mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      matTooltip="Usuń artykuł"
+      (click)="handleDeleteArticle.emit()"
+    >
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div class="links">
+  <div class="links__time">
+    <div>
+      <div class="links__time__author">Bartosz Karczmarski</div>
+      <div>{{ createDate | date:'dd.MM.yyyy, HH:mm' }}</div>
+    </div>
+    <div class="links__time--align">
+      <div class="links__time__read"></div>
+      {{ text | timeToRead }} min czytania
+    </div>
+  </div>
+  <div
+    *ngIf="!isShort"
+    class="links__time__read"
+  ></div>
+  <div
+    *ngIf="!isShort"
+    class="links__actions"
+  >
+    <div class="links__actions--action">
+      <button
+        mat-icon-button
+        (click)="approve.emit()"
+      >
+        <img
+          class="plus"
+          src="/assets/icons/comment/plus.svg"
+          alt="Plus"
+          [class.choosed-plus]="actionMode === 'like'"
+        >
+      </button>
+      <span>{{ likes ?? 0 }}</span>
+    </div>
+    <div class="links__actions--action">
+      <button
+        mat-icon-button
+        (click)="dislike.emit()"
+      >
+        <img
+          class="minus"
+          src="/assets/icons/comment/minus.svg"
+          alt="Minus"
+          [class.choosed-minus]="actionMode === 'dislike'"
+        >
+      </button>
+      <span>{{ dislikes ?? 0 }}</span>
+    </div>
+  </div>
+  <div
+    *ngIf="!isShort"
+    class="links__socials"
+  >
+    <div>Udostępnij</div>
+    <a
+      mat-icon-button
+      target="_blank"
+      rel="noopener noreferrer"
+      [href]="'https://www.facebook.com/share.php?u=' + pageUrl()"
+    >
+      <img
+        src="/assets/socials/facebook.svg"
+        alt="Ikona Facebooka"
+      >
+    </a>
+    <a
+      mat-icon-button
+      target="_blank"
+      rel="noopener noreferrer"
+      [href]="'https://twitter.com/intent/tweet?url=' + pageUrl()"
+    >
+      <img
+        src="/assets/socials/twitter.svg"
+        alt="Ikona Twittera"
+      >
+    </a>
+  </div>
+</div>

@@ -111,3 +111,11 @@ h2 {
     right: 0 !important;
   }
 }
+
+.tox .tox-listboxfield .tox-listbox--select, .tox .tox-textarea, .tox .tox-textfield, .tox .tox-toolbar-textfield {
+  color: black !important;
+}
+
+.mat-menu-content, .mat-dialog-container {
+  background-color: #2a2a2a;
+}

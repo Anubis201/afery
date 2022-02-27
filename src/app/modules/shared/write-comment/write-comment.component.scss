@@ -6,12 +6,8 @@ form {
 
   }
 
-  .name {
-    margin-top: $margin-content;
-  }
-
   .desc {
-    margin-top: 3px;
+    margin-top: 1.5rem;
   }
 
   .create {
@@ -22,7 +18,7 @@ form {
 .loading {
   margin-top: $margin-content;
   align-items: center;
-  height: 200px;
+  height: 100px;
 }
 
 .left-margin {

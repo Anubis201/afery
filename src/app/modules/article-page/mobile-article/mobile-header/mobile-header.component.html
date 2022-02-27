@@ -1,0 +1,93 @@
+<img
+  *ngIf="type === ArticlesTypesEnum.PoliticalParties"
+  class="org"
+  [src]="'/assets/icons/parties/' + PartiesEnum[entity] + '.jpg'"
+  [alt]="'Logo partii ' + PartiesEnum[entity]"
+/>
+
+<img
+  class="image"
+  [src]="imageSrc"
+  [alt]="title + ' - Afery'"
+/>
+
+<div class="author">{{ imageDesc }}</div>
+
+<div class="content">
+  <div class="content__title">
+    <h1>{{ title }}</h1>
+  </div>
+
+  <div class="content__time">
+    <div class="content__time__rest">
+      <div>Bartosz Karczmarski</div>
+
+      <div>{{ createDate | date: "dd.MM.yyyy, HH:mm" }}</div>
+    </div>
+
+    <div
+      class="content__time__all"
+      [style.margin-bottom]="isShort ? '7px' : '0'"
+    >
+      <div>{{ text | timeToRead }} min czytania</div>
+
+      <div
+        *ngIf="!isShort"
+        class="content__time__all--read"
+      ></div>
+
+      <div
+        *ngIf="!isShort"
+        class="content__time__all__actions"
+      >
+        <div class="content__time__all__actions--action">
+          <button mat-icon-button (click)="approve.emit()">
+            <img
+              class="plus"
+              src="/assets/icons/comment/plus.svg"
+              alt="Plus"
+              [class.choosed-plus]="actionMode === 'like'"
+            />
+          </button>
+          <span>{{ likes ?? 0 }}</span>
+        </div>
+
+        <div class="content__time__all__actions--action">
+          <button mat-icon-button (click)="dislike.emit()">
+            <img
+              class="minus"
+              src="/assets/icons/comment/minus.svg"
+              alt="Minus"
+              [class.choosed-minus]="actionMode === 'dislike'"
+            />
+          </button>
+          <span>{{ dislikes ?? 0 }}</span>
+        </div>
+      </div>
+      <div
+        *ngIf="!isShort"
+        class="content__time__all__socials"
+      >
+        <div>Udostępnij</div>
+
+        <a
+          mat-icon-button
+          target="_blank"
+          rel="noopener noreferrer"
+          [href]="'https://www.facebook.com/share.php?u=' + pageUrl()"
+        >
+          <img src="/assets/socials/facebook.svg" alt="Ikona Facebooka" />
+        </a>
+
+        <a
+          mat-icon-button
+          target="_blank"
+          rel="noopener noreferrer"
+          [href]="'https://twitter.com/intent/tweet?url=' + pageUrl()"
+        >
+          <img src="/assets/socials/twitter.svg" alt="Ikona Twittera" />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

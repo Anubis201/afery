@@ -32,13 +32,15 @@
         mat-button
         (click)="getAnswersToDisplay()"
       >Zobacz odpowiedzi ({{ countAnswers.value }})</button>
+
       <button
-        *ngIf="handleOpenAnswers.value"
+        *ngIf="(countAnswers | async) > 0 && (handleOpenAnswers | async)"
         mat-button
-        (click)="handleOpenAnswers.next(false)"
+        (click)="hideAnswers(false)"
       >Ukryj odpowiedzi</button>
     </div>
   </div>
+
   <div class="comment__buttons">
     <button
       *ngIf="isAdmin"
@@ -51,19 +53,21 @@
     <ng-content select="[customButtons]"></ng-content>
   </div>
 </div>
+
 <!-- Pisanie odpowiedzi -->
 <app-write-comment
   *ngIf="handleOpenWriteComment | async"
   [isSavingComment]="isSaving | async"
-  [answerMode]="true"
   (addComment)="addAnswer($event)"
+  [answerMode]="true"
 ></app-write-comment>
+
 <!-- Odpowiedzi -->
 <div
-  *ngIf="handleOpenAnswers | async"
+  *ngIf="(answers | async).length"
   class="answer"
 >
-  <ng-container *ngFor="let answer of answers | async">
+  <ng-container *ngFor="let answer of answers.value">
     <app-answer
       [data]="answer"
       [isAdmin]="isAdmin"

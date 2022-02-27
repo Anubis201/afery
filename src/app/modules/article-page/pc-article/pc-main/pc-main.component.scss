@@ -1,0 +1,45 @@
+@use '../../article-page.component' as main;
+@use '../../../shared/styles/image';
+
+:host {
+  display: block;
+}
+
+.subtitle {
+  margin-top: 1rem;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 31px;
+}
+
+.image-section {
+  margin-top: 1.6rem;
+  margin-bottom: 2rem;
+
+  &--author {
+    margin-top: 3px;
+    font-size: .75rem;
+    color: #e4e4e4;
+    font-family: "Raleway", "Helvetica", "Arial", sans-serif;
+  }
+
+    &--image {
+      width: 100%;
+      border-radius: main.$image-border-radius;
+      height: 250px;
+      @include image.imageBackground;
+
+      @media (min-width: 576px) {
+        height: 300px;
+      }
+
+      @media (min-width: 768px) {
+        height: 400px;
+      }
+    }
+}
+
+.desc {
+  @include main.text(18px);
+  line-height: 32px;
+}

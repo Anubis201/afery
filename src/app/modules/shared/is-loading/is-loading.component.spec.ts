@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MandatesComponent } from './mandates.component';
+import { IsLoadingComponent } from './is-loading.component';
 
-describe('MandatesComponent', () => {
-  let component: MandatesComponent;
-  let fixture: ComponentFixture<MandatesComponent>;
+describe('IsLoadingComponent', () => {
+  let component: IsLoadingComponent;
+  let fixture: ComponentFixture<IsLoadingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MandatesComponent ]
+      declarations: [ IsLoadingComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MandatesComponent);
+    fixture = TestBed.createComponent(IsLoadingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

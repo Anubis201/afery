@@ -1,8 +1,10 @@
 <app-top-nav
   class="container"
   [isAdmin]="isAdmin | async"
+  [isLogin]="isLogin | async"
   [isOpenMenu]="isOpenMenu"
   (logout)="logout()"
+  (login)="login()"
   (handleMenuNav)="handleMenu.emit()"
 ></app-top-nav>
 

@@ -18,6 +18,10 @@ import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ShortArticleComponent } from './short-article/short-article.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoginComponent } from './login/login.component';
+import { SaveButtonComponent } from './save-button/save-button.component';
+import { IsLoadingComponent } from './is-loading/is-loading.component';
+import { GlobalCommentsComponent } from './global-comments/global-comments.component';
 
 const declarations = [
   MillionsPipe,
@@ -28,7 +32,9 @@ const declarations = [
   WriteCommentComponent,
   AnswerComponent,
   ArticleComponent,
-  ShortArticleComponent
+  ShortArticleComponent,
+  LoginComponent,
+  GlobalCommentsComponent,
 ]
 
 const imports = [
@@ -48,6 +54,8 @@ const imports = [
 @NgModule({
   declarations: [
     ...declarations,
+    SaveButtonComponent,
+    IsLoadingComponent,
   ],
   imports: [
     CommonModule,

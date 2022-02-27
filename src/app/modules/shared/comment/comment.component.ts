@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
+import { WorkingCommentsService } from 'src/app/services/global/working-comments/working-comments.service';
 
 type CommentMode = 'like' | 'dislike' | null;
 
@@ -16,6 +17,7 @@ export class CommentComponent implements OnInit {
   @Input() comment: CommentModel
   @Input() isAdmin: boolean
   @Input() isMenagaComponent: boolean = false
+  @Input() userName: string
 
   @Output() deleteComment = new EventEmitter<string>()
   @Output() deleteAnswer = new EventEmitter<string>()
@@ -24,14 +26,15 @@ export class CommentComponent implements OnInit {
     private commentsService: CommentsService,
     private changeDetectorRef: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
+    private workingCommentsService: WorkingCommentsService,
   ) {}
 
   handleOpenWriteComment = new BehaviorSubject<boolean>(false)
-  handleOpenAnswers = new BehaviorSubject<boolean>(false)
   isSaving = new BehaviorSubject<boolean>(false)
   countAnswers = new BehaviorSubject<number>(0)
   answers = new BehaviorSubject<CommentModel[]>([])
   commentMode = new BehaviorSubject<CommentMode>(null)
+  handleOpenAnswers = new BehaviorSubject<boolean>(false)
 
   ngOnInit() {
     if (!this.isMenagaComponent && this.comment?.id) this.getCountAnswers();
@@ -42,8 +45,15 @@ export class CommentComponent implements OnInit {
       this.commentMode.next('dislike');
   }
 
+  hideAnswers() {
+    this.answers.next([]);
+    this.handleOpenWriteComment.next(false);
+    this.handleOpenAnswers.next(false);
+  }
+
   addAnswer(answer: CommentModel) {
     this.isSaving.next(true);
+
     const rlyAnswer: CommentModel = {
       ...answer,
       articleId: this.comment.articleId,
@@ -52,11 +62,11 @@ export class CommentComponent implements OnInit {
       isAnswer: true,
     };
 
-    this.commentsService.addComment(rlyAnswer).subscribe({
+    this.workingCommentsService.extendedAddComment(rlyAnswer).subscribe({
       next: () => {
-        this.isSaving.next(false);
+        this.answers.next([{ ...rlyAnswer, name: this.userName }, ...this.answers.value]);
         this.countAnswers.next(this.countAnswers.value + 1);
-        this.answers.next([rlyAnswer, ...this.answers.value]);
+        this.isSaving.next(false);
       },
       error: () => {
         this.isSaving.next(false);

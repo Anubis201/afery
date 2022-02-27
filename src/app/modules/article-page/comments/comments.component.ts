@@ -10,6 +10,7 @@ import { CommentModel } from 'src/app/models/articles/comment.model';
 export class CommentsComponent {
   @Input() comments: CommentModel[] = []
   @Input() isAdmin: boolean
+  @Input() userName: string
 
   @Output() deleteComment = new EventEmitter<string>()
 }

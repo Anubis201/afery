@@ -27,16 +27,28 @@
   font-size: 1.9rem;
   letter-spacing: .8rem;
   font-family: 'Material Icons';
-  padding-bottom: 7px;
+  padding-bottom: 11px;
   line-height: 3rem;
   cursor: pointer;
+  margin-right: 1rem;
+
+  @media (min-width: 576px) {
+    margin-right: 0;
+    padding-bottom: 7px;
+  }
 }
 
-.socials {
-  filter: invert(94%) sepia(0%) saturate(24%) hue-rotate(24deg) brightness(105%) contrast(108%);
+.user {
+  color: white;
 
-  img {
-    width: 24px;
-    height: 24px;
+  &__menu {
+
+    span {
+      font-weight: 500;
+    }
+
+    &:hover {
+      color: white;
+    }
   }
 }

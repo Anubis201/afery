@@ -1,0 +1,26 @@
+<mat-dialog-content class="title">Zaloguj się</mat-dialog-content>
+
+<mat-dialog-content class="mat-typography">
+
+  <!-- GOOGLE -->
+  <app-save-button
+    [color]="'primary'"
+    (click)="logiAsGoogle()"
+    [isSaving]="isLoading | async"
+  >
+    <img src="/assets/icons/auth/google.png" alt="ikona google">
+    <span>Google</span>
+  </app-save-button>
+
+  <!-- FACEBOOK -->
+
+  <!-- TWITTER -->
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    mat-dialog-close
+  >Anuluj</button>
+</mat-dialog-actions>

@@ -7,9 +7,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TopNavComponent {
-  @Input() isAdmin: boolean | null
-  @Input() isOpenMenu: boolean | null
+  @Input() isAdmin: boolean
+  @Input() isOpenMenu: boolean
+  @Input() isLogin: boolean
 
   @Output() logout = new EventEmitter<void>()
   @Output() handleMenuNav = new EventEmitter<void>()
+  @Output() login = new EventEmitter<void>()
 }

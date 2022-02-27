@@ -1,0 +1,10 @@
+<div
+  *ngIf="subtitle?.length"
+  class="subtitle"
+>{{ subtitle }}</div>
+
+<div
+  *ngIf="text?.length"
+  class="desc"
+  [innerHtml]="text"
+></div>

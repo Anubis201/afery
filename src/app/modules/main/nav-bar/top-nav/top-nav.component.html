@@ -9,18 +9,41 @@
 <!-- Logo -->
 <div class="logo" [routerLink]="['/']">AFERY</div>
 
-<!-- Social links -->
-<div class="socials">
-  <a mat-icon-button [routerLink]="['/szukaj']">
-    <mat-icon>search</mat-icon>
-  </a>
+<!-- Account -->
+<div class="user">
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="menuUser"
+  >
+    <mat-icon>account_circle</mat-icon>
+  </button>
 
-  <ng-container *ngIf="isAdmin">
-    <a matTooltip="Do strony admina" mat-icon-button [routerLink]="['/admin/create']">
-      <mat-icon>supervised_user_circle</mat-icon>
+  <mat-menu #menuUser="matMenu">
+    <button
+      *ngIf="!isLogin"
+      class="user__menu"
+      mat-menu-item
+      (click)="login.emit()"
+    >
+      <span>Zaloguj się</span>
+    </button>
+
+    <button
+      *ngIf="isLogin"
+      class="user__menu"
+      mat-menu-item
+      (click)="logout.emit()"
+    >
+      <span>Wyloguj się</span>
+    </button>
+
+    <a
+      *ngIf="isAdmin"
+      class="user__menu"
+      mat-menu-item
+      [routerLink]="['/admin/create']"
+    >
+      <span>Admin</span>
     </a>
-    <a matTooltip="Wyloguj mnie" mat-icon-button (click)="logout.emit()">
-      <mat-icon>delete_outline</mat-icon>
-    </a>
-  </ng-container>
+  </mat-menu>
 </div>

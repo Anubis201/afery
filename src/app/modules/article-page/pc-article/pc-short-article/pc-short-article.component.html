@@ -1,0 +1,23 @@
+<app-pc-header
+  [type]="article?.type"
+  [entity]="article?.entity"
+  [costs]="article?.costs"
+  [title]="article?.title"
+  [createDate]="article?.createDate"
+  [text]="article?.text"
+  [isShort]="true"
+></app-pc-header>
+
+<app-pc-main
+  [subtitle]="article?.subtitle"
+  [imageSrc]="article?.imageSrc"
+  [title]="article?.title"
+  [imageDesc]="article?.imageDesc"
+  [isShort]="true"
+></app-pc-main>
+
+<a
+  mat-raised-button
+  color="primary"
+  [href]="toArticlePage"
+>Przeczytaj cały artykuł</a>
