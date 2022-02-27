@@ -15,7 +15,6 @@
 :host {
   display: flex;
   flex-direction: column;
-  margin-bottom: 7rem;
 }
 
 .articles {
@@ -76,7 +75,8 @@
 
 .all-articles {
   margin-top: 5rem;
-  min-height: 75vh;
+  min-height: 90vh;
+  margin-bottom: 5rem;
 
   @media (min-width: 767px) {
     margin-top: 10.5rem;
