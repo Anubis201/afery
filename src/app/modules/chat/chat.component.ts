@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-chat',
@@ -8,9 +9,17 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class ChatComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private titleService: Title,
+    private meta: Meta,
+  ) { }
 
   ngOnInit() {
+    this.metaTags();
+  }
 
+  private metaTags() {
+    this.titleService.setTitle('');
+    this.meta.updateTag({ name:'description', content:'' }, "name='description'");
   }
 }
