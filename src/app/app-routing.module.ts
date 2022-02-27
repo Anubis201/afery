@@ -27,6 +27,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/poll-details/poll-details.module').then(m => m.PollDetailsModule),
   },
   {
+    path: 'bulwar',
+    loadChildren: () => import('./modules/chat/chat.module').then(m => m.ChatModule),
+  },
+  {
     path: '**',
     redirectTo: '/',
     pathMatch: 'full',

@@ -44,6 +44,10 @@ export class AppComponent implements OnInit {
         href: '/',
       },
       {
+        label: 'Bulwar',
+        href: '/bulwar',
+      },
+      {
         label: 'Sondaże',
         href: '/sondaze',
       },
