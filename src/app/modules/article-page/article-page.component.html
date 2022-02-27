@@ -3,35 +3,25 @@
 
   <app-pc-article
     class="d-none d-sm-block container"
-    [isSavingComment]="isSavingComment | async"
     [actionMode]="actionMode | async"
-    [comments]="comments | async"
     [article]="article | async"
     [isAdmin]="isAdmin | async"
     [nextArticle]="nextArticle | async"
-    [userName]="userName | async"
     (setToFirstArticle)="setToFirstArticle()"
     (handleEditArticle)="handleEditArticle()"
     (handleDeleteArticle)="handleDeleteArticle()"
-    (addComment)="handleAddComment($event)"
-    (handleDeleteComment)="handleDeleteComment($event)"
     (approve)="approve()"
     (dislike)="dislike()"
   ></app-pc-article>
 
   <app-mobile-article
     class="d-sm-none"
-    [isSavingComment]="isSavingComment.value"
     [actionMode]="actionMode.value"
-    [comments]="comments.value"
     [article]="article.value"
     [isAdmin]="isAdmin.value"
     [nextArticle]="nextArticle.value"
-    [userName]="userName.value"
     (approve)="approve()"
     (dislike)="dislike()"
-    (addComment)="handleAddComment($event)"
-    (handleDeleteComment)="handleDeleteComment($event)"
   ></app-mobile-article>
 </ng-container>
 

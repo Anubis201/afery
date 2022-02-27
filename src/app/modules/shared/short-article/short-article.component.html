@@ -3,30 +3,10 @@
 </mat-dialog-content>
 
 <mat-dialog-content class="mat-typography">
-  <app-write-comment
-    [isSavingComment]="isSavingComment | async"
-    [countComment]="(comments | async)?.length"
-    (addComment)="handleAddComment($event)"
-  ></app-write-comment>
-
-  <app-is-loading
-    *ngIf="isLoading.value"
-    [size]="60"
-  ></app-is-loading>
-
-  <div
-    *ngIf="!(isLoading | async)"
-    class="comments"
-  >
-    <app-comment
-      *ngFor="let comment of comments | async"
-      [comment]="comment"
-      [isAdmin]="isAdmin | async"
-      [userName]="userName | async"
-      [isMenagaComponent]="false"
-      (deleteComment)="deleteComment($event)"
-    ></app-comment>
-  </div>
+  <app-global-comments
+    [parentId]="dialogData.article?.id"
+    [commentType]="'articles'"
+  ></app-global-comments>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">

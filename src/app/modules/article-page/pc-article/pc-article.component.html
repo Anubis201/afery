@@ -26,18 +26,10 @@
       [imageDesc]="article?.imageDesc"
     ></app-pc-main>
 
-    <app-write-comment
-      [isSavingComment]="isSavingComment"
-      [countComment]="comments?.length"
-      (addComment)="addComment.emit($event)"
-    ></app-write-comment>
-
-    <app-comments
-      [comments]="comments"
-      [isAdmin]="isAdmin"
-      [userName]="userName"
-      (deleteComment)="handleDeleteComment.emit($event)"
-    ></app-comments>
+    <app-global-comments
+      [parentId]="article.id"
+      [commentType]="'articles'"
+    ></app-global-comments>
 
     <app-pc-short-article
       *ngIf="nextArticle"

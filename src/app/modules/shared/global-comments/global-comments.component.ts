@@ -19,6 +19,7 @@ export class GlobalCommentsComponent {
 
   isSavingComment = new BehaviorSubject<boolean>(false)
   comments = new BehaviorSubject<CommentModel[]>([])
+  isLoading = new BehaviorSubject<boolean>(false)
 
   constructor(
     private workingCommentsService: WorkingCommentsService,
@@ -40,6 +41,7 @@ export class GlobalCommentsComponent {
   }
 
   getComments(parentId: string) {
+    this.isLoading.next(true);
     this.commentsService.getComments(parentId, this.commentType).subscribe({
       next: commentsDocs => {
         const allComments: CommentModel[] = [];
@@ -53,7 +55,8 @@ export class GlobalCommentsComponent {
         });
 
         this.comments.next(allComments);
-      }
+      },
+      complete: () => this.isLoading.next(false)
     })
   }
 

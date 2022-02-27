@@ -5,7 +5,6 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, catchError, from, map, of, throwError, zip } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
-import { CommentModel } from 'src/app/models/articles/comment.model';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
@@ -13,7 +12,6 @@ import { CommentsService } from 'src/app/services/collections/comments/comments.
 import { ImagesService } from 'src/app/services/collections/images/images.service';
 import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
 import { UserService } from 'src/app/services/global/user/user.service';
-import { WorkingCommentsService } from 'src/app/services/global/working-comments/working-comments.service';
 
 @Component({
   selector: 'app-article-page',
@@ -24,9 +22,7 @@ import { WorkingCommentsService } from 'src/app/services/global/working-comments
 export class ArticlePageComponent implements OnInit {
   article = new BehaviorSubject<ArticleModel | null>(null)
   isExists = new BehaviorSubject<boolean>(true)
-  comments = new BehaviorSubject<CommentModel[]>([])
   actionMode = new BehaviorSubject<'like' | 'dislike' | null>(null)
-  isSavingComment = new BehaviorSubject<boolean>(false)
   nextArticle = new BehaviorSubject<ArticleModel>(null)
 
   readonly PartiesEnum = PartiesEnum
@@ -43,71 +39,16 @@ export class ArticlePageComponent implements OnInit {
     private imagesService: ImagesService,
     private router: Router,
     private titleService: Title,
-    private workingCommentsService: WorkingCommentsService
   ) { }
 
   get isAdmin() {
     return this.userService.isAdmin
   }
 
-  get userName() {
-    return this.userService.userName
-  }
-
   ngOnInit() {
     this.route.params.subscribe(({ articleId }) => {
       this.getData(articleId);
-      this.getComments(articleId);
       this.updateViewership(articleId);
-    })
-  }
-
-  handleAddComment(comment: CommentModel) {
-    this.isSavingComment.next(true);
-
-    const rlyComment: CommentModel = {
-      ...comment,
-      articleId: this.article.value?.id as string,
-      isNew: true,
-      isAnswer: false,
-    };
-
-    this.workingCommentsService.extendedAddComment(rlyComment).subscribe({
-      next: doc => {
-        this.comments.next([{ ...rlyComment, id: doc.id, name: this.userService.userName.value }, ...this.comments.value]);
-        this.isSavingComment.next(false);
-      },
-      error: () => {
-        this.isSavingComment.next(false);
-      }
-    });
-  }
-
-  getComments(articleId: string) {
-    this.commentsService.getComments(articleId, 'articles').subscribe({
-      next: commentsDocs => {
-        let allComments: CommentModel[] = [];
-        commentsDocs.forEach(comment => {
-          allComments.push({
-            ...comment.data() as CommentModel,
-            date: (comment.data() as any).date.toDate(),
-            id: comment.id
-          });
-        });
-        this.comments.next(allComments);
-      }
-    })
-  }
-
-  handleDeleteComment(id: string) {
-    this.commentsService.deteleComment(id).subscribe({
-      next: () => {
-        this.comments.next(this.comments.value.filter(filterV => filterV.id !== id));
-        this._snackBar.open('Komentarz został usunięty', 'close');
-      },
-      error: () => {
-        this._snackBar.open('Błąd', 'close');
-      }
     })
   }
 
