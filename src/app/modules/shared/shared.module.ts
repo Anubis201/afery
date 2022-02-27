@@ -22,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { SaveButtonComponent } from './save-button/save-button.component';
 import { IsLoadingComponent } from './is-loading/is-loading.component';
 import { GlobalCommentsComponent } from './global-comments/global-comments.component';
+import { TopDiscussionComponent } from './top-discussion/top-discussion.component';
 
 const declarations = [
   MillionsPipe,
@@ -35,6 +36,9 @@ const declarations = [
   ShortArticleComponent,
   LoginComponent,
   GlobalCommentsComponent,
+  SaveButtonComponent,
+  IsLoadingComponent,
+  TopDiscussionComponent,
 ]
 
 const imports = [
@@ -54,8 +58,6 @@ const imports = [
 @NgModule({
   declarations: [
     ...declarations,
-    SaveButtonComponent,
-    IsLoadingComponent,
   ],
   imports: [
     CommonModule,
