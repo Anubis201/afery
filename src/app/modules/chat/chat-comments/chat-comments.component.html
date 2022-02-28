@@ -1,3 +1,4 @@
 <app-write-chat
+  [isSaving]="isSaving | async"
   (handleAddText)="addText($event)"
 ></app-write-chat>

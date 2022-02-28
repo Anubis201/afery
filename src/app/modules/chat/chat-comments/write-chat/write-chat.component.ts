@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
 
@@ -9,6 +9,8 @@ import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WriteChatComponent {
+  @Input() isSaving: boolean
+
   @Output() handleAddText = new EventEmitter<Partial<ChatTextModel>>()
 
   readonly commentLength = 5000
