@@ -20,6 +20,10 @@ export class ChatComponent implements OnInit {
     return this.userService.userName
   }
 
+  get isAdmin() {
+    return this.userService.isAdmin
+  }
+
   ngOnInit() {
     this.metaTags();
   }

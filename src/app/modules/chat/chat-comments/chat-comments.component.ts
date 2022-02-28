@@ -11,6 +11,7 @@ import { ChatService } from 'src/app/services/collections/chat/chat.service';
 })
 export class ChatCommentsComponent implements OnInit {
   @Input() userName: string
+  @Input() isAdmin: string
 
   isSaving = new BehaviorSubject<boolean>(false)
   texts = new BehaviorSubject<ChatTextModel[]>([])
@@ -55,6 +56,9 @@ export class ChatCommentsComponent implements OnInit {
     const rlyChat: ChatTextModel = {
       ...text,
       name: this.userName,
+      isAnswer: false,
+      dislikes: 0,
+      likes: 0,
     };
 
     this.chatService.addChat(rlyChat).subscribe({

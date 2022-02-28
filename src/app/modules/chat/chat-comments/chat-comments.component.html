@@ -6,5 +6,7 @@
 <div class="discussions">
   <app-discussion
     *ngFor="let text of texts | async"
+    [data]="text"
+    [isAdmin]="isAdmin"
   ></app-discussion>
 </div>

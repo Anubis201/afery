@@ -1,1 +1,76 @@
-<p>discussion works!</p>
+<div class="comment">
+  <mat-icon>person</mat-icon>
+  <div class="comment__texts">
+    <div class="comment__texts--name">{{ data.name }}</div>
+    <div class="comment__texts--date">{{ data.date | date:'dd.MM.yyyy HH:mm' }}</div>
+    <div class="comment__texts--desc">{{ data.text }}</div>
+    <div class="comment__texts--answers">
+      <button
+        mat-button
+        (click)="handleOpenWrite.next(!handleOpenWrite.value)"
+      >Odpowiedz</button>
+
+      <div class="actions">
+        <div
+          class="actions__action"
+          (click)="approve()"
+        >
+          <img [class.choosed-plus]="(commentMode | async) === 'like'" class="actions__action--plus" src="/assets/icons/comment/plus.svg" alt="plus icon">
+          <span>{{ data.likes }}</span>
+        </div>
+        <div
+          class="actions__action"
+          (click)="dislike()"
+        >
+          <img [class.choosed-minus]="commentMode.value === 'dislike'" class="actions__action--minus" src="/assets/icons/comment/minus.svg" alt="minus icon">
+          <span>{{ data.dislikes }}</span>
+        </div>
+      </div>
+
+      <!-- <button
+        *ngIf="(countAnswers | async) > 0 && !handleOpenAnswers.value"
+        mat-button
+        (click)="getAnswersToDisplay()"
+      >Zobacz odpowiedzi ({{ countAnswers.value }})</button>
+
+      <button
+        *ngIf="(countAnswers | async) > 0 && (handleOpenAnswers | async)"
+        mat-button
+        (click)="hideAnswers(false)"
+      >Ukryj odpowiedzi</button> -->
+    </div>
+  </div>
+
+  <div class="comment__buttons">
+    <button
+      *ngIf="isAdmin"
+      mat-icon-button
+      matTooltip="Usuń komentarz"
+      (click)="deleteComment.emit(comment.id)"
+    >
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </div>
+</div>
+
+<!-- Pisanie odpowiedzi -->
+<!-- <app-write-comment
+  *ngIf="handleOpenWriteComment | async"
+  [isSavingComment]="isSaving | async"
+  (addComment)="addAnswer($event)"
+  [answerMode]="true"
+></app-write-comment> -->
+
+<!-- Odpowiedzi
+<div
+  *ngIf="(answers | async).length"
+  class="answer"
+>
+  <ng-container *ngFor="let answer of answers.value">
+    <app-answer
+      [data]="answer"
+      [isAdmin]="isAdmin"
+      (deleteAnswer)="handleDeleteAnswer($event)"
+    ></app-answer>
+  </ng-container>
+</div> -->
