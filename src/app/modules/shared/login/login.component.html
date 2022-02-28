@@ -5,8 +5,9 @@
   <!-- GOOGLE -->
   <app-save-button
     [color]="'primary'"
-    (click)="logiAsGoogle()"
     [isSaving]="isLoading | async"
+    [right]="'75px'"
+    (click)="logiAsGoogle()"
   >
     <img src="/assets/icons/auth/google.png" alt="ikona google">
     <span>Google</span>

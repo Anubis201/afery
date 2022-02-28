@@ -34,10 +34,11 @@ export class ChatCommentsComponent implements OnInit {
     this.chatService.addChat(rlyChat).subscribe({
       next: doc => {
         this.texts.next([{ ...rlyChat, id: doc.id }, ...this.texts.value]);
-      },
-      complete: () => {
         this.isSaving.next(false);
-      }
+      },
+      error: () => {
+        this.isSaving.next(false);
+      },
     })
   }
 }

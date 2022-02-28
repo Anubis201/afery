@@ -10,6 +10,8 @@ export class SaveButtonComponent {
   @Input() isSaving: boolean
   @Input() color = 'primary'
   @Input() disabled = false
+  @Input() diameter = 20
+  @Input() right = '0px'
 
   @Output() onClick = new EventEmitter<void>()
 }

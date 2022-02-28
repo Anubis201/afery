@@ -8,7 +8,8 @@
   <div
     *ngIf="isSaving"
     class="isLoading"
+    [style.right]="right"
   >
-    <mat-spinner [diameter]="21"></mat-spinner>
+    <mat-spinner [diameter]="diameter"></mat-spinner>
   </div>
 </button>
