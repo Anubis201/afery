@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
 
 @Component({
   selector: 'app-chat-comments',
@@ -6,8 +8,33 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./chat-comments.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChatCommentsComponent {
+export class ChatCommentsComponent implements OnInit {
+  @Input() userName: string
 
+  isSaving = new BehaviorSubject<boolean>(false)
+  texts = new BehaviorSubject<ChatTextModel[]>([])
 
+  constructor() {}
 
+  ngOnInit() {
+
+  }
+
+  addText(text: ChatTextModel) {
+    this.isSaving.next(true);
+
+    const rlyChat: ChatTextModel = {
+      ...text,
+      name: this.userName,
+    };
+
+    this.workingCommentsService.extendedAddComment(rlyChat).subscribe({
+      next: doc => {
+        this.texts.next([{ ...rlyChat, id: doc.id }, ...this.texts.value]);
+      },
+      complete: () => {
+        this.isSaving.next(false);
+      }
+    })
+  }
 }

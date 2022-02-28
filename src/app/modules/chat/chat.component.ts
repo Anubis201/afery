@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
   selector: 'app-chat',
@@ -12,7 +13,12 @@ export class ChatComponent implements OnInit {
   constructor(
     private titleService: Title,
     private meta: Meta,
+    private userService: UserService,
   ) { }
+
+  get userName() {
+    return this.userService.userName
+  }
 
   ngOnInit() {
     this.metaTags();
