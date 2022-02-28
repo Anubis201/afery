@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
 import { ChatService } from 'src/app/services/collections/chat/chat.service';
@@ -14,6 +14,8 @@ type CommetingType = 'like' | 'dislike' | null;
 export class DiscussionComponent implements OnInit {
   @Input() data: ChatTextModel
   @Input() isAdmin: boolean
+
+  @Output() deleteMe = new EventEmitter<string>()
 
   handleOpenWrite = new BehaviorSubject<boolean>(false)
   commentMode = new BehaviorSubject<CommetingType>(null)

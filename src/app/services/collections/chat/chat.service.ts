@@ -32,4 +32,8 @@ export class ChatService {
   updateLikes(id: string, incrementValue: number) {
     return from(this.getRef().doc(id).update({ likes: increment(incrementValue) }))
   }
+
+  deteleMe(id: string) {
+    return from(this.getRef().doc(id).delete())
+  }
 }

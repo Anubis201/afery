@@ -8,5 +8,6 @@
     *ngFor="let text of texts | async"
     [data]="text"
     [isAdmin]="isAdmin"
+    (deleteMe)="handleDelete($event)"
   ></app-discussion>
 </div>

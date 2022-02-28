@@ -20,7 +20,6 @@ export class CommentComponent implements OnInit {
   @Input() userName: string
 
   @Output() deleteComment = new EventEmitter<string>()
-  @Output() deleteAnswer = new EventEmitter<string>()
 
   constructor(
     private commentsService: CommentsService,
