@@ -23,6 +23,7 @@ import { SaveButtonComponent } from './save-button/save-button.component';
 import { IsLoadingComponent } from './is-loading/is-loading.component';
 import { GlobalCommentsComponent } from './global-comments/global-comments.component';
 import { TopDiscussionComponent } from './top-discussion/top-discussion.component';
+import { DiscussionComponent } from './discussion/discussion.component';
 
 const declarations = [
   MillionsPipe,
@@ -39,6 +40,7 @@ const declarations = [
   SaveButtonComponent,
   IsLoadingComponent,
   TopDiscussionComponent,
+  DiscussionComponent,
 ]
 
 const imports = [

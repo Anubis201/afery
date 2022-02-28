@@ -19,4 +19,8 @@ export class ChatService {
   addChat(chat: ChatTextModel) {
     return from(this.getRef().add(chat));
   }
+
+  getDiscussions() {
+    return from(this.getRef().ref.orderBy('date', 'desc').limit(20).get());
+  }
 }

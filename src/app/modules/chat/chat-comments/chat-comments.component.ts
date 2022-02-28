@@ -14,13 +14,39 @@ export class ChatCommentsComponent implements OnInit {
 
   isSaving = new BehaviorSubject<boolean>(false)
   texts = new BehaviorSubject<ChatTextModel[]>([])
+  isLoading = new BehaviorSubject<boolean>(false)
 
   constructor(
     private chatService: ChatService,
   ) {}
 
   ngOnInit() {
+    this.getTexts();
+  }
 
+  // TODO create page
+  getTexts() {
+    this.isLoading.next(true);
+
+    this.chatService.getDiscussions().subscribe({
+      next: docs => {
+        const data: ChatTextModel[] = [];
+
+        docs.forEach(d => {
+          data.push({
+            ...d.data() as ChatTextModel,
+            id: d.id,
+            date: (d.data() as any).date.toDate()
+          });
+        })
+
+        this.texts.next(data);
+        this.isLoading.next(false);
+      },
+      error: () => {
+        this.isLoading.next(false);
+      },
+    })
   }
 
   addText(text: ChatTextModel) {

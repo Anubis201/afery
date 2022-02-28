@@ -2,3 +2,9 @@
   [isSaving]="isSaving | async"
   (handleAddText)="addText($event)"
 ></app-write-chat>
+
+<div class="discussions">
+  <app-discussion
+    *ngFor="let text of texts | async"
+  ></app-discussion>
+</div>
