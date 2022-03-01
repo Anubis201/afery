@@ -15,9 +15,11 @@ export class DiscussionComponent implements OnInit {
   @Input() data: ChatTextModel
   @Input() isAdmin: boolean
   @Input() isLogin: boolean
+  @Input() userName: string
 
   @Output() deleteMe = new EventEmitter<string>()
 
+  isSaving = new BehaviorSubject<boolean>(false)
   handleOpenWrite = new BehaviorSubject<boolean>(false)
   commentMode = new BehaviorSubject<CommetingType>(null)
   countAnswers = new BehaviorSubject<number>(0)
@@ -31,12 +33,36 @@ export class DiscussionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getCountAnswers();
   }
 
   hideAnswers() {
     this.answers.next([]);
     this.handleOpenWriteComment.next(false);
     this.handleOpenAnswers.next(false);
+  }
+
+  addAnswer(answer: ChatTextModel) {
+    this.isSaving.next(true);
+
+    const rlyChat: ChatTextModel = {
+      ...answer,
+      name: this.userName,
+      dislikes: 0,
+      likes: 0,
+      parentId: this.data.id
+    };
+
+    this.chatService.addChat(rlyChat).subscribe({
+      next: () => {
+        this.answers.next([ rlyChat, ...this.answers.value]);
+        this.countAnswers.next(this.countAnswers.value + 1);
+        this.isSaving.next(false);
+      },
+      error: () => {
+        this.isSaving.next(false);
+      }
+    })
   }
 
   getAnswers() {
@@ -47,6 +73,7 @@ export class DiscussionComponent implements OnInit {
         docs.forEach(doc => data.push({ ...doc.data() as ChatTextModel, date: (doc.data() as any).date.toDate(), id: doc.id }));
 
         this.answers.next(data);
+        console.log(console.log(this.answers.value))
         this.handleOpenAnswers.next(true);
       },
     })
@@ -94,6 +121,14 @@ export class DiscussionComponent implements OnInit {
         this.data.dislikes = this.data.dislikes + value;
         this.data.dislikes = isNaN(this.data.dislikes) ? 1 : this.data.dislikes;
         this.changeDetectorRef.detectChanges();
+      },
+    })
+  }
+
+  private getCountAnswers() {
+    this.chatService.getAnswers(this.data.id).subscribe({
+      next: docs => {
+        this.countAnswers.next(docs.size);
       },
     })
   }

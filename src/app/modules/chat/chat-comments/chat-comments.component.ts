@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
 import { ChatService } from 'src/app/services/collections/chat/chat.service';
@@ -26,6 +26,11 @@ export class ChatCommentsComponent implements OnInit {
   ngOnInit() {
     this.getTexts();
   }
+
+  @HostListener('window:scroll', ['$event'])
+    onWindowScroll() {
+      this.more();
+    }
 
   // TODO create page
   getTexts() {
@@ -79,5 +84,15 @@ export class ChatCommentsComponent implements OnInit {
         this.texts.next(this.texts.value.filter(filterV => filterV.id !== id));
       },
     })
+  }
+
+  private more() {
+    let docElem = document.documentElement,
+        docBody = document.body,
+        scrollTop = docElem['scrollTop'] || docBody['scrollTop'],
+        scrollBottom = (docElem['scrollHeight'] || docBody['scrollHeight']) - window.innerHeight,
+        scrollPercent = scrollTop / scrollBottom * 100 + '%';
+
+    console.log(scrollTop)
   }
 }

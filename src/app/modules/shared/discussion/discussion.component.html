@@ -55,14 +55,14 @@
 </div>
 
 <!-- Pisanie odpowiedzi -->
-<!-- <app-write-comment
-  *ngIf="handleOpenWriteComment | async"
+<app-write-comment
+  *ngIf="handleOpenWrite | async"
   [isSavingComment]="isSaving | async"
   (addComment)="addAnswer($event)"
   [answerMode]="true"
-></app-write-comment> -->
+></app-write-comment>
 
-<!-- Odpowiedzi
+<!-- Odpowiedzi -->
 <div
   *ngIf="(answers | async).length"
   class="answer"
@@ -74,4 +74,4 @@
       (deleteAnswer)="handleDeleteAnswer($event)"
     ></app-answer>
   </ng-container>
-</div> -->
+</div>

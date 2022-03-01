@@ -38,6 +38,6 @@ export class ChatService {
   }
 
   getAnswers(id: string) {
-    return from(this.getRef().ref.where('commentId', '==', id).get())
+    return from(this.getRef().ref.where('parentId', '==', id).get())
   }
 }
