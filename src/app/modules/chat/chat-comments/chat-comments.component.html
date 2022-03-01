@@ -1,5 +1,7 @@
 <app-write-chat
   [isSaving]="isSaving | async"
+  [isLogin]="isLogin"
+  [isCheckingLogin]="isCheckingLogin"
   (handleAddText)="addText($event)"
 ></app-write-chat>
 
@@ -8,6 +10,7 @@
     *ngFor="let text of texts | async"
     [data]="text"
     [isAdmin]="isAdmin"
+    [isLogin]="isLogin"
     (deleteMe)="handleDelete($event)"
   ></app-discussion>
 </div>

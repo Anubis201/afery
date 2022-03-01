@@ -1,20 +1,37 @@
-<form [formGroup]="form">
-  <mat-form-field appearance="fill">
-    <mat-label>Tekst</mat-label>
-    <textarea matInput formControlName="text" autocomplete="off" type="text" rows="2"></textarea>
-    <mat-error *ngIf="!form.get('text')?.hasError('required')">Max długośc to {{ commentLength }} znaków</mat-error>
-  </mat-form-field>
+<ng-container *ngIf="isLogin">
+  <form
+    *ngIf="!isSaving"
+    [formGroup]="form"
+  >
+    <mat-form-field appearance="fill">
+      <mat-label>Tekst</mat-label>
+      <textarea matInput formControlName="text" autocomplete="off" type="text" rows="2"></textarea>
+      <mat-error *ngIf="!form.get('text')?.hasError('required')">Max długośc to {{ commentLength }} znaków</mat-error>
+    </mat-form-field>
 
-  <div class="create">
-    <app-save-button
-      [color]="'primary'"
-      [disabled]="form.invalid"
-      [isSaving]="isSaving"
-      [diameter]="15"
-      [right]="'4px'"
-      (click)="addText()"
-    >
-      <span>Dodaj</span>
-    </app-save-button>
+    <div class="create">
+      <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid" (click)="addText()">Dodaj</button>
+    </div>
+  </form>
+
+  <app-is-loading
+    *ngIf="isSaving"
+    [size]="120"
+  ></app-is-loading>
+</ng-container>
+
+<div
+  *ngIf="!isLogin && !isCheckingLogin"
+  class="no-login"
+>
+  <div>
+    <mat-icon>info</mat-icon>
   </div>
-</form>
+
+  <div class="no-login__content">
+    <div>Aby uczestniczyć w dyskusji, musisz być zalogowany.</div>
+    <div>
+      <button mat-button (click)="openSingIn()">Zaloguj się</button>
+    </div>
+  </div>
+</div>

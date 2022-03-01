@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
+import { LoginComponent } from 'src/app/modules/shared/login/login.component';
 
 @Component({
   selector: 'app-write-chat',
@@ -10,8 +12,14 @@ import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
 })
 export class WriteChatComponent {
   @Input() isSaving: boolean
+  @Input() isLogin: boolean
+  @Input() isCheckingLogin: boolean
 
   @Output() handleAddText = new EventEmitter<Partial<ChatTextModel>>()
+
+  constructor(
+    private dialog: MatDialog
+  ) {}
 
   readonly commentLength = 5000
 
@@ -22,5 +30,9 @@ export class WriteChatComponent {
   addText() {
     this.handleAddText.emit({ text: this.form.get('text').value, date: new Date() });
     this.form.get('text').patchValue('');
+  }
+
+  openSingIn() {
+    this.dialog.open(LoginComponent);
   }
 }

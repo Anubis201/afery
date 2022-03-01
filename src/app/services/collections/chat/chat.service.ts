@@ -36,4 +36,8 @@ export class ChatService {
   deteleMe(id: string) {
     return from(this.getRef().doc(id).delete())
   }
+
+  getAnswers(id: string) {
+    return from(this.getRef().ref.where('commentId', '==', id).get())
+  }
 }

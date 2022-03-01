@@ -14,6 +14,7 @@ export class UserService {
   isAdmin = new BehaviorSubject<boolean>(false)
   isLogin = new BehaviorSubject<boolean>(false)
   userName = new BehaviorSubject<string>(this.DefaultName)
+  isCheckingLogin = new BehaviorSubject<boolean>(true)
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -27,6 +28,7 @@ export class UserService {
 
       // NA CHWILE :D
       this.isAdmin.next(user?.email && user.email === user?.photoURL && this.isLogin.value);
+      this.isCheckingLogin.next(false);
     })
   }
 

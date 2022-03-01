@@ -14,11 +14,16 @@ type CommetingType = 'like' | 'dislike' | null;
 export class DiscussionComponent implements OnInit {
   @Input() data: ChatTextModel
   @Input() isAdmin: boolean
+  @Input() isLogin: boolean
 
   @Output() deleteMe = new EventEmitter<string>()
 
   handleOpenWrite = new BehaviorSubject<boolean>(false)
   commentMode = new BehaviorSubject<CommetingType>(null)
+  countAnswers = new BehaviorSubject<number>(0)
+  handleOpenAnswers = new BehaviorSubject<boolean>(false)
+  handleOpenWriteComment = new BehaviorSubject<boolean>(false)
+  answers = new BehaviorSubject<ChatTextModel[]>([])
 
   constructor(
     private chatService: ChatService,
@@ -26,6 +31,25 @@ export class DiscussionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  hideAnswers() {
+    this.answers.next([]);
+    this.handleOpenWriteComment.next(false);
+    this.handleOpenAnswers.next(false);
+  }
+
+  getAnswers() {
+    this.chatService.getAnswers(this.data.id).subscribe({
+      next: docs => {
+        let data: ChatTextModel[] = [];
+
+        docs.forEach(doc => data.push({ ...doc.data() as ChatTextModel, date: (doc.data() as any).date.toDate(), id: doc.id }));
+
+        this.answers.next(data);
+        this.handleOpenAnswers.next(true);
+      },
+    })
   }
 
   approve(forceMinus?: boolean) {

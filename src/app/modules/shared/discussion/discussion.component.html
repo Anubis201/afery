@@ -6,6 +6,7 @@
     <div class="comment__texts--desc">{{ data.text }}</div>
     <div class="comment__texts--answers">
       <button
+        *ngIf="isLogin"
         mat-button
         (click)="handleOpenWrite.next(!handleOpenWrite.value)"
       >Odpowiedz</button>
@@ -16,28 +17,28 @@
           (click)="approve()"
         >
           <img [class.choosed-plus]="(commentMode | async) === 'like'" class="actions__action--plus" src="/assets/icons/comment/plus.svg" alt="plus icon">
-          <span>{{ data.likes }}</span>
+          <span [style.margin-top]="isLogin ? '10px' : '1px'">{{ data.likes }}</span>
         </div>
         <div
           class="actions__action"
           (click)="dislike()"
         >
           <img [class.choosed-minus]="commentMode.value === 'dislike'" class="actions__action--minus" src="/assets/icons/comment/minus.svg" alt="minus icon">
-          <span>{{ data.dislikes }}</span>
+          <span [style.margin-top]="isLogin ? '10px' : '1px'">{{ data.dislikes }}</span>
         </div>
       </div>
 
-      <!-- <button
-        *ngIf="(countAnswers | async) > 0 && !handleOpenAnswers.value"
+      <button
+        *ngIf="countAnswers.value > 0 && !handleOpenAnswers.value"
         mat-button
-        (click)="getAnswersToDisplay()"
+        (click)="getAnswers()"
       >Zobacz odpowiedzi ({{ countAnswers.value }})</button>
 
       <button
         *ngIf="(countAnswers | async) > 0 && (handleOpenAnswers | async)"
         mat-button
         (click)="hideAnswers(false)"
-      >Ukryj odpowiedzi</button> -->
+      >Ukryj odpowiedzi</button>
     </div>
   </div>
 
