@@ -1,18 +1,18 @@
-import { DatePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
+import * as moment from 'moment';
 
 @Pipe({
   name: 'time'
 })
 export class TimePipe implements PipeTransform {
+  transform(value: Date, arg: string = 'LLL'): string {
+    const now = moment().locale('pl');
+    const from = moment(value).locale('pl');
 
-  constructor(private datePipe: DatePipe) {}
-
-  transform(value: Date, ...args: unknown[]): string {
-    const now = new Date();
-
-    console.log(value.getSeconds())
-
-    return this.datePipe.transform(value, 'yyyy-MM-dd');
+    if (from.diff(now, 'days') > -2) {
+      return from.fromNow();
+    } else {
+      return from.format(arg);
+    }
   }
 }

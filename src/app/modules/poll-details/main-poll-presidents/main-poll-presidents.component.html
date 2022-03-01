@@ -5,7 +5,7 @@
       <div class="header__top__title">Sondaż {{ poll.surveying }}</div>
     </div>
     <div class="header__rest">
-      <span>Wykonany w {{ poll.when | date:'dd.MM.yyyy' }}</span>
+      <span>Wykonany w {{ poll.when | time:'LL' }}</span>
       <span>na liczbie {{ poll.people || 1000 }} osób</span>
     </div>
   </div>

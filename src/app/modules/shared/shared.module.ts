@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MillionsPipe } from 'src/app/services/pipes/milions/millions.pipe';
 import { TimeToReadPipe } from 'src/app/services/pipes/time-to-read/time-to-read.pipe';
 import { SafeHtmlPipe } from 'src/app/services/pipes/safe-html/safe-html.pipe';
@@ -67,7 +67,6 @@ const imports = [
     CommonModule,
     ...imports
   ],
-  providers: [DatePipe],
   exports: [
     ...declarations,
     ...imports,

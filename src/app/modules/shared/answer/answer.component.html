@@ -2,7 +2,7 @@
   <mat-icon>person</mat-icon>
   <div class="comment__texts">
     <div class="comment__texts--name">{{ data.name }}</div>
-    <div class="comment__texts--date">{{ data.date | date:'dd.MM.yyyy HH:mm' }}</div>
+    <div class="comment__texts--date">{{ data.date | time }}</div>
     <div class="comment__texts--desc">{{ data.text }}</div>
     <!-- TODO -->
     <!-- <div class="comment__texts--answers">
