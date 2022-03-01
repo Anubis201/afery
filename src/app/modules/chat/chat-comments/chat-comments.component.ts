@@ -19,6 +19,10 @@ export class ChatCommentsComponent implements OnInit {
   texts = new BehaviorSubject<ChatTextModel[]>([])
   isLoading = new BehaviorSubject<boolean>(false)
 
+  isEnd = false
+  lastSnapshot = null
+  limit = 20
+
   constructor(
     private chatService: ChatService,
   ) {}
@@ -36,22 +40,34 @@ export class ChatCommentsComponent implements OnInit {
   getTexts() {
     this.isLoading.next(true);
 
-    this.chatService.getDiscussions().subscribe({
+    this.chatService.getDiscussions(this.limit + 1, this.lastSnapshot).subscribe({
       next: docs => {
         const data: ChatTextModel[] = [];
+        let i = 0
 
         docs.forEach(d => {
+          i++;
+
           data.push({
             ...d.data() as ChatTextModel,
             id: d.id,
             date: (d.data() as any).date.toDate()
           });
+
+          if (this.limit === i) this.lastSnapshot = d;
         })
 
-        this.texts.next(data);
+        if (data.length === this.limit + 1) {
+          data.pop();
+        } else {
+          this.isEnd = true;
+        }
+
+        this.texts.next([...this.texts.value, ...data,]);
         this.isLoading.next(false);
       },
-      error: () => {
+      error: err => {
+        console.log(err)
         this.isLoading.next(false);
       },
     })
@@ -65,6 +81,7 @@ export class ChatCommentsComponent implements OnInit {
       name: this.userName,
       dislikes: 0,
       likes: 0,
+      isAnswer: false,
     };
 
     this.chatService.addChat(rlyChat).subscribe({
@@ -87,12 +104,16 @@ export class ChatCommentsComponent implements OnInit {
   }
 
   private more() {
-    let docElem = document.documentElement,
+    if (this.isLoading.value || this.isEnd) return
+
+    const docElem = document.documentElement,
         docBody = document.body,
         scrollTop = docElem['scrollTop'] || docBody['scrollTop'],
         scrollBottom = (docElem['scrollHeight'] || docBody['scrollHeight']) - window.innerHeight,
-        scrollPercent = scrollTop / scrollBottom * 100 + '%';
+        scrollPercent = scrollTop / scrollBottom * 100;
 
-    console.log(scrollTop)
+    if (scrollPercent >= 80) {
+      this.getTexts();
+    }
   }
 }

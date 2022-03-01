@@ -21,8 +21,13 @@ export class ChatService {
     return from(this.getRef().add(chat));
   }
 
-  getDiscussions() {
-    return from(this.getRef().ref.orderBy('date', 'desc').limit(20).get());
+  getDiscussions(limit: number, lastSnapshot = null) {
+    const ref = this.getRef().ref.where('isAnswer', '==', false).orderBy('date', 'desc').limit(limit)
+
+    if (lastSnapshot === null)
+      return from(ref.get())
+    else
+      return from(ref.startAt(lastSnapshot).get())
   }
 
   updateDislikes(id: string, incrementValue: number) {

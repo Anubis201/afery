@@ -50,7 +50,8 @@ export class DiscussionComponent implements OnInit {
       name: this.userName,
       dislikes: 0,
       likes: 0,
-      parentId: this.data.id
+      parentId: this.data.id,
+      isAnswer: true
     };
 
     this.chatService.addChat(rlyChat).subscribe({
