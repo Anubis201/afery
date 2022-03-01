@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MillionsPipe } from 'src/app/services/pipes/milions/millions.pipe';
 import { TimeToReadPipe } from 'src/app/services/pipes/time-to-read/time-to-read.pipe';
 import { SafeHtmlPipe } from 'src/app/services/pipes/safe-html/safe-html.pipe';
@@ -24,11 +24,13 @@ import { IsLoadingComponent } from './is-loading/is-loading.component';
 import { GlobalCommentsComponent } from './global-comments/global-comments.component';
 import { TopDiscussionComponent } from './top-discussion/top-discussion.component';
 import { DiscussionComponent } from './discussion/discussion.component';
+import { TimePipe } from 'src/app/services/pipes/time/time.pipe';
 
 const declarations = [
   MillionsPipe,
   TimeToReadPipe,
   SafeHtmlPipe,
+  TimePipe,
 
   CommentComponent,
   WriteCommentComponent,
@@ -65,6 +67,7 @@ const imports = [
     CommonModule,
     ...imports
   ],
+  providers: [DatePipe],
   exports: [
     ...declarations,
     ...imports,

@@ -74,7 +74,6 @@ export class DiscussionComponent implements OnInit {
         docs.forEach(doc => data.push({ ...doc.data() as ChatTextModel, date: (doc.data() as any).date.toDate(), id: doc.id }));
 
         this.answers.next(data);
-        console.log(console.log(this.answers.value))
         this.handleOpenAnswers.next(true);
       },
     })
