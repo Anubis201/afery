@@ -43,3 +43,17 @@ form {
     }
   }
 }
+
+.all {
+  display: flex;
+  color: white;
+  gap: 1.2rem;
+
+  mat-icon {
+    font-size: 30px;
+  }
+
+  form {
+    width: 100%;
+  }
+}
