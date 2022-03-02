@@ -88,6 +88,11 @@ export class ChatCommentsComponent implements OnInit {
 
     this.chatService.addChat(rlyChat).subscribe({
       next: doc => {
+        if (doc.id === this.texts.value[0].id) {
+          this.isSaving.next(false);
+          return
+        }
+
         this.texts.next([{ ...rlyChat, id: doc.id }, ...this.texts.value]);
         this.isSaving.next(false);
       },
