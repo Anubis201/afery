@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostListener, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
 import { ChatService } from 'src/app/services/collections/chat/chat.service';
 
@@ -18,6 +19,7 @@ export class ChatCommentsComponent implements OnInit {
   isSaving = new BehaviorSubject<boolean>(false)
   texts = new BehaviorSubject<ChatTextModel[]>([])
   isLoading = new BehaviorSubject<boolean>(false)
+  order = new BehaviorSubject<OrderEnum>(OrderEnum.Latest)
 
   private isEnd = false
   private lastSnapshot = null
@@ -38,9 +40,14 @@ export class ChatCommentsComponent implements OnInit {
       this.more();
     }
 
-  // TODO create page
-  getTexts() {
+  getTexts(order: OrderEnum = null) {
     this.isLoading.next(true);
+
+    if (order) {
+      this.order.next(order);
+      this.texts.next([]);
+      this.lastSnapshot = null;
+    }
 
     this.chatService.getDiscussions(this.limit + 1, this.lastSnapshot).subscribe({
       next: docs => {

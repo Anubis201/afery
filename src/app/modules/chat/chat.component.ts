@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { BehaviorSubject } from 'rxjs';
-import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
@@ -11,8 +9,6 @@ import { UserService } from 'src/app/services/global/user/user.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatComponent implements OnInit {
-  order = new BehaviorSubject<OrderEnum>(OrderEnum.Latest)
-
   constructor(
     private titleService: Title,
     private meta: Meta,
@@ -37,10 +33,6 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.metaTags();
-  }
-
-  handleChangeOrder(order: OrderEnum) {
-    this.order.next(order)
   }
 
   private metaTags() {

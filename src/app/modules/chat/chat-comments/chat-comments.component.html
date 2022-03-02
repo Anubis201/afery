@@ -1,3 +1,8 @@
+<app-chat-header
+  [order]="order | async"
+  (changeOrder)="getTexts($event)"
+></app-chat-header>
+
 <app-write-chat
   [isSaving]="isSaving | async"
   [isLogin]="isLogin"

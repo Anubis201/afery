@@ -1,20 +1,13 @@
 <div clas="container">
   <div class="justify-content-center">
-    <div class="col-12 col-md-10 col-lg-8 col-xl-6">
-      <!-- TODO ETAP 2: Sortowanie po najlepszym oraz najnowszym -->
-      <app-chat-header
-        [order]="order | async"
-        (changeOrder)="handleChangeOrder($event)"
-      ></app-chat-header>
-
-      <!-- TODO ETAP 5: POPRAWA DZIALANIA -->
-      <app-chat-comments
-        [userName]="userName | async"
-        [isAdmin]="isAdmin | async"
-        [isLogin]="isLogin | async"
-        [isCheckingLogin]="isCheckingLogin | async"
-      ></app-chat-comments>
-    </div>
+    <!-- TODO ETAP 5: POPRAWA DZIALANIA -->
+    <app-chat-comments
+      class="col-12 col-md-10 col-lg-8 col-xl-6"
+      [userName]="userName | async"
+      [isAdmin]="isAdmin | async"
+      [isLogin]="isLogin | async"
+      [isCheckingLogin]="isCheckingLogin | async"
+    ></app-chat-comments>
   </div>
 </div>
 

@@ -25,6 +25,7 @@ import { GlobalCommentsComponent } from './global-comments/global-comments.compo
 import { TopDiscussionComponent } from './top-discussion/top-discussion.component';
 import { DiscussionComponent } from './discussion/discussion.component';
 import { TimePipe } from 'src/app/services/pipes/time/time.pipe';
+import { MatSelectModule } from '@angular/material/select';
 
 const declarations = [
   MillionsPipe,
@@ -57,6 +58,7 @@ const imports = [
   RouterModule,
   MatDialogModule,
   MatProgressSpinnerModule,
+  MatSelectModule,
 ]
 
 @NgModule({

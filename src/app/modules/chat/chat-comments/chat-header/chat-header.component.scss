@@ -1,0 +1,21 @@
+.label {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  padding: 0;
+  height: 50px;
+
+  mat-form-field {
+    width: 70px;
+    margin-bottom: -15px;
+  }
+
+  button {
+    color: white;
+  }
+
+  .active {
+    background: #242424;
+  }
+}
