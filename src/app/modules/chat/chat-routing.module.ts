@@ -11,6 +11,9 @@ const routes: Routes = [
       {
         path: 'dyskusja',
         component: SingleDiscussionComponent
+      },
+      {
+        path: 'najlepsze'
       }
     ]
   },

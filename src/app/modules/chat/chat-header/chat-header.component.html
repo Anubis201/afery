@@ -1,1 +1,33 @@
-<p>chat-header works!</p>
+<div class="label">
+  <div>
+    <button
+      mat-button
+      [class.active]="order === OrderEnum.Latest"
+      (click)="changeOrder.emit(OrderEnum.Latest)"
+    >Najnowsze</button>
+    <button
+      mat-button
+      [class.active]="order === OrderEnum.Popular"
+      (click)="changeOrder.emit(OrderEnum.Popular)"
+    >Najlepsze</button>
+  </div>
+
+  <!-- <mat-form-field appearance="fill">
+    <mat-label>Partia</mat-label>
+    <mat-select
+      class="parties__items__item--entity"
+      formControlName="party"
+    >
+      <mat-option
+        *ngFor="let item of entityItems"
+        [value]="item"
+      >
+        <img
+          class="parties__items__item--entity--image"
+          [src]="'/assets/icons/parties/' + PartiesEnum[item] + '.jpg'"
+        />
+        <span>{{ PartiesEnum[item] }}</span>
+      </mat-option>
+    </mat-select>
+  </mat-form-field> -->
+</div>

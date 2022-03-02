@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 
 @Component({
   selector: 'app-chat-header',
@@ -7,5 +8,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatHeaderComponent {
+  @Input() order: OrderEnum
 
+  @Output() changeOrder = new EventEmitter<OrderEnum>()
+
+  readonly OrderEnum = OrderEnum
 }
