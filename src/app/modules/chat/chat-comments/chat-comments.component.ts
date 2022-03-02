@@ -19,9 +19,10 @@ export class ChatCommentsComponent implements OnInit {
   texts = new BehaviorSubject<ChatTextModel[]>([])
   isLoading = new BehaviorSubject<boolean>(false)
 
-  isEnd = false
-  lastSnapshot = null
-  limit = 20
+  private isEnd = false
+  private lastSnapshot = null
+  private limit = 20
+  private isFirst = true
 
   constructor(
     private chatService: ChatService,
@@ -29,6 +30,7 @@ export class ChatCommentsComponent implements OnInit {
 
   ngOnInit() {
     this.getTexts();
+    this.liveUpdate();
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -100,6 +102,42 @@ export class ChatCommentsComponent implements OnInit {
       next: () => {
         this.texts.next(this.texts.value.filter(filterV => filterV.id !== id));
       },
+    })
+  }
+
+  private liveUpdate() {
+    this.chatService.onChatChange().onSnapshot({
+      next: docs => {
+
+        // TODO
+        // PLAN rozwojowy
+        // 1. modyfikacja
+        // 2. usuwanie
+        // 3. komentarze
+        // 4. wieksza przepustowość
+
+        // TODO to tez jest pewnie chujowe i powoduje mase bledow, ale i tak nie ma teraz duzo uzytkownikow
+        if (this.isLoading.value || this.isFirst) {
+          this.isFirst = false;
+          return
+        }
+
+        const data: ChatTextModel[] = [];
+
+        //  TODO narazie przyjmuje tylko jeden wpis na zywo
+        docs.forEach(d => {
+          data.push({
+            ...d.data() as ChatTextModel,
+            id: d.id,
+            date: (d.data() as any).date.toDate()
+          });
+        })
+
+        // jesli pojawi się taka sama wiadomość to co poprzednie, czyli jesli jest modyfikacja to nic nie rób
+        if (data[0].id === this.texts.value[0].id) return
+
+        this.texts.next([data[0], ...this.texts.value])
+      }
     })
   }
 

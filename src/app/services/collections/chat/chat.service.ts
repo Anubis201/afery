@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { increment } from 'firebase/firestore';
-import { from } from 'rxjs';
+import { filter, from, map } from 'rxjs';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
 
 @Injectable({
@@ -44,5 +44,10 @@ export class ChatService {
 
   getAnswers(id: string) {
     return from(this.getRef().ref.where('parentId', '==', id).get())
+  }
+
+  // TODO narazie tylko obsluga dodawanie i wylacznie glowne komentarze bez odpowiedzi
+  onChatChange() {
+    return this.getRef().ref.where('isAnswer', '==', false).orderBy('date', 'desc').limit(20)
   }
 }
