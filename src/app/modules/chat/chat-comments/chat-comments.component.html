@@ -1,6 +1,7 @@
 <app-chat-header
   [order]="order | async"
-  (changeOrder)="getTexts($event)"
+  [time]="time"
+  (changeOrder)="getTexts($event, false)"
 ></app-chat-header>
 
 <app-write-chat

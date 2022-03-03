@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import * as moment from 'moment';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 
 interface itemsModel {
   text: string,
-  hours: number
+  hours: Date
 }
 
 @Component({
@@ -13,30 +14,41 @@ interface itemsModel {
   styleUrls: ['./chat-header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChatHeaderComponent {
+export class ChatHeaderComponent implements OnInit {
   @Input() order: OrderEnum
+  @Input() time: FormControl
 
   @Output() changeOrder = new EventEmitter<OrderEnum>()
 
-  time = new FormControl(24)
-
   readonly OrderEnum = OrderEnum
-  readonly items: itemsModel[] = [
-    {
-      text: '24 godziny',
-      hours: 24,
-    },
-    {
-      text: '7 dni',
-      hours: 168,
-    },
-    {
-      text: '1 miesiąc',
-      hours: 720,
-    },
-    {
-      text: '1 rok',
-      hours: 8765,
-    },
-  ]
+  items: itemsModel[]
+
+  ngOnInit() {
+    const now = moment(),
+      day = now.subtract(1, 'days').toDate(),
+      week = now.subtract(1, 'weeks').toDate(),
+      month = now.subtract(1, 'months').toDate(),
+      year = now.subtract(1, 'years').toDate();
+
+    this.time.patchValue(day);
+
+    this.items = [
+      {
+        text: 'Dzień',
+        hours: day,
+      },
+      {
+        text: 'Tydzień',
+        hours: week,
+      },
+      {
+        text: 'Miesiąc',
+        hours: month,
+      },
+      {
+        text: 'Rok',
+        hours: year,
+      },
+    ]
+  }
 }

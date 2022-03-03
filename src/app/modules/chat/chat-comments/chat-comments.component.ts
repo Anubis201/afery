@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostListener, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
@@ -21,6 +23,8 @@ export class ChatCommentsComponent implements OnInit {
   isLoading = new BehaviorSubject<boolean>(false)
   order = new BehaviorSubject<OrderEnum>(OrderEnum.Latest)
 
+  time = new FormControl(moment().subtract(1, 'days').toDate())
+
   private isEnd = false
   private lastSnapshot = null
   private limit = 20
@@ -31,7 +35,7 @@ export class ChatCommentsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getTexts(OrderEnum.Latest);
+    this.getTexts(OrderEnum.Latest, false);
     this.liveUpdate();
   }
 
@@ -40,7 +44,7 @@ export class ChatCommentsComponent implements OnInit {
       this.more();
     }
 
-  getTexts(order: OrderEnum, isMore = false) {
+  getTexts(order: OrderEnum, isMore: boolean, date = this.time.value) {
     this.isLoading.next(true);
 
     if (order && !isMore) {
@@ -49,7 +53,7 @@ export class ChatCommentsComponent implements OnInit {
       this.lastSnapshot = null;
     }
 
-    this.chatService.getDiscussions(this.limit + 1, this.lastSnapshot, order).subscribe({
+    this.chatService.getDiscussions(this.limit + 1, this.lastSnapshot, order, date).subscribe({
       next: docs => {
         const data: ChatTextModel[] = [];
         let i = 0
@@ -118,6 +122,12 @@ export class ChatCommentsComponent implements OnInit {
   }
 
   private liveUpdate() {
+    this.time.valueChanges.subscribe(value => {
+      if (this.isFirst) return
+
+      this.getTexts(this.order.value, false, value);
+    })
+
     this.chatService.onChatChange().onSnapshot({
       next: docs => {
 

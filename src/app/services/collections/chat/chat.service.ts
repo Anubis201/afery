@@ -22,17 +22,20 @@ export class ChatService {
     return from(this.getRef().add(chat));
   }
 
-  getDiscussions(limit: number, lastSnapshot = null, order: OrderEnum) {
+  getDiscussions(limit: number, lastSnapshot = null, order: OrderEnum, date: Date) {
+    console.log(date)
+
     const ref = this.getRef().ref
       .where('isAnswer', '==', false)
       .orderBy(order === OrderEnum.Latest ? 'date' : 'likes', 'desc')
       .limit(limit);
 
-      // .where('date', )
     if (lastSnapshot === null)
-      return from(ref.get())
+      if (order === OrderEnum.Latest) return from(ref.get())
+      else return from(ref.where('date', '>=', date).get())
     else
-      return from(ref.startAt(lastSnapshot).get())
+      if (order === OrderEnum.Latest) return from(ref.startAt(lastSnapshot).get())
+      else return from(ref.startAt(lastSnapshot).where('date', '>=', date).get())
   }
 
   updateDislikes(id: string, incrementValue: number) {
