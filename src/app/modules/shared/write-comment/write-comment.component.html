@@ -6,15 +6,13 @@
 <div
   *ngIf="!isSavingComment"
   class="comment"
+  [class.left-margin]="answerMode"
 >
   <div>
     <mat-icon>person</mat-icon>
   </div>
 
-  <form
-    [formGroup]="form"
-    [class.left-margin]="answerMode"
-  >
+  <form [formGroup]="form">
     <mat-form-field appearance="fill">
       <mat-label>Treść komentarza</mat-label>
       <textarea matInput formControlName="text" autocomplete="off" type="text" rows="2"></textarea>

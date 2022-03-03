@@ -4,23 +4,24 @@
     <div class="comment__texts--name">{{ data.name }}</div>
     <div class="comment__texts--date">{{ data.date | time }}</div>
     <div class="comment__texts--desc">{{ data.text }}</div>
-    <!-- TODO -->
-    <!-- <div class="comment__texts--answers">
+    <div class="comment__texts--answers">
       <div class="actions">
         <div
           class="actions__action"
+          (click)="approve()"
         >
-          <span>0</span>
-          <img class="actions__action--plus" src="/assets/icons/comment/plus.svg" alt="plus icon">
+          <img [class.choosed-plus]="(commentMode | async) === 'like'" class="actions__action--plus" src="/assets/icons/comment/plus.svg" alt="plus icon">
+          <span>{{ data.likes }}</span>
         </div>
         <div
           class="actions__action"
+          (click)="dislike()"
         >
-          <span>0</span>
-          <img class="actions__action--minus" src="/assets/icons/comment/minus.svg" alt="minus icon">
+          <img [class.choosed-minus]="commentMode.value === 'dislike'" class="actions__action--minus" src="/assets/icons/comment/minus.svg" alt="minus icon">
+          <span>{{ data.dislikes }}</span>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
   <div class="comment__buttons">
     <button

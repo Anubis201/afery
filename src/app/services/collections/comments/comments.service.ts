@@ -26,6 +26,7 @@ export class CommentsService {
     return from(this.getRef().ref.where('articleId', '==', articleId).get())
   }
 
+  // TODO PRZENIESC OPDOWIEDZI DO NOWEJ KOLEKCJI LUB ZROBIC TO SAM ALE TYLKO GDY NIE BEDZIE PAGINACJI
   getComments(parentId: string, pollsOrArticles: CommentsType) {
     const ref = this.getRef().ref.where('isAnswer', '==', false);
 
