@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { increment } from 'firebase/firestore';
-import { filter, from, map } from 'rxjs';
+import { from } from 'rxjs';
+import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
 
 @Injectable({
@@ -21,9 +22,13 @@ export class ChatService {
     return from(this.getRef().add(chat));
   }
 
-  getDiscussions(limit: number, lastSnapshot = null) {
-    const ref = this.getRef().ref.where('isAnswer', '==', false).orderBy('date', 'desc').limit(limit)
+  getDiscussions(limit: number, lastSnapshot = null, order: OrderEnum) {
+    const ref = this.getRef().ref
+      .where('isAnswer', '==', false)
+      .orderBy(order === OrderEnum.Latest ? 'date' : 'likes', 'desc')
+      .limit(limit);
 
+      // .where('date', )
     if (lastSnapshot === null)
       return from(ref.get())
     else

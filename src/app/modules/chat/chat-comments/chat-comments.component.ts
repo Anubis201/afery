@@ -31,7 +31,7 @@ export class ChatCommentsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getTexts();
+    this.getTexts(OrderEnum.Latest);
     this.liveUpdate();
   }
 
@@ -40,16 +40,16 @@ export class ChatCommentsComponent implements OnInit {
       this.more();
     }
 
-  getTexts(order: OrderEnum = null) {
+  getTexts(order: OrderEnum, isMore = false) {
     this.isLoading.next(true);
 
-    if (order) {
+    if (order && !isMore) {
       this.order.next(order);
       this.texts.next([]);
       this.lastSnapshot = null;
     }
 
-    this.chatService.getDiscussions(this.limit + 1, this.lastSnapshot).subscribe({
+    this.chatService.getDiscussions(this.limit + 1, this.lastSnapshot, order).subscribe({
       next: docs => {
         const data: ChatTextModel[] = [];
         let i = 0
@@ -129,7 +129,7 @@ export class ChatCommentsComponent implements OnInit {
         // 4. wieksza przepustowość
 
         // TODO to tez jest pewnie chujowe i powoduje mase bledow, ale i tak nie ma teraz duzo uzytkownikow
-        if (this.isLoading.value || this.isFirst) {
+        if (this.isLoading.value || this.isFirst || this.order.value === OrderEnum.Popular) {
           this.isFirst = false;
           return
         }
@@ -163,7 +163,7 @@ export class ChatCommentsComponent implements OnInit {
         scrollPercent = scrollTop / scrollBottom * 100;
 
     if (scrollPercent >= 80) {
-      this.getTexts();
+      this.getTexts(this.order.value, true);
     }
   }
 }
