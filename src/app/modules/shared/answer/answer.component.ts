@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
-import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
 import { ChatService } from 'src/app/services/collections/chat/chat.service';
+import { CommentsService } from 'src/app/services/collections/comments/comments.service';
 
 @Component({
   selector: 'app-answer',
@@ -12,13 +12,14 @@ import { ChatService } from 'src/app/services/collections/chat/chat.service';
 export class AnswerComponent implements OnInit {
   @Input() data: CommentModel
   @Input() isAdmin: boolean
-  @Input() isLogin: boolean
+  @Input() isChat: boolean
 
   @Output() deleteAnswer = new EventEmitter<string>()
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private chatService: ChatService,
+    private commentsService: CommentsService
   ) {}
 
   answers = new BehaviorSubject<CommentModel[]>([])
@@ -46,13 +47,23 @@ export class AnswerComponent implements OnInit {
       value = 1;
     }
 
-    this.chatService.updateLikes(this.data.id, value).subscribe({
-      next: () => {
-        this.data.likes = this.data?.likes + value;
-        this.data.likes = isNaN(this.data.likes) ? 1 : this.data.likes;
-        this.changeDetectorRef.detectChanges();
-      },
-    })
+    if (this.isChat) {
+      this.chatService.updateLikes(this.data.id, value).subscribe({
+        next: () => {
+          this.data.likes = this.data?.likes + value;
+          this.data.likes = isNaN(this.data.likes) ? 1 : this.data.likes;
+          this.changeDetectorRef.detectChanges();
+        },
+      })
+    } else {
+      this.commentsService.updateLikes(this.data.id, value).subscribe({
+        next: () => {
+          this.data.likes = this.data?.likes + value;
+          this.data.likes = isNaN(this.data.likes) ? 1 : this.data.likes;
+          this.changeDetectorRef.detectChanges();
+        },
+      })
+    }
   }
 
   dislike(forceMinus?: boolean) {
@@ -69,12 +80,22 @@ export class AnswerComponent implements OnInit {
       value = 1;
     }
 
-    this.chatService.updateDislikes(this.data.id, value).subscribe({
-      next: () => {
-        this.data.dislikes = this.data?.dislikes + value;
-        this.data.dislikes = isNaN(this.data.dislikes) ? 1 : this.data.dislikes;
-        this.changeDetectorRef.detectChanges();
-      },
-    })
+    if (this.isChat) {
+      this.chatService.updateDislikes(this.data.id, value).subscribe({
+        next: () => {
+          this.data.dislikes = this.data?.dislikes + value;
+          this.data.dislikes = isNaN(this.data.dislikes) ? 1 : this.data.dislikes;
+          this.changeDetectorRef.detectChanges();
+        },
+      })
+    } else {
+      this.commentsService.updateDislikes(this.data.id, value).subscribe({
+        next: () => {
+          this.data.dislikes = this.data?.dislikes + value;
+          this.data.dislikes = isNaN(this.data.dislikes) ? 1 : this.data.dislikes;
+          this.changeDetectorRef.detectChanges();
+        },
+      })
+    }
   }
 }
