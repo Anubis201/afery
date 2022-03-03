@@ -16,7 +16,6 @@ export class ChatCommentsComponent implements OnInit {
   @Input() userName: string
   @Input() isAdmin: string
   @Input() isLogin: boolean
-  @Input() isCheckingLogin: boolean
 
   isSaving = new BehaviorSubject<boolean>(false)
   texts = new BehaviorSubject<ChatTextModel[]>([])

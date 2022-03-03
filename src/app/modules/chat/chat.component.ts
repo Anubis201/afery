@@ -27,10 +27,6 @@ export class ChatComponent implements OnInit {
     return this.userService.isLogin
   }
 
-  get isCheckingLogin() {
-    return this.userService.isCheckingLogin
-  }
-
   ngOnInit() {
     this.metaTags();
   }

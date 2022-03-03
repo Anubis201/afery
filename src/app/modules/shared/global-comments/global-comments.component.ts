@@ -5,7 +5,6 @@ import { CommentModel } from 'src/app/models/articles/comment.model';
 import { CommentsType } from 'src/app/models/others/comments.type';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
 import { UserService } from 'src/app/services/global/user/user.service';
-import { WorkingCommentsService } from 'src/app/services/global/working-comments/working-comments.service';
 
 @Component({
   selector: 'app-global-comments',
@@ -22,7 +21,6 @@ export class GlobalCommentsComponent {
   isLoading = new BehaviorSubject<boolean>(false)
 
   constructor(
-    private workingCommentsService: WorkingCommentsService,
     private userService: UserService,
     private commentsService: CommentsService,
     private _snackBar: MatSnackBar,
@@ -69,11 +67,12 @@ export class GlobalCommentsComponent {
       pollId: this.commentType === 'polls' ? this.parentId : null,
       isNew: true,
       isAnswer: false,
+      name: this.userService.userName.value,
     };
 
-    this.workingCommentsService.extendedAddComment(rlyComment).subscribe({
+    this.commentsService.addComment(rlyComment).subscribe({
       next: doc => {
-        this.comments.next([{ ...rlyComment, id: doc.id, name: this.userService.userName.value }, ...this.comments.value]);
+        this.comments.next([{ ...rlyComment, id: doc.id }, ...this.comments.value]);
         this.isSavingComment.next(false);
       },
       error: () => {

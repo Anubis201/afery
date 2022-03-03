@@ -4,12 +4,11 @@
   (changeOrder)="getTexts($event, false)"
 ></app-chat-header>
 
-<app-write-chat
-  [isSaving]="isSaving | async"
-  [isLogin]="isLogin"
-  [isCheckingLogin]="isCheckingLogin"
-  (handleAddText)="addText($event)"
-></app-write-chat>
+<app-write-comment
+  [isSavingComment]="isSaving | async"
+  [disableLabel]="true"
+  (addComment)="addText($event)"
+></app-write-comment>
 
 <div class="discussions">
   <app-discussion

@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
-import { WorkingCommentsService } from 'src/app/services/global/working-comments/working-comments.service';
 
 type CommentMode = 'like' | 'dislike' | null;
 
@@ -25,7 +24,6 @@ export class CommentComponent implements OnInit {
     private commentsService: CommentsService,
     private changeDetectorRef: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
-    private workingCommentsService: WorkingCommentsService,
   ) {}
 
   handleOpenWriteComment = new BehaviorSubject<boolean>(false)
@@ -59,11 +57,12 @@ export class CommentComponent implements OnInit {
       isNew: true,
       commentId: this.comment.id,
       isAnswer: true,
+      name: this.userName,
     };
 
-    this.workingCommentsService.extendedAddComment(rlyAnswer).subscribe({
-      next: () => {
-        this.answers.next([{ ...rlyAnswer, name: this.userName }, ...this.answers.value]);
+    this.commentsService.addComment(rlyAnswer).subscribe({
+      next: doc => {
+        this.answers.next([{ ...rlyAnswer, id: doc.id }, ...this.answers.value]);
         this.countAnswers.next(this.countAnswers.value + 1);
         this.isSaving.next(false);
       },

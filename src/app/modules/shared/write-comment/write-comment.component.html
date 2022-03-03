@@ -1,30 +1,48 @@
 <div
-  *ngIf="!answerMode"
+  *ngIf="!answerMode && !disableLabel"
   class="label"
 >Komentarze: {{ countComment }}</div>
 
-<div
-  *ngIf="!isSavingComment"
-  class="comment"
-  [class.left-margin]="answerMode"
->
-  <div>
-    <mat-icon>person</mat-icon>
+<ng-container *ngIf="isLogin | async">
+  <div
+    *ngIf="!isSavingComment"
+    class="comment"
+    [class.left-margin]="answerMode"
+  >
+    <div>
+      <mat-icon>person</mat-icon>
+    </div>
+
+    <form [formGroup]="form">
+      <mat-form-field appearance="fill">
+        <mat-label>Treść komentarza</mat-label>
+        <textarea matInput formControlName="text" autocomplete="off" type="text" rows="2"></textarea>
+        <mat-error *ngIf="!form.get('text')?.hasError('required')">Max długośc to {{ commentLength }} znaków</mat-error>
+      </mat-form-field>
+
+      <div class="create">
+        <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid" (click)="add()">Dodaj</button>
+      </div>
+    </form>
   </div>
 
-  <form [formGroup]="form">
-    <mat-form-field appearance="fill">
-      <mat-label>Treść komentarza</mat-label>
-      <textarea matInput formControlName="text" autocomplete="off" type="text" rows="2"></textarea>
-      <mat-error *ngIf="!form.get('text')?.hasError('required')">Max długośc to {{ commentLength }} znaków</mat-error>
-    </mat-form-field>
+  <div *ngIf="isSavingComment" class="loading">
+    <mat-spinner [diameter]="60"></mat-spinner>
+  </div>
+</ng-container>
 
-    <div class="create">
-      <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid" (click)="add()">Dodaj</button>
+<div
+  *ngIf="!isLogin.value && !(isCheckingLogin | async)"
+  class="no-login"
+>
+  <div>
+    <mat-icon>info</mat-icon>
+  </div>
+
+  <div class="no-login__content">
+    <div>Aby uczestniczyć w dyskusji, musisz być zalogowany.</div>
+    <div>
+      <button mat-button (click)="openSingIn()">Zaloguj się</button>
     </div>
-  </form>
-</div>
-
-<div *ngIf="isSavingComment" class="loading">
-  <mat-spinner [diameter]="60"></mat-spinner>
+  </div>
 </div>
