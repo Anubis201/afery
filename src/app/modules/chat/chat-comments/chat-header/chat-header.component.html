@@ -5,11 +5,12 @@
       [class.active]="order === OrderEnum.Latest"
       (click)="changeOrder.emit(OrderEnum.Latest)"
     >Najnowsze</button>
+    <!-- TODO zrobić nowa kolekcje gdzie będą tylko odpowiedzi, po to, aby zrobić przycisk do najwiecej plosów-->
     <button
       mat-button
       [class.active]="order === OrderEnum.Popular"
       (click)="changeOrder.emit(OrderEnum.Popular)"
-    >Najlepsze</button>
+    >Czasowo</button>
   </div>
 
   <mat-form-field

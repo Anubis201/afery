@@ -23,11 +23,9 @@ export class ChatService {
   }
 
   getDiscussions(limit: number, lastSnapshot = null, order: OrderEnum, date: Date) {
-    console.log(date)
-
     const ref = this.getRef().ref
       .where('isAnswer', '==', false)
-      .orderBy(order === OrderEnum.Latest ? 'date' : 'likes', 'desc')
+      .orderBy('date', 'desc')
       .limit(limit);
 
     if (lastSnapshot === null)
