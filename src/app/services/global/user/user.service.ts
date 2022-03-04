@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { GoogleAuthProvider } from 'firebase/auth';
+import { AuthProvider, FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider } from 'firebase/auth';
 import { BehaviorSubject, catchError, from, map } from 'rxjs';
+import { ProvidersEnum } from 'src/app/models/others/enums/providers.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -44,8 +45,24 @@ export class UserService {
     })
   }
 
-  loginAsGoogle() {
-    return from(this.fireAuth.signInWithPopup(new GoogleAuthProvider()))
+  loginProvider(provider: any) {
+    let authProvider: AuthProvider
+
+    switch(provider) {
+      case ProvidersEnum.Google:
+        authProvider = new GoogleAuthProvider();
+        break
+      case ProvidersEnum.Facebook:
+        authProvider = new FacebookAuthProvider();
+        break
+      case ProvidersEnum.Twitter:
+        authProvider = new TwitterAuthProvider();
+        break
+    }
+    console.log(provider)
+    console.log(authProvider)
+
+    return from(this.fireAuth.signInWithPopup(authProvider))
       .pipe(
         map(() => {
           this._snackBar.open('Zalogowałeś się', 'close');
