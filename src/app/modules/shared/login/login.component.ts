@@ -30,7 +30,7 @@ export class LoginComponent {
 
     this.userService.loginProvider(ProvidersEnum[provider]).subscribe({
       next: () => this.dialog.closeAll(),
-      complete: () => this.changeIsLoading(provider, true),
+      complete: () => this.changeIsLoading(provider, false),
     })
   }
 

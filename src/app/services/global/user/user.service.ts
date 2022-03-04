@@ -59,8 +59,6 @@ export class UserService {
         authProvider = new TwitterAuthProvider();
         break
     }
-    console.log(provider)
-    console.log(authProvider)
 
     return from(this.fireAuth.signInWithPopup(authProvider))
       .pipe(
