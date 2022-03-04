@@ -47,6 +47,9 @@ export class NavBarComponent implements OnInit {
 
   logout() {
     this.userService.logout();
-    this.route.navigateByUrl('/')
+
+    if (location.pathname.search('admin') === 1)  {
+      this.route.navigateByUrl('/')
+    }
   }
 }
