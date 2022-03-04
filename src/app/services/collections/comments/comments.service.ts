@@ -28,7 +28,7 @@ export class CommentsService {
 
   // TODO PRZENIESC OPDOWIEDZI DO NOWEJ KOLEKCJI LUB ZROBIC TO SAM ALE TYLKO GDY NIE BEDZIE PAGINACJI
   getComments(parentId: string, pollsOrArticles: CommentsType) {
-    const ref = this.getRef().ref.where('isAnswer', '==', false);
+    const ref = this.getRef().ref.where('isAnswer', '==', false).orderBy('date', 'desc');
 
     if (pollsOrArticles === 'articles')
       return from(ref.where('articleId', '==', parentId).get());

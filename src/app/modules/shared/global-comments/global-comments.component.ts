@@ -53,8 +53,9 @@ export class GlobalCommentsComponent {
         });
 
         this.comments.next(allComments);
+        this.isLoading.next(false);
       },
-      complete: () => this.isLoading.next(false)
+      error: () => this.isLoading.next(false)
     })
   }
 
