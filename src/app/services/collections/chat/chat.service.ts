@@ -56,4 +56,8 @@ export class ChatService {
   onChatChange() {
     return this.getRef().ref.where('isAnswer', '==', false).orderBy('date', 'desc').limit(20)
   }
+
+  getDiscussion(id: string) {
+    return this.getRef().doc(id).get()
+  }
 }

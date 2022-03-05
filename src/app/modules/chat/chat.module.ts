@@ -7,6 +7,7 @@ import { ChatComponent } from './chat.component';
 import { ChatCommentsComponent } from './chat-comments/chat-comments.component';
 import { ChatHeaderComponent } from './chat-comments/chat-header/chat-header.component';
 import { SingleDiscussionComponent } from './single-discussion/single-discussion.component';
+import { DiscussionComponent } from './discussion/discussion.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { SingleDiscussionComponent } from './single-discussion/single-discussion
     ChatCommentsComponent,
     ChatHeaderComponent,
     SingleDiscussionComponent,
+    DiscussionComponent,
   ],
   imports: [
     CommonModule,

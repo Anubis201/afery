@@ -14,9 +14,9 @@
   <app-discussion
     *ngFor="let text of texts | async"
     [data]="text"
-    [isAdmin]="isAdmin"
-    [isLogin]="isLogin"
-    [userName]="userName"
+    [isAdmin]="isAdmin | async"
+    [isLogin]="isLogin | async"
+    [userName]="userName | async"
     (deleteMe)="handleDelete($event)"
   ></app-discussion>
 </div>

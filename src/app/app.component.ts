@@ -45,7 +45,7 @@ export class AppComponent implements OnInit {
       },
       {
         label: 'Bulwar',
-        href: '/bulwar',
+        href: '/bulwar/dyskusje',
       },
       {
         label: 'Sondaże',

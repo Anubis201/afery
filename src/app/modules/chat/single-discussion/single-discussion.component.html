@@ -1,8 +1,8 @@
-<div>lremsdsdsds  asdasd sadsasa </div>
-<div>lremsdsdsds  asdasd sadsasa </div>
-<div>lremsdsdsds  asdasd sadsasa </div>
-<div>lremsdsdsds  asdasd sadsasa </div>
-<div>lremsdsdsds  asdasd sadsasa </div><div>lremsdsdsds  asdasd sadsasa </div>
-<div>lremsdsdsds  asdasd sadsasa </div>
-<div>lremsdsdsds  asdasd sadsasa </div>
-<div>lremsdsdsds  asdasd sadsasa </div>
+<app-discussion
+  *ngIf="!(isLoading | async)"
+  [data]="data | async"
+  [isAdmin]="isAdmin | async"
+  [isLogin]="isLogin | async"
+  [userName]="userName | async"
+  (deleteMe)="handleDelete($event)"
+></app-discussion>

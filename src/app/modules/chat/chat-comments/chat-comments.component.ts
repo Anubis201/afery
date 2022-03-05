@@ -1,22 +1,22 @@
-import { ChangeDetectionStrategy, Component, HostListener, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
 import { ChatService } from 'src/app/services/collections/chat/chat.service';
+import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
   selector: 'app-chat-comments',
   templateUrl: './chat-comments.component.html',
   styleUrls: ['./chat-comments.component.scss'],
+  host: {
+    class: 'col-12 col-md-10 col-lg-8 col-xl-6'
+  },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatCommentsComponent implements OnInit {
-  @Input() userName: string
-  @Input() isAdmin: string
-  @Input() isLogin: boolean
-
   isSaving = new BehaviorSubject<boolean>(false)
   texts = new BehaviorSubject<ChatTextModel[]>([])
   isLoading = new BehaviorSubject<boolean>(false)
@@ -31,7 +31,20 @@ export class ChatCommentsComponent implements OnInit {
 
   constructor(
     private chatService: ChatService,
+    private userService: UserService,
   ) {}
+
+  get userName() {
+    return this.userService.userName
+  }
+
+  get isAdmin() {
+    return this.userService.isAdmin
+  }
+
+  get isLogin() {
+    return this.userService.isLogin
+  }
 
   ngOnInit() {
     this.getTexts(OrderEnum.Latest, false);
@@ -90,7 +103,7 @@ export class ChatCommentsComponent implements OnInit {
 
     const rlyChat: ChatTextModel = {
       ...text,
-      name: this.userName,
+      name: this.userName.value,
       dislikes: 0,
       likes: 0,
       isAnswer: false,
