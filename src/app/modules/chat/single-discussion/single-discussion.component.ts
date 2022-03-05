@@ -9,6 +9,9 @@ import { UserService } from 'src/app/services/global/user/user.service';
   selector: 'app-single-discussion',
   templateUrl: './single-discussion.component.html',
   styleUrls: ['./single-discussion.component.scss'],
+  host: {
+    class: 'col-12 col-md-10 col-lg-8 col-xl-6'
+  },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SingleDiscussionComponent implements OnInit {

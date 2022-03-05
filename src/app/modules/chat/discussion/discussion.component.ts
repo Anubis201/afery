@@ -16,6 +16,7 @@ export class DiscussionComponent implements OnInit {
   @Input() isAdmin: boolean
   @Input() isLogin: boolean
   @Input() userName: string
+  @Input() disableIcon: boolean = false
 
   @Output() deleteMe = new EventEmitter<string>()
 
@@ -33,6 +34,11 @@ export class DiscussionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (localStorage.getItem(this.data.id) === 'like')
+      this.commentMode.next('like');
+    else if (localStorage.getItem(this.data.id) === 'dislike')
+      this.commentMode.next('dislike');
+
     this.getCountAnswers();
   }
 
@@ -121,6 +127,14 @@ export class DiscussionComponent implements OnInit {
         this.data.dislikes = this.data.dislikes + value;
         this.data.dislikes = isNaN(this.data.dislikes) ? 1 : this.data.dislikes;
         this.changeDetectorRef.detectChanges();
+      },
+    })
+  }
+
+  handleDeleteAnswer(id: string) {
+    this.chatService.deteleMe(id).subscribe({
+      next: () => {
+        this.answers.next(this.answers.value.filter(filterV => filterV.id !== id));
       },
     })
   }
