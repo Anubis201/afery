@@ -2,6 +2,7 @@
   [isSavingComment]="isSavingComment | async"
   [countComment]="(comments | async).length"
   (addComment)="addComment($event)"
+  (changeOrder)="getComments($event.value)"
 ></app-write-comment>
 
 <app-is-loading

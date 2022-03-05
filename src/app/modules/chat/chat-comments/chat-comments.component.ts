@@ -80,7 +80,6 @@ export class ChatCommentsComponent implements OnInit {
         this.isLoading.next(false);
       },
       error: err => {
-        console.log(err)
         this.isLoading.next(false);
       },
     })

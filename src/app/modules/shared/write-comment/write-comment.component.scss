@@ -25,7 +25,27 @@ form {
 }
 
 .label {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  height: 50px;
   margin-top: 1rem;
+
+  &__count {
+    align-self: end;
+    margin-bottom: .9rem;
+  }
+
+  mat-form-field {
+    font-size: 11px;
+    width: 95px;
+    margin-bottom: -15px;
+  }
+
+  button {
+    color: white;
+  }
 }
 
 .comment {

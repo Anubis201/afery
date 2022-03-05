@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { increment } from 'firebase/firestore';
 import { from } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
+import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { CommentsType } from 'src/app/models/others/comments.type';
 
 @Injectable({
@@ -27,8 +28,10 @@ export class CommentsService {
   }
 
   // TODO PRZENIESC OPDOWIEDZI DO NOWEJ KOLEKCJI LUB ZROBIC TO SAM ALE TYLKO GDY NIE BEDZIE PAGINACJI
-  getComments(parentId: string, pollsOrArticles: CommentsType) {
-    const ref = this.getRef().ref.where('isAnswer', '==', false).orderBy('date', 'desc');
+  getComments(parentId: string, pollsOrArticles: CommentsType, order: OrderEnum = OrderEnum.Latest) {
+    const ref = this.getRef().ref
+      .where('isAnswer', '==', false)
+      .orderBy(order === OrderEnum.Latest ? 'date' : 'likes', 'desc');
 
     if (pollsOrArticles === 'articles')
       return from(ref.where('articleId', '==', parentId).get());

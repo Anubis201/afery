@@ -1,7 +1,27 @@
 <div
   *ngIf="!answerMode && !disableLabel"
   class="label"
->Komentarze: {{ countComment }}</div>
+>
+  <div class="label__count">
+    Komentarze: {{ countComment }}
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Sortowanie</mat-label>
+    <mat-select
+      [formControl]="orderControl"
+      (selectionChange)="changeOrder.emit($event)"
+    >
+      <mat-option [value]="OrderEnum.Latest">
+        <span>{{ capitalizeFirst(OrderEnum.Latest) }}</span>
+      </mat-option>
+
+      <mat-option [value]="OrderEnum.Popular">
+        <span>{{ capitalizeFirst(OrderEnum.Popular) }}</span>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
 
 <ng-container *ngIf="isLogin | async">
   <div

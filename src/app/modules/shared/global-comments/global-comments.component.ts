@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
+import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { CommentsType } from 'src/app/models/others/comments.type';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
 import { UserService } from 'src/app/services/global/user/user.service';
@@ -35,12 +36,12 @@ export class GlobalCommentsComponent {
   }
 
   ngOnInit() {
-    this.getComments(this.parentId);
+    this.getComments();
   }
 
-  getComments(parentId: string) {
+  getComments(order: OrderEnum = OrderEnum.Latest) {
     this.isLoading.next(true);
-    this.commentsService.getComments(parentId, this.commentType).subscribe({
+    this.commentsService.getComments(this.parentId, this.commentType, order).subscribe({
       next: commentsDocs => {
         const allComments: CommentModel[] = [];
 
@@ -55,7 +56,10 @@ export class GlobalCommentsComponent {
         this.comments.next(allComments);
         this.isLoading.next(false);
       },
-      error: () => this.isLoading.next(false)
+      error: err => {
+        console.log(err)
+        this.isLoading.next(false)
+      }
     })
   }
 
@@ -69,6 +73,8 @@ export class GlobalCommentsComponent {
       isNew: true,
       isAnswer: false,
       name: this.userService.userName.value,
+      likes: 0,
+      dislikes: 0,
     };
 
     this.commentsService.addComment(rlyComment).subscribe({

@@ -58,6 +58,8 @@ export class CommentComponent implements OnInit {
       commentId: this.comment.id,
       isAnswer: true,
       name: this.userName,
+      likes: 0,
+      dislikes: 0,
     };
 
     this.commentsService.addComment(rlyAnswer).subscribe({
