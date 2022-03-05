@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
 import { AdminRoutingModule } from './admin-routing.module';
-import { AuthComponent } from './auth/auth.component';
 import { MenuListComponent } from './menu-list/menu-list.component';
 import { MatListModule } from '@angular/material/list';
 import { CreateComponent } from './create/create.component';
@@ -24,7 +23,6 @@ import { ChooseTypeComponent } from './add-polls/choose-type/choose-type.compone
 @NgModule({
   declarations: [
     AdminComponent,
-    AuthComponent,
     MenuListComponent,
     CreateComponent,
     ManageCommentsComponent,

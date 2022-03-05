@@ -7,7 +7,7 @@
     [color]="'primary'"
     [isSaving]="provider.value.isLoading"
     [right]="'75px'"
-    [disabled]="provider.value.text === 'Twitter'"
+    [disabled]="provider.value.text === 'Twitter' || provider.value.text === 'Facebook'"
     (click)="loginProvider(provider.value.text)"
   >
     <img [src]="'/assets/icons/auth/' + provider.value.text + '.png'" [alt]="'ikona ' + provider.value.text">

@@ -17,7 +17,7 @@ export class CheckAuthGuard implements CanActivate {
       return this.userService.isAdmin.pipe(
         map(isAdmin => {
           if (!isAdmin) {
-            return this.router.parseUrl('admin/auth');
+            return this.router.parseUrl('/');
           }
           return true;
         })

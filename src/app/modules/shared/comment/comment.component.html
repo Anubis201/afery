@@ -6,6 +6,7 @@
     <div class="comment__texts--desc">{{ comment.text }}</div>
     <div *ngIf="!isMenagaComponent" class="comment__texts--answers">
       <button
+        *ngIf="userName"
         mat-button
         (click)="handleOpenWriteComment.next(!handleOpenWriteComment.value)"
       >Odpowiedz</button>
@@ -16,14 +17,14 @@
           (click)="approve()"
         >
           <img [class.choosed-plus]="(commentMode | async) === 'like'" class="actions__action--plus" src="/assets/icons/comment/plus.svg" alt="plus icon">
-          <span>{{ comment?.likes ?? 0 }}</span>
+          <span [style.margin-top]="userName ? '10px' : '1px'">{{ comment?.likes ?? 0 }}</span>
         </div>
         <div
           class="actions__action"
           (click)="dislike()"
         >
           <img [class.choosed-minus]="commentMode.value === 'dislike'" class="actions__action--minus" src="/assets/icons/comment/minus.svg" alt="minus icon">
-          <span>{{ comment?.dislikes ?? 0 }}</span>
+          <span [style.margin-top]="userName ? '10px' : '1px'">{{ comment?.dislikes ?? 0 }}</span>
         </div>
       </div>
 

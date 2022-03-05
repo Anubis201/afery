@@ -12,5 +12,4 @@ export class TopDiscussionComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
