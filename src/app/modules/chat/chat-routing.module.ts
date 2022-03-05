@@ -10,11 +10,8 @@ const routes: Routes = [
     children: [
       {
         path: 'dyskusja',
-        component: SingleDiscussionComponent
+        component: SingleDiscussionComponent,
       },
-      {
-        path: 'najlepsze'
-      }
     ]
   },
 ];

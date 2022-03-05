@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class ChatComponent implements OnInit {
     private titleService: Title,
     private meta: Meta,
     private userService: UserService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   get userName() {
@@ -29,6 +31,14 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.metaTags();
+
+    this.activatedRoute.parent.params.subscribe(param => {
+      console.log(param)
+    })
+  }
+
+  test(event) {
+    console.log(event)
   }
 
   private metaTags() {

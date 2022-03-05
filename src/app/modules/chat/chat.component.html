@@ -1,5 +1,8 @@
 <div clas="container">
   <div class="justify-content-center">
+    <router-outlet
+      (activate)="test($event)"
+    ></router-outlet>
     <!-- TODO ETAP 5: POPRAWA DZIALANIA -->
     <app-chat-comments
       class="col-12 col-md-10 col-lg-8 col-xl-6"
@@ -10,11 +13,10 @@
   </div>
 </div>
 
-<!-- TODO ETAP 3: W kazdy komentarz w bulwarze bedzie można wejść jako normalny routing -->
+<!-- TODO ETAP 3: W kazdy komentarz w bulwarze bedzie można wejść jako normalny routing i tam na niego odpowiedziec -->
 <!-- <app-single-discussion
 ></app-single-discussion> -->
 
 <!-- TODO ETAP 4: Top dyskusji na tej stronie oraz na głównej i może jakieś inne -->
 <!-- <app-top-discussion
 ></app-top-discussion> -->
-
