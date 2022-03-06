@@ -43,6 +43,7 @@ const declarations = [
   SaveButtonComponent,
   IsLoadingComponent,
   TopDiscussionComponent,
+  PlusMinusComponent,
 ]
 
 const imports = [
@@ -63,7 +64,6 @@ const imports = [
 @NgModule({
   declarations: [
     ...declarations,
-    PlusMinusComponent,
   ],
   imports: [
     CommonModule,

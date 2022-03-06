@@ -14,10 +14,11 @@
       <app-plus-minus
         [likes]="comment.likes"
         [dislikes]="comment.dislikes"
-        [parentId]="comment.articleId"
-        [collection]="'articles'"
-        (incrementLikes)="handleLike()"
-        (incrementDislikes)="handleDislike()"
+        [id]="comment.id"
+        [collection]="'comments'"
+        [numberAnswers]="countAnswers.value"
+        (incrementLikes)="handleLike($event)"
+        (incrementDislikes)="handleDislike($event)"
       ></app-plus-minus>
 
       <button

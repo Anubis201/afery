@@ -6,7 +6,7 @@
       src="/assets/icons/comment/plus.svg"
       alt="plus icon"
     />
-    <span>{{ likes ?? 0 }}</span>
+    <span [style.margin-top]="(isLogin | async) || numberAnswers ? '9px' : '1px'">{{ likes || 0 }}</span>
   </div>
   <div class="actions__action" (click)="dislike()">
     <img
@@ -15,6 +15,6 @@
       src="/assets/icons/comment/minus.svg"
       alt="minus icon"
     />
-    <span>{{ dislikes ?? 0 }}</span>
+    <span [style.margin-top]="isLogin.value || numberAnswers ? '9px' : '1px'">{{ dislikes || 0 }}</span>
   </div>
 </div>

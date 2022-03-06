@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { increment } from 'firebase/firestore';
 import { from } from 'rxjs';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
@@ -34,14 +33,6 @@ export class ChatService {
     else
       if (order === OrderEnum.Latest) return from(ref.startAt(lastSnapshot).get())
       else return from(ref.startAt(lastSnapshot).where('date', '>=', date).get())
-  }
-
-  updateDislikes(id: string, incrementValue: number) {
-    return from(this.getRef().doc(id).update({ dislikes: increment(incrementValue) }))
-  }
-
-  updateLikes(id: string, incrementValue: number) {
-    return from(this.getRef().doc(id).update({ likes: increment(incrementValue) }))
   }
 
   deteleMe(id: string) {

@@ -21,20 +21,15 @@
       >Odpowiedz</button>
 
       <div class="actions">
-        <div
-          class="actions__action"
-          (click)="approve()"
-        >
-          <img [class.choosed-plus]="(commentMode | async) === 'like'" class="actions__action--plus" src="/assets/icons/comment/plus.svg" alt="plus icon">
-          <span [style.margin-top]="isLogin || countAnswers.value ? '10px' : '1px'">{{ data.likes }}</span>
-        </div>
-        <div
-          class="actions__action"
-          (click)="dislike()"
-        >
-          <img [class.choosed-minus]="commentMode.value === 'dislike'" class="actions__action--minus" src="/assets/icons/comment/minus.svg" alt="minus icon">
-          <span [style.margin-top]="isLogin ||countAnswers.value ? '10px' : '1px'">{{ data.dislikes }}</span>
-        </div>
+        <app-plus-minus
+          [likes]="data.likes"
+          [dislikes]="data.dislikes"
+          [id]="data.id"
+          [numberAnswers]="countAnswers.value"
+          [collection]="'chat'"
+          (incrementLikes)="handleLike($event)"
+          (incrementDislikes)="handleDislike($event)"
+        ></app-plus-minus>
       </div>
 
       <button

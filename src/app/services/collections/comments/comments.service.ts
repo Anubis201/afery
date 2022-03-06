@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { increment } from 'firebase/firestore';
 import { from } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
@@ -40,14 +39,6 @@ export class CommentsService {
 
   getAnswers(commentId: string) {
     return from(this.getRef().ref.where('commentId', '==', commentId).get())
-  }
-
-  updateDislikes(commentId: string, incrementValue: number) {
-    return from(this.getRef().doc(commentId).update({ dislikes: increment(incrementValue) }))
-  }
-
-  updateLikes(commentId: string, incrementValue: number) {
-    return from(this.getRef().doc(commentId).update({ likes: increment(incrementValue) }))
   }
 
   getAdminAllComments() {

@@ -30,17 +30,10 @@ export class CommentComponent implements OnInit {
   isSaving = new BehaviorSubject<boolean>(false)
   countAnswers = new BehaviorSubject<number>(0)
   answers = new BehaviorSubject<CommentModel[]>([])
-  commentMode = new BehaviorSubject<CommentMode>(null)
   handleOpenAnswers = new BehaviorSubject<boolean>(false)
 
   ngOnInit() {
-    console.log(this.comment)
     if (!this.isMenagaComponent && this.comment?.id) this.getCountAnswers();
-
-    if (localStorage.getItem(this.comment.id) === 'like')
-      this.commentMode.next('like');
-    else if (localStorage.getItem(this.comment.id) === 'dislike')
-      this.commentMode.next('dislike');
   }
 
   hideAnswers() {
@@ -88,13 +81,15 @@ export class CommentComponent implements OnInit {
     })
   }
 
-  handleLike() {
-    this.comment.likes = this.comment.likes + 1;
+  handleLike(value: number) {
+    this.comment.likes = this.comment.likes + value;
+    this.comment.likes = isNaN(this.comment.likes) ? 1 : this.comment.likes;
     this.changeDetectorRef.detectChanges();
   }
 
-  handleDislike() {
-    this.comment.dislikes = this.comment.dislikes + 1;
+  handleDislike(value: number) {
+    this.comment.dislikes = this.comment.dislikes + value;
+    this.comment.dislikes = isNaN(this.comment.dislikes) ? 1 : this.comment.dislikes;
     this.changeDetectorRef.detectChanges();
   }
 
