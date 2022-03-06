@@ -30,7 +30,7 @@ export class ChatHeaderComponent implements OnInit {
       month = now.subtract(1, 'months').toDate(),
       year = now.subtract(1, 'years').toDate();
 
-    this.time.patchValue(day);
+    this.time.patchValue(week);
 
     this.items = [
       {
