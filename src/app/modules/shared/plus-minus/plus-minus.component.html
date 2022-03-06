@@ -1,0 +1,16 @@
+<div (click)="approve()">
+  <img
+    [class.choosed-plus]="(commentMode | async) === 'like'"
+    src="/assets/icons/comment/plus.svg"
+    alt="plus icon"
+  />
+  <span>{{ likes ?? 0 }}</span>
+</div>
+<div class="actions__action" (click)="dislike()">
+  <img
+    [class.choosed-minus]="commentMode.value === 'dislike'"
+    src="/assets/icons/comment/minus.svg"
+    alt="minus icon"
+  />
+  <span>{{ dislikes ?? 0 }}</span>
+</div>
