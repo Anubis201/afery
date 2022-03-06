@@ -78,6 +78,7 @@
       [dislikes]="dislikes"
       [id]="id"
       [collection]="'articles'"
+      [isArticle]="true"
       (incrementLikes)="handleLike.emit($event)"
       (incrementDislikes)="handleDislike.emit($event)"
     ></app-plus-minus>

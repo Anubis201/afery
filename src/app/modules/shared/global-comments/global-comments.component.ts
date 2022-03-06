@@ -56,8 +56,7 @@ export class GlobalCommentsComponent {
         this.comments.next(allComments);
         this.isLoading.next(false);
       },
-      error: err => {
-        console.log(err)
+      error: () => {
         this.isLoading.next(false)
       }
     })

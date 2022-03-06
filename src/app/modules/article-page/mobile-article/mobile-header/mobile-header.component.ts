@@ -14,15 +14,15 @@ export class MobileHeaderComponent {
   @Input() title: string
   @Input() createDate: Date
   @Input() text: string
-  @Input() actionMode: 'like' | 'dislike' | null
   @Input() likes: number
   @Input() dislikes: number
   @Input() imageDesc: string
   @Input() imageSrc: string
   @Input() isShort = false
+  @Input() id: string
 
-  @Output() approve = new EventEmitter<void>()
-  @Output() dislike = new EventEmitter<void>()
+  @Output() handleLike = new EventEmitter<number>()
+  @Output() handleDislike = new EventEmitter<number>()
 
   readonly ArticlesTypesEnum = ArticlesTypesEnum
   readonly PartiesEnum = PartiesEnum

@@ -15,12 +15,11 @@
 
   <app-mobile-article
     class="d-sm-none"
-    [actionMode]="''"
     [article]="article.value"
     [isAdmin]="isAdmin.value"
     [nextArticle]="nextArticle.value"
-    (approve)="approve()"
-    (dislike)="dislike()"
+    (handleDislike)="handleDislike($event)"
+    (handleLike)="handleLike($event)"
   ></app-mobile-article>
 </ng-container>
 

@@ -16,6 +16,7 @@ export class PlusMinusComponent implements OnInit {
   @Input() id: string
   @Input() collection: string
   @Input() numberAnswers: number
+  @Input() isArticle = false
 
   @Output() incrementLikes = new EventEmitter<number>()
   @Output() incrementDislikes = new EventEmitter<number>()
@@ -69,7 +70,7 @@ export class PlusMinusComponent implements OnInit {
       value = 1;
     }
 
-    this.firestore.collection(this.collection).doc(this.id).update({ likes: increment(value) })
+    this.firestore.collection(this.collection).doc(this.id).update({ dislikes: increment(value) })
       .then(() => {
         this.incrementDislikes.emit(value)
       })

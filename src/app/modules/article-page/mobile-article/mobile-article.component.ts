@@ -11,12 +11,11 @@ import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 })
 export class MobileArticleComponent {
   @Input() article: ArticleModel
-  @Input() actionMode: 'like' | 'dislike' | null
   @Input() isAdmin: boolean
   @Input() nextArticle: ArticleModel
 
-  @Output() approve = new EventEmitter<void>()
-  @Output() dislike = new EventEmitter<void>()
+  @Output() handleLike = new EventEmitter<number>()
+  @Output() handleDislike = new EventEmitter<number>()
 
   readonly ArticlesTypesEnum = ArticlesTypesEnum
   readonly PartiesEnum = PartiesEnum
