@@ -3,20 +3,19 @@
 
   <app-pc-article
     class="d-none d-sm-block container"
-    [actionMode]="actionMode | async"
     [article]="article | async"
     [isAdmin]="isAdmin | async"
     [nextArticle]="nextArticle | async"
     (setToFirstArticle)="setToFirstArticle()"
     (handleEditArticle)="handleEditArticle()"
     (handleDeleteArticle)="handleDeleteArticle()"
-    (approve)="approve()"
-    (dislike)="dislike()"
+    (handleDislike)="handleDislike($event)"
+    (handleLike)="handleLike($event)"
   ></app-pc-article>
 
   <app-mobile-article
     class="d-sm-none"
-    [actionMode]="actionMode.value"
+    [actionMode]="''"
     [article]="article.value"
     [isAdmin]="isAdmin.value"
     [nextArticle]="nextArticle.value"

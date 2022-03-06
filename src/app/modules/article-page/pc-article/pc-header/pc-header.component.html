@@ -72,34 +72,15 @@
     *ngIf="!isShort"
     class="links__actions"
   >
-    <div class="links__actions--action">
-      <button
-        mat-icon-button
-        (click)="approve.emit()"
-      >
-        <img
-          class="plus"
-          src="/assets/icons/comment/plus.svg"
-          alt="Plus"
-          [class.choosed-plus]="actionMode === 'like'"
-        >
-      </button>
-      <span>{{ likes ?? 0 }}</span>
-    </div>
-    <div class="links__actions--action">
-      <button
-        mat-icon-button
-        (click)="dislike.emit()"
-      >
-        <img
-          class="minus"
-          src="/assets/icons/comment/minus.svg"
-          alt="Minus"
-          [class.choosed-minus]="actionMode === 'dislike'"
-        >
-      </button>
-      <span>{{ dislikes ?? 0 }}</span>
-    </div>
+    <app-plus-minus
+      class="links__actions--action"
+      [likes]="likes"
+      [dislikes]="dislikes"
+      [id]="id"
+      [collection]="'articles'"
+      (incrementLikes)="handleLike.emit($event)"
+      (incrementDislikes)="handleDislike.emit($event)"
+    ></app-plus-minus>
   </div>
   <div
     *ngIf="!isShort"

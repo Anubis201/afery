@@ -9,13 +9,12 @@ import { ArticleModel } from 'src/app/models/articles/article.model';
 })
 export class PcArticleComponent {
   @Input() article: ArticleModel
-  @Input() actionMode: 'like' | 'dislike' | null
   @Input() isAdmin: boolean
   @Input() nextArticle: ArticleModel
 
   @Output() setToFirstArticle = new EventEmitter<void>()
   @Output() handleEditArticle = new EventEmitter<void>()
   @Output() handleDeleteArticle = new EventEmitter<void>()
-  @Output() approve = new EventEmitter<void>()
-  @Output() dislike = new EventEmitter<void>()
+  @Output() handleLike = new EventEmitter<number>()
+  @Output() handleDislike = new EventEmitter<number>()
 }

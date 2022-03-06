@@ -22,7 +22,6 @@ import { UserService } from 'src/app/services/global/user/user.service';
 export class ArticlePageComponent implements OnInit {
   article = new BehaviorSubject<ArticleModel | null>(null)
   isExists = new BehaviorSubject<boolean>(true)
-  actionMode = new BehaviorSubject<'like' | 'dislike' | null>(null)
   nextArticle = new BehaviorSubject<ArticleModel>(null)
 
   readonly PartiesEnum = PartiesEnum
@@ -80,60 +79,26 @@ export class ArticlePageComponent implements OnInit {
     )
   }
 
-  approve(forceMinus?: boolean) {
-    let value: -1 | 1
-
-    if (this.actionMode.value === 'like' || forceMinus) {
-      if (this.actionMode.value === 'like') localStorage.removeItem(this.article.value.id);
-      value = -1;
-      this.actionMode.next(null);
-    } else {
-      if (this.actionMode.value === 'dislike') this.dislike(true);
-      this.actionMode.next('like');
-      localStorage.setItem(this.article.value.id, 'like');
-      value = 1;
-    }
-
-    this.articlesService.updateLikes(this.article.value.id, value).subscribe({
-      next: () => {
-        this.article.next({
-          ...this.article.value,
-         likes: this.article?.value.likes + value,
-        });
-        this.article.next({
-          ...this.article.value,
-          likes: isNaN(this.article.value.likes) ? 1 : this.article.value.likes
-        })
-      },
+  handleLike(value: number) {
+    this.article.next({
+      ...this.article.value,
+     likes: this.article?.value.likes + value,
+    });
+    this.article.next({
+      ...this.article.value,
+      likes: isNaN(this.article.value.likes) ? 1 : this.article.value.likes
     })
   }
 
-  dislike(forceMinus?: boolean) {
-    let value: -1 | 1
-
-    if (this.actionMode.value === 'dislike' || forceMinus) {
-      if (this.actionMode.value === 'dislike') localStorage.removeItem(this.article.value.id);
-      value = -1;
-      this.actionMode.next(null);
-    } else {
-      if (this.actionMode.value === 'like') this.approve(true);
-      this.actionMode.next('dislike');
-      localStorage.setItem(this.article.value.id, 'dislike');
-      value = 1;
-    }
-
-    this.articlesService.updateDislikes(this.article.value.id, value).subscribe({
-      next: () => {
-        this.article.next({
-          ...this.article.value,
-          dislikes: this.article.value?.dislikes + value
-        });
-        this.article.next({
-          ...this.article.value,
-          dislikes: this.article.value.dislikes = isNaN(this.article.value.dislikes) ? 1 : this.article.value.dislikes,
-        });
-      },
-    })
+  handleDislike(value: number) {
+    this.article.next({
+      ...this.article.value,
+      dislikes: this.article.value?.dislikes + value
+    });
+    this.article.next({
+      ...this.article.value,
+      dislikes: this.article.value.dislikes = isNaN(this.article.value.dislikes) ? 1 : this.article.value.dislikes,
+    });
   }
 
   setToFirstArticle() {
@@ -212,12 +177,6 @@ export class ArticlePageComponent implements OnInit {
         // upewnia sie czy wszystko jest dobrze z linkiem
         if (location.href.slice(-5) !== 'zmien')
           this.router.navigate(['artykul/', this.article.value.id, ChangePolishChars(this.article.value.title.replace(/\s/g, '-'))]);
-
-        // sprawdza czy artykul zostal polubiony
-        if (localStorage.getItem(this.article.value.id) === 'like')
-          this.actionMode.next('like');
-        else if (localStorage.getItem(this.article.value.id) === 'dislike')
-          this.actionMode.next('dislike');
 
         // pobiera kolejny artykul do pokazania, narazie proste wyszukiwanie kolejnego
         this.getNextArticle();
