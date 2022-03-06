@@ -34,6 +34,7 @@ export class CommentComponent implements OnInit {
   handleOpenAnswers = new BehaviorSubject<boolean>(false)
 
   ngOnInit() {
+    console.log(this.comment)
     if (!this.isMenagaComponent && this.comment?.id) this.getCountAnswers();
 
     if (localStorage.getItem(this.comment.id) === 'like')
@@ -87,50 +88,14 @@ export class CommentComponent implements OnInit {
     })
   }
 
-  approve(forceMinus?: boolean) {
-    let value: -1 | 1
-
-    if (this.commentMode.value === 'like' || forceMinus) {
-      if (this.commentMode.value === 'like') localStorage.removeItem(this.comment.id);
-      value = -1;
-      this.commentMode.next(null);
-    } else {
-      if (this.commentMode.value === 'dislike') this.dislike(true);
-      this.commentMode.next('like');
-      localStorage.setItem(this.comment.id, 'like');
-      value = 1;
-    }
-
-    this.commentsService.updateLikes(this.comment.id, value).subscribe({
-      next: () => {
-        this.comment.likes = this.comment?.likes + value;
-        this.comment.likes = isNaN(this.comment.likes) ? 1 : this.comment.likes;
-        this.changeDetectorRef.detectChanges();
-      },
-    })
+  handleLike() {
+    this.comment.likes = this.comment.likes + 1;
+    this.changeDetectorRef.detectChanges();
   }
 
-  dislike(forceMinus?: boolean) {
-    let value: -1 | 1
-
-    if (this.commentMode.value === 'dislike' || forceMinus) {
-      if (this.commentMode.value === 'dislike') localStorage.removeItem(this.comment.id);
-      value = -1;
-      this.commentMode.next(null);
-    } else {
-      if (this.commentMode.value === 'like') this.approve(true);
-      this.commentMode.next('dislike');
-      localStorage.setItem(this.comment.id, 'dislike');
-      value = 1;
-    }
-
-    this.commentsService.updateDislikes(this.comment.id, value).subscribe({
-      next: () => {
-        this.comment.dislikes = this.comment?.dislikes + value;
-        this.comment.dislikes = isNaN(this.comment.dislikes) ? 1 : this.comment.dislikes;
-        this.changeDetectorRef.detectChanges();
-      },
-    })
+  handleDislike() {
+    this.comment.dislikes = this.comment.dislikes + 1;
+    this.changeDetectorRef.detectChanges();
   }
 
   handleDeleteAnswer(id: string) {

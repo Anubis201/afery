@@ -12,7 +12,7 @@ import { BehaviorSubject } from 'rxjs';
 export class PlusMinusComponent implements OnInit {
   @Input() likes: string
   @Input() dislikes: string
-  @Input() id: string
+  @Input() parentId: string
   @Input() collection: string
 
   @Output() incrementLikes = new EventEmitter<void>()
@@ -32,17 +32,17 @@ export class PlusMinusComponent implements OnInit {
     let value: -1 | 1
 
     if (this.commentMode.value === 'like' || forceMinus) {
-      if (this.commentMode.value === 'like') localStorage.removeItem(this.id);
+      if (this.commentMode.value === 'like') localStorage.removeItem(this.parentId);
       value = -1;
       this.commentMode.next(null);
     } else {
       if (this.commentMode.value === 'dislike') this.dislike(true);
       this.commentMode.next('like');
-      localStorage.setItem(this.id, 'like');
+      localStorage.setItem(this.parentId, 'like');
       value = 1;
     }
 
-    this.firestore.collection(this.collection).doc(this.id).update({ likes: increment(value) })
+    this.firestore.collection(this.collection).doc(this.parentId).update({ likes: increment(value) })
       .then(() => {
         this.incrementLikes.emit();
       })
@@ -52,26 +52,26 @@ export class PlusMinusComponent implements OnInit {
     let value: -1 | 1
 
     if (this.commentMode.value === 'dislike' || forceMinus) {
-      if (this.commentMode.value === 'dislike') localStorage.removeItem(this.id);
+      if (this.commentMode.value === 'dislike') localStorage.removeItem(this.parentId);
       value = -1;
       this.commentMode.next(null);
     } else {
       if (this.commentMode.value === 'like') this.approve(true);
       this.commentMode.next('dislike');
-      localStorage.setItem(this.id, 'dislike');
+      localStorage.setItem(this.parentId, 'dislike');
       value = 1;
     }
 
-    this.firestore.collection(this.collection).doc(this.id).update({ likes: increment(value) })
+    this.firestore.collection(this.collection).doc(this.parentId).update({ likes: increment(value) })
       .then(() => {
         this.incrementDislikes.emit()
       })
   }
 
   private checkActiveButton() {
-    if (localStorage.getItem(this.id) === 'like')
+    if (localStorage.getItem(this.parentId) === 'like')
       this.commentMode.next('like');
-    else if (localStorage.getItem(this.id) === 'dislike')
+    else if (localStorage.getItem(this.parentId) === 'dislike')
       this.commentMode.next('dislike');
   }
 }
