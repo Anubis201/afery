@@ -18,6 +18,10 @@ export class UserDetailsService {
     return from(this.getRef().doc(userId).set(details))
   }
 
+  updateDetails(userId: string, details: Partial<UserDetailsModel>) {
+    return from(this.getRef().doc(userId).update(details))
+  }
+
   getDetails(userId: string) {
     return this.getRef().doc(userId).get()
   }
