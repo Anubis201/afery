@@ -4,8 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
 
-type CommentMode = 'like' | 'dislike' | null;
-
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',

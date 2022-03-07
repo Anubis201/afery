@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { increment } from 'firebase/firestore';
 import { BehaviorSubject } from 'rxjs';
+import { UserOpinionType } from 'src/app/models/others/user-details.model';
 import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class PlusMinusComponent implements OnInit {
   @Output() incrementLikes = new EventEmitter<number>()
   @Output() incrementDislikes = new EventEmitter<number>()
 
-  commentMode = new BehaviorSubject<'like' | 'dislike' | null>(null)
+  commentMode = new BehaviorSubject<UserOpinionType>(null)
 
   constructor(
     private firestore: AngularFirestore,
