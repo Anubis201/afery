@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { increment } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, increment } from 'firebase/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { UserOpinionType } from 'src/app/models/others/user-details.model';
 import { UserDetailsService } from 'src/app/services/collections/user-details/user-details.service';
@@ -51,22 +51,24 @@ export class PlusMinusComponent implements OnInit {
         localStorage.removeItem(this.id);
       }
 
-      if (this.isLogin.value) {
-        this.userDetailsService.updateDetails(this.idUser.value, {  }).subscribe()
+      if (this.commentMode.value === 'like' && this.isLogin.value) {
+        this.removeFromArray('like');
       }
 
-      value = -1;
-
       this.commentMode.next(null);
+      value = -1;
     } else {
       if (this.commentMode.value === 'dislike') {
         this.dislike(true);
       }
 
+      if (!this.isLogin.value) {
+        localStorage.setItem(this.id, 'like');
+      } else {
+        this.addToArray('like');
+      }
+
       this.commentMode.next('like');
-
-      localStorage.setItem(this.id, 'like');
-
       value = 1;
     }
 
@@ -80,22 +82,47 @@ export class PlusMinusComponent implements OnInit {
     let value: -1 | 1
 
     if (this.commentMode.value === 'dislike' || forceMinus) {
-      if (this.commentMode.value === 'dislike') localStorage.removeItem(this.id);
-      value = -1;
+      if (this.commentMode.value === 'dislike' && !this.isLogin.value) {
+        localStorage.removeItem(this.id);
+      }
+
+      if (this.commentMode.value === 'dislike' && this.isLogin.value) {
+        this.removeFromArray('dislike');
+      }
+
       this.commentMode.next(null);
+      value = -1;
     } else {
-      if (this.commentMode.value === 'like') this.approve(true);
+      if (this.commentMode.value === 'like') {
+        this.approve(true);
+      }
+
+      if (!this.isLogin.value) {
+        localStorage.setItem(this.id, 'dislike');
+      } else {
+        this.addToArray('dislike');
+      }
+
       this.commentMode.next('dislike');
-      localStorage.setItem(this.id, 'dislike');
       value = 1;
     }
-
-
 
     this.firestore.collection(this.collection).doc(this.id).update({ dislikes: increment(value) })
       .then(() => {
         this.incrementDislikes.emit(value)
       })
+  }
+
+  private addToArray(opinion: UserOpinionType) {
+    this.userDetailsService
+      .updateDetails(this.idUser.value, { revievs: arrayUnion({ id: this.id, opinion }) } as any)
+      .subscribe()
+  }
+
+  private removeFromArray(opinion: UserOpinionType) {
+    this.userDetailsService
+      .updateDetails(this.idUser.value, { revievs: arrayRemove({ id: this.id, opinion }) } as any)
+      .subscribe()
   }
 
   private checkActiveButton() {
