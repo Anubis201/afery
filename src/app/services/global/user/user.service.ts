@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthProvider, FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider } from 'firebase/auth';
-import { BehaviorSubject, catchError, from, map, of, tap, zip } from 'rxjs';
+import { BehaviorSubject, catchError, from, map, of } from 'rxjs';
 import { ProvidersEnum } from 'src/app/models/others/enums/providers.enum';
 import { UserDetailsModel } from 'src/app/models/others/user-details.model';
 import { UserDetailsService } from '../../collections/user-details/user-details.service';
@@ -16,6 +16,8 @@ export class UserService {
   userName = new BehaviorSubject<string>(null)
   isCheckingLogin = new BehaviorSubject<boolean>(true)
   idUser = new BehaviorSubject<string>(null)
+  userDetails = new BehaviorSubject<UserDetailsModel>(null)
+  loadingUserDetails = new BehaviorSubject<boolean>(true)
 
   constructor(
     private fireAuth: AngularFireAuth,
@@ -23,8 +25,11 @@ export class UserService {
     private userDetailsService: UserDetailsService,
   ) {
     this.fireAuth.user.subscribe(user => {
-      this.isLogin.next(!!user);
+      if (user?.uid) {
+        this.getDetails(user.uid);
+      }
 
+      this.isLogin.next(!!user);
       this.userName.next(user?.displayName || user?.email);
       this.idUser.next(user?.uid);
 
@@ -32,6 +37,10 @@ export class UserService {
       this.isAdmin.next(user?.email && user.email === user?.photoURL && this.isLogin.value);
       this.isCheckingLogin.next(false);
     })
+  }
+
+  get subUser() {
+    return this.fireAuth.user
   }
 
   logout() {
@@ -76,5 +85,18 @@ export class UserService {
           return []
         })
       )
+  }
+
+  private getDetails(id: string) {
+    this.loadingUserDetails.next(true);
+    this.userDetailsService.getDetails(id).subscribe({
+      next: data => {
+        this.userDetails.next(data.data());
+        this.loadingUserDetails.next(false);
+      },
+      error: () => {
+        this.loadingUserDetails.next(false);
+      }
+    })
   }
 }

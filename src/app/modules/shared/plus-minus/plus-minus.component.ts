@@ -39,8 +39,18 @@ export class PlusMinusComponent implements OnInit {
     return this.userService.idUser
   }
 
+  get userDetails() {
+    return this.userService.userDetails
+  }
+
+  get loadingUserDetails() {
+    return this.userService.loadingUserDetails
+  }
+
   ngOnInit() {
-    this.checkActiveButton();
+    this.userService.subUser.subscribe(() => {
+      this.checkActiveButton();
+    })
   }
 
   approve(forceMinus?: boolean) {
@@ -126,9 +136,21 @@ export class PlusMinusComponent implements OnInit {
   }
 
   private checkActiveButton() {
-    if (localStorage.getItem(this.id) === 'like')
-      this.commentMode.next('like');
-    else if (localStorage.getItem(this.id) === 'dislike')
-      this.commentMode.next('dislike');
+    if (!this.isLogin.value){
+      if (localStorage.getItem(this.id) === 'like') {
+        this.commentMode.next('like');
+      } else if (localStorage.getItem(this.id) === 'dislike') {
+        this.commentMode.next('dislike');
+      }
+    } else {
+      const sub = this.loadingUserDetails.subscribe(value => {
+        if (!value) {
+          this.commentMode.next(this.userDetails.value?.revievs.find(review => review.id === this.id)?.opinion);
+          setTimeout(() => {
+            sub.unsubscribe()
+          });
+        }
+      })
+    }
   }
 }
