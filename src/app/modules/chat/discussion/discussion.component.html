@@ -1,0 +1,82 @@
+<div class="comment">
+  <mat-icon>person</mat-icon>
+  <div class="comment__texts">
+    <div class="comment__texts--name">
+      <span>{{ data.name }}</span>
+      <a
+        *ngIf="!disableIcon"
+        mat-icon-button
+        [routerLink]="'/bulwar/dyskusja/' + data.id"
+      >
+        <mat-icon matTooltip="Dyskusja">library_books</mat-icon>
+      </a>
+    </div>
+    <div class="comment__texts--date">{{ data.date | time }}</div>
+    <div class="comment__texts--desc">{{ data.text }}</div>
+    <div class="comment__texts--answers">
+      <button
+        *ngIf="isLogin"
+        mat-button
+        (click)="handleOpenWrite.next(!handleOpenWrite.value)"
+      >Odpowiedz</button>
+
+      <div class="actions">
+        <app-plus-minus
+          [likes]="data.likes"
+          [dislikes]="data.dislikes"
+          [id]="data.id"
+          [numberAnswers]="countAnswers.value"
+          [collection]="'chat'"
+          (incrementLikes)="handleLike($event)"
+          (incrementDislikes)="handleDislike($event)"
+        ></app-plus-minus>
+      </div>
+
+      <button
+        *ngIf="countAnswers.value > 0 && !handleOpenAnswers.value"
+        mat-button
+        (click)="getAnswers()"
+      >Zobacz odpowiedzi ({{ countAnswers.value }})</button>
+
+      <button
+        *ngIf="(countAnswers | async) > 0 && (handleOpenAnswers | async)"
+        mat-button
+        (click)="hideAnswers(false)"
+      >Ukryj odpowiedzi</button>
+    </div>
+  </div>
+
+  <div class="comment__buttons">
+    <button
+      *ngIf="isAdmin"
+      mat-icon-button
+      matTooltip="Usuń komentarz"
+      (click)="deleteMe.emit(data.id)"
+    >
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </div>
+</div>
+
+<!-- Pisanie odpowiedzi -->
+<app-write-comment
+  *ngIf="handleOpenWrite | async"
+  [isSavingComment]="isSaving | async"
+  (addComment)="addAnswer($event)"
+  [answerMode]="true"
+></app-write-comment>
+
+<!-- Odpowiedzi -->
+<div
+  *ngIf="(answers | async).length"
+  class="answer"
+>
+  <ng-container *ngFor="let answer of answers.value">
+    <app-answer
+      [data]="answer"
+      [isAdmin]="isAdmin"
+      [isChat]="true"
+      (deleteAnswer)="handleDeleteAnswer($event)"
+    ></app-answer>
+  </ng-container>
+</div>

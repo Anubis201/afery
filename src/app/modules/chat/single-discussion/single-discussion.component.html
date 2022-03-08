@@ -1,0 +1,11 @@
+<app-discussion-header></app-discussion-header>
+
+<app-discussion
+  *ngIf="!(isLoading | async)"
+  [data]="data | async"
+  [isAdmin]="isAdmin | async"
+  [isLogin]="isLogin | async"
+  [userName]="userName | async"
+  [disableIcon]="true"
+  (deleteMe)="handleDelete($event)"
+></app-discussion>

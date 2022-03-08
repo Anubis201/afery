@@ -1,13 +1,12 @@
 $margin-content: 1.3rem;
 
+:host {
+  color: white;
+}
+
 form {
   mat-form-field {
     width: 100%;
-
-  }
-
-  .desc {
-    margin-top: 1.5rem;
   }
 
   .create {
@@ -26,5 +25,77 @@ form {
 }
 
 .label {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  height: 50px;
   margin-top: 1rem;
+
+  &__count {
+    align-self: end;
+    margin-bottom: .9rem;
+  }
+
+  mat-form-field {
+    font-size: 11px;
+    width: 95px;
+    margin-bottom: -15px;
+  }
+
+  button {
+    color: white;
+  }
+}
+
+.comment {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+
+  mat-icon {
+    font-size: 30px;
+  }
+
+  form {
+    width: 100%;
+  }
+}
+
+.no-login {
+  color: white;
+  display: flex;
+  gap: 1.1rem;
+  margin-top: 1.3rem;
+  margin-bottom: 2.5rem;
+
+  mat-icon {
+    font-size: 2.2rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    margin-top: 5px;
+
+    @media (min-width: 576px) {
+      font-size: 2.6rem;
+      width: 2.6rem;
+      height: 2.6rem;
+    }
+  }
+
+  &__content {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    @media (min-width: 576px) {
+      font-size: 1.2rem;
+    }
+
+    button {
+      padding: 0 10px;
+    }
+  }
 }

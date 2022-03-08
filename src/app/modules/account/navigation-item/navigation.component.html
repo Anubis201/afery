@@ -1,0 +1,18 @@
+<div clas="row">
+  <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+    <a
+      *ngFor="let item of items"
+      [routerLink]="item.href"
+    >
+      <mat-card class="item">
+        <div class="item__header">
+          <mat-icon class="item__header--image">{{ item.icon }}</mat-icon>
+          <div class="item__header--title">{{ item.title }}</div>
+        </div>
+        <mat-card-content>
+          <p>{{ item.desc }}</p>
+        </mat-card-content>
+      </mat-card>
+    </a>
+  </div>
+</div>

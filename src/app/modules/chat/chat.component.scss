@@ -1,4 +1,14 @@
 :host {
   display: block;
-  min-height: 90vh;
+  min-height: 100vh;
+
+  padding-top: 6rem;
+
+  @media (min-width: 767px) {
+    padding-top: 10.5rem;
+  }
+}
+
+.justify-content-center {
+  display: flex;
 }

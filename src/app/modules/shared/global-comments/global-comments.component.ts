@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
+import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { CommentsType } from 'src/app/models/others/comments.type';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
 import { UserService } from 'src/app/services/global/user/user.service';
-import { WorkingCommentsService } from 'src/app/services/global/working-comments/working-comments.service';
 
 @Component({
   selector: 'app-global-comments',
@@ -22,7 +22,6 @@ export class GlobalCommentsComponent {
   isLoading = new BehaviorSubject<boolean>(false)
 
   constructor(
-    private workingCommentsService: WorkingCommentsService,
     private userService: UserService,
     private commentsService: CommentsService,
     private _snackBar: MatSnackBar,
@@ -37,12 +36,12 @@ export class GlobalCommentsComponent {
   }
 
   ngOnInit() {
-    this.getComments(this.parentId);
+    this.getComments();
   }
 
-  getComments(parentId: string) {
+  getComments(order: OrderEnum = OrderEnum.Latest) {
     this.isLoading.next(true);
-    this.commentsService.getComments(parentId, this.commentType).subscribe({
+    this.commentsService.getComments(this.parentId, this.commentType, order).subscribe({
       next: commentsDocs => {
         const allComments: CommentModel[] = [];
 
@@ -55,8 +54,11 @@ export class GlobalCommentsComponent {
         });
 
         this.comments.next(allComments);
+        this.isLoading.next(false);
       },
-      complete: () => this.isLoading.next(false)
+      error: () => {
+        this.isLoading.next(false)
+      }
     })
   }
 
@@ -69,11 +71,14 @@ export class GlobalCommentsComponent {
       pollId: this.commentType === 'polls' ? this.parentId : null,
       isNew: true,
       isAnswer: false,
+      name: this.userService.userName.value,
+      likes: 0,
+      dislikes: 0,
     };
 
-    this.workingCommentsService.extendedAddComment(rlyComment).subscribe({
+    this.commentsService.addComment(rlyComment).subscribe({
       next: doc => {
-        this.comments.next([{ ...rlyComment, id: doc.id, name: this.userService.userName.value }, ...this.comments.value]);
+        this.comments.next([{ ...rlyComment, id: doc.id }, ...this.comments.value]);
         this.isSavingComment.next(false);
       },
       error: () => {

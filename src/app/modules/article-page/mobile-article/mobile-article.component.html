@@ -1,7 +1,6 @@
 <div class="page-mobile">
   <ng-container *ngIf="article?.imageSrc">
     <app-mobile-header
-      [actionMode]="actionMode"
       [type]="article?.type"
       [entity]="article?.entity"
       [title]="article?.title"
@@ -11,8 +10,9 @@
       [dislikes]="article?.dislikes"
       [imageDesc]="article?.imageDesc"
       [imageSrc]="article?.imageSrc"
-      (approve)="approve.emit()"
-      (dislike)="dislike.emit()"
+      [id]="article.id"
+      (handleLike)="handleLike.emit($event)"
+      (handleDislike)="handleDislike.emit($event)"
     ></app-mobile-header>
 
     <app-mobile-main

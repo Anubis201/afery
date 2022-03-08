@@ -1,26 +1,68 @@
 <div
-  *ngIf="!answerMode"
+  *ngIf="!answerMode && !disableLabel"
   class="label"
->Komentarze: {{ countComment }}</div>
-
-<form
-  *ngIf="!isSavingComment"
-  [formGroup]="form"
-  [class.left-margin]="answerMode"
 >
-  <div class="desc">
-    <mat-form-field appearance="fill">
-      <mat-label>Treść komentarza</mat-label>
-      <textarea matInput formControlName="text" autocomplete="off" type="text" rows="2"></textarea>
-      <mat-error *ngIf="!form.get('text')?.hasError('required')">Max długośc to {{ commentLength }} znaków</mat-error>
-    </mat-form-field>
+  <div class="label__count">
+    Komentarze: {{ countComment }}
   </div>
 
-  <div class="create">
-    <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid" (click)="add()">Dodaj</button>
-  </div>
-</form>
+  <mat-form-field appearance="fill">
+    <mat-label>Sortowanie</mat-label>
+    <mat-select
+      [formControl]="orderControl"
+      (selectionChange)="changeOrder.emit($event)"
+    >
+      <mat-option [value]="OrderEnum.Latest">
+        <span>{{ capitalizeFirst(OrderEnum.Latest) }}</span>
+      </mat-option>
 
-<div *ngIf="isSavingComment" class="loading">
-  <mat-spinner [diameter]="60"></mat-spinner>
+      <mat-option [value]="OrderEnum.Popular">
+        <span>{{ capitalizeFirst(OrderEnum.Popular) }}</span>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<ng-container *ngIf="isLogin | async">
+  <div
+    *ngIf="!isSavingComment"
+    class="comment"
+    [class.left-margin]="answerMode"
+  >
+    <div>
+      <mat-icon>person</mat-icon>
+    </div>
+
+    <form [formGroup]="form">
+      <mat-form-field appearance="fill">
+        <mat-label>Treść komentarza</mat-label>
+        <textarea matInput formControlName="text" autocomplete="off" type="text" rows="2"></textarea>
+        <mat-error *ngIf="!form.get('text')?.hasError('required')">Max długośc to {{ commentLength }} znaków</mat-error>
+      </mat-form-field>
+
+      <div class="create">
+        <button mat-raised-button type="submit" color="primary" [disabled]="form.invalid" (click)="add()">Dodaj</button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="isSavingComment" class="loading">
+    <mat-spinner [diameter]="60"></mat-spinner>
+  </div>
+</ng-container>
+
+<div
+  *ngIf="!isLogin.value && !(isCheckingLogin | async)"
+  class="no-login"
+>
+  <div>
+    <mat-icon>info</mat-icon>
+  </div>
+
+  <div class="no-login__content">
+    <div>Aby uczestniczyć w dyskusji, musisz być zalogowany.</div>
+    <div>
+      <button mat-button (click)="openSingIn()">Zaloguj się</button>
+    </div>
+  </div>
 </div>

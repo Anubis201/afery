@@ -85,25 +85,6 @@
     &--action {
       display: flex;
       align-items: center;
-
-      &:first-of-type {
-        margin-right: 5px;
-      }
-
-      button {
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
-
-        img {
-          height: 16px;
-        }
-      }
-
-      span {
-        font-size: 14px;
-        margin-top: 2px;
-      }
     }
   }
 

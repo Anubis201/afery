@@ -1,0 +1,22 @@
+<app-chat-header
+  [order]="order | async"
+  [time]="time"
+  (changeOrder)="getTexts($event, false)"
+></app-chat-header>
+
+<app-write-comment
+  [isSavingComment]="isSaving | async"
+  [disableLabel]="true"
+  (addComment)="addText($event)"
+></app-write-comment>
+
+<div class="discussions">
+  <app-discussion
+    *ngFor="let text of texts | async"
+    [data]="text"
+    [isAdmin]="isAdmin | async"
+    [isLogin]="isLogin | async"
+    [userName]="userName | async"
+    (deleteMe)="handleDelete($event)"
+  ></app-discussion>
+</div>

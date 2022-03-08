@@ -2,7 +2,6 @@
   <ng-container *ngIf="article?.imageSrc">
     <app-pc-header
       [isAdmin]="isAdmin"
-      [actionMode]="actionMode"
       [type]="article?.type"
       [entity]="article?.entity"
       [costs]="article?.costs"
@@ -11,11 +10,12 @@
       [text]="article?.text"
       [likes]="article?.likes"
       [dislikes]="article?.dislikes"
+      [id]="article.id"
       (setToFirstArticle)="setToFirstArticle.emit()"
       (handleEditArticle)="handleEditArticle.emit()"
       (handleDeleteArticle)="handleDeleteArticle.emit()"
-      (approve)="approve.emit()"
-      (dislike)="dislike.emit()"
+      (handleLike)="handleLike.emit($event)"
+      (handleDislike)="handleDislike.emit($event)"
     ></app-pc-header>
 
     <app-pc-main

@@ -1,0 +1,28 @@
+.item {
+  cursor: pointer;
+  transition: background-color 200ms ease-out 100ms;
+  background-color: rgb(37, 37, 37);
+
+  &:hover {
+    background-color: #3b3b3b;
+  }
+
+  mat-card-content {
+    margin: 0;
+  }
+
+  &__header {
+    text-align: center;
+
+    &--title {
+      font-weight: 500;
+      font-size: 21px;
+      margin-top: 2rem;
+    }
+
+    &--image {
+      transform: scale(3);
+      margin-top: 1.5rem;
+    }
+  }
+}

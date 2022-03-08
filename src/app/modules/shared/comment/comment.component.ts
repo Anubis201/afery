@@ -3,9 +3,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
-import { WorkingCommentsService } from 'src/app/services/global/working-comments/working-comments.service';
-
-type CommentMode = 'like' | 'dislike' | null;
 
 @Component({
   selector: 'app-comment',
@@ -20,29 +17,21 @@ export class CommentComponent implements OnInit {
   @Input() userName: string
 
   @Output() deleteComment = new EventEmitter<string>()
-  @Output() deleteAnswer = new EventEmitter<string>()
 
   constructor(
     private commentsService: CommentsService,
     private changeDetectorRef: ChangeDetectorRef,
     private _snackBar: MatSnackBar,
-    private workingCommentsService: WorkingCommentsService,
   ) {}
 
   handleOpenWriteComment = new BehaviorSubject<boolean>(false)
   isSaving = new BehaviorSubject<boolean>(false)
   countAnswers = new BehaviorSubject<number>(0)
   answers = new BehaviorSubject<CommentModel[]>([])
-  commentMode = new BehaviorSubject<CommentMode>(null)
   handleOpenAnswers = new BehaviorSubject<boolean>(false)
 
   ngOnInit() {
     if (!this.isMenagaComponent && this.comment?.id) this.getCountAnswers();
-
-    if (localStorage.getItem(this.comment.id) === 'like')
-      this.commentMode.next('like');
-    else if (localStorage.getItem(this.comment.id) === 'dislike')
-      this.commentMode.next('dislike');
   }
 
   hideAnswers() {
@@ -60,11 +49,14 @@ export class CommentComponent implements OnInit {
       isNew: true,
       commentId: this.comment.id,
       isAnswer: true,
+      name: this.userName,
+      likes: 0,
+      dislikes: 0,
     };
 
-    this.workingCommentsService.extendedAddComment(rlyAnswer).subscribe({
-      next: () => {
-        this.answers.next([{ ...rlyAnswer, name: this.userName }, ...this.answers.value]);
+    this.commentsService.addComment(rlyAnswer).subscribe({
+      next: doc => {
+        this.answers.next([{ ...rlyAnswer, id: doc.id }, ...this.answers.value]);
         this.countAnswers.next(this.countAnswers.value + 1);
         this.isSaving.next(false);
       },
@@ -87,50 +79,16 @@ export class CommentComponent implements OnInit {
     })
   }
 
-  approve(forceMinus?: boolean) {
-    let value: -1 | 1
-
-    if (this.commentMode.value === 'like' || forceMinus) {
-      if (this.commentMode.value === 'like') localStorage.removeItem(this.comment.id);
-      value = -1;
-      this.commentMode.next(null);
-    } else {
-      if (this.commentMode.value === 'dislike') this.dislike(true);
-      this.commentMode.next('like');
-      localStorage.setItem(this.comment.id, 'like');
-      value = 1;
-    }
-
-    this.commentsService.updateLikes(this.comment.id, value).subscribe({
-      next: () => {
-        this.comment.likes = this.comment?.likes + value;
-        this.comment.likes = isNaN(this.comment.likes) ? 1 : this.comment.likes;
-        this.changeDetectorRef.detectChanges();
-      },
-    })
+  handleLike(value: number) {
+    this.comment.likes = this.comment.likes + value;
+    this.comment.likes = isNaN(this.comment.likes) ? 1 : this.comment.likes;
+    this.changeDetectorRef.detectChanges();
   }
 
-  dislike(forceMinus?: boolean) {
-    let value: -1 | 1
-
-    if (this.commentMode.value === 'dislike' || forceMinus) {
-      if (this.commentMode.value === 'dislike') localStorage.removeItem(this.comment.id);
-      value = -1;
-      this.commentMode.next(null);
-    } else {
-      if (this.commentMode.value === 'like') this.approve(true);
-      this.commentMode.next('dislike');
-      localStorage.setItem(this.comment.id, 'dislike');
-      value = 1;
-    }
-
-    this.commentsService.updateDislikes(this.comment.id, value).subscribe({
-      next: () => {
-        this.comment.dislikes = this.comment?.dislikes + value;
-        this.comment.dislikes = isNaN(this.comment.dislikes) ? 1 : this.comment.dislikes;
-        this.changeDetectorRef.detectChanges();
-      },
-    })
+  handleDislike(value: number) {
+    this.comment.dislikes = this.comment.dislikes + value;
+    this.comment.dislikes = isNaN(this.comment.dislikes) ? 1 : this.comment.dislikes;
+    this.changeDetectorRef.detectChanges();
   }
 
   handleDeleteAnswer(id: string) {

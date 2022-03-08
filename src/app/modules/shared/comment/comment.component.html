@@ -2,30 +2,24 @@
   <mat-icon>person</mat-icon>
   <div class="comment__texts">
     <div class="comment__texts--name">{{ comment.name }}</div>
-    <div class="comment__texts--date">{{ comment.date | date:'dd.MM.yyyy HH:mm' }}</div>
+    <div class="comment__texts--date">{{ comment.date | time }}</div>
     <div class="comment__texts--desc">{{ comment.text }}</div>
     <div *ngIf="!isMenagaComponent" class="comment__texts--answers">
       <button
+        *ngIf="userName"
         mat-button
         (click)="handleOpenWriteComment.next(!handleOpenWriteComment.value)"
       >Odpowiedz</button>
 
-      <div class="actions">
-        <div
-          class="actions__action"
-          (click)="approve()"
-        >
-          <img [class.choosed-plus]="(commentMode | async) === 'like'" class="actions__action--plus" src="/assets/icons/comment/plus.svg" alt="plus icon">
-          <span>{{ comment?.likes ?? 0 }}</span>
-        </div>
-        <div
-          class="actions__action"
-          (click)="dislike()"
-        >
-          <img [class.choosed-minus]="commentMode.value === 'dislike'" class="actions__action--minus" src="/assets/icons/comment/minus.svg" alt="minus icon">
-          <span>{{ comment?.dislikes ?? 0 }}</span>
-        </div>
-      </div>
+      <app-plus-minus
+        [likes]="comment.likes"
+        [dislikes]="comment.dislikes"
+        [id]="comment.id"
+        [collection]="'comments'"
+        [numberAnswers]="countAnswers.value"
+        (incrementLikes)="handleLike($event)"
+        (incrementDislikes)="handleDislike($event)"
+      ></app-plus-minus>
 
       <button
         *ngIf="(countAnswers | async) > 0 && !handleOpenAnswers.value"
@@ -71,6 +65,7 @@
     <app-answer
       [data]="answer"
       [isAdmin]="isAdmin"
+      [isChat]="false"
       (deleteAnswer)="handleDeleteAnswer($event)"
     ></app-answer>
   </ng-container>

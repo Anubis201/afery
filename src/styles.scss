@@ -48,10 +48,6 @@ a:hover {
   font-weight: bold;
 }
 
-.mat-select-min-line, .mat-option-text {
-  text-transform: uppercase;
-}
-
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
   color: white;
 }
@@ -63,6 +59,7 @@ a:hover {
 }
 
 .label {
+  color: white;
   font-weight: 500;
   font-size: 1.5rem;
   border-bottom: 1px solid rgb(194, 194, 194);

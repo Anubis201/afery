@@ -22,11 +22,16 @@ import { LoginComponent } from './login/login.component';
 import { SaveButtonComponent } from './save-button/save-button.component';
 import { IsLoadingComponent } from './is-loading/is-loading.component';
 import { GlobalCommentsComponent } from './global-comments/global-comments.component';
+import { TopDiscussionComponent } from './top-discussion/top-discussion.component';
+import { TimePipe } from 'src/app/services/pipes/time/time.pipe';
+import { MatSelectModule } from '@angular/material/select';
+import { PlusMinusComponent } from './plus-minus/plus-minus.component';
 
 const declarations = [
   MillionsPipe,
   TimeToReadPipe,
   SafeHtmlPipe,
+  TimePipe,
 
   CommentComponent,
   WriteCommentComponent,
@@ -35,6 +40,10 @@ const declarations = [
   ShortArticleComponent,
   LoginComponent,
   GlobalCommentsComponent,
+  SaveButtonComponent,
+  IsLoadingComponent,
+  TopDiscussionComponent,
+  PlusMinusComponent,
 ]
 
 const imports = [
@@ -49,13 +58,12 @@ const imports = [
   RouterModule,
   MatDialogModule,
   MatProgressSpinnerModule,
+  MatSelectModule,
 ]
 
 @NgModule({
   declarations: [
     ...declarations,
-    SaveButtonComponent,
-    IsLoadingComponent,
   ],
   imports: [
     CommonModule,

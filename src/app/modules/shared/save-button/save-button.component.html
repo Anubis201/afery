@@ -1,14 +1,15 @@
 <button
   mat-raised-button
   [color]="color"
-  [disabled]="isSaving"
+  [disabled]="isSaving || disabled"
   (click)="onClick.emit()"
 >
   <ng-content></ng-content>
   <div
     *ngIf="isSaving"
     class="isLoading"
+    [style.right]="right"
   >
-    <mat-spinner [diameter]="21"></mat-spinner>
+    <mat-spinner [diameter]="diameter"></mat-spinner>
   </div>
 </button>

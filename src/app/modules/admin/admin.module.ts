@@ -2,13 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
 import { AdminRoutingModule } from './admin-routing.module';
-import { AuthComponent } from './auth/auth.component';
 import { MenuListComponent } from './menu-list/menu-list.component';
 import { MatListModule } from '@angular/material/list';
 import { CreateComponent } from './create/create.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { ManageCommentsComponent } from './manage-comments/manage-comments.component';
 import { SharedModule } from '../shared/shared.module';
@@ -25,7 +23,6 @@ import { ChooseTypeComponent } from './add-polls/choose-type/choose-type.compone
 @NgModule({
   declarations: [
     AdminComponent,
-    AuthComponent,
     MenuListComponent,
     CreateComponent,
     ManageCommentsComponent,
@@ -42,7 +39,6 @@ import { ChooseTypeComponent } from './add-polls/choose-type/choose-type.compone
     MatExpansionModule,
     MatCheckboxModule,
     AdminRoutingModule,
-    MatSelectModule,
     MatListModule,
     EditorModule,
     SharedModule,

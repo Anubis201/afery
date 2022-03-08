@@ -17,10 +17,10 @@ export class PcHeaderComponent {
   @Input() title: string
   @Input() createDate: Date
   @Input() text: string
-  @Input() actionMode: 'like' | 'dislike' | null
   @Input() likes: number
   @Input() dislikes: number
   @Input() nextArticle: ArticleModel
+  @Input() id: string
   @Input() isShort = false
 
   readonly ArticlesTypesEnum = ArticlesTypesEnum
@@ -29,8 +29,8 @@ export class PcHeaderComponent {
   @Output() setToFirstArticle = new EventEmitter<void>()
   @Output() handleEditArticle = new EventEmitter<void>()
   @Output() handleDeleteArticle = new EventEmitter<void>()
-  @Output() approve = new EventEmitter<void>()
-  @Output() dislike = new EventEmitter<void>()
+  @Output() handleLike = new EventEmitter<number>()
+  @Output() handleDislike = new EventEmitter<number>()
 
   pageUrl() {
     return location.href

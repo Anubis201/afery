@@ -22,7 +22,7 @@
     <div class="content__time__rest">
       <div>Bartosz Karczmarski</div>
 
-      <div>{{ createDate | date: "dd.MM.yyyy, HH:mm" }}</div>
+      <div>{{ createDate | time }}</div>
     </div>
 
     <div
@@ -36,33 +36,17 @@
         class="content__time__all--read"
       ></div>
 
-      <div
-        *ngIf="!isShort"
-        class="content__time__all__actions"
-      >
-        <div class="content__time__all__actions--action">
-          <button mat-icon-button (click)="approve.emit()">
-            <img
-              class="plus"
-              src="/assets/icons/comment/plus.svg"
-              alt="Plus"
-              [class.choosed-plus]="actionMode === 'like'"
-            />
-          </button>
-          <span>{{ likes ?? 0 }}</span>
-        </div>
-
-        <div class="content__time__all__actions--action">
-          <button mat-icon-button (click)="dislike.emit()">
-            <img
-              class="minus"
-              src="/assets/icons/comment/minus.svg"
-              alt="Minus"
-              [class.choosed-minus]="actionMode === 'dislike'"
-            />
-          </button>
-          <span>{{ dislikes ?? 0 }}</span>
-        </div>
+      <div *ngIf="!isShort">
+        <app-plus-minus
+          class="content__time__all__actions"
+          [likes]="likes"
+          [dislikes]="dislikes"
+          [id]="id"
+          [collection]="'articles'"
+          [isArticle]="true"
+          (incrementLikes)="handleLike.emit($event)"
+          (incrementDislikes)="handleDislike.emit($event)"
+        ></app-plus-minus>
       </div>
       <div
         *ngIf="!isShort"
