@@ -6,7 +6,13 @@ const routes: Routes = [
   {
     path: '',
     component: AccountComponent,
-    children: []
+    children: [
+      {
+        path: '**',
+        redirectTo: '',
+        pathMatch: 'full',
+      }
+    ]
   }
 ];
 

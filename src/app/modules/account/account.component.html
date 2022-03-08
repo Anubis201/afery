@@ -1,3 +1,12 @@
-<app-navigation-item
-  *ngFor="let item of items"
-></app-navigation-item>
+<div class="container">
+  <div class="row">
+    <app-navigation-item
+      *ngFor="let item of items"
+      class="col-12 col-sm-6 col-md-4 col-xl-3"
+      [title]="item.title"
+      [desc]="item.desc"
+      [href]="item.href"
+      [icon]="item.icon"
+    ></app-navigation-item>
+  </div>
+</div>

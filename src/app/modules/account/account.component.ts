@@ -4,6 +4,7 @@ interface itemsModel {
   title: string
   desc: string
   href: string
+  icon: string
 }
 
 @Component({
@@ -15,9 +16,10 @@ interface itemsModel {
 export class AccountComponent implements OnInit {
   items: itemsModel[] = [
     {
-      title: '',
+      title: 'Ustawienia',
       desc: '',
-      href: ''
+      href: 'ustawienia',
+      icon: 'manage_accounts'
     }
   ]
 

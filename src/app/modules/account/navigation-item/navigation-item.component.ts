@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-navigation-item',
@@ -7,6 +7,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavigationItemComponent {
-
-
+  @Input() title: string
+  @Input() desc: string
+  @Input() href: string
+  @Input() icon: string
 }
