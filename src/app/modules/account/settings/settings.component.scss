@@ -1,0 +1,23 @@
+.item {
+  margin: 0;
+
+  @media (min-width: 576px) {
+    margin: 0 2rem;
+  }
+
+  @media (min-width: 768px) {
+    margin: 0 5rem;
+  }
+
+  @media (min-width: 992px) {
+    margin: 0 8rem;
+  }
+
+  @media (min-width: 1200px) {
+    margin: 0 13rem;
+  }
+
+  button {
+    margin-top: 1rem;
+  }
+}

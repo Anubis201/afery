@@ -25,4 +25,8 @@ export class UserDetailsService {
   getDetails(userId: string) {
     return this.getRef().doc(userId).get()
   }
+
+  deleteDetails(userId: string) {
+    return from(this.getRef().doc(userId).delete())
+  }
 }

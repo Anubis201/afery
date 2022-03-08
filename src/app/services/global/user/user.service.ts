@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthProvider, FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider } from 'firebase/auth';
+import { AuthProvider, FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, User } from 'firebase/auth';
 import { BehaviorSubject, catchError, from, map, of } from 'rxjs';
 import { ProvidersEnum } from 'src/app/models/others/enums/providers.enum';
 import { UserDetailsModel } from 'src/app/models/others/user-details.model';
@@ -19,6 +19,8 @@ export class UserService {
   userDetails = new BehaviorSubject<UserDetailsModel>(null)
   loadingUserDetails = new BehaviorSubject<boolean>(true)
 
+  user = new BehaviorSubject<User>(null)
+
   constructor(
     private fireAuth: AngularFireAuth,
     private _snackBar: MatSnackBar,
@@ -35,6 +37,7 @@ export class UserService {
 
       // NA CHWILE :D
       this.isAdmin.next(user?.email && user.email === user?.photoURL && this.isLogin.value);
+      this.user.next(user);
       this.isCheckingLogin.next(false);
     })
   }
@@ -45,6 +48,10 @@ export class UserService {
 
   logout() {
     this.fireAuth.signOut()
+  }
+
+  deleteAccount() {
+    return from(this.user.value.delete())
   }
 
   loginProvider(provider: any) {
