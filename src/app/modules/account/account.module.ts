@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { AccountRoutingModule } from './account-routing.module';
 import { AccountComponent } from './account.component';
 import { SharedModule } from '../shared/shared.module';
+import { NavigationItemComponent } from './navigation-item/navigation-item.component';
 
 
 @NgModule({
   declarations: [
-    AccountComponent
+    AccountComponent,
+    NavigationItemComponent
   ],
   imports: [
     CommonModule,
