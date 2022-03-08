@@ -1,0 +1,9 @@
+<nav mat-tab-nav-bar>
+  <a
+    *ngFor="let item of items"
+    class="item"
+  >
+    <mat-icon>{{ item.icon }}</mat-icon>
+    <div>{{ item.title }}</div>
+  </a>
+</nav>

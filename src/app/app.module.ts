@@ -22,6 +22,7 @@ import { AsideMenuComponent } from './modules/main/aside-menu/aside-menu.compone
 import { ToolbarComponent } from './modules/main/toolbar/toolbar.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { SharedModule } from './modules/shared/shared.module';
+import { MobileBottomComponent } from './modules/main/mobile-bottom/mobile-bottom.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { SharedModule } from './modules/shared/shared.module';
     NavigationBarOnlyPcComponent,
     AsideMenuComponent,
     ToolbarComponent,
+    MobileBottomComponent,
   ],
   imports: [
     BrowserModule,
