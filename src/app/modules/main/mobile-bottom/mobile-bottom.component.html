@@ -1,6 +1,9 @@
 <nav mat-tab-nav-bar>
   <a
     *ngFor="let item of items"
+    mat-tab-link
+    [active]="item.active"
+    [routerLink]="item.href"
     class="item"
   >
     <mat-icon>{{ item.icon }}</mat-icon>
