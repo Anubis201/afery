@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: '',
     component: AccountComponent,
-    // canActivate: [CheckAuthGuard],
+    canActivate: [CheckAuthGuard],
     children: [
       {
         path: 'wybierz',
