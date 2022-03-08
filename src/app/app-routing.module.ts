@@ -31,6 +31,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/chat/chat.module').then(m => m.ChatModule),
   },
   {
+    path: 'konto',
+    loadChildren: () => import('./modules/account/account.module').then(m => m.AccountModule),
+  },
+  {
     path: '**',
     redirectTo: '/',
     pathMatch: 'full',

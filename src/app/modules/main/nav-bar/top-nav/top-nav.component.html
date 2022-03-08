@@ -19,6 +19,24 @@
   </button>
 
   <mat-menu #menuUser="matMenu">
+    <a
+      *ngIf="isLogin"
+      class="user__menu"
+      mat-menu-item
+      [routerLink]="['/konto']"
+    >
+      <span>Konto</span>
+    </a>
+
+    <a
+      *ngIf="isAdmin"
+      class="user__menu"
+      mat-menu-item
+      [routerLink]="['/admin/create']"
+    >
+      <span>Admin</span>
+    </a>
+
     <button
       *ngIf="!isLogin"
       class="user__menu"
@@ -36,14 +54,5 @@
     >
       <span>Wyloguj się</span>
     </button>
-
-    <a
-      *ngIf="isAdmin"
-      class="user__menu"
-      mat-menu-item
-      [routerLink]="['/admin/create']"
-    >
-      <span>Admin</span>
-    </a>
   </mat-menu>
 </div>
