@@ -118,7 +118,7 @@ export class PlusMinusComponent implements OnInit {
       value = 1;
     }
 
-    this.firestore.collection(this.collection).doc(this.id).update({ dislikes: increment(value) })
+    this.firestore.collection(this.collection).doc(this.id).update({ dislikes: increment(value),  })
       .then(() => {
         this.incrementDislikes.emit(value)
       })

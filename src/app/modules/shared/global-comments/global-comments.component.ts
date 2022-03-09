@@ -27,6 +27,10 @@ export class GlobalCommentsComponent {
     private _snackBar: MatSnackBar,
   ) { }
 
+  get idUser() {
+    return this.userService.idUser
+  }
+
   get isAdmin() {
     return this.userService.isAdmin
   }
@@ -74,6 +78,7 @@ export class GlobalCommentsComponent {
       name: this.userService.userName.value,
       likes: 0,
       dislikes: 0,
+      authorId: this.idUser.value,
     };
 
     this.commentsService.addComment(rlyComment).subscribe({

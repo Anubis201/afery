@@ -15,6 +15,7 @@ export class CommentComponent implements OnInit {
   @Input() isAdmin: boolean
   @Input() isMenagaComponent: boolean = false
   @Input() userName: string
+  @Input() idUser: string
 
   @Output() deleteComment = new EventEmitter<string>()
 
@@ -52,6 +53,7 @@ export class CommentComponent implements OnInit {
       name: this.userName,
       likes: 0,
       dislikes: 0,
+      authorId: this.idUser,
     };
 
     this.commentsService.addComment(rlyAnswer).subscribe({

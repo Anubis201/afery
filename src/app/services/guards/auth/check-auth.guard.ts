@@ -16,7 +16,6 @@ export class CheckAuthGuard implements CanActivate {
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       return this.userService.isLogin.pipe(
         map(isLogin => {
-          console.log(isLogin)
           if (!isLogin) {
             return this.router.parseUrl('/');
           }
