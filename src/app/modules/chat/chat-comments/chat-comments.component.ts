@@ -145,8 +145,6 @@ export class ChatCommentsComponent implements OnInit {
 
         // TODO
         // PLAN rozwojowy
-        // 1. modyfikacja
-        // 2. usuwanie
         // 3. komentarze
         // 4. wieksza przepustowość
 
