@@ -19,6 +19,7 @@ export class PlusMinusComponent implements OnInit {
   @Input() collection: string
   @Input() numberAnswers: number
   @Input() isArticle = false
+  @Input() isAnswer = false
 
   @Output() incrementLikes = new EventEmitter<number>()
   @Output() incrementDislikes = new EventEmitter<number>()
