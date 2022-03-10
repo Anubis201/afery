@@ -1,12 +1,12 @@
 import { animate, sequence, style, transition, trigger } from "@angular/animations";
 
-export const addItem =
+export const showTable =
   trigger('addItem', [
     transition('void => *', [
-      style({ height: '*', opacity: '0', transform: 'translateX(-550px)', 'box-shadow': 'none' }),
+      style({ height: '*', opacity: '0', transform: 'translateX(-100vw)', 'box-shadow': 'none' }),
       sequence([
-        animate(".35s ease", style({ height: '*', opacity: '.2', transform: 'translateX(0)', 'box-shadow': 'none' })),
-        animate(".35s ease", style({ height: '*', opacity: 1, transform: 'translateX(0)' }))
+        animate("1s ease", style({ height: '*', opacity: '.4', transform: 'translateX(0)', 'box-shadow': 'none' })),
+        animate(".5s ease", style({ height: '*', opacity: 1, transform: 'translateX(0)' }))
       ])
     ])
   ]);

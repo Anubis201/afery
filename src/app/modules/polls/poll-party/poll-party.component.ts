@@ -85,7 +85,7 @@ export class PollPartyComponent {
       .attr('x', (thisIsBig ? -17 : -14))
       .transition()
       .ease(d3.easeLinear)
-      .duration(1000)
+      .duration(1500)
       .style('opacity', 1);
 
     chart
@@ -104,7 +104,7 @@ export class PollPartyComponent {
       .attr('width', xScale.bandwidth() - (thisIsBig ? 40 : 13))
       .transition()
       .ease(d3.easeBounce)
-      .duration(1000)
+      .duration(1500)
       .attr('height', d => this.height - yScale(d.percentage))
       .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);
 
@@ -134,8 +134,8 @@ export class PollPartyComponent {
       .attr('width', xScale.bandwidth() - (thisIsBig ? 68 : 23))
       .transition()
       .ease(d3.easeBounce)
-      .duration(1000)
-      .delay(200)
+      .duration(1500)
+      .delay(300)
       .attr('height', d => this.height - yScale(d.percentage))
       .attr('opacity', 0.3)
       .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);

@@ -76,7 +76,7 @@ export class PollPresidentComponent implements AfterViewInit {
       .attr('x', (thisIsBig ? -20 : -14))
       .transition()
       .ease(d3.easeLinear)
-      .duration(1000)
+      .duration(1500)
       .style('opacity', 1);
 
     chart
@@ -95,7 +95,7 @@ export class PollPresidentComponent implements AfterViewInit {
       .attr('width', xScale.bandwidth() - (thisIsBig ? 45 : 13))
       .transition()
       .ease(d3.easeBounce)
-      .duration(1000)
+      .duration(1500)
       .attr('height', d => this.height - yScale(d.percentage))
       .attr('fill', 'red');
 
