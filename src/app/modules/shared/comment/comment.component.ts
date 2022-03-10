@@ -2,12 +2,14 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, In
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
+import { showAnimation } from 'src/app/services/animations/others.animations';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
 
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss'],
+  animations: [showAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentComponent implements OnInit {

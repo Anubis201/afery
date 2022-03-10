@@ -27,6 +27,7 @@
   <div
     *ngIf="!isSavingComment"
     class="comment"
+    @showAnimation
     [class.left-margin]="answerMode"
   >
     <div>
@@ -53,6 +54,7 @@
 
 <div
   *ngIf="!isLogin.value && !(isCheckingLogin | async)"
+  @showAnimation
   class="no-login"
 >
   <div>
@@ -62,7 +64,10 @@
   <div class="no-login__content">
     <div>Aby uczestniczyć w dyskusji, musisz być zalogowany.</div>
     <div>
-      <button mat-button (click)="openSingIn()">Zaloguj się</button>
+      <button
+        mat-button
+        (click)="openSingIn()"
+      >Zaloguj się</button>
     </div>
   </div>
 </div>

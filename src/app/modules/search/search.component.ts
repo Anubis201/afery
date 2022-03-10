@@ -3,12 +3,14 @@ import { FormControl } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
+import { showAnimation } from 'src/app/services/animations/others.animations';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
+  animations: [showAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent implements OnInit {

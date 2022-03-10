@@ -1,7 +1,7 @@
 import { animate, sequence, style, transition, trigger } from "@angular/animations";
 
 export const showTable =
-  trigger('addItem', [
+  trigger('showTable', [
     transition('void => *', [
       style({ height: '*', opacity: '0', transform: 'translateX(-100vw)', 'box-shadow': 'none' }),
       sequence([

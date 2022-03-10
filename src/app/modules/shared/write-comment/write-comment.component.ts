@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
+import { showAnimation } from 'src/app/services/animations/others.animations';
 import { UserService } from 'src/app/services/global/user/user.service';
 import { LoginComponent } from '../login/login.component';
 
@@ -10,6 +11,7 @@ import { LoginComponent } from '../login/login.component';
   selector: 'app-write-comment',
   templateUrl: './write-comment.component.html',
   styleUrls: ['./write-comment.component.scss'],
+  animations: [showAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WriteCommentComponent {

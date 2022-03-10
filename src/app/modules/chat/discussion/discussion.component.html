@@ -73,6 +73,7 @@
 >
   <ng-container *ngFor="let answer of answers.value">
     <app-answer
+      @showAnimation
       [data]="answer"
       [isAdmin]="isAdmin"
       [isChat]="true"

@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
+import { showAnimation } from 'src/app/services/animations/others.animations';
 import { ChatService } from 'src/app/services/collections/chat/chat.service';
 
 @Component({
   selector: 'app-discussion',
   templateUrl: './discussion.component.html',
   styleUrls: ['./discussion.component.scss'],
+  animations: [showAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DiscussionComponent implements OnInit {
@@ -14,6 +16,7 @@ export class DiscussionComponent implements OnInit {
   @Input() isAdmin: boolean
   @Input() isLogin: boolean
   @Input() userName: string
+  @Input() idUser: string
   @Input() disableIcon: boolean = false
 
   @Output() deleteMe = new EventEmitter<string>()
@@ -49,9 +52,10 @@ export class DiscussionComponent implements OnInit {
       dislikes: 0,
       likes: 0,
       parentId: this.data.id,
-      isAnswer: true
+      isAnswer: true,
+      authorId: this.idUser
     };
-
+    console.log(rlyChat)
     this.chatService.addChat(rlyChat).subscribe({
       next: () => {
         this.answers.next([ rlyChat, ...this.answers.value]);

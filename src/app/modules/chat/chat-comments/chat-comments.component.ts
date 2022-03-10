@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { BehaviorSubject } from 'rxjs';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
+import { showAnimation } from 'src/app/services/animations/others.animations';
 import { ChatService } from 'src/app/services/collections/chat/chat.service';
 import { UserService } from 'src/app/services/global/user/user.service';
 
@@ -14,6 +15,7 @@ import { UserService } from 'src/app/services/global/user/user.service';
   host: {
     class: 'col-12 col-md-10 col-lg-8 col-xl-6'
   },
+  animations: [showAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatCommentsComponent implements OnInit {
@@ -44,6 +46,10 @@ export class ChatCommentsComponent implements OnInit {
 
   get isLogin() {
     return this.userService.isLogin
+  }
+
+  get idUser() {
+    return this.userService.idUser
   }
 
   ngOnInit() {
@@ -92,7 +98,7 @@ export class ChatCommentsComponent implements OnInit {
         this.texts.next([...this.texts.value, ...data,]);
         this.isLoading.next(false);
       },
-      error: err => {
+      error: () => {
         this.isLoading.next(false);
       },
     })
@@ -107,6 +113,7 @@ export class ChatCommentsComponent implements OnInit {
       dislikes: 0,
       likes: 0,
       isAnswer: false,
+      authorId: this.idUser.value
     };
 
     this.chatService.addChat(rlyChat).subscribe({
