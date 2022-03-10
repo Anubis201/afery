@@ -36,7 +36,7 @@ import { MobileBottomComponent } from './modules/main/mobile-bottom/mobile-botto
     MobileBottomComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
