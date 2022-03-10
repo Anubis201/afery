@@ -77,11 +77,16 @@ export class PollPartyComponent {
       .call(d3.axisBottom(xScale))
       .selectAll('.tick')
       .append('svg:image')
+      .style('opacity', 0)
       .attr('xlink:href', party => `/assets/icons/parties/${PartiesEnum[party as PartiesEnum]}.png`)
       .attr('height', (thisIsBig ? 30 : 25))
       .attr('width', (thisIsBig ? 35 : 30))
       .attr('y', 15)
-      .attr('x', (thisIsBig ? -17 : -14));
+      .attr('x', (thisIsBig ? -17 : -14))
+      .transition()
+      .ease(d3.easeLinear)
+      .duration(1000)
+      .style('opacity', 1);
 
     chart
       .select('g')
@@ -97,6 +102,9 @@ export class PollPartyComponent {
       .attr('x', d => xScale(d.party as unknown as string) + (thisIsBig ? 20 : 5))
       .attr('y', d => yScale(d.percentage))
       .attr('width', xScale.bandwidth() - (thisIsBig ? 40 : 13))
+      .transition()
+      .ease(d3.easeBounce)
+      .duration(1000)
       .attr('height', d => this.height - yScale(d.percentage))
       .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);
 
@@ -124,6 +132,10 @@ export class PollPartyComponent {
       .attr('x', d => xScale(d.party as unknown as string) + (thisIsBig ? 70 : 27))
       .attr('y', d => yScale(d.percentage))
       .attr('width', xScale.bandwidth() - (thisIsBig ? 68 : 23))
+      .transition()
+      .ease(d3.easeBounce)
+      .duration(1000)
+      .delay(200)
       .attr('height', d => this.height - yScale(d.percentage))
       .attr('opacity', 0.3)
       .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);

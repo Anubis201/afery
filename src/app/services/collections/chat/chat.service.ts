@@ -40,10 +40,9 @@ export class ChatService {
   }
 
   getAnswers(id: string) {
-    return from(this.getRef().ref.where('parentId', '==', id).get())
+    return from(this.getRef().ref.where('parentId', '==', id).orderBy('date', 'desc').get())
   }
 
-  // TODO narazie tylko obsluga dodawanie i wylacznie glowne komentarze bez odpowiedzi
   onChatChange() {
     return this.getRef().ref.where('isAnswer', '==', false).orderBy('date', 'desc').limit(20)
   }

@@ -68,11 +68,16 @@ export class PollPresidentComponent implements AfterViewInit {
       .call(d3.axisBottom(xScale))
       .selectAll('.tick')
       .append('svg:image')
+      .style('opacity', 0)
       .attr('xlink:href', (party) => `/assets/icons/presidents/${party}.jpg`)
       .attr('height', (thisIsBig ? 37 : 25))
       .attr('width', (thisIsBig ? 40 : 30))
       .attr('y', 15)
-      .attr('x', (thisIsBig ? -20 : -14));
+      .attr('x', (thisIsBig ? -20 : -14))
+      .transition()
+      .ease(d3.easeLinear)
+      .duration(1000)
+      .style('opacity', 1);
 
     chart
       .select('g')
@@ -88,6 +93,9 @@ export class PollPresidentComponent implements AfterViewInit {
       .attr('x', d => xScale(d.president as unknown as string) + (thisIsBig ? 20 : 5))
       .attr('y', d => yScale(d.percentage))
       .attr('width', xScale.bandwidth() - (thisIsBig ? 45 : 13))
+      .transition()
+      .ease(d3.easeBounce)
+      .duration(1000)
       .attr('height', d => this.height - yScale(d.percentage))
       .attr('fill', 'red');
 

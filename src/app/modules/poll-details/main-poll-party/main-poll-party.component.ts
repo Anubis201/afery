@@ -11,7 +11,7 @@ import { PollModel } from 'src/app/models/polls/poll.model';
   styleUrls: ['./main-poll-party.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainPollPartyComponent implements AfterViewInit {
+export class MainPollPartyComponent {
   @Input() poll: PollModel
   @Input() set compareData(data: PartyCharModel[]) {
     if (this.image) {
@@ -23,10 +23,6 @@ export class MainPollPartyComponent implements AfterViewInit {
   }
 
   compare: PartyCharModel[]
-
-  ngAfterViewInit() {
-    this.draw(this.poll?.items as PartyCharModel[], this.compare);
-  }
 
   @ViewChild('main') image: ElementRef;
 
@@ -69,11 +65,17 @@ export class MainPollPartyComponent implements AfterViewInit {
       .call(d3.axisBottom(xScale))
       .selectAll('.tick')
       .append('svg:image')
+      .style('opacity', 0)
       .attr('xlink:href', party => `/assets/icons/parties/${PartiesEnum[party as PartiesEnum]}.png`)
       .attr('height', (isMobile ? 25 : 35))
       .attr('width', (isMobile ? 30 : 45))
       .attr('y', 20)
-      .attr('x', (isMobile ? -14 : -24));
+      .attr('x', (isMobile ? -14 : -24))
+      .transition()
+      .ease(d3.easeLinear)
+      .duration(2000)
+      .delay(200)
+      .style('opacity', 1);
 
     chart
       .select('g')
@@ -89,6 +91,9 @@ export class MainPollPartyComponent implements AfterViewInit {
       .attr('x', d => xScale(d.party as unknown as string) + (isMobile ? 5 : 23))
       .attr('y', d => yScale(d.percentage))
       .attr('width', xScale.bandwidth() - (isMobile ? 13 : 45))
+      .transition()
+      .ease(d3.easeBounce)
+      .duration(1500)
       .attr('height', d => this.height - yScale(d.percentage))
       .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);
 
@@ -116,6 +121,10 @@ export class MainPollPartyComponent implements AfterViewInit {
       .attr('x', d => xScale(d.party as unknown as string) + (isMobile ? 27 : 85))
       .attr('y', d => yScale(d.percentage))
       .attr('width', xScale.bandwidth() - (isMobile ? 23 : 80))
+      .transition()
+      .ease(d3.easeBounce)
+      .duration(1500)
+      .delay(300)
       .attr('height', d => this.height - yScale(d.percentage))
       .attr('opacity', 0.3)
       .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);

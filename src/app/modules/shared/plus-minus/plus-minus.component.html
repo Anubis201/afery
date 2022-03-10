@@ -9,7 +9,7 @@
       src="/assets/icons/comment/plus.svg"
       alt="plus icon"
     />
-    <span [style.margin-top]="((isLogin | async) || numberAnswers) && !isArticle ? '9px' : '1px'">{{ likes || 0 }}</span>
+    <span [style.margin-top]="((isLogin | async) || numberAnswers) && (!isArticle && !isAnswer) ? '9px' : '1px'">{{ likes || 0 }}</span>
   </div>
   <div class="actions__action" (click)="dislike()">
     <img
@@ -18,6 +18,6 @@
       src="/assets/icons/comment/minus.svg"
       alt="minus icon"
     />
-    <span [style.margin-top]="(isLogin.value || numberAnswers) && !isArticle ? '9px' : '1px'">{{ dislikes || 0 }}</span>
+    <span [style.margin-top]="(isLogin.value || numberAnswers) && (!isArticle && !isAnswer) ? '9px' : '1px'">{{ dislikes || 0 }}</span>
   </div>
 </div>

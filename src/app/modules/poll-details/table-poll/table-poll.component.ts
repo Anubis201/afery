@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
 import { TablePollModel } from 'src/app/models/polls/table-poll.model';
+import { addItem } from 'src/app/services/animations/table.animations';
 
 type Columns = keyof TablePollModel
 
@@ -10,6 +11,7 @@ type Columns = keyof TablePollModel
   selector: 'app-table-poll',
   templateUrl: './table-poll.component.html',
   styleUrls: ['./table-poll.component.scss'],
+  animations: [addItem],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TablePollComponent {

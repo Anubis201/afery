@@ -38,7 +38,7 @@ export class CommentsService {
   }
 
   getAnswers(commentId: string) {
-    return from(this.getRef().ref.where('commentId', '==', commentId).get())
+    return from(this.getRef().ref.where('commentId', '==', commentId).orderBy('date', 'desc').get())
   }
 
   getAdminAllComments() {
