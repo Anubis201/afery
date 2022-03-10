@@ -6,7 +6,7 @@
       <ng-container *ngSwitchCase="PollDataEnum.Partie">
         <app-poll-party
           *ngFor="let poll of polls; trackBy:identify; let index = index"
-          class="col-12 col-sm-6 col-lg-4 item"
+          class="col-12 col-sm-6 col-lg-4"
           [poll]="poll"
           [idSvg]="'sondaze' + index"
         ></app-poll-party>

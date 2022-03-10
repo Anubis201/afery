@@ -7,7 +7,6 @@
       interval="6000"
       color="accent"
       maxWidth="auto"
-      height="400px"
       proportion="25"
       slides="2"
       orientation="ltr"
@@ -26,6 +25,7 @@
           <app-poll-party
             *ngSwitchCase="PollDataEnum.Partie"
             [poll]="slide"
+            [isCarousel]="true"
             [idSvg]="'karuzelaPartia'"
           ></app-poll-party>
 

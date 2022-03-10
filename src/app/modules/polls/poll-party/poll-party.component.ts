@@ -18,13 +18,11 @@ import { BehaviorSubject } from 'rxjs';
 export class PollPartyComponent {
   @Input() poll: PollModel
   @Input() idSvg: string
+  @Input() isCarousel = false
 
   @ViewChild('image') image: ElementRef
 
   isLoading = new BehaviorSubject<boolean>(true)
-
-  private margin = 30
-  private height = 280 - (this.margin * 2)
 
   get toPage() {
     const date = this.datePipe.transform(this.poll.when,'yyyy-MM-dd');
@@ -51,6 +49,8 @@ export class PollPartyComponent {
     const width = parseInt(this.image.nativeElement.offsetWidth, 10);
     const yLabelSpace = 7;
     const thisIsBig = width >= 552;
+    const margin = 30;
+    const height = (this.isCarousel ? 250 : 280) - (margin * 2);
 
     const xScale = d3
       .scaleBand()
@@ -61,19 +61,19 @@ export class PollPartyComponent {
     const yScale = d3
       .scaleLinear()
       .domain([0, 50])
-      .range([this.height, 0]);
+      .range([height, 0]);
 
     const chartContainer = d3
       .select('#' + this.idSvg)
       .attr('width', width + 10)
       .classed('chart-container', true)
-      .attr('height', this.height + (this.margin * 2))
+      .attr('height', height + (margin * 2))
 
     const chart = chartContainer.append('g');
 
     chart
       .append('g')
-      .attr('transform', 'translate(0,' + this.height + ')')
+      .attr('transform', 'translate(0,' + height + ')')
       .call(d3.axisBottom(xScale))
       .selectAll('.tick')
       .append('svg:image')
@@ -105,7 +105,7 @@ export class PollPartyComponent {
       .transition()
       .ease(d3.easeBounce)
       .duration(1500)
-      .attr('height', d => this.height - yScale(d.percentage))
+      .attr('height', d => height - yScale(d.percentage))
       .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);
 
     chart
@@ -136,7 +136,7 @@ export class PollPartyComponent {
       .ease(d3.easeBounce)
       .duration(1500)
       .delay(300)
-      .attr('height', d => this.height - yScale(d.percentage))
+      .attr('height', d => height - yScale(d.percentage))
       .attr('opacity', 0.3)
       .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);
 
