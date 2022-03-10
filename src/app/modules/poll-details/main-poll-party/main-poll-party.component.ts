@@ -11,7 +11,7 @@ import { PollModel } from 'src/app/models/polls/poll.model';
   styleUrls: ['./main-poll-party.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainPollPartyComponent implements AfterViewInit {
+export class MainPollPartyComponent {
   @Input() poll: PollModel
   @Input() set compareData(data: PartyCharModel[]) {
     if (this.image) {
@@ -23,10 +23,6 @@ export class MainPollPartyComponent implements AfterViewInit {
   }
 
   compare: PartyCharModel[]
-
-  ngAfterViewInit() {
-    this.draw(this.poll?.items as PartyCharModel[], this.compare);
-  }
 
   @ViewChild('main') image: ElementRef;
 
