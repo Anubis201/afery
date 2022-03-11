@@ -2,22 +2,35 @@
   class="actions"
   [class.article-actions]="isArticle"
 >
-  <div class="actions__action" (click)="approve()">
-    <img
-      [class.choosed-plus]="(commentMode | async) === 'like'"
-      class="actions__action--plus"
-      src="/assets/icons/comment/like.png"
-      alt="plus icon"
-    />
-    <span [style.margin-top]="((isLogin | async) || numberAnswers) && (!isArticle && !isAnswer) ? '4px' : '1px'">{{ likes || 0 }}</span>
-  </div>
-  <div class="actions__action" (click)="dislike()">
-    <img
-      [class.choosed-minus]="commentMode.value === 'dislike'"
-      class="actions__action--minus"
-      src="/assets/icons/comment/dislike.png"
-      alt="minus icon"
-    />
-    <span [style.margin-top]="(isLogin.value || numberAnswers) && (!isArticle && !isAnswer) ? '4px' : '1px'">{{ dislikes || 0 }}</span>
-  </div>
+ <div>
+   <button
+     mat-icon-button
+     class="actions__action"
+     (click)="approve()"
+   >
+     <img
+       [class.choosed-plus]="(commentMode | async) === 'like'"
+       class="actions__action--plus"
+       src="/assets/icons/comment/like.png"
+       alt="plus icon"
+     />
+   </button>
+   <span>{{ likes || 0 }}</span>
+ </div>
+
+ <div>
+   <button
+     mat-icon-button
+     class="actions__action"
+     (click)="dislike()"
+   >
+     <img
+       [class.choosed-minus]="commentMode.value === 'dislike'"
+       class="actions__action--minus"
+       src="/assets/icons/comment/dislike.png"
+       alt="minus icon"
+     />
+   </button>
+   <span>{{ dislikes || 0 }}</span>
+ </div>
 </div>

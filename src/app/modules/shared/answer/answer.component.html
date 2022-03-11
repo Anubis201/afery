@@ -13,7 +13,6 @@
           [dislikes]="data.dislikes"
           [id]="data.id"
           [collection]="isChat ? 'chat' : 'comments'"
-          [isAnswer]="true"
           (incrementLikes)="handleLike($event)"
           (incrementDislikes)="handleDislike($event)"
         ></app-plus-minus>

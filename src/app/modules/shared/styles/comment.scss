@@ -79,20 +79,17 @@
       cursor: pointer;
       position: absolute;
       margin-top: 10px;
+      font-size: 13px;
     }
 
     &--plus {
       cursor: pointer;
-      width: 26px;
-      padding-right: 8px;
-
-
+      width: 19px;
     }
 
     &--minus {
       cursor: pointer;
-      width: 26px;
-      padding-right: 8px;
+      width: 19px;
     }
   }
 }
