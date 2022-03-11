@@ -24,18 +24,23 @@
         mat-stroked-button
         (click)="handleOpenWriteComment.next(!handleOpenWriteComment.value)"
       >Odpowiedz</button>
-
+    </div>
+    <div class="comment__texts--buttons">
       <button
         *ngIf="(countAnswers | async) > 0 && !handleOpenAnswers.value"
-        mat-stroked-button
+        mat-button
         (click)="getAnswersToDisplay()"
-      >Zobacz odpowiedzi ({{ countAnswers.value }})</button>
+      >
+        {{ countAnswers.value > 1 ? 'Wyświetl ' +  countAnswers.value  + ' odpowiedzi' : 'Zobacz odpowiedź' }}
+      </button>
 
       <button
         *ngIf="(countAnswers | async) > 0 && (handleOpenAnswers | async)"
-        mat-stroked-button
+        mat-button
         (click)="hideAnswers(false)"
-      >Ukryj odpowiedzi</button>
+      >
+        {{ countAnswers.value > 1 ? 'Ukryj ' +  countAnswers.value  + ' odpowiedzi' : 'Ukryj odpowiedź' }}
+      </button>
     </div>
   </div>
 
