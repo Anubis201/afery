@@ -17,6 +17,7 @@ interface DialogDataModel {
 
 })
 export class ShortArticleComponent {
+  // TODO pobierac ilosc komentarzy i przekazac
   comments = new BehaviorSubject<CommentModel[]>([])
   isSavingComment = new BehaviorSubject<boolean>(false)
   actionMode = new BehaviorSubject<'like' | 'dislike' | null>(null)
