@@ -34,6 +34,17 @@
 
     &--answers {
       margin-top: 10px;
+
+      button {
+        padding: 0 10px;
+        font-size: 12px;
+        text-transform: uppercase;
+        line-height: 28px;
+
+        &:nth-child(3) {
+          margin-left: 10px;
+        }
+      }
     }
   }
 
@@ -48,7 +59,6 @@
 
 .actions {
   display: inline;
-  margin-left: 22px;
   position: relative;
 
   &__action {

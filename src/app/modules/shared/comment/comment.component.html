@@ -5,12 +5,6 @@
     <div class="comment__texts--date">{{ comment.date | time }}</div>
     <div class="comment__texts--desc">{{ comment.text }}</div>
     <div *ngIf="!isMenagaComponent" class="comment__texts--answers">
-      <button
-        *ngIf="userName"
-        mat-button
-        (click)="handleOpenWriteComment.next(!handleOpenWriteComment.value)"
-      >Odpowiedz</button>
-
       <app-plus-minus
         [likes]="comment.likes"
         [dislikes]="comment.dislikes"
@@ -22,14 +16,20 @@
       ></app-plus-minus>
 
       <button
+        *ngIf="userName"
+        mat-stroked-button
+        (click)="handleOpenWriteComment.next(!handleOpenWriteComment.value)"
+      >Odpowiedz</button>
+
+      <button
         *ngIf="(countAnswers | async) > 0 && !handleOpenAnswers.value"
-        mat-button
+        mat-stroked-button
         (click)="getAnswersToDisplay()"
       >Zobacz odpowiedzi ({{ countAnswers.value }})</button>
 
       <button
         *ngIf="(countAnswers | async) > 0 && (handleOpenAnswers | async)"
-        mat-button
+        mat-stroked-button
         (click)="hideAnswers(false)"
       >Ukryj odpowiedzi</button>
     </div>

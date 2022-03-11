@@ -3,6 +3,7 @@
   <div class="comment__texts">
     <div class="comment__texts--name">
       <span>{{ data.name }}</span>
+      <span class="comment__texts--date">{{ data.date | time }}</span>
       <a
         *ngIf="!disableIcon"
         mat-icon-button
@@ -11,36 +12,33 @@
         <mat-icon matTooltip="Dyskusja">library_books</mat-icon>
       </a>
     </div>
-    <div class="comment__texts--date">{{ data.date | time }}</div>
     <div class="comment__texts--desc">{{ data.text }}</div>
     <div class="comment__texts--answers">
+      <app-plus-minus
+        [likes]="data.likes"
+        [dislikes]="data.dislikes"
+        [id]="data.id"
+        [numberAnswers]="countAnswers.value"
+        [collection]="'chat'"
+        (incrementLikes)="handleLike($event)"
+        (incrementDislikes)="handleDislike($event)"
+      ></app-plus-minus>
+
       <button
         *ngIf="isLogin"
-        mat-button
+        mat-stroked-button
         (click)="handleOpenWrite.next(!handleOpenWrite.value)"
       >Odpowiedz</button>
 
-      <div class="actions">
-        <app-plus-minus
-          [likes]="data.likes"
-          [dislikes]="data.dislikes"
-          [id]="data.id"
-          [numberAnswers]="countAnswers.value"
-          [collection]="'chat'"
-          (incrementLikes)="handleLike($event)"
-          (incrementDislikes)="handleDislike($event)"
-        ></app-plus-minus>
-      </div>
-
       <button
         *ngIf="countAnswers.value > 0 && !handleOpenAnswers.value"
-        mat-button
+        mat-stroked-button
         (click)="getAnswers()"
       >Zobacz odpowiedzi ({{ countAnswers.value }})</button>
 
       <button
         *ngIf="(countAnswers | async) > 0 && (handleOpenAnswers | async)"
-        mat-button
+        mat-stroked-button
         (click)="hideAnswers(false)"
       >Ukryj odpowiedzi</button>
     </div>
