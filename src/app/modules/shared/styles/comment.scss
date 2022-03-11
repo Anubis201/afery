@@ -18,13 +18,31 @@
     word-break: break-word;
     letter-spacing: 1px;
 
-    &--name {
-      font-weight: 500;
-      font-size: 1rem;
-    }
+    &__others {
 
-    &--date {
-      margin-top: 5px;
+      a {
+        margin-left: 5px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+
+        mat-icon {
+          font-size: 15px;
+          width: 20px;
+          height: 25px;
+        }
+      }
+
+      &--name {
+        font-weight: 500;
+        font-size: 15px;
+      }
+
+      &--date {
+        margin-left: 10px;
+        font-size: 13px;
+        color: #b6b6b6;
+      }
     }
 
     &--desc {

@@ -1,8 +1,10 @@
 <div class="comment">
   <mat-icon>person</mat-icon>
   <div class="comment__texts">
-    <div class="comment__texts--name">{{ data.name }}</div>
-    <div class="comment__texts--date">{{ data.date | time }}</div>
+    <div class="comment__texts__others">
+      <span class="comment__texts__others--name">{{ data.name }}</span>
+      <span class="comment__texts__others--date">{{ data.date | time }}</span>
+    </div>
     <div class="comment__texts--desc">{{ data.text }}</div>
     <div class="comment__texts--answers">
       <div class="actions">

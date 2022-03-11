@@ -55,7 +55,7 @@ export class DiscussionComponent implements OnInit {
       isAnswer: true,
       authorId: this.idUser
     };
-    console.log(rlyChat)
+
     this.chatService.addChat(rlyChat).subscribe({
       next: () => {
         this.answers.next([ rlyChat, ...this.answers.value]);

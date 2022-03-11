@@ -1,9 +1,9 @@
 <div class="comment">
   <mat-icon>person</mat-icon>
   <div class="comment__texts">
-    <div class="comment__texts--name">
-      <span>{{ data.name }}</span>
-      <span class="comment__texts--date">{{ data.date | time }}</span>
+    <div class="comment__texts__others">
+      <span class="comment__texts__others--name">{{ data.name }}</span>
+      <span class="comment__texts__others--date">{{ data.date | time }}</span>
       <a
         *ngIf="!disableIcon"
         mat-icon-button

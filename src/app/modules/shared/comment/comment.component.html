@@ -1,10 +1,15 @@
 <div class="comment">
   <mat-icon>person</mat-icon>
   <div class="comment__texts">
-    <div class="comment__texts--name">{{ comment.name }}</div>
-    <div class="comment__texts--date">{{ comment.date | time }}</div>
+    <div class="comment__texts__others">
+      <span class="comment__texts__others--name">{{ comment.name }}</span>
+      <span class="comment__texts__others--date">{{ comment.date | time }}</span>
+    </div>
     <div class="comment__texts--desc">{{ comment.text }}</div>
-    <div *ngIf="!isMenagaComponent" class="comment__texts--answers">
+    <div
+      *ngIf="!isMenagaComponent"
+      class="comment__texts--answers"
+    >
       <app-plus-minus
         [likes]="comment.likes"
         [dislikes]="comment.dislikes"
