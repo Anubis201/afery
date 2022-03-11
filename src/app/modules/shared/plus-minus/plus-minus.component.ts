@@ -140,6 +140,8 @@ export class PlusMinusComponent implements OnInit {
         this.commentMode.next('like');
       } else if (localStorage.getItem(this.id) === 'dislike') {
         this.commentMode.next('dislike');
+      } else {
+        this.commentMode.next(null);
       }
     } else {
       const sub = this.loadingUserDetails.subscribe(value => {
