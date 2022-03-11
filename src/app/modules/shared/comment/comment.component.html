@@ -58,8 +58,8 @@
 
 <!-- Odpowiedzi -->
 <div
-  *ngIf="(answers | async).length"
-  class="answer"
+  class="open-answers"
+  [class.hide-answers]="!handleOpenAnswers.value"
 >
   <ng-container *ngFor="let answer of answers.value">
     <app-answer
