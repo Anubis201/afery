@@ -2,33 +2,34 @@
   class="actions"
   [class.article-actions]="isArticle"
 >
- <div>
+ <div
+    class="actions__action"
+    [class.choosed]="(commentMode | async) === 'like'"
+ >
    <button
      mat-icon-button
-     class="actions__action"
      (click)="approve()"
    >
      <img
-       [class.choosed-plus]="(commentMode | async) === 'like'"
-       class="actions__action--plus"
        src="/assets/icons/comment/like.png"
+       class="plus"
        alt="plus icon"
      />
    </button>
    <span>{{ likes || 0 }}</span>
  </div>
 
- <div>
-   <button
-     mat-icon-button
-     class="actions__action"
-     (click)="dislike()"
+ <div
+    class="actions__action"
+    [class.choosed]="commentMode.value === 'dislike'"
+ >
+  <button
+    mat-icon-button
+    (click)="dislike()"
    >
      <img
-       [class.choosed-minus]="commentMode.value === 'dislike'"
-       class="actions__action--minus"
-       src="/assets/icons/comment/dislike.png"
-       alt="minus icon"
+        src="/assets/icons/comment/dislike.png"
+        alt="minus icon"
      />
    </button>
    <span>{{ dislikes || 0 }}</span>

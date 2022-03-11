@@ -73,23 +73,41 @@
 
   &__action {
     display: inline;
-    margin-right: 40px;
+    margin-right: 30px;
+
+    &.choosed {
+
+      span {
+        color: white;
+      }
+
+      button {
+        background: #242424;
+
+      }
+    }
 
     span {
       cursor: pointer;
       position: absolute;
-      margin-top: 10px;
-      font-size: 13px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: #b6b6b6;
     }
 
-    &--plus {
-      cursor: pointer;
-      width: 19px;
-    }
+    button {
+      height: 35px;
+      width: 35px;
+      line-height: 35px;
 
-    &--minus {
-      cursor: pointer;
-      width: 19px;
+      img {
+        cursor: pointer;
+        width: 16px;
+
+        &.plus {
+          margin-bottom: 3px;
+        }
+      }
     }
   }
 }
@@ -99,7 +117,6 @@
   flex-direction: column;
   gap: 2rem;
   margin-top: 1.8rem;
-  margin-bottom: .6rem;
   // TODO zrobić wyliczenie wielkości tego elementu aby na pewno nic się nie zje... w animacji przy duzych ilosciach komentarzy
   max-height: 5000px;
   overflow: hidden;
