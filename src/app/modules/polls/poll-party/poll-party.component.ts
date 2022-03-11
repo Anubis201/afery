@@ -140,18 +140,18 @@ export class PollPartyComponent {
       .attr('opacity', 0.3)
       .attr('fill', d => PartiesColorsEnum[PartiesEnum[d.party]]);
 
-    chart
-      .selectAll('.label')
-      .data(previousElection)
-      .enter()
-      .append('text')
-      .text(d => d.percentage === 0 ? '' : d.percentage + '%')
-      .attr('x', d => (xScale(d.party as unknown as string) + xScale.bandwidth() / 2) + (thisIsBig ? 58 : 29))
-      .attr('y', d => yScale(d.percentage) - yLabelSpace)
-      .attr('fill', 'white')
-      .attr('font-weight', 500)
-      .attr('font-size', (thisIsBig ? '10px' : '8px'))
-      .attr('opacity', 0.4)
-      .attr('text-anchor', 'middle');
+    // chart
+    //   .selectAll('.label')
+    //   .data(previousElection)
+    //   .enter()
+    //   .append('text')
+    //   .text(d => d.percentage === 0 ? '' : d.percentage + '%')
+    //   .attr('x', d => (xScale(d.party as unknown as string) + xScale.bandwidth() / 2) + (thisIsBig ? 58 : 29))
+    //   .attr('y', d => yScale(d.percentage) - yLabelSpace)
+    //   .attr('fill', 'white')
+    //   .attr('font-weight', 500)
+    //   .attr('font-size', (thisIsBig ? '10px' : '8px'))
+    //   .attr('opacity', 0.4)
+    //   .attr('text-anchor', 'middle');
   }
 }
