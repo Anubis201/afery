@@ -41,6 +41,10 @@ export class DiscussionComponent {
     private chatService: ChatService,
   ) { }
 
+  get isYourComment() {
+    return this.idUser === this.discussionData.value.authorId
+  }
+
   hideAnswers() {
     this.answers.next([]);
     this.handleOpenWrite.next(false)

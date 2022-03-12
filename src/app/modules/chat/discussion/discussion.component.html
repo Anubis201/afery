@@ -3,14 +3,32 @@
   <div class="comment__texts">
     <div class="comment__texts__others">
       <span class="comment__texts__others--name">{{ (discussionData | async).name }}</span>
-      <span class="comment__texts__others--date">{{ discussionData.value.date | time }}</span>
-      <a
-        *ngIf="!disableIcon"
-        mat-icon-button
-        [routerLink]="'/bulwar/dyskusja/' + discussionData.value.id"
-      >
-        <mat-icon matTooltip="Dyskusja">library_books</mat-icon>
-      </a>
+      <div class="comment__texts__others__actions">
+        <span class="comment__texts__others__actions--date">{{ discussionData.value.date | time }}</span>
+        <a
+          *ngIf="!disableIcon"
+          mat-icon-button
+          [routerLink]="'/bulwar/dyskusja/' + discussionData.value.id"
+        >
+          <mat-icon matTooltip="Dyskusja">library_books</mat-icon>
+        </a>
+        <button
+          *ngIf="isAdmin || isYourComment"
+          mat-icon-button
+          matTooltip="Usuń"
+          (click)="deleteMe.emit(discussionData.value.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button
+          *ngIf="isYourComment"
+          mat-icon-button
+          matTooltip="Edytuj"
+          (click)="null"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
     </div>
     <div class="comment__texts--desc">{{ discussionData.value.text }}</div>
     <div class="comment__texts--answers">
@@ -46,17 +64,6 @@
         {{ countAnswers.value > 1 ? 'Ukryj ' +  countAnswers.value  + ' odpowiedzi' : 'Ukryj odpowiedź' }}
       </button>
     </div>
-  </div>
-
-  <div class="comment__buttons">
-    <button
-      *ngIf="isAdmin"
-      mat-icon-button
-      matTooltip="Usuń komentarz"
-      (click)="deleteMe.emit(discussionData.value.id)"
-    >
-      <mat-icon>delete_outline</mat-icon>
-    </button>
   </div>
 </div>
 

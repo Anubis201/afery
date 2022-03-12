@@ -42,6 +42,10 @@ export class CommentComponent {
     private _snackBar: MatSnackBar,
   ) {}
 
+  get isYourComment() {
+    return this.idUser === this.commentData.value.authorId
+  }
+
   hideAnswers() {
     this.answers.next([]);
     this.handleOpenWriteComment.next(false);

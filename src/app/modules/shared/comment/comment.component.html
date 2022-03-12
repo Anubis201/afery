@@ -3,7 +3,25 @@
   <div class="comment__texts">
     <div class="comment__texts__others">
       <span class="comment__texts__others--name">{{ (commentData | async).name }}</span>
-      <span class="comment__texts__others--date">{{ commentData.value.date | time }}</span>
+      <div class="comment__texts__others__actions">
+        <span class="comment__texts__others__actions--date">{{ commentData.value.date | time }}</span>
+        <button
+          *ngIf="isAdmin || isYourComment"
+          mat-icon-button
+          matTooltip="Usuń"
+          (click)="deleteComment.emit(commentData.value.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button
+          *ngIf="isYourComment"
+          mat-icon-button
+          matTooltip="Edytuj"
+          (click)="null"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
     </div>
     <div class="comment__texts--desc">{{ commentData.value.text }}</div>
     <div
@@ -42,18 +60,6 @@
         {{ countAnswers.value > 1 ? 'Ukryj ' +  countAnswers.value  + ' odpowiedzi' : 'Ukryj odpowiedź' }}
       </button>
     </div>
-  </div>
-
-  <div class="comment__buttons">
-    <button
-      *ngIf="isAdmin"
-      mat-icon-button
-      matTooltip="Usuń komentarz"
-      (click)="deleteComment.emit(commentData.value.id)"
-    >
-      <mat-icon>delete_outline</mat-icon>
-    </button>
-    <ng-content select="[customButtons]"></ng-content>
   </div>
 </div>
 
