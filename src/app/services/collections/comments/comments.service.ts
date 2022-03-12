@@ -52,4 +52,8 @@ export class CommentsService {
   deteleComment(articleId: string) {
     return from(this.getRef().doc(articleId).delete())
   }
+
+  updateComment(id: string, data: Partial<CommentModel>) {
+    return from(this.getRef().doc(id).update(data))
+  }
 }

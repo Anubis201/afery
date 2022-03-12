@@ -81,6 +81,7 @@ export class GlobalCommentsComponent {
       likes: 0,
       dislikes: 0,
       authorId: this.idUser.value,
+      countAnswers: 0,
     };
 
     this.commentsService.addComment(rlyComment).subscribe({

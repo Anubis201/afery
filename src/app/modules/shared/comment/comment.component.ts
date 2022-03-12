@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject } from 'rxjs';
+import { map } from 'd3';
+import { increment } from 'firebase/firestore';
+import { BehaviorSubject, catchError, switchMap } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { showAnimation } from 'src/app/services/animations/others.animations';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
@@ -58,7 +60,9 @@ export class CommentComponent implements OnInit {
       authorId: this.idUser,
     };
 
-    this.commentsService.addComment(rlyAnswer).subscribe({
+    this.commentsService.updateComment(this.comment.id, { countAnswers: increment(1) as any }).pipe(
+      switchMap(() => this.commentsService.addComment(rlyAnswer))
+    ).subscribe({
       next: doc => {
         this.answers.next([{ ...rlyAnswer, id: doc.id }, ...this.answers.value]);
         this.countAnswers.next(this.countAnswers.value + 1);
@@ -70,7 +74,11 @@ export class CommentComponent implements OnInit {
     })
   }
 
-  getAnswersToDisplay() {
+  getAnswersToDisplay(openWrite = false) {
+    if (openWrite) {
+      this.handleOpenWriteComment.next(true);
+    }
+
     this.commentsService.getAnswers(this.comment.id).subscribe({
       next: docs => {
         let data: CommentModel[] = [];
