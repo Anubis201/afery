@@ -43,7 +43,7 @@ export class CommentComponent {
   ) {}
 
   get isYourComment() {
-    return this.idUser === this.commentData.value.authorId
+    return this.idUser === this.commentData.value.authorId && this.userName
   }
 
   hideAnswers() {

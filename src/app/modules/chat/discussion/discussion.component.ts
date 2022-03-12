@@ -42,7 +42,7 @@ export class DiscussionComponent {
   ) { }
 
   get isYourComment() {
-    return this.idUser === this.discussionData.value.authorId
+    return this.idUser === this.discussionData.value.authorId && this.isLogin
   }
 
   hideAnswers() {
