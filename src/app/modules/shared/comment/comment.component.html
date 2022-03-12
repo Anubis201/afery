@@ -2,18 +2,18 @@
   <mat-icon>person</mat-icon>
   <div class="comment__texts">
     <div class="comment__texts__others">
-      <span class="comment__texts__others--name">{{ comment.name }}</span>
-      <span class="comment__texts__others--date">{{ comment.date | time }}</span>
+      <span class="comment__texts__others--name">{{ (commentData | async).name }}</span>
+      <span class="comment__texts__others--date">{{ commentData.value.date | time }}</span>
     </div>
-    <div class="comment__texts--desc">{{ comment.text }}</div>
+    <div class="comment__texts--desc">{{ commentData.value.text }}</div>
     <div
       *ngIf="!isMenagaComponent"
       class="comment__texts--answers"
     >
       <app-plus-minus
-        [likes]="comment.likes"
-        [dislikes]="comment.dislikes"
-        [id]="comment.id"
+        [likes]="commentData.value.likes"
+        [dislikes]="commentData.value.dislikes"
+        [id]="commentData.value.id"
         [collection]="'comments'"
         (incrementLikes)="handleLike($event)"
         (incrementDislikes)="handleDislike($event)"
@@ -49,7 +49,7 @@
       *ngIf="isAdmin"
       mat-icon-button
       matTooltip="Usuń komentarz"
-      (click)="deleteComment.emit(comment.id)"
+      (click)="deleteComment.emit(commentData.value.id)"
     >
       <mat-icon>delete_outline</mat-icon>
     </button>

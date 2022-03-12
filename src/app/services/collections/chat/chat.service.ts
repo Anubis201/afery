@@ -50,4 +50,8 @@ export class ChatService {
   getDiscussion(id: string) {
     return this.getRef().doc(id).get()
   }
+
+  updateChat(id: string, data: Partial<ChatTextModel>) {
+    return from(this.getRef().doc(id).update(data))
+  }
 }

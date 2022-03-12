@@ -2,22 +2,22 @@
   <mat-icon>person</mat-icon>
   <div class="comment__texts">
     <div class="comment__texts__others">
-      <span class="comment__texts__others--name">{{ data.name }}</span>
-      <span class="comment__texts__others--date">{{ data.date | time }}</span>
+      <span class="comment__texts__others--name">{{ (discussionData | async).name }}</span>
+      <span class="comment__texts__others--date">{{ discussionData.value.date | time }}</span>
       <a
         *ngIf="!disableIcon"
         mat-icon-button
-        [routerLink]="'/bulwar/dyskusja/' + data.id"
+        [routerLink]="'/bulwar/dyskusja/' + discussionData.value.id"
       >
         <mat-icon matTooltip="Dyskusja">library_books</mat-icon>
       </a>
     </div>
-    <div class="comment__texts--desc">{{ data.text }}</div>
+    <div class="comment__texts--desc">{{ discussionData.value.text }}</div>
     <div class="comment__texts--answers">
       <app-plus-minus
-        [likes]="data.likes"
-        [dislikes]="data.dislikes"
-        [id]="data.id"
+        [likes]="discussionData.value.likes"
+        [dislikes]="discussionData.value.dislikes"
+        [id]="discussionData.value.id"
         [collection]="'chat'"
         (incrementLikes)="handleLike($event)"
         (incrementDislikes)="handleDislike($event)"
@@ -26,7 +26,7 @@
       <button
         *ngIf="isLogin"
         mat-stroked-button
-        (click)="handleOpenWrite.next(!handleOpenWrite.value)"
+        (click)="getAnswers(true)"
       >Odpowiedz</button>
     </div>
     <div class="comment__texts--buttons">
@@ -53,7 +53,7 @@
       *ngIf="isAdmin"
       mat-icon-button
       matTooltip="Usuń komentarz"
-      (click)="deleteMe.emit(data.id)"
+      (click)="deleteMe.emit(discussionData.value.id)"
     >
       <mat-icon>delete_outline</mat-icon>
     </button>

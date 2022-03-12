@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { increment } from 'firebase/firestore';
+import { BehaviorSubject, switchMap } from 'rxjs';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
 import { showAnimation } from 'src/app/services/animations/others.animations';
 import { ChatService } from 'src/app/services/collections/chat/chat.service';
@@ -11,8 +12,7 @@ import { ChatService } from 'src/app/services/collections/chat/chat.service';
   animations: [showAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DiscussionComponent implements OnInit {
-  @Input() data: ChatTextModel
+export class DiscussionComponent {
   @Input() isAdmin: boolean
   @Input() isLogin: boolean
   @Input() userName: string
@@ -21,25 +21,29 @@ export class DiscussionComponent implements OnInit {
 
   @Output() deleteMe = new EventEmitter<string>()
 
+  @Input() set data(comment: ChatTextModel) {
+    if (!comment) {
+      return
+    }
+
+    this.discussionData.next(comment);
+    this.countAnswers.next(comment?.countAnswers);
+  }
+
   isSaving = new BehaviorSubject<boolean>(false)
   handleOpenWrite = new BehaviorSubject<boolean>(false)
   countAnswers = new BehaviorSubject<number>(0)
   handleOpenAnswers = new BehaviorSubject<boolean>(false)
-  handleOpenWriteComment = new BehaviorSubject<boolean>(false)
   answers = new BehaviorSubject<ChatTextModel[]>([])
+  discussionData = new BehaviorSubject<ChatTextModel>(null)
 
   constructor(
     private chatService: ChatService,
-    private changeDetectorRef: ChangeDetectorRef,
   ) { }
-
-  ngOnInit() {
-    this.getCountAnswers();
-  }
 
   hideAnswers() {
     this.answers.next([]);
-    this.handleOpenWriteComment.next(false);
+    this.handleOpenWrite.next(false)
     this.handleOpenAnswers.next(false);
   }
 
@@ -51,12 +55,14 @@ export class DiscussionComponent implements OnInit {
       name: this.userName,
       dislikes: 0,
       likes: 0,
-      parentId: this.data.id,
+      parentId: this.discussionData.value.id,
       isAnswer: true,
       authorId: this.idUser
     };
 
-    this.chatService.addChat(rlyChat).subscribe({
+    this.chatService.updateChat(this.discussionData.value.id, { countAnswers: increment(1) as any }).pipe(
+      switchMap(() => this.chatService.addChat(rlyChat))
+    ).subscribe({
       next: () => {
         this.answers.next([ rlyChat, ...this.answers.value]);
         this.countAnswers.next(this.countAnswers.value + 1);
@@ -68,8 +74,12 @@ export class DiscussionComponent implements OnInit {
     })
   }
 
-  getAnswers() {
-    this.chatService.getAnswers(this.data.id).subscribe({
+  getAnswers(openWrite = false) {
+    if (openWrite) {
+      this.handleOpenWrite.next(true);
+    }
+
+    this.chatService.getAnswers(this.discussionData.value.id).subscribe({
       next: docs => {
         let data: ChatTextModel[] = [];
 
@@ -90,22 +100,12 @@ export class DiscussionComponent implements OnInit {
   }
 
   handleLike(value: number) {
-    this.data.likes = this.data.likes + value;
-    this.data.likes = isNaN(this.data.likes) ? 1 : this.data.likes;
-    this.changeDetectorRef.detectChanges();
+    this.discussionData.next({ ...this.discussionData.value, likes: this.discussionData.value.likes + value });
+    this.discussionData.next({ ...this.discussionData.value, likes: isNaN(this.discussionData.value.likes) ? 1 : this.discussionData.value.likes });
   }
 
   handleDislike(value: number) {
-    this.data.dislikes = this.data.dislikes + value;
-    this.data.dislikes = isNaN(this.data.dislikes) ? 1 : this.data.dislikes;
-    this.changeDetectorRef.detectChanges();
-  }
-
-  private getCountAnswers() {
-    this.chatService.getAnswers(this.data.id).subscribe({
-      next: docs => {
-        this.countAnswers.next(docs.size);
-      },
-    })
+    this.discussionData.next({ ...this.discussionData.value, dislikes: this.discussionData.value.dislikes + value });
+    this.discussionData.next({ ...this.discussionData.value, dislikes: isNaN(this.discussionData.value.dislikes) ? 1 : this.discussionData.value.dislikes });
   }
 }

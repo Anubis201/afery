@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { map } from 'd3';
 import { increment } from 'firebase/firestore';
-import { BehaviorSubject, catchError, switchMap } from 'rxjs';
+import { BehaviorSubject, switchMap } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { showAnimation } from 'src/app/services/animations/others.animations';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
@@ -14,8 +13,7 @@ import { CommentsService } from 'src/app/services/collections/comments/comments.
   animations: [showAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommentComponent implements OnInit {
-  @Input() comment: CommentModel
+export class CommentComponent {
   @Input() isAdmin: boolean
   @Input() isMenagaComponent: boolean = false
   @Input() userName: string
@@ -23,21 +21,26 @@ export class CommentComponent implements OnInit {
 
   @Output() deleteComment = new EventEmitter<string>()
 
-  constructor(
-    private commentsService: CommentsService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private _snackBar: MatSnackBar,
-  ) {}
+  @Input() set comment(comment: CommentModel) {
+    if (!comment) {
+      return
+    }
+
+    this.commentData.next(comment);
+    this.countAnswers.next(comment?.countAnswers);
+  }
 
   handleOpenWriteComment = new BehaviorSubject<boolean>(false)
   isSaving = new BehaviorSubject<boolean>(false)
   countAnswers = new BehaviorSubject<number>(0)
   answers = new BehaviorSubject<CommentModel[]>([])
   handleOpenAnswers = new BehaviorSubject<boolean>(false)
+  commentData = new BehaviorSubject<CommentModel>(null)
 
-  ngOnInit() {
-    if (!this.isMenagaComponent && this.comment?.id) this.getCountAnswers();
-  }
+  constructor(
+    private commentsService: CommentsService,
+    private _snackBar: MatSnackBar,
+  ) {}
 
   hideAnswers() {
     this.answers.next([]);
@@ -50,9 +53,9 @@ export class CommentComponent implements OnInit {
 
     const rlyAnswer: CommentModel = {
       ...answer,
-      articleId: this.comment.articleId,
+      articleId: this.commentData.value.articleId,
       isNew: true,
-      commentId: this.comment.id,
+      commentId: this.commentData.value.id,
       isAnswer: true,
       name: this.userName,
       likes: 0,
@@ -60,7 +63,7 @@ export class CommentComponent implements OnInit {
       authorId: this.idUser,
     };
 
-    this.commentsService.updateComment(this.comment.id, { countAnswers: increment(1) as any }).pipe(
+    this.commentsService.updateComment(this.commentData.value.id, { countAnswers: increment(1) as any }).pipe(
       switchMap(() => this.commentsService.addComment(rlyAnswer))
     ).subscribe({
       next: doc => {
@@ -79,7 +82,7 @@ export class CommentComponent implements OnInit {
       this.handleOpenWriteComment.next(true);
     }
 
-    this.commentsService.getAnswers(this.comment.id).subscribe({
+    this.commentsService.getAnswers(this.commentData.value.id).subscribe({
       next: docs => {
         let data: CommentModel[] = [];
 
@@ -92,15 +95,13 @@ export class CommentComponent implements OnInit {
   }
 
   handleLike(value: number) {
-    this.comment.likes = this.comment.likes + value;
-    this.comment.likes = isNaN(this.comment.likes) ? 1 : this.comment.likes;
-    this.changeDetectorRef.detectChanges();
+    this.commentData.next({ ...this.commentData.value, likes: this.commentData.value.likes + value });
+    this.commentData.next({ ...this.commentData.value, likes: isNaN(this.commentData.value.likes) ? 1 : this.commentData.value.likes });
   }
 
   handleDislike(value: number) {
-    this.comment.dislikes = this.comment.dislikes + value;
-    this.comment.dislikes = isNaN(this.comment.dislikes) ? 1 : this.comment.dislikes;
-    this.changeDetectorRef.detectChanges();
+    this.commentData.next({ ...this.commentData.value, dislikes: this.commentData.value.dislikes + value });
+    this.commentData.next({ ...this.commentData.value, dislikes:isNaN(this.commentData.value.dislikes) ? 1 : this.commentData.value.dislikes });
   }
 
   handleDeleteAnswer(id: string) {
@@ -112,14 +113,6 @@ export class CommentComponent implements OnInit {
       error: () => {
         this._snackBar.open('Błąd', 'close');
       }
-    })
-  }
-
-  private getCountAnswers() {
-    this.commentsService.getAnswers(this.comment.id).subscribe({
-      next: docs => {
-        this.countAnswers.next(docs.size);
-      },
     })
   }
 }

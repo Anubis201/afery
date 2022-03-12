@@ -113,7 +113,8 @@ export class ChatCommentsComponent implements OnInit {
       dislikes: 0,
       likes: 0,
       isAnswer: false,
-      authorId: this.idUser.value
+      authorId: this.idUser.value,
+      countAnswers: 0,
     };
 
     this.chatService.addChat(rlyChat).subscribe({
