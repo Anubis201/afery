@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angul
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as moment from 'moment';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, switchMap } from 'rxjs';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
 import { showAnimation } from 'src/app/services/animations/others.animations';
@@ -136,8 +136,9 @@ export class ChatCommentsComponent implements OnInit {
   }
 
   handleDelete(id: string) {
-    // TODO usuwanie odpowiedzi
-    this.chatService.deteleMe(id).subscribe({
+    this.chatService.removeAnswers(id).pipe(
+      switchMap(() => this.chatService.deteleMe(id))
+    ).subscribe({
       next: () => {
         this.texts.next(this.texts.value.filter(filterV => filterV.id !== id));
         this._snackBar.open('Komentarz został usunięty', 'anuluj');

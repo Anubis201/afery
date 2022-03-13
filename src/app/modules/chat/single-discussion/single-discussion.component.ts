@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, switchMap } from 'rxjs';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
 import { showAnimation } from 'src/app/services/animations/others.animations';
 import { ChatService } from 'src/app/services/collections/chat/chat.service';
@@ -52,8 +52,9 @@ export class SingleDiscussionComponent implements OnInit {
   }
 
   handleDelete(id: string) {
-    // TODO usuwanie odpowiedzi
-    this.chatService.deteleMe(id).subscribe({
+    this.chatService.removeAnswers(id).pipe(
+      switchMap(() => this.chatService.deteleMe(id))
+    ).subscribe({
       next: () => {
         this.router.navigateByUrl('/bulwar/dyskusje');
         this._snackBar.open('Komentarz został usunięty', 'anuluj');

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, switchMap } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { CommentsType } from 'src/app/models/others/comments.type';
@@ -96,14 +96,15 @@ export class GlobalCommentsComponent {
   }
 
   deleteComment(id: string) {
-    // TODO Dodać usuwanie odpowiedzi
-    this.commentsService.deteleComment(id).subscribe({
+    this.commentsService.removeAnswers(id).pipe(
+      switchMap(() => this.commentsService.deteleComment(id))
+    ).subscribe({
       next: () => {
         this.comments.next(this.comments.value.filter(filterV => filterV.id !== id));
-        this._snackBar.open('Komentarz został usunięty', 'close');
+        this._snackBar.open('Komentarz został usunięty', 'anuluj');
       },
       error: () => {
-        this._snackBar.open('Błąd', 'close');
+        this._snackBar.open('Nie udało się usunąć komentarza', 'anuluj');
       }
     })
   }
