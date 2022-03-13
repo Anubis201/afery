@@ -34,13 +34,22 @@
       *ngIf="!(isEditMode | async)"
       class="comment__texts--desc"
     >{{ discussionData.value.text }}</div>
-    <mat-form-field
+    <div
       *ngIf="isEditMode.value"
-      appearance="fill"
+      class="comment__texts__edit"
     >
-      <mat-label>Tekst</mat-label>
-      <textarea matInput [formControl]="editTextControl" autocomplete="off" type="text"></textarea>
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Tekst</mat-label>
+        <textarea matInput [formControl]="editTextControl" autocomplete="off" type="text" ></textarea>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="editTextControl.invalid || (isChangingText | async)"
+        (click)="changeText()"
+      >ZMIEŃ</button>
+    </div>
     <div class="comment__texts--answers">
       <app-plus-minus
         [likes]="discussionData.value.likes"
@@ -96,7 +105,9 @@
       [data]="answer"
       [isAdmin]="isAdmin"
       [isChat]="true"
+      [isChangingTextAnswer]="isChangingTextAnswer | async"
       (deleteAnswer)="handleDeleteAnswer($event)"
+      (changeTextAnswer)="handleChangeTextAnswer($event)"
     ></app-answer>
   </ng-container>
 </div>

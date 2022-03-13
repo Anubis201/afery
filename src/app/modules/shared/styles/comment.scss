@@ -11,8 +11,12 @@
     letter-spacing: 1px;
     flex: 1;
 
-    mat-form-field {
-      width: 100%;
+    &__edit {
+      text-align: right;
+
+      mat-form-field {
+        width: 100%;
+      }
     }
 
     &__others {

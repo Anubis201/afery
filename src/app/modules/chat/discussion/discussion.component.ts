@@ -40,6 +40,8 @@ export class DiscussionComponent {
   answers = new BehaviorSubject<ChatTextModel[]>([])
   discussionData = new BehaviorSubject<ChatTextModel>(null)
   editTextControl = new FormControl(null, Validators.required)
+  isChangingText = new BehaviorSubject<boolean>(false)
+  isChangingTextAnswer = new BehaviorSubject<boolean>(false)
 
   constructor(
     private chatService: ChatService,
@@ -58,6 +60,35 @@ export class DiscussionComponent {
 
     this.editTextControl.patchValue(this.discussionData.value.text);
     this.isEditMode.next(true);
+  }
+
+  handleChangeTextAnswer({ id, text }: { id: string, text: string }) {
+    this.isChangingTextAnswer.next(true);
+    this.chatService.updateChat(id, { text }).subscribe({
+      next: () => {
+        console.log('ok')
+        // this.answers.next({ this.answers.value.filter(filterV => filterV.id !== id) })
+        this.isChangingTextAnswer.next(false);
+      },
+      error: err => {
+        console.log(err)
+        this.isChangingTextAnswer.next(false);
+      }
+    })
+  }
+
+  changeText() {
+    this.isChangingText.next(true);
+    this.chatService.updateChat(this.discussionData.value.id, { text: this.editTextControl.value }).subscribe({
+      next: () => {
+        this.discussionData.next({ ...this.discussionData.value, text: this.editTextControl.value })
+        this.isEditMode.next(false);
+        this.isChangingText.next(false);
+      },
+      error: () => {
+        this.isChangingText.next(false);
+      }
+    })
   }
 
   hideAnswers() {
