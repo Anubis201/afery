@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
 import { showAnimation } from 'src/app/services/animations/others.animations';
@@ -24,6 +25,8 @@ export class SingleDiscussionComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private chatService: ChatService,
     private userService: UserService,
+    private _snackBar: MatSnackBar,
+    private router: Router
   ) { }
 
   get userName() {
@@ -49,7 +52,15 @@ export class SingleDiscussionComponent implements OnInit {
   }
 
   handleDelete(id: string) {
-    this.chatService.deteleMe(id).subscribe()
+    this.chatService.deteleMe(id).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/bulwar/dyskusje');
+        this._snackBar.open('Komentarz został usunięty', 'anuluj');
+      },
+      error: () => {
+        this._snackBar.open('Nie udało się usunąć komentarza', 'anuluj');
+      }
+    })
   }
 
   getData(id: string) {

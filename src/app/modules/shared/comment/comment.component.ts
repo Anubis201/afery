@@ -109,13 +109,16 @@ export class CommentComponent {
   }
 
   handleDeleteAnswer(id: string) {
-    this.commentsService.deteleComment(id).subscribe({
+    this.commentsService.updateComment(this.commentData.value.id, { countAnswers: increment(-1) as any }).pipe(
+      switchMap(() => this.commentsService.deteleComment(id))
+    ).subscribe({
       next: () => {
         this.answers.next(this.answers.value.filter(filterV => filterV.id !== id));
-        this._snackBar.open('Odpowiedż została usunięta', 'close');
+        this.countAnswers.next(this.countAnswers.value - 1);
+        this.isSaving.next(false);
       },
       error: () => {
-        this._snackBar.open('Błąd', 'close');
+        this._snackBar.open('Nie udało się usunąć komentarza', 'anuluj');
       }
     })
   }

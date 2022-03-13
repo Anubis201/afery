@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { increment } from 'firebase/firestore';
 import { BehaviorSubject, switchMap } from 'rxjs';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
@@ -39,6 +40,7 @@ export class DiscussionComponent {
 
   constructor(
     private chatService: ChatService,
+    private _snackBar: MatSnackBar,
   ) { }
 
   get isYourComment() {
@@ -67,12 +69,12 @@ export class DiscussionComponent {
     this.chatService.updateChat(this.discussionData.value.id, { countAnswers: increment(1) as any }).pipe(
       switchMap(() => this.chatService.addChat(rlyChat))
     ).subscribe({
-      next: () => {
-        this.answers.next([ rlyChat, ...this.answers.value]);
+      next: doc => {
+        this.answers.next([ { ...rlyChat, id: doc.id }, ...this.answers.value]);
         this.countAnswers.next(this.countAnswers.value + 1);
         this.isSaving.next(false);
       },
-      error: () => {
+      error: err => {
         this.isSaving.next(false);
       }
     })
@@ -96,10 +98,17 @@ export class DiscussionComponent {
   }
 
   handleDeleteAnswer(id: string) {
-    this.chatService.deteleMe(id).subscribe({
+    this.chatService.updateChat(this.discussionData.value.id, { countAnswers: increment(-1) as any }).pipe(
+      switchMap(() => this.chatService.deteleMe(id))
+    ).subscribe({
       next: () => {
         this.answers.next(this.answers.value.filter(filterV => filterV.id !== id));
+        this.countAnswers.next(this.countAnswers.value - 1);
+        this.isSaving.next(false);
       },
+      error: () => {
+        this._snackBar.open('Nie udało się usunąć komentarza', 'anuluj');
+      }
     })
   }
 

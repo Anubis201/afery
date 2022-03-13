@@ -3,7 +3,17 @@
   <div class="comment__texts">
     <div class="comment__texts__others">
       <span class="comment__texts__others--name">{{ data.name }}</span>
-      <span class="comment__texts__others--date">{{ data.date | time }}</span>
+      <div class="comment__texts__others__actions">
+        <span class="comment__texts__others__actions--date">{{ data.date | time }}</span>
+        <button
+          *ngIf="isAdmin"
+          mat-icon-button
+          matTooltip="Usuń"
+          (click)="deleteAnswer.emit(data.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
     <div class="comment__texts--desc">{{ data.text }}</div>
     <div class="comment__texts--answers">
@@ -20,14 +30,6 @@
     </div>
   </div>
   <div class="comment__buttons">
-    <button
-      *ngIf="isAdmin"
-      mat-icon-button
-      matTooltip="Usuń komentarz"
-      (click)="deleteAnswer.emit(data.id)"
-    >
-      <mat-icon>delete_outline</mat-icon>
-    </button>
     <ng-content select="[customButtons]"></ng-content>
   </div>
 </div>

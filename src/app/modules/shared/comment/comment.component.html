@@ -76,7 +76,7 @@
   class="open-answers"
   [class.hide-answers]="!handleOpenAnswers.value"
 >
-  <ng-container *ngFor="let answer of answers.value">
+  <ng-container *ngFor="let answer of answers | async">
     <app-answer
       @showAnimation
       [data]="answer"
