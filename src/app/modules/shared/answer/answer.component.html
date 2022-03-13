@@ -16,7 +16,7 @@
         <button
           *ngIf="isYourComment"
           mat-icon-button
-          matTooltip="Edytuj"
+          [matTooltip]="!isEditMode.value ? 'Edytuj' : 'Zamknij edycje'"
           (click)="editText()"
         >
           <mat-icon>edit</mat-icon>
@@ -39,8 +39,8 @@
         mat-raised-button
         type="submit"
         color="primary"
-        [disabled]="editTextControl.invalid || isChangingTextAnswer"
-        (click)="changeTextAnswer.emit({ id: data.id, text: data.text })"
+        [disabled]="editTextControl.invalid"
+        (click)="changeTextAnswer.emit({ id: data.id, text: editTextControl.value })"
       >ZMIEŃ</button>
     </div>
     <div class="comment__texts--answers">

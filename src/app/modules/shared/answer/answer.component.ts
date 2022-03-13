@@ -13,7 +13,6 @@ export class AnswerComponent {
   @Input() data: CommentModel
   @Input() isAdmin: boolean
   @Input() isChat: boolean
-  @Input() isChangingTextAnswer: boolean
 
   @Output() deleteAnswer = new EventEmitter<string>()
   @Output() changeTextAnswer = new EventEmitter<{ id: string, text: string }>()

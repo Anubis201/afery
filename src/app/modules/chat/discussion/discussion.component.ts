@@ -41,7 +41,6 @@ export class DiscussionComponent {
   discussionData = new BehaviorSubject<ChatTextModel>(null)
   editTextControl = new FormControl(null, Validators.required)
   isChangingText = new BehaviorSubject<boolean>(false)
-  isChangingTextAnswer = new BehaviorSubject<boolean>(false)
 
   constructor(
     private chatService: ChatService,
@@ -63,16 +62,19 @@ export class DiscussionComponent {
   }
 
   handleChangeTextAnswer({ id, text }: { id: string, text: string }) {
-    this.isChangingTextAnswer.next(true);
+    // TODO kiedys posprawdzac dzialanie edycji
     this.chatService.updateChat(id, { text }).subscribe({
       next: () => {
-        console.log('ok')
-        // this.answers.next({ this.answers.value.filter(filterV => filterV.id !== id) })
-        this.isChangingTextAnswer.next(false);
+        this.answers.next(this.answers.value.map(answer => {
+          if (answer.id !== id) {
+            return answer
+          }
+
+          return { ...answer, text }
+        }))
       },
-      error: err => {
-        console.log(err)
-        this.isChangingTextAnswer.next(false);
+      error: () => {
+        this._snackBar.open('Nie udało się usunąć komentarza', 'anuluj');
       }
     })
   }
@@ -86,6 +88,7 @@ export class DiscussionComponent {
         this.isChangingText.next(false);
       },
       error: () => {
+        this._snackBar.open('Nie udało się zmienić tekstu', 'anuluj');
         this.isChangingText.next(false);
       }
     })

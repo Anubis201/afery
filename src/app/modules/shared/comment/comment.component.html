@@ -16,14 +16,33 @@
         <button
           *ngIf="isYourComment"
           mat-icon-button
-          matTooltip="Edytuj"
-          (click)="null"
+          [matTooltip]="!isEditMode.value ? 'Edytuj' : 'Zamknij edycje'"
+          (click)="editText()"
         >
           <mat-icon>edit</mat-icon>
         </button>
       </div>
     </div>
-    <div class="comment__texts--desc">{{ commentData.value.text }}</div>
+    <div
+      *ngIf="!(isEditMode | async)"
+      class="comment__texts--desc"
+    >{{ commentData.value.text }}</div>
+    <div
+      *ngIf="isEditMode.value"
+      class="comment__texts__edit"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>Tekst</mat-label>
+        <textarea matInput [formControl]="editTextControl" autocomplete="off" type="text" ></textarea>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="editTextControl.invalid || (isChangingText | async)"
+        (click)="changeText()"
+      >ZMIEŃ</button>
+    </div>
     <div
       *ngIf="!isMenagaComponent"
       class="comment__texts--answers"
@@ -83,6 +102,7 @@
       [isAdmin]="isAdmin"
       [isChat]="false"
       (deleteAnswer)="handleDeleteAnswer($event)"
+      (changeTextAnswer)="handleChangeTextAnswer($event)"
     ></app-answer>
   </ng-container>
 </div>

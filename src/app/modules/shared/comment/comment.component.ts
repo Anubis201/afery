@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { increment } from 'firebase/firestore';
 import { BehaviorSubject, switchMap } from 'rxjs';
@@ -36,6 +37,9 @@ export class CommentComponent {
   answers = new BehaviorSubject<CommentModel[]>([])
   handleOpenAnswers = new BehaviorSubject<boolean>(false)
   commentData = new BehaviorSubject<CommentModel>(null)
+  isEditMode = new BehaviorSubject<boolean>(false)
+  editTextControl = new FormControl(null, Validators.required)
+  isChangingText = new BehaviorSubject<boolean>(false)
 
   constructor(
     private commentsService: CommentsService,
@@ -44,6 +48,49 @@ export class CommentComponent {
 
   get isYourComment() {
     return this.idUser === this.commentData.value.authorId && this.userName
+  }
+
+  handleChangeTextAnswer({ id, text }: { id: string, text: string }) {
+    // TODO kiedys posprawdzac dzialanie edycji
+    this.commentsService.updateComment(id, { text }).subscribe({
+      next: () => {
+        this.answers.next(this.answers.value.map(answer => {
+          if (answer.id !== id) {
+            return answer
+          }
+
+          return { ...answer, text }
+        }))
+      },
+      error: () => {
+        this._snackBar.open('Nie udało się usunąć komentarza', 'anuluj');
+      }
+    })
+  }
+
+  editText() {
+    if (this.isEditMode.value) {
+      this.isEditMode.next(false);
+      return
+    }
+
+    this.editTextControl.patchValue(this.commentData.value.text);
+    this.isEditMode.next(true);
+  }
+
+  changeText() {
+    this.isChangingText.next(true);
+    this.commentsService.updateComment(this.commentData.value.id, { text: this.editTextControl.value }).subscribe({
+      next: () => {
+        this.commentData.next({ ...this.commentData.value, text: this.editTextControl.value })
+        this.isEditMode.next(false);
+        this.isChangingText.next(false);
+      },
+      error: () => {
+        this._snackBar.open('Nie udało się zmienić tekstu', 'anuluj');
+        this.isChangingText.next(false);
+      }
+    })
   }
 
   hideAnswers() {
