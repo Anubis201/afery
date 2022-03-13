@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { increment } from 'firebase/firestore';
 import { BehaviorSubject, switchMap } from 'rxjs';
@@ -32,11 +33,13 @@ export class DiscussionComponent {
   }
 
   isSaving = new BehaviorSubject<boolean>(false)
+  isEditMode = new BehaviorSubject<boolean>(false)
   handleOpenWrite = new BehaviorSubject<boolean>(false)
   countAnswers = new BehaviorSubject<number>(0)
   handleOpenAnswers = new BehaviorSubject<boolean>(false)
   answers = new BehaviorSubject<ChatTextModel[]>([])
   discussionData = new BehaviorSubject<ChatTextModel>(null)
+  editTextControl = new FormControl(null, Validators.required)
 
   constructor(
     private chatService: ChatService,
@@ -45,6 +48,16 @@ export class DiscussionComponent {
 
   get isYourComment() {
     return this.idUser === this.discussionData.value.authorId && this.isLogin
+  }
+
+  editText() {
+    if (this.isEditMode.value) {
+      this.isEditMode.next(false);
+      return
+    }
+
+    this.editTextControl.patchValue(this.discussionData.value.text);
+    this.isEditMode.next(true);
   }
 
   hideAnswers() {

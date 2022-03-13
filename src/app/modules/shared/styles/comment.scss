@@ -9,6 +9,11 @@
   &__texts {
     word-break: break-word;
     letter-spacing: 1px;
+    flex: 1;
+
+    mat-form-field {
+      width: 100%;
+    }
 
     &__others {
       display: block;
