@@ -136,6 +136,7 @@ export class ChatCommentsComponent implements OnInit {
   }
 
   handleDelete(id: string) {
+    // TODO usuwanie odpowiedzi
     this.chatService.deteleMe(id).subscribe({
       next: () => {
         this.texts.next(this.texts.value.filter(filterV => filterV.id !== id));

@@ -52,6 +52,7 @@ export class SingleDiscussionComponent implements OnInit {
   }
 
   handleDelete(id: string) {
+    // TODO usuwanie odpowiedzi
     this.chatService.deteleMe(id).subscribe({
       next: () => {
         this.router.navigateByUrl('/bulwar/dyskusje');

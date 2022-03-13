@@ -96,6 +96,7 @@ export class GlobalCommentsComponent {
   }
 
   deleteComment(id: string) {
+    // TODO Dodać usuwanie odpowiedzi
     this.commentsService.deteleComment(id).subscribe({
       next: () => {
         this.comments.next(this.comments.value.filter(filterV => filterV.id !== id));
