@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
+import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
   selector: 'app-answer',
@@ -16,7 +17,12 @@ export class AnswerComponent {
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
+    private userService: UserService,
   ) {}
+
+  get isYourComment() {
+    return this.userService.idUser.value === this.data.authorId && this.userService.isLogin
+  }
 
   answers = new BehaviorSubject<CommentModel[]>([])
   handleOpenAnswers = new BehaviorSubject<boolean>(false)

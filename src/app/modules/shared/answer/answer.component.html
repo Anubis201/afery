@@ -6,12 +6,20 @@
       <div class="comment__texts__others__actions">
         <span class="comment__texts__others__actions--date">{{ data.date | time }}</span>
         <button
-          *ngIf="isAdmin"
+          *ngIf="isAdmin || isYourComment"
           mat-icon-button
           matTooltip="Usuń"
           (click)="deleteAnswer.emit(data.id)"
         >
           <mat-icon>delete</mat-icon>
+        </button>
+        <button
+          *ngIf="isYourComment"
+          mat-icon-button
+          matTooltip="Edytuj"
+          (click)="null"
+        >
+          <mat-icon>edit</mat-icon>
         </button>
       </div>
     </div>
