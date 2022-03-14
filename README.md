@@ -1,5 +1,5 @@
 # Afery
 
-IN PROGRESS!
+Strona: afery.org
 
-Page: afery.org
+Technologie: Angular + Firebase
