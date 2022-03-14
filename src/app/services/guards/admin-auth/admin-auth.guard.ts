@@ -7,16 +7,16 @@ import { UserService } from '../../global/user/user.service'
 @Injectable({
   providedIn: 'root'
 })
-export class CheckAuthGuard implements CanActivate {
+export class AdminAuthGuard implements CanActivate {
   constructor(
     private router: Router,
     private userService: UserService,
   ) {}
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return this.userService.isLogin.pipe(
-        map(isLogin => {
-          if (!isLogin) {
+      return this.userService.isAdmin.pipe(
+        map(isAdmin => {
+          if (!isAdmin) {
             return this.router.parseUrl('/');
           }
           return true;

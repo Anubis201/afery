@@ -1,6 +1,7 @@
 <table
   mat-table
   [dataSource]="dataSource | async"
+  @showTable
 >
   <ng-container matColumnDef="party">
     <th mat-header-cell *matHeaderCellDef>Partia</th>

@@ -39,6 +39,10 @@ export class AllArticlesComponent implements OnInit {
     private meta: Meta,
   ) { }
 
+  identify(index: number, item){
+    return item.key;
+  }
+
   ngOnInit() {
     this.metaTags();
     this.data.next(this.createPageTree() as DataType)

@@ -2,10 +2,12 @@
 
 <app-discussion
   *ngIf="!(isLoading | async)"
+  @showAnimation
   [data]="data | async"
   [isAdmin]="isAdmin | async"
   [isLogin]="isLogin | async"
   [userName]="userName | async"
+  [idUser]="idUser | async"
   [disableIcon]="true"
   (deleteMe)="handleDelete($event)"
 ></app-discussion>

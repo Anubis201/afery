@@ -5,7 +5,7 @@
     [restArticle]="[data.value['Partie polityczne'].articles[0], data.value.Politycy.articles[0]]"
   ></app-top-articles>
 
-  <ng-container *ngFor="let section of data | async | keyvalue">
+  <ng-container *ngFor="let section of data | async | keyvalue; trackBy:identify">
    <app-section
     *ngIf="section.value.articles.length"
      class="section"

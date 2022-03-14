@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
+import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
   selector: 'app-answer',
@@ -13,13 +15,31 @@ export class AnswerComponent {
   @Input() isChat: boolean
 
   @Output() deleteAnswer = new EventEmitter<string>()
+  @Output() changeTextAnswer = new EventEmitter<{ id: string, text: string }>()
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
+    private userService: UserService,
   ) {}
+
+  get isYourComment() {
+    return this.userService.idUser.value === this.data.authorId && this.userService.isLogin
+  }
 
   answers = new BehaviorSubject<CommentModel[]>([])
   handleOpenAnswers = new BehaviorSubject<boolean>(false)
+  isEditMode = new BehaviorSubject<boolean>(false)
+  editTextControl = new FormControl(null, Validators.required)
+
+  editText() {
+    if (this.isEditMode.value) {
+      this.isEditMode.next(false);
+      return
+    }
+
+    this.editTextControl.patchValue(this.data.text);
+    this.isEditMode.next(true);
+  }
 
   handleLike(value: number) {
     this.data.likes = this.data.likes + value;

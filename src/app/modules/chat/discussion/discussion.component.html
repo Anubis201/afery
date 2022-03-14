@@ -1,60 +1,88 @@
 <div class="comment">
   <mat-icon>person</mat-icon>
   <div class="comment__texts">
-    <div class="comment__texts--name">
-      <span>{{ data.name }}</span>
-      <a
-        *ngIf="!disableIcon"
-        mat-icon-button
-        [routerLink]="'/bulwar/dyskusja/' + data.id"
-      >
-        <mat-icon matTooltip="Dyskusja">library_books</mat-icon>
-      </a>
+    <div class="comment__texts__others">
+      <span class="comment__texts__others--name">{{ (discussionData | async).name }}</span>
+      <div class="comment__texts__others__actions">
+        <span class="comment__texts__others__actions--date">{{ discussionData.value.date | time }}</span>
+        <a
+          *ngIf="!disableIcon"
+          mat-icon-button
+          [routerLink]="'/bulwar/dyskusja/' + discussionData.value.id"
+        >
+          <mat-icon matTooltip="Dyskusja">library_books</mat-icon>
+        </a>
+        <button
+          *ngIf="isAdmin || isYourComment"
+          mat-icon-button
+          matTooltip="Usuń"
+          (click)="deleteMe.emit(discussionData.value.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button
+          *ngIf="isYourComment"
+          mat-icon-button
+          [matTooltip]="!isEditMode.value ? 'Edytuj' : 'Zamknij edycje'"
+          (click)="editText()"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
     </div>
-    <div class="comment__texts--date">{{ data.date | time }}</div>
-    <div class="comment__texts--desc">{{ data.text }}</div>
+    <div
+      *ngIf="!(isEditMode | async)"
+      class="comment__texts--desc"
+    >{{ discussionData.value.text }}</div>
+    <div
+      *ngIf="isEditMode.value"
+      class="comment__texts__edit"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>Tekst</mat-label>
+        <textarea matInput [formControl]="editTextControl" autocomplete="off" type="text" ></textarea>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="editTextControl.invalid || (isChangingText | async)"
+        (click)="changeText()"
+      >ZMIEŃ</button>
+    </div>
     <div class="comment__texts--answers">
+      <app-plus-minus
+        [likes]="discussionData.value.likes"
+        [dislikes]="discussionData.value.dislikes"
+        [id]="discussionData.value.id"
+        [collection]="'chat'"
+        (incrementLikes)="handleLike($event)"
+        (incrementDislikes)="handleDislike($event)"
+      ></app-plus-minus>
+
       <button
         *ngIf="isLogin"
-        mat-button
-        (click)="handleOpenWrite.next(!handleOpenWrite.value)"
+        mat-stroked-button
+        (click)="getAnswers(true)"
       >Odpowiedz</button>
-
-      <div class="actions">
-        <app-plus-minus
-          [likes]="data.likes"
-          [dislikes]="data.dislikes"
-          [id]="data.id"
-          [numberAnswers]="countAnswers.value"
-          [collection]="'chat'"
-          (incrementLikes)="handleLike($event)"
-          (incrementDislikes)="handleDislike($event)"
-        ></app-plus-minus>
-      </div>
-
+    </div>
+    <div class="comment__texts--buttons">
       <button
         *ngIf="countAnswers.value > 0 && !handleOpenAnswers.value"
         mat-button
         (click)="getAnswers()"
-      >Zobacz odpowiedzi ({{ countAnswers.value }})</button>
+      >
+        {{ countAnswers.value > 1 ? 'Wyświetl ' +  countAnswers.value  + ' odpowiedzi' : 'Zobacz odpowiedź' }}
+      </button>
 
       <button
         *ngIf="(countAnswers | async) > 0 && (handleOpenAnswers | async)"
         mat-button
         (click)="hideAnswers(false)"
-      >Ukryj odpowiedzi</button>
+      >
+        {{ countAnswers.value > 1 ? 'Ukryj ' +  countAnswers.value  + ' odpowiedzi' : 'Ukryj odpowiedź' }}
+      </button>
     </div>
-  </div>
-
-  <div class="comment__buttons">
-    <button
-      *ngIf="isAdmin"
-      mat-icon-button
-      matTooltip="Usuń komentarz"
-      (click)="deleteMe.emit(data.id)"
-    >
-      <mat-icon>delete_outline</mat-icon>
-    </button>
   </div>
 </div>
 
@@ -68,15 +96,17 @@
 
 <!-- Odpowiedzi -->
 <div
-  *ngIf="(answers | async).length"
-  class="answer"
+  class="open-answers"
+  [class.hide-answers]="!handleOpenAnswers.value"
 >
-  <ng-container *ngFor="let answer of answers.value">
+  <ng-container *ngFor="let answer of answers | async">
     <app-answer
+      @showAnimation
       [data]="answer"
       [isAdmin]="isAdmin"
       [isChat]="true"
       (deleteAnswer)="handleDeleteAnswer($event)"
+      (changeTextAnswer)="handleChangeTextAnswer($event)"
     ></app-answer>
   </ng-container>
 </div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { from } from 'rxjs';
+import { catchError, from, map, throwError } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { CommentsType } from 'src/app/models/others/comments.type';
@@ -12,6 +12,7 @@ export class CommentsService {
 
   constructor(
     private firestore: AngularFirestore,
+
   ) { }
 
   getRef() {
@@ -38,7 +39,7 @@ export class CommentsService {
   }
 
   getAnswers(commentId: string) {
-    return from(this.getRef().ref.where('commentId', '==', commentId).get())
+    return from(this.getRef().ref.where('commentId', '==', commentId).orderBy('date', 'desc').get())
   }
 
   getAdminAllComments() {
@@ -51,5 +52,24 @@ export class CommentsService {
 
   deteleComment(articleId: string) {
     return from(this.getRef().doc(articleId).delete())
+  }
+
+  updateComment(id: string, data: Partial<CommentModel>) {
+    return from(this.getRef().doc(id).update(data))
+  }
+
+  removeAnswers(commentId: string) {
+    return this.getAnswers(commentId).pipe(
+      map(comments => {
+        const batch = this.firestore.firestore.batch();
+
+        comments.forEach(doc => batch.delete(doc.ref));
+
+        return from(batch.commit());
+      }),
+      catchError((err) => {
+        return throwError(() => new Error(err));
+      })
+    )
   }
 }

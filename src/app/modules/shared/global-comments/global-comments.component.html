@@ -16,8 +16,10 @@
 >
   <app-comment
     *ngFor="let comment of comments.value"
+    @showAnimation
     [isAdmin]="isAdmin | async"
     [userName]="userName | async"
+    [idUser]="idUser | async"
     [comment]="comment"
     (deleteComment)="deleteComment($event)"
   ></app-comment>

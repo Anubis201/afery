@@ -1,9 +1,48 @@
 <div class="comment">
   <mat-icon>person</mat-icon>
   <div class="comment__texts">
-    <div class="comment__texts--name">{{ data.name }}</div>
-    <div class="comment__texts--date">{{ data.date | time }}</div>
-    <div class="comment__texts--desc">{{ data.text }}</div>
+    <div class="comment__texts__others">
+      <span class="comment__texts__others--name">{{ data.name }}</span>
+      <div class="comment__texts__others__actions">
+        <span class="comment__texts__others__actions--date">{{ data.date | time }}</span>
+        <button
+          *ngIf="isAdmin || isYourComment"
+          mat-icon-button
+          matTooltip="Usuń"
+          (click)="deleteAnswer.emit(data.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button
+          *ngIf="isYourComment"
+          mat-icon-button
+          [matTooltip]="!isEditMode.value ? 'Edytuj' : 'Zamknij edycje'"
+          (click)="editText()"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div
+      *ngIf="!(isEditMode | async)"
+      class="comment__texts--desc"
+    >{{ data.text }}</div>
+    <div
+      *ngIf="isEditMode.value"
+      class="comment__texts__edit"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>Tekst</mat-label>
+        <textarea matInput [formControl]="editTextControl" autocomplete="off" type="text" ></textarea>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="editTextControl.invalid"
+        (click)="changeTextAnswer.emit({ id: data.id, text: editTextControl.value })"
+      >ZMIEŃ</button>
+    </div>
     <div class="comment__texts--answers">
       <div class="actions">
         <app-plus-minus
@@ -18,14 +57,6 @@
     </div>
   </div>
   <div class="comment__buttons">
-    <button
-      *ngIf="isAdmin"
-      mat-icon-button
-      matTooltip="Usuń komentarz"
-      (click)="deleteAnswer.emit(data.id)"
-    >
-      <mat-icon>delete_outline</mat-icon>
-    </button>
     <ng-content select="[customButtons]"></ng-content>
   </div>
 </div>

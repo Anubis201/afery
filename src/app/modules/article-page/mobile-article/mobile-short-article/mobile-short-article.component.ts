@@ -12,6 +12,6 @@ export class MobileShortArticleComponent {
   @Input() article: ArticleModel
 
   get toArticlePage() {
-    return `${location.origin}/artykul/${this.article.id}/${ChangePolishChars(this.article.title)}`
+    return `/artykul/${this.article.id}/${ChangePolishChars(this.article.title)}`
   }
 }

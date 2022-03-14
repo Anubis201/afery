@@ -7,4 +7,6 @@ export interface ChatTextModel {
   dislikes: number
   parentId?: string
   isAnswer: boolean
+  authorId: string
+  countAnswers?: number
 }

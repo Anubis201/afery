@@ -1,8 +1,8 @@
 <div class="newest container">
-  <app-poll-carousel
+  <!-- <app-poll-carousel
     *ngIf="data.value[0].polls.length && data.value[2].polls.length"
     [slides]="slides"
-  ></app-poll-carousel>
+  ></app-poll-carousel> -->
 
   <ng-container *ngFor="let section of data | async | keyvalue; trackBy:identify">
     <app-section

@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, switchMap } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { CommentsType } from 'src/app/models/others/comments.type';
+import { showAnimation } from 'src/app/services/animations/others.animations';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
 import { UserService } from 'src/app/services/global/user/user.service';
 
@@ -11,6 +12,7 @@ import { UserService } from 'src/app/services/global/user/user.service';
   selector: 'app-global-comments',
   templateUrl: './global-comments.component.html',
   styleUrls: ['./global-comments.component.scss'],
+  animations: [showAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GlobalCommentsComponent {
@@ -26,6 +28,10 @@ export class GlobalCommentsComponent {
     private commentsService: CommentsService,
     private _snackBar: MatSnackBar,
   ) { }
+
+  get idUser() {
+    return this.userService.idUser
+  }
 
   get isAdmin() {
     return this.userService.isAdmin
@@ -74,6 +80,8 @@ export class GlobalCommentsComponent {
       name: this.userService.userName.value,
       likes: 0,
       dislikes: 0,
+      authorId: this.idUser.value,
+      countAnswers: 0,
     };
 
     this.commentsService.addComment(rlyComment).subscribe({
@@ -88,13 +96,15 @@ export class GlobalCommentsComponent {
   }
 
   deleteComment(id: string) {
-    this.commentsService.deteleComment(id).subscribe({
+    this.commentsService.removeAnswers(id).pipe(
+      switchMap(() => this.commentsService.deteleComment(id))
+    ).subscribe({
       next: () => {
         this.comments.next(this.comments.value.filter(filterV => filterV.id !== id));
-        this._snackBar.open('Komentarz został usunięty', 'close');
+        this._snackBar.open('Komentarz został usunięty', 'anuluj');
       },
       error: () => {
-        this._snackBar.open('Błąd', 'close');
+        this._snackBar.open('Nie udało się usunąć komentarza', 'anuluj');
       }
     })
   }

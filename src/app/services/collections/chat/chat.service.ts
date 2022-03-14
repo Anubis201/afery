@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { from } from 'rxjs';
+import { catchError, from, map, throwError } from 'rxjs';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
 
@@ -40,15 +40,33 @@ export class ChatService {
   }
 
   getAnswers(id: string) {
-    return from(this.getRef().ref.where('parentId', '==', id).get())
+    return from(this.getRef().ref.where('parentId', '==', id).orderBy('date', 'desc').get())
   }
 
-  // TODO narazie tylko obsluga dodawanie i wylacznie glowne komentarze bez odpowiedzi
   onChatChange() {
     return this.getRef().ref.where('isAnswer', '==', false).orderBy('date', 'desc').limit(20)
   }
 
   getDiscussion(id: string) {
     return this.getRef().doc(id).get()
+  }
+
+  updateChat(id: string, data: Partial<ChatTextModel>) {
+    return from(this.getRef().doc(id).update(data))
+  }
+
+  removeAnswers(commentId: string) {
+    return this.getAnswers(commentId).pipe(
+      map(comments => {
+        const batch = this.firestore.firestore.batch();
+
+        comments.forEach(doc => batch.delete(doc.ref));
+
+        return from(batch.commit());
+      }),
+      catchError((err) => {
+        return throwError(() => new Error(err));
+      })
+    )
   }
 }

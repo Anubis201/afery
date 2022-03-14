@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, HostListener, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import * as moment from 'moment';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, switchMap } from 'rxjs';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
+import { showAnimation } from 'src/app/services/animations/others.animations';
 import { ChatService } from 'src/app/services/collections/chat/chat.service';
 import { UserService } from 'src/app/services/global/user/user.service';
 
@@ -14,6 +16,7 @@ import { UserService } from 'src/app/services/global/user/user.service';
   host: {
     class: 'col-12 col-md-10 col-lg-8 col-xl-6'
   },
+  animations: [showAnimation],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatCommentsComponent implements OnInit {
@@ -32,6 +35,7 @@ export class ChatCommentsComponent implements OnInit {
   constructor(
     private chatService: ChatService,
     private userService: UserService,
+    private _snackBar: MatSnackBar,
   ) {}
 
   get userName() {
@@ -44,6 +48,10 @@ export class ChatCommentsComponent implements OnInit {
 
   get isLogin() {
     return this.userService.isLogin
+  }
+
+  get idUser() {
+    return this.userService.idUser
   }
 
   ngOnInit() {
@@ -92,7 +100,7 @@ export class ChatCommentsComponent implements OnInit {
         this.texts.next([...this.texts.value, ...data,]);
         this.isLoading.next(false);
       },
-      error: err => {
+      error: () => {
         this.isLoading.next(false);
       },
     })
@@ -107,11 +115,13 @@ export class ChatCommentsComponent implements OnInit {
       dislikes: 0,
       likes: 0,
       isAnswer: false,
+      authorId: this.idUser.value,
+      countAnswers: 0,
     };
 
     this.chatService.addChat(rlyChat).subscribe({
       next: doc => {
-        if (doc.id === this.texts.value[0].id) {
+        if (doc.id === this.texts.value[0]?.id) {
           this.isSaving.next(false);
           return
         }
@@ -126,10 +136,16 @@ export class ChatCommentsComponent implements OnInit {
   }
 
   handleDelete(id: string) {
-    this.chatService.deteleMe(id).subscribe({
+    this.chatService.removeAnswers(id).pipe(
+      switchMap(() => this.chatService.deteleMe(id))
+    ).subscribe({
       next: () => {
         this.texts.next(this.texts.value.filter(filterV => filterV.id !== id));
+        this._snackBar.open('Komentarz został usunięty', 'anuluj');
       },
+      error: () => {
+        this._snackBar.open('Nie udało się usunąć komentarza', 'anuluj');
+      }
     })
   }
 
@@ -142,11 +158,8 @@ export class ChatCommentsComponent implements OnInit {
 
     this.chatService.onChatChange().onSnapshot({
       next: docs => {
-
         // TODO
         // PLAN rozwojowy
-        // 1. modyfikacja
-        // 2. usuwanie
         // 3. komentarze
         // 4. wieksza przepustowość
 
@@ -168,7 +181,7 @@ export class ChatCommentsComponent implements OnInit {
         })
 
         // jesli pojawi się taka sama wiadomość to co poprzednie, czyli jesli jest modyfikacja to nic nie rób
-        if (data[0].id === this.texts.value[0].id) return
+        if (data[0]?.id === this.texts.value[0]?.id || !data.length) return
 
         this.texts.next([data[0], ...this.texts.value])
       }

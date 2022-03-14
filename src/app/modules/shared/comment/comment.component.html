@@ -1,50 +1,84 @@
 <div class="comment">
   <mat-icon>person</mat-icon>
   <div class="comment__texts">
-    <div class="comment__texts--name">{{ comment.name }}</div>
-    <div class="comment__texts--date">{{ comment.date | time }}</div>
-    <div class="comment__texts--desc">{{ comment.text }}</div>
-    <div *ngIf="!isMenagaComponent" class="comment__texts--answers">
+    <div class="comment__texts__others">
+      <span class="comment__texts__others--name">{{ (commentData | async).name }}</span>
+      <div class="comment__texts__others__actions">
+        <span class="comment__texts__others__actions--date">{{ commentData.value.date | time }}</span>
+        <button
+          *ngIf="isAdmin || isYourComment"
+          mat-icon-button
+          matTooltip="Usuń"
+          (click)="deleteComment.emit(commentData.value.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button
+          *ngIf="isYourComment"
+          mat-icon-button
+          [matTooltip]="!isEditMode.value ? 'Edytuj' : 'Zamknij edycje'"
+          (click)="editText()"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div
+      *ngIf="!(isEditMode | async)"
+      class="comment__texts--desc"
+    >{{ commentData.value.text }}</div>
+    <div
+      *ngIf="isEditMode.value"
+      class="comment__texts__edit"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>Tekst</mat-label>
+        <textarea matInput [formControl]="editTextControl" autocomplete="off" type="text" ></textarea>
+      </mat-form-field>
       <button
-        *ngIf="userName"
-        mat-button
-        (click)="handleOpenWriteComment.next(!handleOpenWriteComment.value)"
-      >Odpowiedz</button>
-
+        mat-raised-button
+        type="submit"
+        color="primary"
+        [disabled]="editTextControl.invalid || (isChangingText | async)"
+        (click)="changeText()"
+      >ZMIEŃ</button>
+    </div>
+    <div
+      *ngIf="!isMenagaComponent"
+      class="comment__texts--answers"
+    >
       <app-plus-minus
-        [likes]="comment.likes"
-        [dislikes]="comment.dislikes"
-        [id]="comment.id"
+        [likes]="commentData.value.likes"
+        [dislikes]="commentData.value.dislikes"
+        [id]="commentData.value.id"
         [collection]="'comments'"
-        [numberAnswers]="countAnswers.value"
         (incrementLikes)="handleLike($event)"
         (incrementDislikes)="handleDislike($event)"
       ></app-plus-minus>
 
       <button
+        *ngIf="userName"
+        mat-stroked-button
+        (click)="getAnswersToDisplay(true)"
+      >Odpowiedz</button>
+    </div>
+    <div class="comment__texts--buttons">
+      <button
         *ngIf="(countAnswers | async) > 0 && !handleOpenAnswers.value"
         mat-button
         (click)="getAnswersToDisplay()"
-      >Zobacz odpowiedzi ({{ countAnswers.value }})</button>
+      >
+        {{ countAnswers.value > 1 ? 'Wyświetl ' +  countAnswers.value  + ' odpowiedzi' : 'Zobacz odpowiedź' }}
+      </button>
 
       <button
         *ngIf="(countAnswers | async) > 0 && (handleOpenAnswers | async)"
         mat-button
         (click)="hideAnswers(false)"
-      >Ukryj odpowiedzi</button>
+      >
+        {{ countAnswers.value > 1 ? 'Ukryj ' +  countAnswers.value  + ' odpowiedzi' : 'Ukryj odpowiedź' }}
+      </button>
     </div>
-  </div>
-
-  <div class="comment__buttons">
-    <button
-      *ngIf="isAdmin"
-      mat-icon-button
-      matTooltip="Usuń komentarz"
-      (click)="deleteComment.emit(comment.id)"
-    >
-      <mat-icon>delete_outline</mat-icon>
-    </button>
-    <ng-content select="[customButtons]"></ng-content>
   </div>
 </div>
 
@@ -58,15 +92,17 @@
 
 <!-- Odpowiedzi -->
 <div
-  *ngIf="(answers | async).length"
-  class="answer"
+  class="open-answers"
+  [class.hide-answers]="!handleOpenAnswers.value"
 >
-  <ng-container *ngFor="let answer of answers.value">
+  <ng-container *ngFor="let answer of answers | async">
     <app-answer
+      @showAnimation
       [data]="answer"
       [isAdmin]="isAdmin"
       [isChat]="false"
       (deleteAnswer)="handleDeleteAnswer($event)"
+      (changeTextAnswer)="handleChangeTextAnswer($event)"
     ></app-answer>
   </ng-container>
 </div>

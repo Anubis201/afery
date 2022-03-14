@@ -12,17 +12,23 @@
   </div>
 
   <div class="articles">
-    <div *ngIf="isLoading | async" class="articles__loading">
+    <div
+      *ngIf="isLoading | async"
+      class="articles__loading"
+    >
       <mat-spinner></mat-spinner>
     </div>
 
-    <div
-      *ngFor="let article of articles.value"
-    >
-      <app-article
-        [article]="article"
-        [fakeMobileVersion]="true"
-      ></app-article>
-    </div>
+    <ng-container *ngIf="!isLoading.value">
+      <div
+        *ngFor="let article of articles.value"
+        @showAnimation
+      >
+        <app-article
+          [article]="article"
+          [fakeMobileVersion]="true"
+        ></app-article>
+      </div>
+    </ng-container>
   </div>
 </div>

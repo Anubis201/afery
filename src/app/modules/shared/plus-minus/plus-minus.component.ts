@@ -17,7 +17,6 @@ export class PlusMinusComponent implements OnInit {
   @Input() dislikes: string
   @Input() id: string
   @Input() collection: string
-  @Input() numberAnswers: number
   @Input() isArticle = false
 
   @Output() incrementLikes = new EventEmitter<number>()
@@ -117,7 +116,7 @@ export class PlusMinusComponent implements OnInit {
       value = 1;
     }
 
-    this.firestore.collection(this.collection).doc(this.id).update({ dislikes: increment(value) })
+    this.firestore.collection(this.collection).doc(this.id).update({ dislikes: increment(value),  })
       .then(() => {
         this.incrementDislikes.emit(value)
       })
@@ -141,6 +140,8 @@ export class PlusMinusComponent implements OnInit {
         this.commentMode.next('like');
       } else if (localStorage.getItem(this.id) === 'dislike') {
         this.commentMode.next('dislike');
+      } else {
+        this.commentMode.next(null);
       }
     } else {
       const sub = this.loadingUserDetails.subscribe(value => {

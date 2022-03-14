@@ -18,9 +18,6 @@ export class PollPresidentComponent implements AfterViewInit {
 
   @ViewChild('ameno') image: ElementRef
 
-  private margin = 30
-  private height = 280 - (this.margin * 2)
-
   constructor(private datePipe: DatePipe) {}
 
   ngAfterViewInit() {
@@ -42,6 +39,8 @@ export class PollPresidentComponent implements AfterViewInit {
     const width = parseInt(this.image.nativeElement.offsetWidth, 10);
     const yLabelSpace = 7;
     const thisIsBig = width >= 552;
+    const margin = 30;
+    const height = (this.isCarousel ? 250 : 280) - (margin * 2);
 
     const xScale = d3
       .scaleBand()
@@ -52,27 +51,32 @@ export class PollPresidentComponent implements AfterViewInit {
     const yScale = d3
       .scaleLinear()
       .domain([0, 50])
-      .range([this.height, 0]);
+      .range([height, 0]);
 
     const chartContainer = d3
       .select('#' + this.idSvg)
       .attr('width', width + 10)
       .classed('chart-container', true)
-      .attr('height', this.height + (this.margin * 2))
+      .attr('height', height + (margin * 2))
 
     const chart = chartContainer.append('g');
 
     chart
       .append('g')
-      .attr('transform', 'translate(0,' + this.height + ')')
+      .attr('transform', 'translate(0,' + height + ')')
       .call(d3.axisBottom(xScale))
       .selectAll('.tick')
       .append('svg:image')
+      .style('opacity', 0)
       .attr('xlink:href', (party) => `/assets/icons/presidents/${party}.jpg`)
       .attr('height', (thisIsBig ? 37 : 25))
       .attr('width', (thisIsBig ? 40 : 30))
       .attr('y', 15)
-      .attr('x', (thisIsBig ? -20 : -14));
+      .attr('x', (thisIsBig ? -20 : -14))
+      .transition()
+      .ease(d3.easeLinear)
+      .duration(1500)
+      .style('opacity', 1);
 
     chart
       .select('g')
@@ -88,7 +92,10 @@ export class PollPresidentComponent implements AfterViewInit {
       .attr('x', d => xScale(d.president as unknown as string) + (thisIsBig ? 20 : 5))
       .attr('y', d => yScale(d.percentage))
       .attr('width', xScale.bandwidth() - (thisIsBig ? 45 : 13))
-      .attr('height', d => this.height - yScale(d.percentage))
+      .transition()
+      .ease(d3.easeBounce)
+      .duration(1500)
+      .attr('height', d => height - yScale(d.percentage))
       .attr('fill', 'red');
 
     chart

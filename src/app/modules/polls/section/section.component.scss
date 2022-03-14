@@ -29,11 +29,7 @@
   }
 }
 
-.item {
-  margin-bottom: 1.5rem;
-
-  @media (min-width: 576px) {
-    margin-bottom: 2rem;
-  }
+app-poll-party, app-poll-president {
+  padding: 0 30px;
+  margin-bottom: 10px;
 }
-
