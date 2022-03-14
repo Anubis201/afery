@@ -1,0 +1,24 @@
+<div class="item">
+  <div class="label">
+    <div>Usuń konto</div>
+    <!-- <div class="label__icons">
+      <mat-icon
+        class="label__icons--icon"
+        [class.label__icons--error]="isErrorDeleting | async"
+        [matTooltip]="errorText"
+      >info</mat-icon>
+    </div> -->
+  </div>
+
+  <div
+    class="message"
+    [class.message--error]="isErrorDeleting | async"
+  >{{ errorText }}</div>
+
+  <button
+    mat-raised-button
+    color="warn"
+    [disabled]="isDeleteingAccount | async"
+    (click)="deleteAccount()"
+  >Usuń</button>
+</div>

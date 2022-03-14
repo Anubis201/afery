@@ -1,0 +1,37 @@
+@use '../settings.component.scss';
+
+.item {
+  > button {
+    margin-top: 1rem;
+  }
+}
+
+.message {
+  margin-top: 1rem;
+  color: #eef368;
+  transition: color 500ms ease-out;
+
+  &--error {
+    color: #ff6262;
+  }
+}
+
+// .label {
+//   display: flex;
+//   place-content: space-between;
+//   align-items: center;
+
+//   &__icons {
+//     mat-icon {
+//       cursor: pointer;
+//     }
+
+//     &--icon {
+//       color: #ffc107;
+//     }
+
+//     &--error {
+//       color: red;
+//     }
+//   }
+// }
