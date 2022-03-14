@@ -1,5 +1,5 @@
 # Afery
 
-Strona: afery.org
+Strona: https://afery.org/
 
 Technologie: Angular + Firebase
