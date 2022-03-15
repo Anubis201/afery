@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { catchError, from, map, throwError } from 'rxjs';
+import { AngularFirestore, QuerySnapshot } from '@angular/fire/compat/firestore';
+import { catchError, from, map, switchMap, throwError } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { CommentsType } from 'src/app/models/others/comments.type';
+import { UserDetailsService } from '../user-details/user-details.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class CommentsService {
 
   constructor(
     private firestore: AngularFirestore,
-
+    private userDetailsService: UserDetailsService,
   ) { }
 
   getRef() {
@@ -32,10 +33,25 @@ export class CommentsService {
       .where('isAnswer', '==', false)
       .orderBy(order === OrderEnum.Latest ? 'date' : 'likes', 'desc');
 
+    let query: Promise<QuerySnapshot<unknown>>
+
     if (pollsOrArticles === 'articles')
-      return from(ref.where('articleId', '==', parentId).get());
+      query =  ref.where('articleId', '==', parentId).get();
     else
-      return from(ref.where('pollId', '==', parentId).get());
+      query = ref.where('pollId', '==', parentId).get();
+
+    // uzupelnienia nazwy i avatara
+    return from(query).pipe(
+      switchMap(docs => {
+        docs.forEach(doc => {
+          const data =  doc.data() as CommentModel;
+          this.userDetailsService.getDetails(data.authorId).pipe(
+
+          )
+        })
+        return []
+      })
+    )
   }
 
   getAnswers(commentId: string) {
@@ -71,5 +87,9 @@ export class CommentsService {
         return throwError(() => new Error(err));
       })
     )
+  }
+
+  getCommentsCountArticle(parentId: string) {
+    return from(this.getRef().ref.where('isAnswer', '==', false).where('articleId', '==', parentId).get())
   }
 }

@@ -46,7 +46,7 @@ export class ArticleComponent implements OnInit {
   }
 
   private getCountComments() {
-    this.commentsService.getComments(this.article.id, 'articles').subscribe({
+    this.commentsService.getCommentsCountArticle(this.article.id).subscribe({
       next: docs => {
         this.countComments.next(docs.size);
       },

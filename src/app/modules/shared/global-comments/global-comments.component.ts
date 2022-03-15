@@ -41,6 +41,10 @@ export class GlobalCommentsComponent {
     return this.userService.userName
   }
 
+  get isLogin() {
+    return this.userService.isLogin
+  }
+
   ngOnInit() {
     this.getComments();
   }
@@ -77,7 +81,6 @@ export class GlobalCommentsComponent {
       pollId: this.commentType === 'polls' ? this.parentId : null,
       isNew: true,
       isAnswer: false,
-      name: this.userService.userName.value,
       likes: 0,
       dislikes: 0,
       authorId: this.idUser.value,
@@ -86,7 +89,7 @@ export class GlobalCommentsComponent {
 
     this.commentsService.addComment(rlyComment).subscribe({
       next: doc => {
-        this.comments.next([{ ...rlyComment, id: doc.id }, ...this.comments.value]);
+        this.comments.next([{ ...rlyComment, id: doc.id, name: this.userService.userName.value }, ...this.comments.value]);
         this.isSavingComment.next(false);
       },
       error: () => {
