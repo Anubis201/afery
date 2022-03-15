@@ -1,5 +1,5 @@
 <div class="comment">
-  <img class="comment--avatar" [src]="false || RandomImageSrc" [alt]="'avatar ' + commentData.value.name">
+  <img class="comment--avatar" [src]="(commentData.value?.avatarSrc || RandomImageSrc)" [alt]="'avatar ' + commentData.value.name">
   <div class="comment__texts">
     <div class="comment__texts__others">
       <span class="comment__texts__others--name">{{ (commentData | async).name }}</span>
