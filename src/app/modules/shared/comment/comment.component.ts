@@ -6,6 +6,7 @@ import { BehaviorSubject, switchMap } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { showAnimation } from 'src/app/services/animations/others.animations';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
+import { RandomImageSrc } from 'src/app/services/global/support-functions/random-image';
 
 @Component({
   selector: 'app-comment',
@@ -40,6 +41,8 @@ export class CommentComponent {
   isEditMode = new BehaviorSubject<boolean>(false)
   editTextControl = new FormControl(null, Validators.required)
   isChangingText = new BehaviorSubject<boolean>(false)
+
+  readonly RandomImageSrc = RandomImageSrc()
 
   constructor(
     private commentsService: CommentsService,

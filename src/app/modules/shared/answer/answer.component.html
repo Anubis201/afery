@@ -1,5 +1,5 @@
 <div class="comment">
-  <mat-icon>person</mat-icon>
+  <img class="comment--avatar" [src]="false || RandomImageSrc" [alt]="'avatar ' + data.name">
   <div class="comment__texts">
     <div class="comment__texts__others">
       <span class="comment__texts__others--name">{{ data.name }}</span>

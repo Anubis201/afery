@@ -6,6 +6,7 @@ import { BehaviorSubject, catchError, from, map, of } from 'rxjs';
 import { ProvidersEnum } from 'src/app/models/others/enums/providers.enum';
 import { UserDetailsModel } from 'src/app/models/others/user-details.model';
 import { UserDetailsService } from '../../collections/user-details/user-details.service';
+import { RandomImageSrc } from '../support-functions/random-image';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class UserService {
   isAdmin = new BehaviorSubject<boolean>(false)
   isLogin = new BehaviorSubject<boolean>(false)
   userName = new BehaviorSubject<string>(null)
+  avatarSrc = new BehaviorSubject<string>(RandomImageSrc())
   isCheckingLogin = new BehaviorSubject<boolean>(true)
   idUser = new BehaviorSubject<string>(null)
   userDetails = new BehaviorSubject<UserDetailsModel>(null)
@@ -30,11 +32,10 @@ export class UserService {
       if (user?.uid) {
         this.getDetails(user.uid);
       }
-
       this.isLogin.next(!!user);
       this.userName.next(user?.displayName || user?.email);
       this.idUser.next(user?.uid);
-
+      this.avatarSrc.next(this.avatarSrc.value)
       // NA CHWILE :D
       this.isAdmin.next(user?.email && user.email === user?.photoURL && this.isLogin.value);
       this.user.next(user);

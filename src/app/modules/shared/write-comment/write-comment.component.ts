@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { showAnimation } from 'src/app/services/animations/others.animations';
+import { RandomImageSrc } from 'src/app/services/global/support-functions/random-image';
 import { UserService } from 'src/app/services/global/user/user.service';
 import { LoginComponent } from '../login/login.component';
 
@@ -42,6 +43,14 @@ export class WriteCommentComponent {
 
   get isCheckingLogin() {
     return this.userService.isCheckingLogin
+  }
+
+  get avatarSrc() {
+    return this.userService.avatarSrc
+  }
+
+  get userName() {
+    return this.userService.userName
   }
 
   capitalizeFirst(str: string) {

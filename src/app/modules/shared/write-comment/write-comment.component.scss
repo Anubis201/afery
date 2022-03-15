@@ -53,8 +53,10 @@ form {
   gap: 1.2rem;
   margin-top: 1.5rem;
 
-  mat-icon {
-    font-size: 30px;
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
   }
 
   form {

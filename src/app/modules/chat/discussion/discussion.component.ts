@@ -6,6 +6,7 @@ import { BehaviorSubject, switchMap } from 'rxjs';
 import { ChatTextModel } from 'src/app/models/chat/chat-text.model';
 import { showAnimation } from 'src/app/services/animations/others.animations';
 import { ChatService } from 'src/app/services/collections/chat/chat.service';
+import { RandomImageSrc } from 'src/app/services/global/support-functions/random-image';
 
 @Component({
   selector: 'app-discussion',
@@ -42,6 +43,8 @@ export class DiscussionComponent {
   editTextControl = new FormControl(null, Validators.required)
   isChangingText = new BehaviorSubject<boolean>(false)
 
+  readonly RandomImageSrc = RandomImageSrc()
+
   constructor(
     private chatService: ChatService,
     private _snackBar: MatSnackBar,
@@ -50,6 +53,7 @@ export class DiscussionComponent {
   get isYourComment() {
     return this.idUser === this.discussionData.value.authorId && this.isLogin
   }
+
 
   editText() {
     if (this.isEditMode.value) {
