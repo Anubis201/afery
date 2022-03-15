@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
 import { CanActivate, Router, UrlTree } from '@angular/router'
-import { Observable } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { Observable, Subscriber } from 'rxjs'
 import { UserService } from '../../global/user/user.service'
 
 @Injectable({
@@ -14,13 +13,22 @@ export class CheckAuthGuard implements CanActivate {
   ) {}
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return this.userService.isLogin.pipe(
-        map(isLogin => {
-          if (!isLogin) {
-            return this.router.parseUrl('/');
-          }
-          return true;
-        })
-      )
+    return new Observable<boolean>(obs => {
+      this.userService.isCheckingLogin.subscribe(val => {
+        if (!val) {
+          this.verify(obs);
+        }
+      })
+    })
+  }
+
+  private verify(obs: Subscriber<boolean>) {
+    if (!this.userService.isLogin.value) {
+      obs.next(false);
+      obs.complete();
+      this.router.navigateByUrl('/');
+    }
+    obs.next(true);
+    obs.complete();
   }
 }
