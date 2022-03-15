@@ -18,8 +18,9 @@ import { RandomImageSrc } from 'src/app/services/global/support-functions/random
 export class CommentComponent {
   @Input() isAdmin: boolean
   @Input() isMenagaComponent: boolean = false
-  @Input() userName: string
   @Input() idUser: string
+  @Input() avatarSrc: string
+  @Input() isLogin: boolean
 
   @Output() deleteComment = new EventEmitter<string>()
 
@@ -111,7 +112,6 @@ export class CommentComponent {
       isNew: true,
       commentId: this.commentData.value.id,
       isAnswer: true,
-      name: this.userName,
       likes: 0,
       dislikes: 0,
       authorId: this.idUser,
