@@ -33,7 +33,7 @@ export class UserService {
         this.getDetails(user.uid);
       }
       this.isLogin.next(!!user);
-      this.userName.next(user?.displayName || user?.email);
+      this.userName.next(user?.displayName);
       this.idUser.next(user?.uid);
       this.avatarSrc.next(this.avatarSrc.value)
       // NA CHWILE :D
