@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, first } from 'rxjs';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
-import { ArticlesKindsEnum } from 'src/app/models/articles/enums/articles-kinds.enum';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { ConvertEnum } from 'src/app/services/global/support-functions/convert-enum';
 import { ImagesService } from 'src/app/services/collections/images/images.service';
@@ -26,7 +25,6 @@ export class CreateComponent implements OnInit {
     image: new FormControl(null, Validators.required),
     imageDesc: new FormControl(null),
     type: new FormControl(null, Validators.required),
-    kind: new FormControl(ArticlesKindsEnum.Confirmed, Validators.required),
     entity: new FormControl(null, Validators.required), // partie // jest required ponieważ domyślnie przyjmuje partie jako domyślny tryb
     customName: new FormControl(null), // uzywane w kategoriach politycy oraz reszta // odwrotnie do góry
     costs: new FormControl(null),
@@ -35,9 +33,9 @@ export class CreateComponent implements OnInit {
   articleId = new BehaviorSubject<string>('') // jest on uzywany wylacznie podczas edycji artykulu, czyli jednoczesnie jest uzywane aby sprawdzic czy jest isEdit mode
   isLoading = new BehaviorSubject<boolean>(false)
   entityItems = new BehaviorSubject<PartiesEnum[]>(ConvertEnum(PartiesEnum, 'number'))
+  tags = new BehaviorSubject<string[]>([])
 
   readonly articleTypes = ConvertEnum(ArticlesTypesEnum, 'string')
-  readonly articleKinds = ConvertEnum(ArticlesKindsEnum, 'string')
   readonly PartiesEnum = PartiesEnum
   readonly ArticlesTypesEnum = ArticlesTypesEnum
   private readonly maxFileSize = 1048576 // 1MB
@@ -74,7 +72,7 @@ export class CreateComponent implements OnInit {
 
   private edit() {
     this.isLoading.next(true);
-    this.articlesService.editArticle(this.form.value as ArticleModel, this.articleId.value).subscribe({
+    this.articlesService.editArticle({ ...(this.form.value as ArticleModel), tags: this.tags.value }, this.articleId.value).subscribe({
       next: () => {
         this._snackBar.open('Zedytowany artykuł', 'close');
         this.isLoading.next(false);
@@ -143,7 +141,6 @@ export class CreateComponent implements OnInit {
       title: this.form.get('title')?.value,
       text: this.form.get('text')?.value,
       type: this.form.get('type')?.value,
-      kind: this.form.get('kind')?.value,
       entity: this.form.get('entity')?.value,
       costs: this.form.get('costs')?.value,
       customName: this.form.get('customName')?.value,
@@ -151,6 +148,7 @@ export class CreateComponent implements OnInit {
       imageDesc: this.form.get('imageDesc')?.value,
       createDate: new Date(),
       viewership: 1,
+      tags: this.tags.value,
       imageSrc,
     }, ref).pipe(first()).subscribe({
       next: () => {
@@ -167,8 +165,10 @@ export class CreateComponent implements OnInit {
   private getArticleForEdit(id: string) {
     this.articlesService.getArticle(id).subscribe({
       next: doc => {
-        this.form.patchValue(doc.data() as ArticleModel);
+        const data = doc.data() as ArticleModel;
+        this.form.patchValue(data);
         this.articleId.next(doc.id);
+        this.tags.next(data?.tags ?? []);
         this.form.get('image').clearValidators();
         this.form.get('image').updateValueAndValidity();
       },

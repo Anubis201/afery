@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angu
 import { FormControl, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { CommentModel } from 'src/app/models/articles/comment.model';
-import { RandomImageSrc } from 'src/app/services/global/support-functions/random-image';
 import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
@@ -31,8 +30,6 @@ export class AnswerComponent {
   handleOpenAnswers = new BehaviorSubject<boolean>(false)
   isEditMode = new BehaviorSubject<boolean>(false)
   editTextControl = new FormControl(null, Validators.required)
-
-  readonly RandomImageSrc = RandomImageSrc()
 
   editText() {
     if (this.isEditMode.value) {

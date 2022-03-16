@@ -17,6 +17,8 @@ import { DetailsComponent } from './add-polls/details/details.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ChooseTypeComponent } from './add-polls/choose-type/choose-type.component';
+import { MatChipsModule } from '@angular/material/chips';
+import { TagsComponent } from './create/tags/tags.component';
 
 
 
@@ -30,6 +32,7 @@ import { ChooseTypeComponent } from './add-polls/choose-type/choose-type.compone
     PollItemsComponent,
     DetailsComponent,
     ChooseTypeComponent,
+    TagsComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +44,7 @@ import { ChooseTypeComponent } from './add-polls/choose-type/choose-type.compone
     AdminRoutingModule,
     MatListModule,
     EditorModule,
+    MatChipsModule,
     SharedModule,
   ]
 })

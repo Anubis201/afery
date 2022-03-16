@@ -58,10 +58,7 @@
     <input matInput class="desc-input" formControlName="customName" autocomplete="off" type="text">
   </mat-form-field>
 
-  <mat-radio-group formControlName="kind">
-    <div>Rodzaj</div>
-    <mat-radio-button *ngFor="let kind of articleKinds" [value]="kind">{{ kind }}</mat-radio-button>
-  </mat-radio-group>
+  <app-tags [tags]="tags | async" (changeTag)="tags.next($event)"></app-tags>
 
   <mat-form-field class="costs" appearance="fill">
     <mat-label>Koszty</mat-label>
