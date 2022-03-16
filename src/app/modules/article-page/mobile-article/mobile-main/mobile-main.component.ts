@@ -8,5 +8,6 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class MobileMainComponent {
   @Input() text: string
+  @Input() tags: string
   @Input() subtitle: string
 }

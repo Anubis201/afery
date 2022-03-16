@@ -3,6 +3,7 @@
 
 :host {
   display: block;
+  margin-bottom: 3rem;
 }
 
 .subtitle {
@@ -42,4 +43,9 @@
 .desc {
   @include main.text(18px);
   line-height: 32px;
+}
+
+.tags {
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
 }

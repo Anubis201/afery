@@ -12,6 +12,7 @@ import { PcMainComponent } from './pc-article/pc-main/pc-main.component';
 import { PcHeaderComponent } from './pc-article/pc-header/pc-header.component';
 import { PcShortArticleComponent } from './pc-article/pc-short-article/pc-short-article.component';
 import { MobileShortArticleComponent } from './mobile-article/mobile-short-article/mobile-short-article.component';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 
@@ -32,6 +33,7 @@ import { MobileShortArticleComponent } from './mobile-article/mobile-short-artic
     CommonModule,
     ArticlePageRoutingModule,
     SharedModule,
+    MatChipsModule,
   ]
 })
 export class ArticlePageModule { }

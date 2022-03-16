@@ -8,3 +8,9 @@
   class="desc"
   [innerHtml]="text"
 ></div>
+
+<div class="tags">
+  <mat-chip-list *ngFor="let tag of tags">
+    <mat-chip>{{ tag }}</mat-chip>
+  </mat-chip-list>
+</div>
