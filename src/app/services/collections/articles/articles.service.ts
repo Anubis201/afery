@@ -70,4 +70,8 @@ export class ArticlesService {
   likeQuery(searched: string) {
     return from(this.getRef().ref.orderBy('title').startAt(searched).endAt(searched + '\uf8ff').get())
   }
+
+  getArticlesByTagName(tag: string) {
+    return from(this.getRef().ref.where('tags', 'array-contains-any', [tag]).get());
+  }
 }
