@@ -4,7 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthProvider, FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, User } from 'firebase/auth';
 import { BehaviorSubject, catchError, from, map, of } from 'rxjs';
 import { ProvidersEnum } from 'src/app/models/others/enums/providers.enum';
-import { RulesEnum } from 'src/app/models/others/enums/rules.enum';
 import { UserDetailsModel } from 'src/app/models/others/user-details.model';
 import { UserDetailsService } from '../../collections/user-details/user-details.service';
 import { RandomImageSrc } from '../support-functions/random-image';
@@ -34,7 +33,7 @@ export class UserService {
         this.getDetails(user.uid);
       }
       this.isLogin.next(!!user);
-      this.userName.next(user?.displayName);
+      this.userName.next(user?.displayName || user?.email);
       this.idUser.next(user?.uid);
       this.avatarSrc.next(this.avatarSrc.value)
       // NA CHWILE :D
@@ -75,15 +74,13 @@ export class UserService {
       .pipe(
         map(auth => {
           this._snackBar.open('Zalogowałeś się', 'close');
+
           this.userDetailsService.getDetails(auth.user.uid).pipe(
             map(doc => {
+              const details: UserDetailsModel = {
+                revievs: [],
+              }
               if (!doc.exists) {
-                const details: UserDetailsModel = {
-                  userName: auth.user.displayName,
-                  avatar: RandomImageSrc(),
-                  rule: RulesEnum.user,
-                  revievs: [],
-                }
                 return this.userDetailsService.addUserDetails(details, auth.user.uid);
               } else {
                 return of(auth)

@@ -17,11 +17,10 @@ import { RandomImageSrc } from 'src/app/services/global/support-functions/random
 })
 export class CommentComponent {
   @Input() isAdmin: boolean
+  @Input() isMenagaComponent: boolean = false
   @Input() idUser: string
   @Input() avatarSrc: string
   @Input() isLogin: boolean
-  @Input() userName: string
-  @Input() isMenagaComponent: boolean = false
 
   @Output() deleteComment = new EventEmitter<string>()
 
@@ -52,7 +51,7 @@ export class CommentComponent {
   ) {}
 
   get isYourComment() {
-    return this.idUser === this.commentData.value.authorId && this.isLogin
+    return this.idUser === this.commentData.value.authorId && this.userName
   }
 
   handleChangeTextAnswer({ id, text }: { id: string, text: string }) {
@@ -122,7 +121,7 @@ export class CommentComponent {
       switchMap(() => this.commentsService.addComment(rlyAnswer))
     ).subscribe({
       next: doc => {
-        this.answers.next([{ ...rlyAnswer, id: doc.id, name: this.userName }, ...this.answers.value]);
+        this.answers.next([{ ...rlyAnswer, id: doc.id }, ...this.answers.value]);
         this.countAnswers.next(this.countAnswers.value + 1);
         this.isSaving.next(false);
       },
