@@ -94,7 +94,7 @@ export class PollsComponent implements OnInit {
   }
 
   private metaTags() {
-    this.titleService.setTitle('Afery - Sondaże i badania');
+    this.titleService.setTitle('Sondaże i badania - Afery');
     this.meta.updateTag({ name:'description', content:'Tu znajdziesz najnowsze sondaże przedwyborcze polskich partii, wyborów prezydenckich oraz inne sondaże.' }, "name='description'");
   }
 

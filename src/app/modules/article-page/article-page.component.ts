@@ -142,7 +142,7 @@ export class ArticlePageComponent implements OnInit {
 
   // TODO Czeka na naprawienie bledu angular universe i sprawdzenie tego rozwiozania twitter i facebook nie widzi javascripta
   private prepereTagsAndTitle() {
-    this.titleService.setTitle(this.article.value.title);
+    this.titleService.setTitle(this.article.value.title + ' - Afery');
 
     let tmp = document.createElement('DIV');
     tmp.innerHTML = this.article.value.text.split(/\s+/).slice(0, 20).join(' ');

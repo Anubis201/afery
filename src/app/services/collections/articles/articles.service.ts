@@ -72,6 +72,6 @@ export class ArticlesService {
   }
 
   getArticlesByTagName(tag: string) {
-    return from(this.getRef().ref.where('tags', 'array-contains-any', [tag]).get());
+    return from(this.getRef().ref.where('tags', 'array-contains-any', [tag]).orderBy('createDate', 'desc').get());
   }
 }

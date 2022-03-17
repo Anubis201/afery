@@ -5,7 +5,6 @@ import { AllArticlesRoutingModule } from './all-articles-routing.module';
 import { SectionComponent } from './section/section.component';
 import { SharedModule } from '../shared/shared.module';
 import { TopArticlesComponent } from './top-articles/top-articles.component';
-import { ImportantArticleComponent } from './important-article/important-article.component';
 
 
 
@@ -14,7 +13,6 @@ import { ImportantArticleComponent } from './important-article/important-article
     AllArticlesComponent,
     SectionComponent,
     TopArticlesComponent,
-    ImportantArticleComponent,
   ],
   imports: [
     CommonModule,
