@@ -1,9 +1,10 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-import { NavigationStart, Router } from '@angular/router';
+import { NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { NavModel } from './models/articles/nav.model';
+import { routeAnimations } from './services/animations/routing.animtions';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,8 @@ import { NavModel } from './models/articles/nav.model';
           style ({ transform: 'translateX(-100vw)' }),
         ),
       ]),
-    ])
+    ]),
+    routeAnimations
   ]
 })
 export class AppComponent implements OnInit {
@@ -56,6 +58,10 @@ export class AppComponent implements OnInit {
         href: '/szukaj',
       },
     ]
+  }
+
+  getRouteAnimationData() {
+    return location.pathname
   }
 
   handleMenu() {
