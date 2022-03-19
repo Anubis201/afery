@@ -30,8 +30,8 @@ export class PollsService {
       return from(ref.get())
   }
 
-  getNewestPoll() {
-    return from(this.getRef().ref.orderBy('when', 'desc').limit(1).get())
+  getNewestPollParty() {
+    return from(this.getRef().ref.where('typeItems', '==', PollDataEnum.Partie).orderBy('when', 'desc').limit(1).get())
   }
 
   getSinglePoll(id: string) {

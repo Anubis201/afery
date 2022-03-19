@@ -1,0 +1,6 @@
+<ng-container *ngIf="poll | async">
+
+  <div *ngFor="let item of poll.value.items">
+    {{ PartiesEnum[item.party] }}
+  </div>
+</ng-container>

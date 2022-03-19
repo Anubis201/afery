@@ -1,4 +1,6 @@
 <div class="all-articles">
+  <app-poll-bar class="container"></app-poll-bar>
+
   <app-top-articles
     *ngIf="data.value['Partie polityczne'].articles.length && data.value.Politycy.articles.length"
     [importantArticle]="topArticle | async"

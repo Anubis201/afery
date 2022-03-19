@@ -5,6 +5,7 @@ import { AllArticlesRoutingModule } from './all-articles-routing.module';
 import { SectionComponent } from './section/section.component';
 import { SharedModule } from '../shared/shared.module';
 import { TopArticlesComponent } from './top-articles/top-articles.component';
+import { PollBarComponent } from './poll-bar/poll-bar.component';
 
 
 
@@ -13,6 +14,7 @@ import { TopArticlesComponent } from './top-articles/top-articles.component';
     AllArticlesComponent,
     SectionComponent,
     TopArticlesComponent,
+    PollBarComponent,
   ],
   imports: [
     CommonModule,
