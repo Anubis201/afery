@@ -7,6 +7,10 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 1.8rem;
+  animation: scroll 151s linear 0s var(--iteration-count) infinite;
+  animation-play-state: running;
+  animation-delay: 0s;
+  animation-direction: normal;
 
   &__item {
     display: flex;

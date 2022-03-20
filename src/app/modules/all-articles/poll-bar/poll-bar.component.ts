@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
@@ -19,9 +19,10 @@ interface SomethingModel {
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [newsAnimation]
 })
-export class PollBarComponent implements OnInit {
+export class PollBarComponent implements OnInit, AfterViewInit {
   poll = new BehaviorSubject<PollModel>(null)
   data = new BehaviorSubject<SomethingModel[]>([])
+  state = new BehaviorSubject<'in' | 'out'>('in');
 
   readonly PartiesEnum = PartiesEnum
 
@@ -31,6 +32,21 @@ export class PollBarComponent implements OnInit {
 
   ngOnInit() {
     this.getNewestPoll();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.state.next('out');
+    }, 0);
+  }
+
+  onEnd(event) {
+    this.state.next('in');
+    if (event.toState === 'in') {
+      setTimeout(() => {
+        this.state.next('out');
+      }, 0);
+    }
   }
 
   private previousPoll() {
