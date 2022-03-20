@@ -1,13 +1,25 @@
-<ng-container *ngIf="poll | async">
+<ng-container *ngIf="data | async">
 
   <div class="bar">
-    <div class="bar__item" *ngFor="let item of poll.value.items">
+    <div class="bar__item" *ngFor="let item of data.value">
       <img
         class="bar__item--party"
         [src]="'/assets/icons/parties/' + PartiesEnum[item.party] + '.png'"
       />
       <span class="bar__item--number">{{ item.percentage }}%</span>
-      <span></span>
+      <span
+        class="bar__item--diff"
+        [class.bar__item--diff--plus]="item.difference > 0"
+        [class.bar__item--diff--minus]="item.difference < 0"
+      ><span *ngIf="item.difference > 0">+</span>{{ item.difference }}%</span>
+      <div
+        class="bar__item--icon"
+        [class.bar__item--diff--plus]="item.difference > 0"
+        [class.bar__item--diff--minus]="item.difference < 0"
+      >
+        <mat-icon *ngIf="item.difference > 0">arrow_drop_up</mat-icon>
+        <mat-icon *ngIf="item.difference < 0">arrow_drop_down</mat-icon>
+      </div>
     </div>
   </div>
 
