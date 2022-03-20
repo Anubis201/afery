@@ -2,3 +2,22 @@
   display: block;
   color: white;
 }
+
+.bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  &__item {
+    display: flex;
+    gap: 10px;
+
+    &--party {
+      height: 20px;
+    }
+
+    &--number {
+      font-weight: 500;
+    }
+  }
+}
