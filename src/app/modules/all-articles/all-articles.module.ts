@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AllArticlesComponent } from './all-articles.component';
 import { AllArticlesRoutingModule } from './all-articles-routing.module';
 import { SectionComponent } from './section/section.component';
@@ -16,6 +16,7 @@ import { PollBarComponent } from './poll-bar/poll-bar.component';
     TopArticlesComponent,
     PollBarComponent,
   ],
+  providers: [DatePipe],
   imports: [
     CommonModule,
     AllArticlesRoutingModule,

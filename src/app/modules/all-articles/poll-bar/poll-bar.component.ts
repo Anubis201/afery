@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
@@ -5,6 +6,7 @@ import { PartyCharModel } from 'src/app/models/articles/party-char.model';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import { newsAnimation } from 'src/app/services/animations/news.animations';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
+import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
 
 interface SomethingModel {
   party: PartiesEnum,
@@ -28,7 +30,13 @@ export class PollBarComponent implements OnInit, AfterViewInit {
 
   constructor(
     private pollsService: PollsService,
+    private datePipe: DatePipe,
   ) { }
+
+  get toPage() {
+    const date = this.datePipe.transform(this.poll.value?.when,'yyyy-MM-dd');
+    return `/sondaz/${this.poll.value?.id}/${ChangePolishChars(`${this.poll.value?.surveying}-${date}`)}`
+  }
 
   ngOnInit() {
     this.getNewestPoll();
@@ -61,8 +69,13 @@ export class PollBarComponent implements OnInit, AfterViewInit {
     this.pollsService.getNewestPollParty().subscribe({
       next: docs => {
         docs.forEach(doc => {
-          this.poll.next(doc.data() as PollModel);
+          this.poll.next({
+            ...doc.data() as PollModel,
+            when: (doc.data() as any).when.toDate(),
+            id: doc.id,
+          });
         })
+        console.log(this.poll.value)
         this.previousPoll();
       },
     })
