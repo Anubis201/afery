@@ -1,7 +1,8 @@
 <ng-container *ngIf="data | async">
 
   <div class="bar">
-    <div class="bar__item" *ngFor="let item of data.value">
+    <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+    <span class="bar__item" *ngFor="let item of data.value">
       <img
         class="bar__item--party"
         [src]="'/assets/icons/parties/' + PartiesEnum[item.party] + '.png'"
@@ -20,7 +21,8 @@
         <mat-icon *ngIf="item.difference > 0">arrow_drop_up</mat-icon>
         <mat-icon *ngIf="item.difference < 0">arrow_drop_down</mat-icon>
       </div>
-    </div>
+    </span>
+    </marquee>
   </div>
 
 </ng-container>
