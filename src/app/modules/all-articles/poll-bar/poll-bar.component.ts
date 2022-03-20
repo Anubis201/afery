@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { PartyCharModel } from 'src/app/models/articles/party-char.model';
 import { PollModel } from 'src/app/models/polls/poll.model';
+import { newsAnimation } from 'src/app/services/animations/news.animations';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
 
 interface SomethingModel {
@@ -15,7 +16,8 @@ interface SomethingModel {
   selector: 'app-poll-bar',
   templateUrl: './poll-bar.component.html',
   styleUrls: ['./poll-bar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [newsAnimation]
 })
 export class PollBarComponent implements OnInit {
   poll = new BehaviorSubject<PollModel>(null)
