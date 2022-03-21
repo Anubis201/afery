@@ -25,6 +25,7 @@ export class PollBarComponent implements OnInit, AfterViewInit {
   poll = new BehaviorSubject<PollModel>(null)
   data = new BehaviorSubject<SomethingModel[]>([])
   state = new BehaviorSubject<'in' | 'out'>('in');
+  isLoading = new BehaviorSubject<boolean>(true)
 
   readonly PartiesEnum = PartiesEnum
 
@@ -61,6 +62,9 @@ export class PollBarComponent implements OnInit, AfterViewInit {
     this.pollsService.getPreviousPoll(this.poll.value.surveying, this.poll.value.when).subscribe({
       next: data => {
         this.setData(data);
+      },
+      error: () => {
+        this.isLoading.next(false);
       }
     })
   }
@@ -87,5 +91,6 @@ export class PollBarComponent implements OnInit, AfterViewInit {
       difference: !poll ? 0 : parseFloat((poll ? current.percentage - (poll.items as unknown as PartyCharModel[]).find(v => v.party === current.party).percentage : current.percentage).toFixed(1)),
       percentage: current.percentage,
     })));
+    this.isLoading.next(false);
   }
 }

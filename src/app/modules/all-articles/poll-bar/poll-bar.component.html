@@ -1,4 +1,4 @@
-<ng-container *ngIf="data | async">
+<ng-container *ngIf="!(isLoading | async)">
 
   <div class="bar">
     <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
