@@ -1,8 +1,10 @@
 import { MillionsPipe } from './millions.pipe';
 
 describe('MillionsPipe', () => {
+  const pipe = new MillionsPipe();
+
   it('create an instance', () => {
-    const pipe = new MillionsPipe();
     expect(pipe).toBeTruthy();
   });
+
 });
