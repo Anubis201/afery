@@ -16,10 +16,11 @@
     flex-direction: column;
     align-items: center;
     font-size: 12px;
-    margin-right: 30px;
+    margin-right: 25px;
 
     @media (min-width: 992px) {
       flex-direction: row;
+      margin-right: 40px;
       font-size: 14px;
       gap: 10px;
     }

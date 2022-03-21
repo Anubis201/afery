@@ -1,7 +1,7 @@
 <ng-container *ngIf="!(isLoading | async)">
 
   <div class="bar">
-    <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+    <marquee scrolldelay="120" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
       <a [routerLink]="toPage">
         <span class="bar__item" *ngFor="let item of data.value">
           <img
