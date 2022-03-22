@@ -1,23 +1,29 @@
 <div class="container">
-  <div class="row">
-    <div
-      *ngFor="let image of sortImages(images | async)"
-      class="col-3 image"
-    >
-      <img
-        [src]="image.src"
-        class="image--src"
+  <app-add-no-article-image></app-add-no-article-image>
+
+  <div>
+    <div class="label">Zdjęcia artykułów</div>
+
+    <div class="row">
+      <div
+        *ngFor="let image of sortImages(images | async)"
+        class="col-3 image"
       >
-      <div class="image__buttons">
-        <button
-          mat-button
-          [cdkCopyToClipboard]="image.src"
-        >Kopiuj ścieżke</button>
-        <a
-          mat-button
-          [href]="toArticlePage(image.name)"
-          target="_blank"
-        >Do artykułu</a>
+        <img
+          [src]="image.src"
+          class="image--src"
+        >
+        <div class="image__buttons">
+          <button
+            mat-button
+            [cdkCopyToClipboard]="image.src"
+          >Kopiuj ścieżke</button>
+          <a
+            mat-button
+            [href]="toArticlePage(image.name)"
+            target="_blank"
+          >Do artykułu</a>
+        </div>
       </div>
     </div>
   </div>

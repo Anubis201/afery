@@ -1,0 +1,17 @@
+<div class="label">Prześlij zdjęcie</div>
+
+<!-- formControlName="image" -->
+<div class="magic">
+  <input
+    #image
+    type="file"
+    accept="image/png, image/jpeg"
+  >
+
+  <button
+    mat-raised-button
+    [disabled]="(isSaving | async)"
+    (click)="sendImage(image.files)"
+  >Wyślij</button>
+</div>
+

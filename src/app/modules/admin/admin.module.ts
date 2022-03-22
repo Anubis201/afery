@@ -21,6 +21,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { TagsComponent } from './create/tags/tags.component';
 import { ImagesComponent } from './images/images.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { AddNoArticleImageComponent } from './images/add-no-article-image/add-no-article-image.component';
 
 
 
@@ -36,6 +37,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     ChooseTypeComponent,
     TagsComponent,
     ImagesComponent,
+    AddNoArticleImageComponent,
   ],
   imports: [
     CommonModule,

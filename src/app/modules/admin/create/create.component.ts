@@ -97,7 +97,7 @@ export class CreateComponent implements OnInit {
     }
 
     const last3Characters = images[0].name.slice(-3)
-    if (last3Characters !== 'jpg' && last3Characters !== 'png') {
+    if (last3Characters !== 'jpg' && last3Characters !== 'png' && last3Characters !== 'jpeg') {
       this._snackBar.open('Tylko png i jpg', 'close');
       return
     }

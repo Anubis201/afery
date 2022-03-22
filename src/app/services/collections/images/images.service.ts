@@ -10,6 +10,10 @@ export class ImagesService {
     private storage: AngularFireStorage,
   ) { }
 
+  addOtherImage(name: string) {
+    const path = '/images-others/' + name;
+  }
+
   addImage(docId: string, file: File) {
     const path = '/images-articles/' + docId;
     const uploadTask = this.storage.upload(path, file);
