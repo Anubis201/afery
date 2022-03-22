@@ -51,9 +51,9 @@ export class MenuListComponent implements OnInit {
         icon: 'poll'
       },
       {
-        href: 'polls',
-        text: 'Rozkład artykułów',
-        icon: 'table_chart'
+        href: 'images',
+        text: 'Zdjęcia',
+        icon: 'collections'
       }
     ]);
     this.checkNewComments();

@@ -23,6 +23,12 @@ export class ImagesService {
     return ref.getDownloadURL();
   }
 
+  getAllImages() {
+    const ref = this.storage.ref('/images-articles');
+
+    return ref.listAll()
+  }
+
   deleteImage(articleId: string) {
     const ref = this.storage.ref('/images-articles').child(articleId);
 

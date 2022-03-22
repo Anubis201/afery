@@ -79,7 +79,6 @@ export class PollBarComponent implements OnInit, AfterViewInit {
             id: doc.id,
           });
         })
-        console.log(this.poll.value)
         this.previousPoll();
       },
     })

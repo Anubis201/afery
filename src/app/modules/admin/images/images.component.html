@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div
+      *ngFor="let image of sortImages(images | async)"
+      class="col-3 image"
+    >
+      <img
+        [src]="image.src"
+        class="image--src"
+      >
+      <div class="image__buttons">
+        <button
+          mat-button
+          [cdkCopyToClipboard]="image.src"
+        >Kopiuj ścieżke</button>
+        <a
+          mat-button
+          [href]="toArticlePage(image.name)"
+          target="_blank"
+        >Do artykułu</a>
+      </div>
+    </div>
+  </div>
+</div>

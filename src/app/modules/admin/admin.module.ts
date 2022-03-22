@@ -19,6 +19,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ChooseTypeComponent } from './add-polls/choose-type/choose-type.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { TagsComponent } from './create/tags/tags.component';
+import { ImagesComponent } from './images/images.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 
 
@@ -33,6 +35,7 @@ import { TagsComponent } from './create/tags/tags.component';
     DetailsComponent,
     ChooseTypeComponent,
     TagsComponent,
+    ImagesComponent,
   ],
   imports: [
     CommonModule,
@@ -45,6 +48,7 @@ import { TagsComponent } from './create/tags/tags.component';
     MatListModule,
     EditorModule,
     MatChipsModule,
+    ClipboardModule,
     SharedModule,
   ]
 })
