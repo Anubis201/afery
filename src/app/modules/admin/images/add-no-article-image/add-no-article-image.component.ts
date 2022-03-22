@@ -42,7 +42,7 @@ export class AddNoArticleImageComponent {
       return
     }
 
-    this.imageService.addImage('test', image).subscribe(value => {
+    this.imageService.addOtherImage('test', image).subscribe(value => {
       if (value === 100) {
         this._snackBar.open('Zdjęcie zostało dodane', 'close');
         this.isSaving.next(false);

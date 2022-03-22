@@ -3,9 +3,10 @@
     *ngFor="let item of items | async"
     mat-list-item
     [routerLink]="[item.href]"
+    [matTooltip]="item.text"
     (click)="item.function ? item.function() : null"
   >
     <mat-icon [matBadge]="item.badgeNumber || null">{{ item.icon }}</mat-icon>
-    {{ item.text }}
+    <span *ngIf="isExtendedMenu | async">{{ item.text }}</span>
   </a>
 </mat-nav-list>

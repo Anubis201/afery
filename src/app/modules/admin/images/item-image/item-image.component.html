@@ -1,0 +1,25 @@
+<div class="label">{{ label }}</div>
+
+<div class="row">
+  <div
+    *ngFor="let image of items"
+    class="col-3 image"
+  >
+    <img
+      class="image--src"
+      [src]="image.src"
+    >
+    <div class="image__buttons">
+      <button
+        mat-button
+        [cdkCopyToClipboard]="image.src"
+      >Kopiuj ścieżke</button>
+      <a
+        *ngIf="isArticleImage"
+        mat-button
+        [href]="toArticlePage(image.name)"
+        target="_blank"
+      >Do artykułu</a>
+    </div>
+  </div>
+</div>

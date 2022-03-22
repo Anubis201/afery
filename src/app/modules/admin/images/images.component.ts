@@ -1,11 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { ImageModel } from 'src/app/models/others/image.model';
 import { ImagesService } from 'src/app/services/collections/images/images.service';
-
-interface ImageModel {
-  name: string
-  src: string
-}
 
 @Component({
   selector: 'app-images',
@@ -14,19 +10,16 @@ interface ImageModel {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImagesComponent implements OnInit {
-  images = new BehaviorSubject<ImageModel[]>([])
-  isLoading = new BehaviorSubject<boolean>(true)
+  articleImages = new BehaviorSubject<ImageModel[]>([])
+  othersImages = new BehaviorSubject<ImageModel[]>([])
 
   constructor(
     private imagesService: ImagesService,
   ) { }
 
   ngOnInit() {
-    this.getRef();
-  }
-
-  toArticlePage(id: string) {
-    return `/artykul/${id}/cos`
+    this.getArticlesImage();
+    this.getOthersImage();
   }
 
   sortImages(images: ImageModel[]) {
@@ -43,13 +36,29 @@ export class ImagesComponent implements OnInit {
     return images.sort(comapre)
   }
 
-  private getRef() {
-    this.imagesService.getAllImages().subscribe({
+  private getOthersImage() {
+    this.imagesService.getAllOthersImages().subscribe({
       next: refs => {
         refs.items.forEach(item => {
           item.getDownloadURL().then(src => {
-            this.images.next([
-              ...this.images.value,
+            this.othersImages.next([
+              ...this.othersImages.value,
+              { name: item.name, src }
+            ]);
+            console.log(this.othersImages.value)
+          })
+        })
+      },
+    })
+  }
+
+  private getArticlesImage() {
+    this.imagesService.getAllArticlesImage().subscribe({
+      next: refs => {
+        refs.items.forEach(item => {
+          item.getDownloadURL().then(src => {
+            this.articleImages.next([
+              ...this.articleImages.value,
               { name: item.name, src }
             ]);
           })

@@ -10,8 +10,11 @@ export class ImagesService {
     private storage: AngularFireStorage,
   ) { }
 
-  addOtherImage(name: string) {
+  addOtherImage(name: string, file: File) {
     const path = '/images-others/' + name;
+    const uploadTask = this.storage.upload(path, file);
+
+    return uploadTask.percentageChanges();
   }
 
   addImage(docId: string, file: File) {
@@ -27,8 +30,14 @@ export class ImagesService {
     return ref.getDownloadURL();
   }
 
-  getAllImages() {
+  getAllArticlesImage() {
     const ref = this.storage.ref('/images-articles');
+
+    return ref.listAll()
+  }
+
+  getAllOthersImages() {
+    const ref = this.storage.ref('/images-others');
 
     return ref.listAll()
   }

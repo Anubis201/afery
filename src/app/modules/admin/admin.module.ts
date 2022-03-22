@@ -22,6 +22,7 @@ import { TagsComponent } from './create/tags/tags.component';
 import { ImagesComponent } from './images/images.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { AddNoArticleImageComponent } from './images/add-no-article-image/add-no-article-image.component';
+import { ItemImageComponent } from './images/item-image/item-image.component';
 
 
 
@@ -38,6 +39,7 @@ import { AddNoArticleImageComponent } from './images/add-no-article-image/add-no
     TagsComponent,
     ImagesComponent,
     AddNoArticleImageComponent,
+    ItemImageComponent,
   ],
   imports: [
     CommonModule,

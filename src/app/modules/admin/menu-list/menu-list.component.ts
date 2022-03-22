@@ -21,6 +21,7 @@ interface Menu {
 })
 export class MenuListComponent implements OnInit {
   items = new BehaviorSubject<Menu[]>([])
+  isExtendedMenu = new BehaviorSubject<boolean>(false)
 
   private newCommentsDocs: any
 
