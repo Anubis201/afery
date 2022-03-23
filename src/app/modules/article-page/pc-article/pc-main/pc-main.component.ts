@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pc-main',
@@ -14,4 +15,10 @@ export class PcMainComponent {
   @Input() imageDesc: string
   @Input() tags: string
   @Input() isShort = false
+
+  constructor(private sanitizer: DomSanitizer) {}
+
+  checkHtml(text: string) {
+    return this.sanitizer.bypassSecurityTrustHtml(text);
+  }
 }
