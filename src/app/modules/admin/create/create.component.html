@@ -27,11 +27,21 @@
     }"
   ></editor>
 
-  <!-- TODO Kiedys dorobic edycje zdjecia artykulu, ale to jesli bedzie bardzo przeskadzac -->
-  <div [class.hide]="(articleId | async).length" class="file-input">
+  <mat-radio-group class="type-image" [formControl]="imageType" (change)="onChangeTypeImage($event.value)">
+    <div>Rodzaj zdjęcia</div>
+    <mat-radio-button [value]="ImageEnum.new">Nowe zdjęcie</mat-radio-button>
+    <mat-radio-button [value]="ImageEnum.old">Zdjęcie z bazy</mat-radio-button>
+  </mat-radio-group>
+
+  <div [class.extra-hide]="imageType.value === ImageEnum.old" [class.hide]="(articleId | async).length" class="file-input">
     <span class="file-input__text">Zdjęcie artykułu(max 1MB): </span>
     <input #image formControlName="image" type="file" accept="image/png, image/jpeg">
   </div>
+
+  <mat-form-field [class.extra-hide]="imageType.value === ImageEnum.new" class="old-src" appearance="fill">
+    <mat-label>Ścieżka</mat-label>
+    <input matInput formControlName="imageSrc" autocomplete="off" type="text">
+  </mat-form-field>
 
   <mat-form-field class="image-desc" appearance="fill">
     <mat-label>Opis zdjęcia (np. autor)</mat-label>

@@ -11,6 +11,11 @@ import { DocumentReference } from '@angular/fire/compat/firestore/interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleModel } from 'src/app/models/articles/article.model';
 
+enum ImageEnum {
+  new,
+  old,
+}
+
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -28,16 +33,19 @@ export class CreateComponent implements OnInit {
     entity: new FormControl(null, Validators.required), // partie // jest required ponieważ domyślnie przyjmuje partie jako domyślny tryb
     customName: new FormControl(null), // uzywane w kategoriach politycy oraz reszta // odwrotnie do góry
     costs: new FormControl(null),
+    imageSrc: new FormControl(null), // WYŁĄCZNIE gdy biore z gotowe zdjecie z bazy
   })
 
   articleId = new BehaviorSubject<string>('') // jest on uzywany wylacznie podczas edycji artykulu, czyli jednoczesnie jest uzywane aby sprawdzic czy jest isEdit mode
   isLoading = new BehaviorSubject<boolean>(false)
   entityItems = new BehaviorSubject<PartiesEnum[]>(ConvertEnum(PartiesEnum, 'number'))
   tags = new BehaviorSubject<string[]>([])
+  imageType = new FormControl(ImageEnum.new)
 
   readonly articleTypes = ConvertEnum(ArticlesTypesEnum, 'string')
   readonly PartiesEnum = PartiesEnum
   readonly ArticlesTypesEnum = ArticlesTypesEnum
+  readonly ImageEnum = ImageEnum
   private readonly maxFileSize = 1048576 // 1MB
 
   constructor(
@@ -70,6 +78,19 @@ export class CreateComponent implements OnInit {
     }
   }
 
+  onChangeTypeImage(img: ImageEnum) {
+    if (img === ImageEnum.new) {
+      this.form.get('image').addValidators(Validators.required);
+      this.form.get('imageSrc').clearValidators();
+    } else {
+      this.form.get('image').clearValidators();
+      this.form.get('imageSrc').addValidators(Validators.required);
+    }
+
+    this.form.get('image').updateValueAndValidity();
+    this.form.get('imageSrc').updateValueAndValidity();
+  }
+
   private edit() {
     this.isLoading.next(true);
     this.articlesService.editArticle({ ...(this.form.value as ArticleModel), tags: this.tags.value }, this.articleId.value).subscribe({
@@ -85,6 +106,12 @@ export class CreateComponent implements OnInit {
   }
 
   private create(images: FileList | null) {
+    const ref = this.articlesService.getRef().doc().ref;
+    if (this.imageType.value === ImageEnum.old) {
+      this.addArticle(ref, this.form.get('imageSrc').value);
+      return
+    }
+
     if (images === null) {
       this._snackBar.open('Brak obrazu', 'close');
       return
@@ -103,7 +130,6 @@ export class CreateComponent implements OnInit {
     }
 
     this.isLoading.next(true);
-    const ref = this.articlesService.getRef().doc().ref;
 
     this.imageService.addImage(ref.id, image).subscribe(value => {
       if (value === 100) {
