@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
+import { ImageModel } from 'src/app/models/others/image.model';
 import { ImagesService } from 'src/app/services/collections/images/images.service';
 
 @Component({
@@ -10,7 +11,16 @@ import { ImagesService } from 'src/app/services/collections/images/images.servic
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddNoArticleImageComponent {
+  @Input() set lastOtherImage(image: ImageModel) {
+    if (!image) {
+      return
+    }
+
+    this.nextImageName = `other_${parseInt(image.name.split('_')[1], 10) + 1}`;
+  }
+
   isSaving = new BehaviorSubject<boolean>(false)
+  nextImageName = 'other_1'
 
   private readonly maxFileSize = 1048576 // 1MB
 
@@ -42,8 +52,10 @@ export class AddNoArticleImageComponent {
       return
     }
 
-    this.imageService.addOtherImage('test', image).subscribe(value => {
+    this.imageService.addOtherImage(this.nextImageName, image).subscribe(value => {
       if (value === 100) {
+        // TODO moze kiedys zmienic ten reload
+        window.location.reload()
         this._snackBar.open('Zdjęcie zostało dodane', 'close');
         this.isSaving.next(false);
       }

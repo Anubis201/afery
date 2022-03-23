@@ -36,16 +36,19 @@ export class ImagesComponent implements OnInit {
     return images.sort(comapre)
   }
 
+  addOtherImage(image: ImageModel) {
+
+  }
+
   private getOthersImage() {
     this.imagesService.getAllOthersImages().subscribe({
       next: refs => {
         refs.items.forEach(item => {
           item.getDownloadURL().then(src => {
-            this.othersImages.next([
+            this.othersImages.next(this.sortImages([
               ...this.othersImages.value,
               { name: item.name, src }
-            ]);
-            console.log(this.othersImages.value)
+            ]))
           })
         })
       },
@@ -57,10 +60,11 @@ export class ImagesComponent implements OnInit {
       next: refs => {
         refs.items.forEach(item => {
           item.getDownloadURL().then(src => {
-            this.articleImages.next([
+            // TODO jak bedzie zbyt spowalaniac to zastwanowic sie na lepszym sortowaniem
+            this.articleImages.next(this.sortImages([
               ...this.articleImages.value,
               { name: item.name, src }
-            ]);
+            ]))
           })
         })
       },
