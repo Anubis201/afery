@@ -35,6 +35,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/account/account.module').then(m => m.AccountModule),
   },
   {
+    path: 'tag',
+    loadChildren: () => import('./modules/tag-view/tag-view.module').then(m => m.TagViewModule),
+  },
+  {
     path: '**',
     redirectTo: '/',
     pathMatch: 'full',

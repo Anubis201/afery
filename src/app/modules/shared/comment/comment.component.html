@@ -1,5 +1,5 @@
 <div class="comment">
-  <mat-icon>person</mat-icon>
+  <img class="comment--avatar" src="/assets/defaultAvatars/4.png" [alt]="'avatar ' + commentData.value.name">
   <div class="comment__texts">
     <div class="comment__texts__others">
       <span class="comment__texts__others--name">{{ (commentData | async).name }}</span>
@@ -57,7 +57,7 @@
       ></app-plus-minus>
 
       <button
-        *ngIf="userName"
+        *ngIf="isLogin"
         mat-stroked-button
         (click)="getAnswersToDisplay(true)"
       >Odpowiedz</button>

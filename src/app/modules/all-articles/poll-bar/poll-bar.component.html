@@ -1,0 +1,30 @@
+<ng-container *ngIf="!(isLoading | async)">
+
+  <div class="bar">
+    <marquee scrolldelay="120" behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+      <a [routerLink]="toPage">
+        <span class="bar__item" *ngFor="let item of data.value">
+          <img
+            class="bar__item--party"
+            [src]="'/assets/icons/parties/' + PartiesEnum[item.party] + '.png'"
+          />
+          <span class="bar__item--number">{{ item.percentage }}%</span>
+          <span
+            class="bar__item--diff"
+            [class.bar__item--diff--plus]="item.difference > 0"
+            [class.bar__item--diff--minus]="item.difference < 0"
+          ><span *ngIf="item.difference > 0">+</span>{{ item.difference }}%</span>
+          <div
+            class="bar__item--icon"
+            [class.bar__item--diff--plus]="item.difference > 0"
+            [class.bar__item--diff--minus]="item.difference < 0"
+          >
+            <mat-icon *ngIf="item.difference > 0">arrow_drop_up</mat-icon>
+            <mat-icon *ngIf="item.difference < 0">arrow_drop_down</mat-icon>
+          </div>
+        </span>
+      </a>
+    </marquee>
+  </div>
+
+</ng-container>

@@ -51,6 +51,7 @@ export class DiscussionComponent {
     return this.idUser === this.discussionData.value.authorId && this.isLogin
   }
 
+
   editText() {
     if (this.isEditMode.value) {
       this.isEditMode.next(false);

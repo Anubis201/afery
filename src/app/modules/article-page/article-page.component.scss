@@ -21,6 +21,10 @@ $image-border-radius: 5px;
   font-size: $font;
 }
 
+.page-data {
+  padding-bottom: 8rem;
+}
+
 .not-exists {
   @include title(3rem, 3rem);
   text-align: center;

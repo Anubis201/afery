@@ -17,3 +17,9 @@
   class="desc"
   [innerHtml]="text"
 ></div>
+
+<div class="tags">
+  <mat-chip-list>
+    <mat-chip *ngFor="let tag of tags" [routerLink]="'../../../tag/' + tag">{{ tag }}</mat-chip>
+  </mat-chip-list>
+</div>

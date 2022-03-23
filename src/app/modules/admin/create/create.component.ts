@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, first } from 'rxjs';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
-import { ArticlesKindsEnum } from 'src/app/models/articles/enums/articles-kinds.enum';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { ConvertEnum } from 'src/app/services/global/support-functions/convert-enum';
 import { ImagesService } from 'src/app/services/collections/images/images.service';
@@ -11,6 +10,11 @@ import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { DocumentReference } from '@angular/fire/compat/firestore/interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleModel } from 'src/app/models/articles/article.model';
+
+enum ImageEnum {
+  new,
+  old,
+}
 
 @Component({
   selector: 'app-create',
@@ -26,20 +30,22 @@ export class CreateComponent implements OnInit {
     image: new FormControl(null, Validators.required),
     imageDesc: new FormControl(null),
     type: new FormControl(null, Validators.required),
-    kind: new FormControl(ArticlesKindsEnum.Confirmed, Validators.required),
     entity: new FormControl(null, Validators.required), // partie // jest required ponieważ domyślnie przyjmuje partie jako domyślny tryb
     customName: new FormControl(null), // uzywane w kategoriach politycy oraz reszta // odwrotnie do góry
     costs: new FormControl(null),
+    imageSrc: new FormControl(null), // WYŁĄCZNIE gdy biore z gotowe zdjecie z bazy
   })
 
   articleId = new BehaviorSubject<string>('') // jest on uzywany wylacznie podczas edycji artykulu, czyli jednoczesnie jest uzywane aby sprawdzic czy jest isEdit mode
   isLoading = new BehaviorSubject<boolean>(false)
   entityItems = new BehaviorSubject<PartiesEnum[]>(ConvertEnum(PartiesEnum, 'number'))
+  tags = new BehaviorSubject<string[]>([])
+  imageType = new FormControl(ImageEnum.new)
 
   readonly articleTypes = ConvertEnum(ArticlesTypesEnum, 'string')
-  readonly articleKinds = ConvertEnum(ArticlesKindsEnum, 'string')
   readonly PartiesEnum = PartiesEnum
   readonly ArticlesTypesEnum = ArticlesTypesEnum
+  readonly ImageEnum = ImageEnum
   private readonly maxFileSize = 1048576 // 1MB
 
   constructor(
@@ -72,9 +78,22 @@ export class CreateComponent implements OnInit {
     }
   }
 
+  onChangeTypeImage(img: ImageEnum) {
+    if (img === ImageEnum.new) {
+      this.form.get('image').addValidators(Validators.required);
+      this.form.get('imageSrc').clearValidators();
+    } else {
+      this.form.get('image').clearValidators();
+      this.form.get('imageSrc').addValidators(Validators.required);
+    }
+
+    this.form.get('image').updateValueAndValidity();
+    this.form.get('imageSrc').updateValueAndValidity();
+  }
+
   private edit() {
     this.isLoading.next(true);
-    this.articlesService.editArticle(this.form.value as ArticleModel, this.articleId.value).subscribe({
+    this.articlesService.editArticle({ ...(this.form.value as ArticleModel), tags: this.tags.value }, this.articleId.value).subscribe({
       next: () => {
         this._snackBar.open('Zedytowany artykuł', 'close');
         this.isLoading.next(false);
@@ -87,6 +106,12 @@ export class CreateComponent implements OnInit {
   }
 
   private create(images: FileList | null) {
+    const ref = this.articlesService.getRef().doc().ref;
+    if (this.imageType.value === ImageEnum.old) {
+      this.addArticle(ref, this.form.get('imageSrc').value);
+      return
+    }
+
     if (images === null) {
       this._snackBar.open('Brak obrazu', 'close');
       return
@@ -99,13 +124,12 @@ export class CreateComponent implements OnInit {
     }
 
     const last3Characters = images[0].name.slice(-3)
-    if (last3Characters !== 'jpg' && last3Characters !== 'png') {
+    if (last3Characters !== 'jpg' && last3Characters !== 'png' && last3Characters !== 'jpeg') {
       this._snackBar.open('Tylko png i jpg', 'close');
       return
     }
 
     this.isLoading.next(true);
-    const ref = this.articlesService.getRef().doc().ref;
 
     this.imageService.addImage(ref.id, image).subscribe(value => {
       if (value === 100) {
@@ -143,7 +167,6 @@ export class CreateComponent implements OnInit {
       title: this.form.get('title')?.value,
       text: this.form.get('text')?.value,
       type: this.form.get('type')?.value,
-      kind: this.form.get('kind')?.value,
       entity: this.form.get('entity')?.value,
       costs: this.form.get('costs')?.value,
       customName: this.form.get('customName')?.value,
@@ -151,6 +174,7 @@ export class CreateComponent implements OnInit {
       imageDesc: this.form.get('imageDesc')?.value,
       createDate: new Date(),
       viewership: 1,
+      tags: this.tags.value,
       imageSrc,
     }, ref).pipe(first()).subscribe({
       next: () => {
@@ -167,8 +191,10 @@ export class CreateComponent implements OnInit {
   private getArticleForEdit(id: string) {
     this.articlesService.getArticle(id).subscribe({
       next: doc => {
-        this.form.patchValue(doc.data() as ArticleModel);
+        const data = doc.data() as ArticleModel;
+        this.form.patchValue(data);
         this.articleId.next(doc.id);
+        this.tags.next(data?.tags ?? []);
         this.form.get('image').clearValidators();
         this.form.get('image').updateValueAndValidity();
       },

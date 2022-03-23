@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   margin-top: 5rem;
-  margin-left: 9rem;
+  margin-left: 4rem;
   min-height: 80vh;
   margin-bottom: 2rem;
 }
@@ -72,7 +72,7 @@ mat-label {
 }
 
 .create {
-  margin-top: 5px;
+  margin-top: 2rem;
 }
 
 .entity {
@@ -113,4 +113,16 @@ mat-label {
 
 .image-desc {
   margin-top: 0.5rem;
+}
+
+.type-image {
+  margin-top: 1rem;
+}
+
+.extra-hide {
+  display: none;
+}
+
+.old-src {
+  margin-top: 1rem;
 }

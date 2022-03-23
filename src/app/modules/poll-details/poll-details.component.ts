@@ -79,7 +79,7 @@ export class PollDetailsComponent implements OnInit {
           when: (doc.data() as any).when.toDate(),
           id: doc.id,
         })
-        this.titleService.setTitle(this.data.value.title);
+        this.titleService.setTitle(this.data.value.title + ' - Afery');
         this.meta.updateTag({ name:'description', content: `Sondaż ${this.data.value.surveying} z dnia ${this.datePipe.transform(this.data.value.when, 'yyyy.MM.dd')}` }, "name='description'");
       },
     })

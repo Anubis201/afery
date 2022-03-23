@@ -1,0 +1,20 @@
+<div class="something">Tagi artykułu</div>
+
+<mat-form-field appearance="fill">
+  <mat-label>Tagi</mat-label>
+  <mat-chip-list #chipList>
+    <mat-chip
+      *ngFor="let tag of tags"
+      (removed)="remove(tag)">
+      {{ tag }}
+      <button matChipRemove>
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip>
+    <input
+      placeholder="Nowy tag..."
+      [formControl]="tagControl"
+      [matChipInputFor]="chipList"
+      (matChipInputTokenEnd)="add($event)">
+  </mat-chip-list>
+</mat-form-field>

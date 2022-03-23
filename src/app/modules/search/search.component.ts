@@ -58,7 +58,7 @@ export class SearchComponent implements OnInit {
   }
 
   private metaTagsAndTitle() {
-    this.titleService.setTitle('Afery - Szukaj afer');
+    this.titleService.setTitle('Szukaj afer - Afery');
     this.meta.updateTag({ name:'description', content:'Chcesz znaleźć jakąś afere? Zapraszamy do wyszukiwarki.' }, "name='description'");
   }
 }

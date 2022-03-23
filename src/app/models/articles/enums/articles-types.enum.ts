@@ -3,5 +3,7 @@ export enum ArticlesTypesEnum {
 
   Politicians = 'Politycy',
 
+  Army = 'Wojsko',
+
   Others = 'Reszta',
 }

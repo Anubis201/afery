@@ -1,0 +1,18 @@
+@use '../settings.component.scss';
+
+.item {
+  > button {
+    margin-top: 1rem;
+  }
+}
+
+.message {
+  margin-top: 1rem;
+  color: #eef34f;
+  transition: color 500ms ease-out;
+
+  &--error {
+    color: #ff6262;
+  }
+}
+

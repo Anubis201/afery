@@ -21,6 +21,7 @@ interface Menu {
 })
 export class MenuListComponent implements OnInit {
   items = new BehaviorSubject<Menu[]>([])
+  isExtendedMenu = new BehaviorSubject<boolean>(false)
 
   private newCommentsDocs: any
 
@@ -51,9 +52,9 @@ export class MenuListComponent implements OnInit {
         icon: 'poll'
       },
       {
-        href: 'polls',
-        text: 'Rozkład artykułów',
-        icon: 'table_chart'
+        href: 'images',
+        text: 'Zdjęcia',
+        icon: 'collections'
       }
     ]);
     this.checkNewComments();

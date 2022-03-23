@@ -31,7 +31,7 @@
     [class.left-margin]="answerMode"
   >
     <div>
-      <mat-icon>person</mat-icon>
+      <img src="/assets/defaultAvatars/4.png" [alt]="'avatar ' + (userName | async)">
     </div>
 
     <form [formGroup]="form">

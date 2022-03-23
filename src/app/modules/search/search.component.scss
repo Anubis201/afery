@@ -1,12 +1,13 @@
 :host {
   display: flex;
-  min-height: 85vh;
+  min-height: 100vh;
   align-items: center;
   flex-direction: column;
 }
 
 .container {
   margin-top: 4rem;
+  margin-bottom: 5rem;
 
   @media (min-width: 767px) {
     margin-top: 9.5rem;

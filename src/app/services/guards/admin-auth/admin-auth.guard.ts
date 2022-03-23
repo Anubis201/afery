@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { CanActivate, Router, UrlTree } from '@angular/router'
-import { Observable } from 'rxjs'
+import { Observable, Subscriber } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { UserService } from '../../global/user/user.service'
 
@@ -14,13 +14,22 @@ export class AdminAuthGuard implements CanActivate {
   ) {}
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return this.userService.isAdmin.pipe(
-        map(isAdmin => {
-          if (!isAdmin) {
-            return this.router.parseUrl('/');
-          }
-          return true;
-        })
-      )
+    return new Observable<boolean>(obs => {
+      this.userService.isCheckingLogin.subscribe(val => {
+        if (!val) {
+          this.verify(obs);
+        }
+      })
+    })
+  }
+
+  private verify(obs: Subscriber<boolean>) {
+    if (!this.userService.isAdmin.value) {
+      obs.next(false);
+      obs.complete();
+      this.router.navigateByUrl('/');
+    }
+    obs.next(true);
+    obs.complete();
   }
 }

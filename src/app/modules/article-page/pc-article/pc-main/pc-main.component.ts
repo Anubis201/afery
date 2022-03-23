@@ -12,5 +12,6 @@ export class PcMainComponent {
   @Input() title: string
   @Input() text: string
   @Input() imageDesc: string
+  @Input() tags: string
   @Input() isShort = false
 }

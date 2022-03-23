@@ -1,0 +1,16 @@
+<div class="container">
+  <app-add-no-article-image
+    [lastOtherImage]="othersImages.value[othersImages.value?.length - 1]"
+  ></app-add-no-article-image>
+
+  <app-item-image
+    [items]="othersImages | async"
+    [label]="'Zdjęcia pomocniczne'"
+ ></app-item-image>
+
+  <app-item-image
+    [items]="articleImages | async"
+    [label]="'Zdjęcia artykułów'"
+    [isArticleImage]="true"
+  ></app-item-image>
+</div>

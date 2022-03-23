@@ -116,7 +116,7 @@ export class AllArticlesComponent implements OnInit {
   }
 
   private metaTags() {
-    this.titleService.setTitle('Afery - Polityka i inne tematy');
+    this.titleService.setTitle('Polityka i inne tematy - Afery');
     this.meta.updateTag({ name:'description', content:'Afery naszych polityków, partii i innych osobistości. Mamy miejsce, gdzie możesz pogadać o wszystkim bez żadnej cenzury oraz miejsce, gdzie zbieramy sondaże (nie tylko partii).' }, "name='description'");
   }
 

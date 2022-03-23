@@ -44,6 +44,10 @@ export class WriteCommentComponent {
     return this.userService.isCheckingLogin
   }
 
+  get userName() {
+    return this.userService.userName
+  }
+
   capitalizeFirst(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }

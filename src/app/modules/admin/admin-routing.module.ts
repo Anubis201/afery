@@ -5,6 +5,7 @@ import { ManageCommentsComponent } from './manage-comments/manage-comments.compo
 import { CreateComponent } from './create/create.component'
 import { AddPollsComponent } from './add-polls/add-polls.component'
 import { AdminAuthGuard } from 'src/app/services/guards/admin-auth/admin-auth.guard'
+import { ImagesComponent } from './images/images.component'
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'polls',
         component: AddPollsComponent,
+      },
+      {
+        path: 'images',
+        component: ImagesComponent,
       },
       {
         path: '**',
