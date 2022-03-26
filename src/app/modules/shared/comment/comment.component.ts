@@ -27,8 +27,6 @@ export class CommentComponent {
       return
     }
 
-    console.log(comment.text.split(' '))
-
     this.commentData.next(comment);
     this.countAnswers.next(comment?.countAnswers);
   }
@@ -50,6 +48,18 @@ export class CommentComponent {
 
   get isYourComment() {
     return this.idUser === this.commentData.value.authorId && this.userName
+  }
+
+  isValidHttpUrl(str: string) {
+    let url;
+
+    try {
+      url = new URL(str);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === "http:" || url.protocol === "https:";
   }
 
   handleChangeTextAnswer({ id, text }: { id: string, text: string }) {
