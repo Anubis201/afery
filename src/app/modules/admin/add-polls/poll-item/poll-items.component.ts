@@ -13,7 +13,7 @@ import { ConvertEnum } from 'src/app/services/global/support-functions/convert-e
 })
 export class PollItemsComponent {
   @Input() items: FormArray
-  @Input() typeDataControl: FormControl
+  @Input() typeDataControl: FormControl // PollDataEnum
 
   @Output() addItem = new EventEmitter<void>()
   @Output() deleteItem = new EventEmitter<number>()

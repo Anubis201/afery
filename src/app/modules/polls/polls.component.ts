@@ -41,8 +41,9 @@ export class PollsComponent implements OnInit {
   ngOnInit() {
     this.metaTags();
 
-    this.getPolls(PollDataEnum.Partie)
-    this.getPolls(PollDataEnum.Prezydenci)
+    this.getPolls(PollDataEnum.Partie);
+    this.getPolls(PollDataEnum.Prezydenci);
+    this.getPolls(PollDataEnum.Inne);
   }
 
   identify(index: number, item){
