@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PollCarouselComponent } from './poll-carousel.component';
+import { OtherComponent } from './other.component';
 
-describe('PollCarouselComponent', () => {
-  let component: PollCarouselComponent;
-  let fixture: ComponentFixture<PollCarouselComponent>;
+describe('OtherComponent', () => {
+  let component: OtherComponent;
+  let fixture: ComponentFixture<OtherComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PollCarouselComponent ]
+      declarations: [ OtherComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PollCarouselComponent);
+    fixture = TestBed.createComponent(OtherComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

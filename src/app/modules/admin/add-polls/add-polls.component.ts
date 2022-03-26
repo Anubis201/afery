@@ -69,7 +69,7 @@ export class AddPollsComponent implements OnInit {
       case PollDataEnum.Partie:
         (this.form.get('items') as FormArray).push(this.createPartyItem());
         break
-      case PollDataEnum.Odpowiedzi:
+      case PollDataEnum.Inne:
         this.createTextItem();
         break
       case PollDataEnum.Prezydenci:
@@ -91,7 +91,7 @@ export class AddPollsComponent implements OnInit {
         case PollDataEnum.Partie:
           this.createPartyDefault();
           break
-        case PollDataEnum.Odpowiedzi:
+        case PollDataEnum.Inne:
           this.createTextItem();
           break
         case PollDataEnum.Prezydenci:
