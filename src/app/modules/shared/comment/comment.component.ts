@@ -27,6 +27,8 @@ export class CommentComponent {
       return
     }
 
+    console.log(comment.text.split(' '))
+
     this.commentData.next(comment);
     this.countAnswers.next(comment?.countAnswers);
   }
