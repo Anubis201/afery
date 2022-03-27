@@ -38,15 +38,27 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field *ngSwitchCase="PollDataEnum.Inne" appearance="fill">
-            <mat-label>Tekst</mat-label>
-            <input
-              matInput
-              formControlName="text"
-              autocomplete="off"
-              type="text"
-            />
-          </mat-form-field>
+          <ng-container *ngSwitchCase="PollDataEnum.Inne">
+            <mat-form-field appearance="fill">
+              <mat-label>Tekst</mat-label>
+              <input
+                matInput
+                formControlName="text"
+                autocomplete="off"
+                type="text"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Kolor</mat-label>
+              <input
+                matInput
+                formControlName="color"
+                autocomplete="off"
+                type="text"
+              />
+            </mat-form-field>
+          </ng-container>
 
           <mat-form-field *ngSwitchCase="PollDataEnum.Prezydenci" appearance="fill">
             <mat-label>Kandydant</mat-label>

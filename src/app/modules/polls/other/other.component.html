@@ -1,5 +1,4 @@
 <div class="poll">
-  <!-- [routerLink]="toPage" -->
   <div #duma>
     <svg [attr.id]="idSvg"></svg>
   </div>
@@ -8,5 +7,15 @@
     <div>{{ poll.surveying }}</div>
     <span class="break"></span>
     <div>{{ poll.when | time:'LL' }}</div>
+  </div>
+  <div *ngIf="isAdmin | async">
+    <button
+      mat-icon-button
+      matTooltip="Edytuj"
+      class="button"
+      (click)="handleEditPoll()"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
   </div>
 </div>

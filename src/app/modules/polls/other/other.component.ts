@@ -1,8 +1,9 @@
-import { DatePipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import * as d3 from 'd3';
 import { OtherPollModel } from 'src/app/models/polls/other-poll.model';
 import { PollModel } from 'src/app/models/polls/poll.model';
+import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
   selector: 'app-other',
@@ -16,10 +17,24 @@ export class OtherComponent implements AfterViewInit {
 
   @ViewChild('duma') image: ElementRef
 
-  constructor(private datePipe: DatePipe) {}
-
   ngAfterViewInit() {
     this.draw(this.poll.items as OtherPollModel[]);
+  }
+
+  constructor(
+    private userService: UserService,
+    private router: Router,
+  ) {}
+
+  handleEditPoll() {
+    this.router.navigate(
+      ['/admin/polls'],
+      { queryParams: { id: this.poll.id } }
+    )
+  }
+
+  get isAdmin() {
+    return this.userService.isAdmin
   }
 
   private draw(data: OtherPollModel[]) {

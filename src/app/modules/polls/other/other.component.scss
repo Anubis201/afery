@@ -1,11 +1,5 @@
 :host {
   font-family: "Fira Sans", Arial, sans-serif;
-  transition: opacity 200ms ease-out 100ms;
-  cursor: pointer;
-
-  &:hover {
-    opacity: .8;
-  }
 }
 
 .poll {

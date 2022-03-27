@@ -185,6 +185,7 @@ export class AddPollsComponent implements OnInit {
     ref.push(new FormGroup({
       text: new FormControl(null, Validators.required),
       percentage: new FormControl(null, Validators.required),
+      color: new FormControl('red', Validators.required)
     }));
   }
 
