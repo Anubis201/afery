@@ -53,10 +53,13 @@
               <mat-label>Kolor</mat-label>
               <input
                 matInput
+                [ngxMatColorPicker]="picker"
                 formControlName="color"
                 autocomplete="off"
                 type="text"
               />
+              <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+              <ngx-mat-color-picker #picker [touchUi]="'false'" [color]="'red'"></ngx-mat-color-picker>
             </mat-form-field>
           </ng-container>
 
