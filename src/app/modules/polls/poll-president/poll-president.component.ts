@@ -14,20 +14,13 @@ import { ChangePolishChars } from 'src/app/services/global/support-functions/cha
 export class PollPresidentComponent implements AfterViewInit {
   @Input() poll: PollModel
   @Input() idSvg: string
-  @Input() isCarousel = false
 
   @ViewChild('ameno') image: ElementRef
 
   constructor(private datePipe: DatePipe) {}
 
   ngAfterViewInit() {
-    if (this.isCarousel) {
-      setTimeout(() => {
-        this.draw(this.poll.items as PresidentPollModel[]);
-      });
-    } else {
-      this.draw(this.poll.items as PresidentPollModel[]);
-    }
+    this.draw(this.poll.items as PresidentPollModel[]);
   }
 
   get toPage() {
@@ -40,7 +33,7 @@ export class PollPresidentComponent implements AfterViewInit {
     const yLabelSpace = 7;
     const thisIsBig = width >= 552;
     const margin = 30;
-    const height = (this.isCarousel ? 250 : 280) - (margin * 2);
+    const height = 280 - (margin * 2);
 
     const xScale = d3
       .scaleBand()

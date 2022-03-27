@@ -1,1 +1,12 @@
-<p>other works!</p>
+<div class="poll">
+  <!-- [routerLink]="toPage" -->
+  <div #duma>
+    <svg [attr.id]="idSvg"></svg>
+  </div>
+  <div class="poll__title">{{ poll.title }}</div>
+  <div class="poll__others">
+    <div>{{ poll.surveying }}</div>
+    <span class="break"></span>
+    <div>{{ poll.when | time:'LL' }}</div>
+  </div>
+</div>

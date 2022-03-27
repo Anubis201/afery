@@ -50,7 +50,7 @@ export class PollPartyComponent {
     const yLabelSpace = 7;
     const thisIsBig = width >= 552;
     const margin = 30;
-    const height = (this.isCarousel ? 250 : 280) - (margin * 2);
+    const height = 280 - (margin * 2);
 
     const xScale = d3
       .scaleBand()
