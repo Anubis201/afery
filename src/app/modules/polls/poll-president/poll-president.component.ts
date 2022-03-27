@@ -32,7 +32,7 @@ export class PollPresidentComponent implements AfterViewInit {
     const width = parseInt(this.image.nativeElement.offsetWidth, 10);
     const yLabelSpace = 7;
     const thisIsBig = width >= 552;
-    const margin = 30;
+    const margin = 25;
     const height = 280 - (margin * 2);
 
     const xScale = d3
@@ -43,7 +43,7 @@ export class PollPresidentComponent implements AfterViewInit {
 
     const yScale = d3
       .scaleLinear()
-      .domain([0, 50])
+      .domain([0, 30])
       .range([height, 0]);
 
     const chartContainer = d3
@@ -83,7 +83,7 @@ export class PollPresidentComponent implements AfterViewInit {
       .append('rect')
       .classed('bar', true )
       .attr('x', d => xScale(d.president as unknown as string) + (thisIsBig ? 20 : 5))
-      .attr('y', d => yScale(d.percentage))
+      .attr('y', d => yScale(d.percentage) - 1)
       .attr('width', xScale.bandwidth() - (thisIsBig ? 45 : 13))
       .transition()
       .ease(d3.easeBounce)

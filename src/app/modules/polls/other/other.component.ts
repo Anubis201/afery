@@ -37,11 +37,23 @@ export class OtherComponent implements AfterViewInit {
     return this.userService.isAdmin
   }
 
+  private getMaxY(data: OtherPollModel[]) {
+    let height = 0;
+
+    data.forEach(val => {
+      if (val.percentage > height) {
+        height = val.percentage;
+      }
+    })
+
+    return height + 5;
+  }
+
   private draw(data: OtherPollModel[]) {
     const width = parseInt(this.image.nativeElement.offsetWidth, 10);
     const yLabelSpace = 7;
     const thisIsBig = width >= 552;
-    const margin = 30;
+    const margin = 20;
     const height = 280 - (margin * 2);
 
     const xScale = d3
@@ -52,14 +64,14 @@ export class OtherComponent implements AfterViewInit {
 
     const yScale = d3
       .scaleLinear()
-      .domain([0, 50])
+      .domain([0, this.getMaxY(data)])
       .range([height, 0]);
 
     const chartContainer = d3
       .select('#' + this.idSvg)
       .attr('width', width + 10)
       .classed('chart-container', true)
-      .attr('height', height + (margin * 2))
+      .attr('height', height + (margin * 2));
 
     const chart = chartContainer.append('g');
 
@@ -69,8 +81,9 @@ export class OtherComponent implements AfterViewInit {
       .call(d3.axisBottom(xScale))
       .selectAll('text')
       .style('opacity', 0)
+      .attr('font-weight', 600)
+      .attr('font-size', '12px')
       .attr('y', 15)
-      // .attr('x', (thisIsBig ? -20 : -14))
       .transition()
       .ease(d3.easeLinear)
       .duration(1500)
@@ -81,15 +94,15 @@ export class OtherComponent implements AfterViewInit {
       .data(data)
       .enter()
       .append('rect')
-      .classed('bar', true )
-      .attr('x', d => xScale(d.text as unknown as string) + (thisIsBig ? 20 : 5))
-      .attr('y', d => yScale(d.percentage))
+      .classed('bar', true)
+      .attr('x', d => xScale(d.text) + (thisIsBig ? 20 : 5))
+      .attr('y', d => yScale(d.percentage) - 1)
       .attr('width', xScale.bandwidth() - (thisIsBig ? 45 : 13))
       .transition()
       .ease(d3.easeBounce)
       .duration(1500)
       .attr('height', d => height - yScale(d.percentage))
-      .attr('fill', 'red');
+      .attr('fill', d => d.color || '#ea00da');
 
     chart
       .selectAll('.label')
@@ -101,8 +114,7 @@ export class OtherComponent implements AfterViewInit {
       .attr('y', d => yScale(d.percentage) - yLabelSpace)
       .attr('fill', 'white')
       .attr('font-weight', 500)
-      .attr('font-size', (thisIsBig ? '14px' : '11px'))
+      .attr('font-size', (thisIsBig ? '14px' : '12px'))
       .attr('text-anchor', 'middle');
   }
-
 }
