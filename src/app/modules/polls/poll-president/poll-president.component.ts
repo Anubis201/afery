@@ -43,7 +43,7 @@ export class PollPresidentComponent implements AfterViewInit {
 
     const yScale = d3
       .scaleLinear()
-      .domain([0, 30])
+      .domain([0, 40])
       .range([height, 0]);
 
     const chartContainer = d3
