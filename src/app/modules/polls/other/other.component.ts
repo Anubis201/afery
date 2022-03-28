@@ -1,9 +1,11 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as d3 from 'd3';
+import { ViewPullEnum } from 'src/app/models/polls/enums/view-pull.enum';
 import { OtherPollModel } from 'src/app/models/polls/other-poll.model';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import { UserService } from 'src/app/services/global/user/user.service';
+import { PieChart } from 'src/app/services/global/d3-char/pie.js'
 
 @Component({
   selector: 'app-other',
@@ -17,8 +19,14 @@ export class OtherComponent implements AfterViewInit {
 
   @ViewChild('duma') image: ElementRef
 
+  readonly ViewPullEnum = ViewPullEnum
+
   ngAfterViewInit() {
-    this.draw(this.poll.items as OtherPollModel[]);
+    if (this.poll?.viewType !== ViewPullEnum.Kolko) {
+      this.drawNormal(this.poll.items as OtherPollModel[]);
+    } else {
+      this.drawCircle(this.poll.items as OtherPollModel[]);
+    }
   }
 
   constructor(
@@ -49,7 +57,20 @@ export class OtherComponent implements AfterViewInit {
     return height + 5;
   }
 
-  private draw(data: OtherPollModel[]) {
+  private drawCircle(data: OtherPollModel[]) {
+    const width = parseInt(this.image.nativeElement.offsetWidth, 10);
+
+    PieChart(data, {
+      name: d => d.text,
+      value: d => d.percentage,
+      width: width,
+      height: 260,
+      stroke: '#161616',
+      strokeWidth: '2'
+    }, '#' + this.idSvg)
+  }
+
+  private drawNormal(data: OtherPollModel[]) {
     const width = parseInt(this.image.nativeElement.offsetWidth, 10);
     const yLabelSpace = 7;
     const thisIsBig = width >= 552;

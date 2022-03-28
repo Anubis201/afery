@@ -2,7 +2,10 @@
   <div #duma>
     <svg [attr.id]="idSvg"></svg>
   </div>
-  <div class="poll__title">{{ poll.title }}</div>
+  <div
+    class="poll__title"
+    [style.margin-top]="poll?.viewType === ViewPullEnum.Kolko ? '23px' : '3px'"
+  >{{ poll.title }}</div>
   <div class="poll__others">
     <div>{{ poll.surveying }}</div>
     <span class="break"></span>

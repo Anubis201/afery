@@ -1,4 +1,4 @@
 export enum ViewPullEnum {
   Normalny,
-  Kółko,
+  Kolko,
 }
