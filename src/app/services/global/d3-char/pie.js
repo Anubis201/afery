@@ -14,7 +14,6 @@ export function PieChart(data, {
   labelRadius = (innerRadius * 0.2 + outerRadius * 0.8), // center radius of labels
   format = ",", // a format specifier for values (in the label)
   names, // array of names (the domain of the color scale)
-  colors, // array of colors for names
   stroke = innerRadius > 0 ? "none" : "white", // stroke separating widths
   strokeWidth = 1, // width of stroke separating wedges
   strokeLinejoin = "round", // line join of stroke separating wedges
@@ -24,24 +23,15 @@ export function PieChart(data, {
   const N = d3.map(data, name);
   const V = d3.map(data, value);
   const I = d3.range(N.length).filter(i => !isNaN(V[i]));
-  const margin = 30;
 
   // Unique the names.
   if (names === undefined) names = N;
   names = new d3.InternSet(names);
 
-  // Chose a default color scheme based on cardinality.
-  if (colors === undefined) colors = d3.schemeSpectral[names.size];
-  if (colors === undefined) colors = d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), names.size);
-
-  // Construct scales.
-  const color = d3.scaleOrdinal(names, colors);
-  console.log(color)
-
   // Compute titles.
   if (title === undefined) {
     const formatValue = d3.format(format);
-    title = i => `${N[i]}\n${formatValue(V[i])}`;
+    title = i => `${N[i]}\n${formatValue(V[i])}%`;
   } else {
     const O = d3.map(data, d => d);
     const T = title;
@@ -66,7 +56,7 @@ export function PieChart(data, {
     .selectAll("path")
     .data(arcs)
     .join("path")
-      .attr("fill", d => color(N[d.data]))
+      .attr("fill", d => data[d.data].color)
       .attr("d", arc)
     .append("title")
       .text(d => title(d.data));
@@ -75,6 +65,7 @@ export function PieChart(data, {
       .attr("font-family", "sans-serif")
       .attr("font-size", 12)
       .attr("text-anchor", "middle")
+      .attr("fill", 'white')
     .selectAll("text")
     .data(arcs)
     .join("text")

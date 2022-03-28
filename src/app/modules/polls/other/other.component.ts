@@ -64,9 +64,9 @@ export class OtherComponent implements AfterViewInit {
       name: d => d.text,
       value: d => d.percentage,
       width: width,
-      height: 260,
+      height: 230,
       stroke: '#161616',
-      strokeWidth: '2'
+      strokeWidth: '3'
     }, '#' + this.idSvg)
   }
 
