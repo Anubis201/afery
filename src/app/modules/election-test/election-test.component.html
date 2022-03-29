@@ -1,11 +1,24 @@
-<div class="container" @showAnimation>
+<div
+  @showAnimation
+  *ngIf="!(isCheckingLogin | async)"
+  class="container"
+  [style.align-self]="isStart.value ? 'unset' : 'center'"
+>
   <header>
-    <h1>Test wyborczy</h1>
+    <h1 [style.text-align]="isStart.value ? 'start' : 'center'">
+      <span>Test wyborczy</span>
+      <span *ngIf="isStart.value">{{ '0' + '/' + questions.value.length }}</span>
+    </h1>
   </header>
+
+  <section *ngIf="isStart.value">
+    <app-level></app-level>
+  </section>
 
   <section *ngIf="!(isStart | async)">
     <app-start-page
       [isLogin]="isLogin | async"
+      [length]="(questions | async).length"
       (start)="isStart.next(true)"
     ></app-start-page>
   </section>

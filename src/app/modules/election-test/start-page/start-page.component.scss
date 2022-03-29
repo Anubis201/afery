@@ -43,9 +43,20 @@ p {
 
 .login-button {
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 4rem;
+
+  p {
+    margin-bottom: 1rem;
+  }
 
   button {
     text-transform: uppercase;
+  }
+
+  &--polska {
+    text-align: start;
+    display: flex;
+    justify-content: center;
+    gap: 9px;
   }
 }

@@ -13,6 +13,7 @@ import { UserService } from 'src/app/services/global/user/user.service';
 })
 export class ElectionTestComponent implements OnInit {
   isStart = new BehaviorSubject<boolean>(false)
+  questions = new BehaviorSubject<any[]>([1, 2, 3])
 
   constructor(
     private titleService: Title,
@@ -22,6 +23,10 @@ export class ElectionTestComponent implements OnInit {
 
   get isLogin() {
     return this.userService.isLogin
+  }
+
+  get isCheckingLogin() {
+    return this.userService.isCheckingLogin
   }
 
   ngOnInit() {
