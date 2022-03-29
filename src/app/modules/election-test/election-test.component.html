@@ -1,1 +1,9 @@
-<p>election-test works!</p>
+<div class="container" @showAnimation>
+  <header>
+    <h1>Test wyborczy</h1>
+  </header>
+
+  <section *ngIf="!(isStart | async)">
+    <app-start-page (start)="isStart.next(true)"></app-start-page>
+  </section>
+</div>
