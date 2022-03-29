@@ -9,6 +9,7 @@
       [length]="questions.value.length"
       [lvl]="lvl | async"
       [question]="questions.value[lvl.value - 1]"
+      (handlePageLvl)="handlePageLvl($event)"
     ></app-level>
   </section>
 

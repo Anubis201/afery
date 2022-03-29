@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/global/user/user.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [showAnimation],
 })
-export class ElectionTestComponent implements OnInit {
+export class ElectionTestComponent {
   isStart = new BehaviorSubject<boolean>(true)
   lvl = new BehaviorSubject<number>(1)
   questions = new BehaviorSubject<QuestionModel[]>(QuestionsData)
@@ -32,8 +32,8 @@ export class ElectionTestComponent implements OnInit {
     return this.userService.isCheckingLogin
   }
 
-  ngOnInit() {
-
+  handlePageLvl(index: number) {
+    this.lvl.next(index);
   }
 
   private metaTags() {

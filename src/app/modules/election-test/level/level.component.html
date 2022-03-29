@@ -17,3 +17,27 @@
 <section class="title">
   <div>{{ question.text }}</div>
 </section>
+
+<section class="actions">
+  <button
+    mat-icon-button
+    [disabled]="lvl === 1"
+    (click)="handlePageLvl.emit(lvl - 1)"
+  >
+    <mat-icon class="actions--left">arrow_back_ios</mat-icon>
+  </button>
+
+  <button
+    *ngIf="lvl !== length"
+    mat-icon-button
+    (click)="handlePageLvl.emit(lvl + 1)"
+  >
+    <mat-icon class="actions--right">arrow_forward_ios</mat-icon>
+  </button>
+
+  <button
+    *ngIf="lvl === length"
+    mat-raised-button
+    color="primary"
+  >WYNIK</button>
+</section>

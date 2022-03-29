@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { QuestionModel } from 'src/app/models/polls/question.model';
 
 @Component({
@@ -12,5 +12,5 @@ export class LevelComponent {
   @Input() lvl: number
   @Input() question: QuestionModel
 
-
+  @Output() handlePageLvl = new EventEmitter<number>()
 }
