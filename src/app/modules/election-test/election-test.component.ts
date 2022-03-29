@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
 import { showAnimation } from 'src/app/services/animations/others.animations';
+import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
   selector: 'app-election-test',
@@ -16,7 +17,12 @@ export class ElectionTestComponent implements OnInit {
   constructor(
     private titleService: Title,
     private meta: Meta,
+    private userService: UserService,
   ) { this.metaTags() }
+
+  get isLogin() {
+    return this.userService.isLogin
+  }
 
   ngOnInit() {
 

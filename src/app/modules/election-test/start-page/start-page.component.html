@@ -22,3 +22,14 @@
     (click)="start.emit()"
   >Start</button>
 </section>
+
+<section
+  *ngIf="!isLogin"
+  class="login-button"
+>
+  <p>sadasd sads</p>
+  <button
+    mat-raised-button
+    color="primary"
+  >Zaloguj się</button>
+</section>

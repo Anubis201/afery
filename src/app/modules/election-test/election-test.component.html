@@ -4,6 +4,9 @@
   </header>
 
   <section *ngIf="!(isStart | async)">
-    <app-start-page (start)="isStart.next(true)"></app-start-page>
+    <app-start-page
+      [isLogin]="isLogin | async"
+      (start)="isStart.next(true)"
+    ></app-start-page>
   </section>
 </div>
