@@ -1,8 +1,19 @@
+<header>
+  <h1>
+    <span>Test wyborczy</span>
+    <span>{{ lvl + '/' + length }}</span>
+  </h1>
+</header>
+
 <section>
   <mat-progress-bar
     color="primary"
     mode="determinate"
-    [value]="40"
+    [value]="lvl * 100 / length"
   >
   </mat-progress-bar>
+</section>
+
+<section class="title">
+  <div>{{ question.text }}</div>
 </section>

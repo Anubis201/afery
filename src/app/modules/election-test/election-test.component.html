@@ -4,15 +4,12 @@
   class="container"
   [style.align-self]="isStart.value ? 'unset' : 'center'"
 >
-  <header>
-    <h1 [style.text-align]="isStart.value ? 'start' : 'center'">
-      <span>Test wyborczy</span>
-      <span *ngIf="isStart.value">{{ '0' + '/' + questions.value.length }}</span>
-    </h1>
-  </header>
-
   <section *ngIf="isStart.value">
-    <app-level></app-level>
+    <app-level
+      [length]="questions.value.length"
+      [lvl]="lvl | async"
+      [question]="questions.value[lvl.value - 1]"
+    ></app-level>
   </section>
 
   <section *ngIf="!(isStart | async)">

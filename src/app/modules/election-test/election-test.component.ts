@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
+import { QuestionModel } from 'src/app/models/polls/question.model';
 import { showAnimation } from 'src/app/services/animations/others.animations';
+import { QuestionsData } from 'src/app/services/global/data/questions';
 import { UserService } from 'src/app/services/global/user/user.service';
 
 @Component({
@@ -12,8 +14,9 @@ import { UserService } from 'src/app/services/global/user/user.service';
   animations: [showAnimation],
 })
 export class ElectionTestComponent implements OnInit {
-  isStart = new BehaviorSubject<boolean>(false)
-  questions = new BehaviorSubject<any[]>([1, 2, 3])
+  isStart = new BehaviorSubject<boolean>(true)
+  lvl = new BehaviorSubject<number>(1)
+  questions = new BehaviorSubject<QuestionModel[]>(QuestionsData)
 
   constructor(
     private titleService: Title,
