@@ -62,6 +62,7 @@
       *ngIf="lvl === length"
       mat-raised-button
       color="accent"
+      [disabled]="!isAllQuestionChoosed"
       (click)="end.emit()"
     >WYNIK</button>
   </div>

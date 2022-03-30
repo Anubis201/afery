@@ -18,6 +18,7 @@ export class ElectionTestComponent {
   lvl = new BehaviorSubject<number>(1)
   questions = new BehaviorSubject<QuestionModel[]>(QuestionsData)
   isEnd = new BehaviorSubject<boolean>(false)
+  isAllQuestionChoosed = new BehaviorSubject<boolean>(false)
 
   constructor(
     private titleService: Title,
@@ -39,7 +40,6 @@ export class ElectionTestComponent {
 
   handleEnd() {
     this.isEnd.next(true);
-    console.log('dsadasd')
   }
 
   handleStart() {
@@ -49,8 +49,35 @@ export class ElectionTestComponent {
   onChangeAnswer({ answerIndex, isChoosed }: { answerIndex: number, isChoosed: boolean }) {
     const questions = this.questions.value;
 
-    questions[this.lvl.value - 1].answers = questions[this.lvl.value - 1].answers.map(answer => ({ text: answer.text, isChoosed: false }))
+    questions[this.lvl.value - 1]
+      .answers = questions[this.lvl.value - 1].answers
+      .map(answer => ({ ...answer, isChoosed: false }));
+
     questions[this.lvl.value - 1].answers[answerIndex].isChoosed = isChoosed;
+
+    let isAllChoosed = this.isAllQuestionChoosed.value;
+    questions.every(question => {
+      let isSomeAnswerChecked = false;
+
+      question.answers.every(answer => {
+        if (answer.isChoosed) {
+          isSomeAnswerChecked = true;
+          return false
+        }
+
+        return true
+      })
+
+      if (!isSomeAnswerChecked) {
+        isAllChoosed = false;
+        return false
+      }
+
+      isAllChoosed = true;
+      return true
+    })
+
+    this.isAllQuestionChoosed.next(isAllChoosed);
     this.questions.next(questions);
   }
 
