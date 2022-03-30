@@ -13,6 +13,7 @@
       [lvl]="lvl | async"
       [question]="questions.value[lvl.value - 1]"
       (handlePageLvl)="handlePageLvl($event)"
+      (onChangeAnswer)="onChangeAnswer($event)"
       (end)="handleEnd()"
     ></app-level>
   </section>

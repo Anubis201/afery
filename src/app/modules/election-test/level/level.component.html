@@ -26,6 +26,8 @@
     >
       <mat-checkbox
         color="accent"
+        [ngModel]="answer.isChoosed"
+        (change)="onChangeAnswer.emit({ answerIndex: index, isChoosed: $event.checked })"
       >
         <div class="answers__item--contain">
           <span>{{ letters[index] }}.</span>

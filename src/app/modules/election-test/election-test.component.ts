@@ -46,6 +46,14 @@ export class ElectionTestComponent {
     this.isStart.next(true);
   }
 
+  onChangeAnswer({ answerIndex, isChoosed }: { answerIndex: number, isChoosed: boolean }) {
+    const questions = this.questions.value;
+
+    questions[this.lvl.value - 1].answers = questions[this.lvl.value - 1].answers.map(answer => ({ text: answer.text, isChoosed: false }))
+    questions[this.lvl.value - 1].answers[answerIndex].isChoosed = isChoosed;
+    this.questions.next(questions);
+  }
+
   private metaTags() {
     this.titleService.setTitle('Test wyborczy - Afery');
     this.meta.updateTag({ name:'description', content: 'Rozwiąż prosty test wyborczy i dowiedz się która partia jest ci najbliższa.' }, "name='description'");

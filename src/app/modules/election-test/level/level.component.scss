@@ -65,8 +65,9 @@ header {
 
     &--contain {
       display: flex;
+      margin-top: -3px;
       gap: 12px;
-      margin-left: 2px;
+      white-space: normal;
     }
   }
 }

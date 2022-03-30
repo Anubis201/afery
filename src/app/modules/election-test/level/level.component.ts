@@ -14,6 +14,7 @@ export class LevelComponent {
 
   @Output() handlePageLvl = new EventEmitter<number>()
   @Output() end = new EventEmitter<void>()
+  @Output() onChangeAnswer = new EventEmitter<{ answerIndex: boolean, isChoosed: boolean }>()
 
   readonly letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 }
