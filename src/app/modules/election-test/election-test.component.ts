@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
 import { QuestionModel } from 'src/app/models/polls/question.model';

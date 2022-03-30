@@ -5,16 +5,20 @@ export const QuestionsData: QuestionModel[] = [
     text: 'Czy polacy są dobrym narodem?',
     answers: [
       {
-        text: 'Tak'
+        text: 'Tak',
+        isChoosed: false
       },
       {
-        text: 'Nie'
+        text: 'Nie',
+        isChoosed: false
       },
       {
-        text: 'Może'
+        text: 'Może',
+        isChoosed: false
       },
       {
-        text: 'I tak, i nie'
+        text: 'I tak, i nie',
+        isChoosed: false
       },
     ]
   },
@@ -22,16 +26,20 @@ export const QuestionsData: QuestionModel[] = [
     text: 'Aborcja jest ok?',
     answers: [
       {
-        text: 'Tak'
+        text: 'Tak',
+        isChoosed: false
       },
       {
-        text: 'Nie'
+        text: 'Nie',
+        isChoosed: false
       },
       {
-        text: 'Tak ale nie do końca'
+        text: 'Tak ale nie do końca',
+        isChoosed: false
       },
       {
-        text: 'Nie nigdy'
+        text: 'Nie nigdy',
+        isChoosed: false
       },
     ]
   },
@@ -39,13 +47,16 @@ export const QuestionsData: QuestionModel[] = [
     text: 'Polityka klimatyczna.',
     answers: [
       {
-        text: 'Nie zamykać rentownych elektrowni i kopalni na węgiel.'
+        text: 'Nie zamykać rentownych elektrowni i kopalni na węgiel.',
+        isChoosed: false
       },
       {
-        text: 'Powoli zamykać wszystkie elektrownie i kopalnie węglowe.'
+        text: 'Powoli zamykać wszystkie elektrownie i kopalnie węglowe.',
+        isChoosed: false
       },
       {
-        text: 'W jak najszybszym tempię zamknąć wszystkie kopalnie i elektrownie'
+        text: 'W jak najszybszym tempię zamknąć wszystkie kopalnie i elektrownie',
+        isChoosed: false
       },
     ]
   }

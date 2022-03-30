@@ -24,7 +24,9 @@
       *ngFor="let answer of question.answers; let index = index"
       class="answers__item"
     >
-      <mat-checkbox color="accent">
+      <mat-checkbox
+        color="accent"
+      >
         <div class="answers__item--contain">
           <span>{{ letters[index] }}.</span>
           <span>{{ answer.text }}</span>
