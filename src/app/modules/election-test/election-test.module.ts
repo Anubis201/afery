@@ -7,17 +7,21 @@ import { SharedModule } from '../shared/shared.module';
 import { StartPageComponent } from './start-page/start-page.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LevelComponent } from './level/level.component';
+import { ResultPageComponent } from './result-page/result-page.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
     ElectionTestComponent,
     StartPageComponent,
-    LevelComponent
+    LevelComponent,
+    ResultPageComponent
   ],
   imports: [
     CommonModule,
     MatProgressBarModule,
     ElectionTestRoutingModule,
+    MatCheckboxModule,
     SharedModule,
   ]
 })

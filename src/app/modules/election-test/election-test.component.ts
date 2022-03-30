@@ -17,6 +17,7 @@ export class ElectionTestComponent {
   isStart = new BehaviorSubject<boolean>(true)
   lvl = new BehaviorSubject<number>(1)
   questions = new BehaviorSubject<QuestionModel[]>(QuestionsData)
+  isEnd = new BehaviorSubject<boolean>(false)
 
   constructor(
     private titleService: Title,
@@ -34,6 +35,15 @@ export class ElectionTestComponent {
 
   handlePageLvl(index: number) {
     this.lvl.next(index);
+  }
+
+  handleEnd() {
+    this.isEnd.next(true);
+    console.log('dsadasd')
+  }
+
+  handleStart() {
+    this.isStart.next(true);
   }
 
   private metaTags() {

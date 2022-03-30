@@ -1,6 +1,6 @@
 export interface QuestionModel {
   text: string
-  anwers: {
+  answers: {
     text: string
   }[]
 }

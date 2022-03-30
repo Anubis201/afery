@@ -4,20 +4,28 @@
   class="container"
   [style.align-self]="isStart.value ? 'unset' : 'center'"
 >
-  <section *ngIf="isStart.value">
+  <section
+    *ngIf="isStart.value && !(isEnd | async)"
+    class="lvl"
+  >
     <app-level
       [length]="questions.value.length"
       [lvl]="lvl | async"
       [question]="questions.value[lvl.value - 1]"
       (handlePageLvl)="handlePageLvl($event)"
+      (end)="handleEnd()"
     ></app-level>
   </section>
 
-  <section *ngIf="!(isStart | async)">
+  <section *ngIf="!(isStart | async) && !isEnd.value">
     <app-start-page
       [isLogin]="isLogin | async"
       [length]="(questions | async).length"
-      (start)="isStart.next(true)"
+      (start)="handleStart()"
     ></app-start-page>
+  </section>
+
+  <section *ngIf="isStart.value && isEnd.value">
+    <app-result-page></app-result-page>
   </section>
 </div>

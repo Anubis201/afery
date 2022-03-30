@@ -3,7 +3,7 @@ import { QuestionModel } from 'src/app/models/polls/question.model';
 export const QuestionsData: QuestionModel[] = [
   {
     text: 'Czy polacy są dobrym narodem?',
-    anwers: [
+    answers: [
       {
         text: 'Tak'
       },
@@ -20,7 +20,7 @@ export const QuestionsData: QuestionModel[] = [
   },
   {
     text: 'Aborcja jest ok?',
-    anwers: [
+    answers: [
       {
         text: 'Tak'
       },
@@ -37,7 +37,7 @@ export const QuestionsData: QuestionModel[] = [
   },
   {
     text: 'Polityka klimatyczna.',
-    anwers: [
+    answers: [
       {
         text: 'Nie zamykać rentownych elektrowni i kopalni na węgiel.'
       },

@@ -13,4 +13,7 @@ export class LevelComponent {
   @Input() question: QuestionModel
 
   @Output() handlePageLvl = new EventEmitter<number>()
+  @Output() end = new EventEmitter<void>()
+
+  readonly letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 }
