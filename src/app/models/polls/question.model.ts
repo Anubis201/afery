@@ -1,13 +1,10 @@
-import { PartiesEnum } from '../articles/enums/parties.enum'
+import { PartiesPoints } from './parties-points.model'
 
 export interface QuestionModel {
   text: string
   answers: {
     text: string
     isChoosed: boolean
-    partiesPoints: {
-      party: PartiesEnum
-      points: number
-    }[]
+    partiesPoints: PartiesPoints[]
   }[]
 }

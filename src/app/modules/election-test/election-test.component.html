@@ -28,6 +28,6 @@
   </section>
 
   <section *ngIf="isStart.value && isEnd.value">
-    <app-result-page></app-result-page>
+    <app-result-page [result]="result | async"></app-result-page>
   </section>
 </div>
