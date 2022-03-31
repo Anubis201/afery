@@ -9,6 +9,7 @@
     class="lvl"
   >
     <app-level
+      @showAnimation
       [length]="questions.value.length"
       [lvl]="lvl | async"
       [question]="questions.value[lvl.value - 1]"
@@ -27,7 +28,7 @@
     ></app-start-page>
   </section>
 
-  <section *ngIf="isStart.value && isEnd.value">
+  <section *ngIf="isStart.value && isEnd.value" @showAnimation>
     <app-result-page [result]="result | async"></app-result-page>
   </section>
 </div>

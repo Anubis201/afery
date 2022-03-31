@@ -17,7 +17,7 @@ import { UserService } from 'src/app/services/global/user/user.service';
   animations: [showAnimation],
 })
 export class ElectionTestComponent implements OnInit {
-  isStart = new BehaviorSubject<boolean>(true)
+  isStart = new BehaviorSubject<boolean>(false)
   lvl = new BehaviorSubject<number>(1)
   questions = new BehaviorSubject<QuestionModel[]>(QuestionsData)
   isEnd = new BehaviorSubject<boolean>(false)
@@ -60,10 +60,8 @@ export class ElectionTestComponent implements OnInit {
         return true
       })
     })
-    console.log(result)
 
     const sortableResult = Object.entries(result).sort(([, a], [, b]) => (a - b))
-
     this.result.next(sortableResult.map(ele => ({ party: ele[0], points: ele[1] })).reverse() as any)
     this.isEnd.next(true);
   }

@@ -54,13 +54,13 @@ export class AppComponent implements OnInit {
         href: '/sondaze',
       },
       {
+        label: 'Test wyborczy',
+        href: '/test-wyborczy',
+      },
+      {
         label: 'Szukaj',
         href: '/szukaj',
         isDisabledPcNav: true
-      },
-      {
-        label: 'Test wyborczy',
-        href: '/test-wyborczy',
       },
     ]
   }
