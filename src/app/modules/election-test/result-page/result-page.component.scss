@@ -2,14 +2,51 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  align-items: center;
 
   .item {
-    display: flex;
-    gap: 1rem;
+    &__rank {
+      display: flex;
+      width: 70px;
+      gap: 1rem;
+      align-items: center;
 
-    img {
-      height: 25px;
+      &--index {
+        font-weight: 500;
+        font-size: 17px;
+      }
+
+      img {
+        height: 25px;
+      }
+    }
+
+    &__top {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      font-weight: 500;
+      font-size: 25px;
+      margin-top: 1.6rem;
+      line-height: 35px;
+
+      @media (min-width: 767px) {
+      }
+
+      &--rest {
+        font-size: 20px;
+        margin-top: 3rem;
+        margin-bottom: 10px;
+      }
+
+      img {
+        height: 65px;
+      }
     }
   }
 }
 
+h1 {
+  text-align: center;
+}

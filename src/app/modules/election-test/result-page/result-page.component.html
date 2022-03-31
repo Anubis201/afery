@@ -3,10 +3,27 @@
     *ngFor="let item of result; let index = index"
     class="item"
   >
-    <div>{{ index + 1 }}.</div>
-    <img
-      [src]="'/assets/icons/parties/' + item.party + '.png'"
-      [alt]="'Logo ' + item.party"
-    />
+    <div
+      *ngIf="index === 0"
+      class="item__top"
+    >
+      <span>Oto partia, która powinna być ci najbliższa</span>
+      <img
+        [src]="'/assets/icons/parties/' + item.party + '.png'"
+        [alt]="'Logo ' + item.party"
+      />
+      <span class="item__top--rest">Reszta rankingu</span>
+    </div>
+
+    <div
+      *ngIf="index !== 0"
+      class="item__rank"
+    >
+      <div class="item__rank--index">{{ index + 1 }}.</div>
+      <img
+        [src]="'/assets/icons/parties/' + item.party + '.png'"
+        [alt]="'Logo ' + item.party"
+      />
+    </div>
   </div>
 </div>
