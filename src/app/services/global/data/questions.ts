@@ -10,9 +10,29 @@ export const QuestionsData: QuestionModel[] = [
         isChoosed: false,
         partiesPoints: [
           {
+            party: PartiesEnum.pis,
+            points: 2
+          },
+          {
             party: PartiesEnum.konfederacja,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: -1
+          },
+          {
+            party: PartiesEnum.lewica,
+            points: -2
+          },
+          {
+            party: PartiesEnum.po,
+            points: -1
+          },
         ]
       },
       {
@@ -22,7 +42,27 @@ export const QuestionsData: QuestionModel[] = [
           {
             party: PartiesEnum.lewica,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: -1
+          },
+          {
+            party: PartiesEnum.po,
+            points: 2
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -2
+          },
+          {
+            party: PartiesEnum.konfederacja,
+            points: -2
+          },
         ]
       },
       {
@@ -31,8 +71,28 @@ export const QuestionsData: QuestionModel[] = [
         partiesPoints: [
           {
             party: PartiesEnum.polska2050,
-            points: 1
-          }
+            points: 2
+          },
+          {
+            party: PartiesEnum.psl,
+            points: 2
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -1
+          },
+          {
+            party: PartiesEnum.po,
+            points: -1
+          },
+          {
+            party: PartiesEnum.konfederacja,
+            points: -1
+          },
+          {
+            party: PartiesEnum.lewica,
+            points: -2
+          },
         ]
       },
       {
@@ -41,19 +101,34 @@ export const QuestionsData: QuestionModel[] = [
         partiesPoints: [
           {
             party: PartiesEnum.po,
+            points: -2
+          },
+          {
+            party: PartiesEnum.lewica,
+            points: -2
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: -1
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -1
+          },
+          {
+            party: PartiesEnum.pis,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.konfederacja,
+            points: 1
+          },
         ]
       },
       {
         text: 'Nie mam zdania.',
         isChoosed: false,
-        partiesPoints: [
-          {
-            party: PartiesEnum.po,
-            points: 1
-          }
-        ]
+        partiesPoints: []
       },
     ]
   },
@@ -66,9 +141,25 @@ export const QuestionsData: QuestionModel[] = [
         isChoosed: false,
         partiesPoints: [
           {
-            party: PartiesEnum.konfederacja,
+            party: PartiesEnum.po,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -2
+          },
+          {
+            party: PartiesEnum.lewica,
+            points: 2
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: -1
+          },
         ]
       },
       {
@@ -77,44 +168,65 @@ export const QuestionsData: QuestionModel[] = [
         partiesPoints: [
           {
             party: PartiesEnum.lewica,
+            points: -2
+          },
+          {
+            party: PartiesEnum.pis,
+            points: 2
+          },
+          {
+            party: PartiesEnum.psl,
             points: 1
-          }
-        ]
-      },
-      {
-        text: 'Należy go zmniejszyć.',
-        isChoosed: false,
-        partiesPoints: [
+          },
           {
             party: PartiesEnum.polska2050,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.po,
+            points: -1
+          },
         ]
       },
       {
-        text: 'Należy go zmniejszyć.',
+        text: 'Nie mam zdania.',
         isChoosed: false,
-        partiesPoints: [
-          {
-            party: PartiesEnum.po,
-            points: 1
-          }
-        ]
+        partiesPoints: []
       },
     ]
   },
 
   {
-    text: 'Czy należy konfiskować/nacjonalizować majątki i firmy rosyjskie?',
+    text: 'Czy należy konfiskować/nacjonalizować majątki oraz firmy rosyjskie?',
     answers: [
       {
         text: 'Tak.',
         isChoosed: false,
         partiesPoints: [
           {
-            party: PartiesEnum.konfederacja,
+            party: PartiesEnum.pis,
+            points: 2
+          },
+          {
+            party: PartiesEnum.lewica,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.po,
+            points: 1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: 1
+          },
+          {
+            party: PartiesEnum.konfederacja,
+            points: -1
+          },
+          {
+            party: PartiesEnum.psl,
+            points: 1
+          },
         ]
       },
       {
@@ -122,20 +234,35 @@ export const QuestionsData: QuestionModel[] = [
         isChoosed: false,
         partiesPoints: [
           {
-            party: PartiesEnum.lewica,
+            party: PartiesEnum.konfederacja,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.lewica,
+            points: -1
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -2
+          },
+          {
+            party: PartiesEnum.po,
+            points: -1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: -1
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -1
+          },
         ]
       },
       {
         text: 'Nie mam zdania.',
         isChoosed: false,
-        partiesPoints: [
-          {
-            party: PartiesEnum.polska2050,
-            points: 1
-          }
-        ]
+        partiesPoints: []
       },
     ]
   },
@@ -149,8 +276,28 @@ export const QuestionsData: QuestionModel[] = [
         partiesPoints: [
           {
             party: PartiesEnum.konfederacja,
+            points: -2
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -1
+          },
+          {
+            party: PartiesEnum.po,
+            points: 2
+          },
+          {
+            party: PartiesEnum.lewica,
+            points: 2
+          },
+          {
+            party: PartiesEnum.polska2050,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.psl,
+            points: 1
+          },
         ]
       },
       {
@@ -159,19 +306,34 @@ export const QuestionsData: QuestionModel[] = [
         partiesPoints: [
           {
             party: PartiesEnum.lewica,
+            points: -2
+          },
+          {
+            party: PartiesEnum.po,
+            points: -2
+          },
+          {
+            party: PartiesEnum.konfederacja,
+            points: 2
+          },
+          {
+            party: PartiesEnum.pis,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: -1
+          },
         ]
       },
       {
         text: 'Nie mam zdania.',
         isChoosed: false,
-        partiesPoints: [
-          {
-            party: PartiesEnum.lewica,
-            points: 1
-          }
-        ]
+        partiesPoints: []
       },
     ]
   },
@@ -186,7 +348,27 @@ export const QuestionsData: QuestionModel[] = [
           {
             party: PartiesEnum.konfederacja,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.pis,
+            points: 1
+          },
+          {
+            party: PartiesEnum.po,
+            points: -1
+          },
+          {
+            party: PartiesEnum.psl,
+            points: 1
+          },
+          {
+            party: PartiesEnum.lewica,
+            points: -1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: 1
+          },
         ]
       },
       {
@@ -195,8 +377,28 @@ export const QuestionsData: QuestionModel[] = [
         partiesPoints: [
           {
             party: PartiesEnum.lewica,
-            points: 1
-          }
+            points: -2
+          },
+          {
+            party: PartiesEnum.konfederacja,
+            points: 2
+          },
+          {
+            party: PartiesEnum.po,
+            points: -2
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -2
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: -2
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -1
+          },
         ]
       },
       {
@@ -204,35 +406,70 @@ export const QuestionsData: QuestionModel[] = [
         isChoosed: false,
         partiesPoints: [
           {
+            party: PartiesEnum.konfederacja,
+            points: -2
+          },
+          {
             party: PartiesEnum.lewica,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.po,
+            points: 1
+          },
+          {
+            party: PartiesEnum.psl,
+            points: 1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: 1
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -1
+          },
         ]
       },
       {
         text: 'Nie mam zdania.',
         isChoosed: false,
-        partiesPoints: [
-          {
-            party: PartiesEnum.lewica,
-            points: 1
-          }
-        ]
+        partiesPoints: []
       },
     ]
   },
 
   {
-    text: 'Czy należy podwyższyć podatki dla najlepiej zarabiających osób?',
+    text: 'Czy należy podwyższyć podatki dla najlepiej zarabiających?',
     answers: [
       {
         text: 'Tak.',
         isChoosed: false,
         partiesPoints: [
           {
-            party: PartiesEnum.konfederacja,
+            party: PartiesEnum.lewica,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.po,
+            points: -1
+          },
+          {
+            party: PartiesEnum.konfederacja,
+            points: -2
+          },
+          {
+            party: PartiesEnum.pis,
+            points: 1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: -1
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -1
+          },
         ]
       },
       {
@@ -241,8 +478,20 @@ export const QuestionsData: QuestionModel[] = [
         partiesPoints: [
           {
             party: PartiesEnum.lewica,
-            points: 1
-          }
+            points: 2
+          },
+          {
+            party: PartiesEnum.pis,
+            points: 2
+          },
+          {
+            party: PartiesEnum.po,
+            points: -1
+          },
+          {
+            party: PartiesEnum.konfederacja,
+            points: -2
+          },
         ]
       },
       {
@@ -250,20 +499,35 @@ export const QuestionsData: QuestionModel[] = [
         isChoosed: false,
         partiesPoints: [
           {
+            party: PartiesEnum.konfederacja,
+            points: 2
+          },
+          {
             party: PartiesEnum.lewica,
+            points: -1
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -1
+          },
+          {
+            party: PartiesEnum.polska2050,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.psl,
+            points: 1
+          },
+          {
+            party: PartiesEnum.po,
+            points: 1
+          },
         ]
       },
       {
         text: 'Nie mam zdania.',
         isChoosed: false,
-        partiesPoints: [
-          {
-            party: PartiesEnum.lewica,
-            points: 1
-          }
-        ]
+        partiesPoints: []
       },
     ]
   },
@@ -277,8 +541,28 @@ export const QuestionsData: QuestionModel[] = [
         partiesPoints: [
           {
             party: PartiesEnum.konfederacja,
+            points: 2
+          },
+          {
+            party: PartiesEnum.pis,
+            points: 2
+          },
+          {
+            party: PartiesEnum.lewica,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: 1
+          },
+          {
+            party: PartiesEnum.po,
+            points: 1
+          },
+          {
+            party: PartiesEnum.psl,
+            points: 1
+          },
         ]
       },
       {
@@ -287,19 +571,34 @@ export const QuestionsData: QuestionModel[] = [
         partiesPoints: [
           {
             party: PartiesEnum.lewica,
-            points: 1
-          }
+            points: -1
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -1
+          },
+          {
+            party: PartiesEnum.konfederacja,
+            points: -2
+          },
+          {
+            party: PartiesEnum.po,
+            points: -1
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -2
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: -1
+          },
         ]
       },
       {
         text: 'Nie mam zdania.',
         isChoosed: false,
-        partiesPoints: [
-          {
-            party: PartiesEnum.lewica,
-            points: 1
-          }
-        ]
+        partiesPoints: []
       },
     ]
   },
@@ -308,13 +607,33 @@ export const QuestionsData: QuestionModel[] = [
     text: 'Czy należy przyjmować uchodźców i w jaki sposób ich traktować?',
     answers: [
       {
-        text: 'Trzeba ich przyjmować i zapewnić im takie sama prawa, jakie ma Polski obywatel, z wyłączeniem możliwości głosowania.',
+        text: 'Należy ich przyjmować i zapewnić im takie sama prawa, jakie ma Polski obywatel, z wyłączeniem możliwości głosowania.',
         isChoosed: false,
         partiesPoints: [
           {
             party: PartiesEnum.konfederacja,
+            points: -1
+          },
+          {
+            party: PartiesEnum.pis,
+            points: 2
+          },
+          {
+            party: PartiesEnum.lewica,
+            points: 2
+          },
+          {
+            party: PartiesEnum.po,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.psl,
+            points: 1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: 1
+          },
         ]
       },
       {
@@ -322,9 +641,29 @@ export const QuestionsData: QuestionModel[] = [
         isChoosed: false,
         partiesPoints: [
           {
-            party: PartiesEnum.lewica,
+            party: PartiesEnum.konfederacja,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -1
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -1
+          },
+          {
+            party: PartiesEnum.lewica,
+            points: -1
+          },
+          {
+            party: PartiesEnum.po,
+            points: -1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: -1
+          },
         ]
       },
       {
@@ -333,19 +672,34 @@ export const QuestionsData: QuestionModel[] = [
         partiesPoints: [
           {
             party: PartiesEnum.lewica,
-            points: 1
-          }
+            points: -2
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -2
+          },
+          {
+            party: PartiesEnum.konfederacja,
+            points: -1
+          },
+          {
+            party: PartiesEnum.po,
+            points: -2
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -2
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: -2
+          },
         ]
       },
       {
         text: 'Nie mam zdania.',
         isChoosed: false,
-        partiesPoints: [
-          {
-            party: PartiesEnum.lewica,
-            points: 1
-          }
-        ]
+        partiesPoints: []
       },
     ]
   },
@@ -359,8 +713,28 @@ export const QuestionsData: QuestionModel[] = [
         partiesPoints: [
           {
             party: PartiesEnum.konfederacja,
-            points: 1
-          }
+            points: -1
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -1
+          },
+          {
+            party: PartiesEnum.po,
+            points: 2
+          },
+          {
+            party: PartiesEnum.lewica,
+            points: 2
+          },
+          {
+            party: PartiesEnum.psl,
+            points: 2
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: 2
+          },
         ]
       },
       {
@@ -368,20 +742,35 @@ export const QuestionsData: QuestionModel[] = [
         isChoosed: false,
         partiesPoints: [
           {
-            party: PartiesEnum.lewica,
+            party: PartiesEnum.pis,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.konfederacja,
+            points: 1
+          },
+          {
+            party: PartiesEnum.lewica,
+            points: -2
+          },
+          {
+            party: PartiesEnum.po,
+            points: -2
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -2
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: -2
+          },
         ]
       },
       {
         text: 'Nie mam zdania.',
         isChoosed: false,
-        partiesPoints: [
-          {
-            party: PartiesEnum.lewica,
-            points: 1
-          }
-        ]
+        partiesPoints: []
       },
     ]
   },
@@ -395,65 +784,64 @@ export const QuestionsData: QuestionModel[] = [
         partiesPoints: [
           {
             party: PartiesEnum.konfederacja,
+            points: -2
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -2
+          },
+          {
+            party: PartiesEnum.lewica,
+            points: 2
+          },
+          {
+            party: PartiesEnum.polska2050,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.po,
+            points: 1
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -1
+          },
         ]
       },
       {
-        text: 'Trzeba porzucić ten plan i nie rostawać się z węglem.',
+        text: 'Trzeba porzucić ten plan w całości.',
         isChoosed: false,
         partiesPoints: [
           {
             party: PartiesEnum.lewica,
-            points: 1
-          }
-        ]
-      },
-      {
-        text: 'Nie mam zdania.',
-        isChoosed: false,
-        partiesPoints: [
-          {
-            party: PartiesEnum.lewica,
-            points: 1
-          }
-        ]
-      },
-    ]
-  },
-
-  {
-    text: 'Zgodnie z umową społeczna do 2049 roku Polska ma się rozstać z węglem. Czy należy ją potrzymać?',
-    answers: [
-      {
-        text: 'Tak, ale trzeba przyspieszyć ten termin do 2035 roku.',
-        isChoosed: false,
-        partiesPoints: [
+            points: -2
+          },
           {
             party: PartiesEnum.konfederacja,
-            points: 1
-          }
-        ]
-      },
-      {
-        text: 'Trzeba porzucić ten plan i nie rostawać się z węglem.',
-        isChoosed: false,
-        partiesPoints: [
+            points: 2
+          },
           {
-            party: PartiesEnum.lewica,
-            points: 1
-          }
+            party: PartiesEnum.pis,
+            points: -1
+          },
+          {
+            party: PartiesEnum.po,
+            points: -2
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -2
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: -2
+          },
         ]
       },
       {
         text: 'Nie mam zdania.',
         isChoosed: false,
-        partiesPoints: [
-          {
-            party: PartiesEnum.lewica,
-            points: 1
-          }
-        ]
+        partiesPoints: []
       },
     ]
   },
@@ -467,8 +855,28 @@ export const QuestionsData: QuestionModel[] = [
         partiesPoints: [
           {
             party: PartiesEnum.konfederacja,
+            points: -2
+          },
+          {
+            party: PartiesEnum.pis,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.lewica,
+            points: 2
+          },
+          {
+            party: PartiesEnum.po,
+            points: 1
+          },
+          {
+            party: PartiesEnum.psl,
+            points: 1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: 1
+          },
         ]
       },
       {
@@ -476,9 +884,29 @@ export const QuestionsData: QuestionModel[] = [
         isChoosed: false,
         partiesPoints: [
           {
+            party: PartiesEnum.konfederacja,
+            points: -2
+          },
+          {
             party: PartiesEnum.lewica,
+            points: 2
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -1
+          },
+          {
+            party: PartiesEnum.po,
             points: 1
-          }
+          },
+          {
+            party: PartiesEnum.psl,
+            points: 1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: 1
+          },
         ]
       },
       {
@@ -487,8 +915,28 @@ export const QuestionsData: QuestionModel[] = [
         partiesPoints: [
           {
             party: PartiesEnum.lewica,
-            points: 1
-          }
+            points: 2
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -1
+          },
+          {
+            party: PartiesEnum.konfederacja,
+            points: -2
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -1
+          },
+          {
+            party: PartiesEnum.po,
+            points: -1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: -1
+          },
         ]
       },
       {
@@ -497,19 +945,34 @@ export const QuestionsData: QuestionModel[] = [
         partiesPoints: [
           {
             party: PartiesEnum.lewica,
-            points: 1
-          }
+            points: -2
+          },
+          {
+            party: PartiesEnum.po,
+            points: -1
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -1
+          },
+          {
+            party: PartiesEnum.po,
+            points: -1
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -1
+          },
+          {
+            party: PartiesEnum.konfederacja,
+            points: 2
+          },
         ]
       },
       {
         text: 'Nie wiem.',
         isChoosed: false,
-        partiesPoints: [
-          {
-            party: PartiesEnum.lewica,
-            points: 1
-          }
-        ]
+        partiesPoints: []
       },
     ]
   },
