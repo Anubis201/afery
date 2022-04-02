@@ -23,6 +23,7 @@ import { ImagesComponent } from './images/images.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { AddNoArticleImageComponent } from './images/add-no-article-image/add-no-article-image.component';
 import { ItemImageComponent } from './images/item-image/item-image.component';
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 
 
 
@@ -53,7 +54,11 @@ import { ItemImageComponent } from './images/item-image/item-image.component';
     EditorModule,
     MatChipsModule,
     ClipboardModule,
+    NgxMatColorPickerModule,
     SharedModule,
-  ]
+  ],
+  providers: [
+    { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }
+  ],
 })
 export class AdminModule { }

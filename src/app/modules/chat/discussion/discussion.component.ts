@@ -51,6 +51,17 @@ export class DiscussionComponent {
     return this.idUser === this.discussionData.value.authorId && this.isLogin
   }
 
+  isValidHttpUrl(str: string) {
+    let url;
+
+    try {
+      url = new URL(str);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
 
   editText() {
     if (this.isEditMode.value) {

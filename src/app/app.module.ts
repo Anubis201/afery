@@ -10,7 +10,6 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { NavBarComponent } from './modules/main/nav-bar/nav-bar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { SnowAnimationComponent } from './modules/shared/snow-animation/snow-animation.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire/compat';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
@@ -28,7 +27,6 @@ import { MobileBottomComponent } from './modules/main/mobile-bottom/mobile-botto
   declarations: [
     AppComponent,
     NavBarComponent,
-    SnowAnimationComponent,
     TopNavComponent,
     NavigationBarOnlyPcComponent,
     AsideMenuComponent,

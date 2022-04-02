@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  padding-top: 5.5rem;
+  color: white;
+  min-height: 70vh;
+
+  @media (min-width: 767px) {
+    padding-top: 10.5rem;
+  }
+}
+
+.lvl {
+  height: 73vh;
+}

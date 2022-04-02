@@ -39,6 +39,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/tag-view/tag-view.module').then(m => m.TagViewModule),
   },
   {
+    path: 'test-wyborczy',
+    loadChildren: () => import('./modules/election-test/election-test.module').then(m => m.ElectionTestModule),
+  },
+  {
     path: '**',
     redirectTo: '/',
     pathMatch: 'full',

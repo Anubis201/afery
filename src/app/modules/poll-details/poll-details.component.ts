@@ -28,8 +28,8 @@ export class PollDetailsComponent implements OnInit {
     private pollsService: PollsService,
     private activatedRoute: ActivatedRoute,
     private titleService: Title,
-    private datePipe: DatePipe,
     private meta: Meta,
+    private datePipe: DatePipe,
     private userService: UserService,
     private router: Router,
   ) { }

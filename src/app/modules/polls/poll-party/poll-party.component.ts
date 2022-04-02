@@ -49,8 +49,8 @@ export class PollPartyComponent {
     const width = parseInt(this.image.nativeElement.offsetWidth, 10);
     const yLabelSpace = 7;
     const thisIsBig = width >= 552;
-    const margin = 30;
-    const height = (this.isCarousel ? 250 : 280) - (margin * 2);
+    const margin = 25;
+    const height = 280 - (margin * 2);
 
     const xScale = d3
       .scaleBand()
@@ -100,7 +100,7 @@ export class PollPartyComponent {
       .append('rect')
       .classed('bar', true )
       .attr('x', d => xScale(d.party as unknown as string) + (thisIsBig ? 20 : 5))
-      .attr('y', d => yScale(d.percentage))
+      .attr('y', d => yScale(d.percentage) - 1)
       .attr('width', xScale.bandwidth() - (thisIsBig ? 40 : 13))
       .transition()
       .ease(d3.easeBounce)
@@ -130,7 +130,7 @@ export class PollPartyComponent {
       .append('rect')
       .classed('amen', true )
       .attr('x', d => xScale(d.party as unknown as string) + (thisIsBig ? 70 : 27))
-      .attr('y', d => yScale(d.percentage))
+      .attr('y', d => yScale(d.percentage) - 1)
       .attr('width', xScale.bandwidth() - (thisIsBig ? 68 : 23))
       .transition()
       .ease(d3.easeBounce)

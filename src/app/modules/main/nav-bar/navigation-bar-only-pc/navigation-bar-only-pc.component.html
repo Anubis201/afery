@@ -1,13 +1,15 @@
 <div class="jd">
   <div class="jd__navigation">
     <nav mat-tab-nav-bar>
-      <a
-        *ngFor="let item of items"
-        mat-tab-link
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        [routerLink]="item.href"
-      >{{ item.label }}</a>
+      <ng-container *ngFor="let item of items">
+        <a
+          *ngIf="!item?.isDisabledPcNav"
+          mat-tab-link
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          [routerLink]="item.href"
+        >{{ item.label }}</a>
+      </ng-container>
     </nav>
   </div>
 </div>

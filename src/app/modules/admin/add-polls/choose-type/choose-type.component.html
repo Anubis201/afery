@@ -2,3 +2,11 @@
   <div>Typ</div>
   <mat-radio-button *ngFor="let item of PollDataTypeArray" [value]="PollDataEnum[item]">{{ item }}</mat-radio-button>
 </mat-radio-group>
+
+<mat-radio-group
+  *ngIf="typeDataControl.value === PollDataEnum.Inne"
+  [formControl]="viewTypeControl"
+>
+  <div>Prezentacja</div>
+  <mat-radio-button *ngFor="let item of ViewPullArray" [value]="ViewPullEnum[item]">{{ item }}</mat-radio-button>
+</mat-radio-group>

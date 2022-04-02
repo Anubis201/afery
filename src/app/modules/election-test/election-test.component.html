@@ -1,0 +1,34 @@
+<div
+  @showAnimation
+  *ngIf="!(isCheckingLogin | async)"
+  class="container"
+  [style.align-self]="isStart.value ? 'unset' : 'center'"
+>
+  <section
+    *ngIf="isStart.value && !(isEnd | async)"
+    class="lvl"
+  >
+    <app-level
+      @showAnimation
+      [length]="questions.value.length"
+      [lvl]="lvl | async"
+      [question]="questions.value[lvl.value - 1]"
+      [isAllQuestionChoosed]="isAllQuestionChoosed | async"
+      (handlePageLvl)="handlePageLvl($event)"
+      (onChangeAnswer)="onChangeAnswer($event)"
+      (end)="handleEnd()"
+    ></app-level>
+  </section>
+
+  <section *ngIf="!(isStart | async) && !isEnd.value">
+    <app-start-page
+      [isLogin]="isLogin | async"
+      [length]="(questions | async).length"
+      (start)="handleStart()"
+    ></app-start-page>
+  </section>
+
+  <section *ngIf="isStart.value && isEnd.value" @showAnimation>
+    <app-result-page [result]="result | async"></app-result-page>
+  </section>
+</div>

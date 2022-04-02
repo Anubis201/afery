@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PollCarouselComponent } from './poll-carousel.component';
+import { ResultPageComponent } from './result-page.component';
 
-describe('PollCarouselComponent', () => {
-  let component: PollCarouselComponent;
-  let fixture: ComponentFixture<PollCarouselComponent>;
+describe('ResultPageComponent', () => {
+  let component: ResultPageComponent;
+  let fixture: ComponentFixture<ResultPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PollCarouselComponent ]
+      declarations: [ ResultPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PollCarouselComponent);
+    fixture = TestBed.createComponent(ResultPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,69 @@
+<section>
+  <header>
+    <h1>
+      <span>Test wyborczy</span>
+      <span>{{ lvl + '/' + length }}</span>
+    </h1>
+  </header>
+
+  <div>
+    <mat-progress-bar
+      color="accent"
+      mode="determinate"
+      [value]="lvl * 100 / length"
+    >
+    </mat-progress-bar>
+  </div>
+
+  <div class="title">
+    <div>{{ question.text }}</div>
+  </div>
+
+  <div class="answers">
+    <div
+      *ngFor="let answer of question.answers; let index = index"
+      class="answers__item"
+    >
+      <mat-checkbox
+        color="accent"
+        [ngModel]="answer.isChoosed"
+        (change)="onChangeAnswer.emit({ answerIndex: index, isChoosed: $event.checked })"
+      >
+        <div class="answers__item--contain">
+          <span>{{ letters[index] }}.</span>
+          <span>{{ answer.text }}</span>
+        </div>
+      </mat-checkbox>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="actions">
+    <button
+      mat-icon-button
+      color="accent"
+      [disabled]="lvl === 1"
+      (click)="handlePageLvl.emit(lvl - 1)"
+    >
+      <mat-icon class="actions--left">arrow_back_ios</mat-icon>
+    </button>
+
+    <button
+      *ngIf="lvl !== length"
+      mat-icon-button
+      color="accent"
+      (click)="handlePageLvl.emit(lvl + 1)"
+    >
+      <mat-icon class="actions--right">arrow_forward_ios</mat-icon>
+    </button>
+
+    <button
+      *ngIf="lvl === length"
+      mat-raised-button
+      color="accent"
+      [disabled]="!isAllQuestionChoosed"
+      (click)="end.emit()"
+    >WYNIK</button>
+  </div>
+</section>

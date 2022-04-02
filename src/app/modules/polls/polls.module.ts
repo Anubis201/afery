@@ -6,8 +6,7 @@ import { PollsRoutingModule } from './article-page-routing.module';
 import { PollPartyComponent } from './poll-party/poll-party.component';
 import { SectionComponent } from './section/section.component';
 import { PollPresidentComponent } from './poll-president/poll-president.component';
-import { PollCarouselComponent } from './poll-carousel/poll-carousel.component';
-import { MatCarouselModule } from '@ngbmodule/material-carousel';
+import { OtherComponent } from './other/other.component';
 
 
 
@@ -17,14 +16,13 @@ import { MatCarouselModule } from '@ngbmodule/material-carousel';
     PollPartyComponent,
     SectionComponent,
     PollPresidentComponent,
-    PollCarouselComponent,
+    OtherComponent,
   ],
   providers: [DatePipe],
   imports: [
     CommonModule,
     SharedModule,
     PollsRoutingModule,
-    MatCarouselModule,
   ]
 })
 export class PollsModule { }

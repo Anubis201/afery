@@ -1,0 +1,44 @@
+<header>
+  <h1>
+    <span>Test wyborczy</span>
+  </h1>
+</header>
+
+<section class="desc">
+  <p>Rozwiąż prosty test wyborczy i dowiedz się która partia jest ci najbliższa.<br>
+    Zadamy ci {{ length }} pytań, by dopasować partię do twoich odpowiedzi.<br>
+    Pamiętaj, że na końcu wybór należy do ciebie!</p>
+</section>
+
+<section class="available-parties">
+  <p>Partie: </p>
+  <div class="available-parties--icons">
+    <img
+      *ngFor="let party of pollDataEnumArray"
+      [src]="'/assets/icons/parties/' + party + '.png'"
+      [alt]="'Logo ' + party"
+    />
+  </div>
+</section>
+
+<section class="start-button">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="start.emit()"
+  >Start</button>
+</section>
+
+<section
+  *ngIf="!isLogin"
+  class="login-button"
+>
+  <div class="login-button--polska">
+    <mat-icon>info</mat-icon>
+    <p>Uwaga wyniki nie zostaną zapamiętane, dlatego zalecamy założyć konto w naszym serwisie.</p>
+  </div>
+  <button
+    mat-button
+    (click)="openSingIn()"
+  >Zaloguj się</button>
+</section>

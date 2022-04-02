@@ -33,7 +33,12 @@
     <div
       *ngIf="!(isEditMode | async)"
       class="comment__texts--desc"
-    >{{ discussionData.value.text }}</div>
+    >
+      <ng-container *ngFor="let word of discussionData.value.text.split(' ')">
+        <a *ngIf="isValidHttpUrl(word); else plainText" [href]="word" target="_blank">{{ word }}</a>
+        <ng-template #plainText>{{ ' ' + word + ' ' }}</ng-template>
+      </ng-container>
+    </div>
     <div
       *ngIf="isEditMode.value"
       class="comment__texts__edit"

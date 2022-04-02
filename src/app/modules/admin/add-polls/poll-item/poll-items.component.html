@@ -3,7 +3,13 @@
     <mat-expansion-panel-header>
       <mat-panel-title >{{ PollDataEnum[typeDataControl.value] }}</mat-panel-title>
 
-      <mat-panel-description>Dodaj partie, które występowały w sondażu</mat-panel-description>
+      <mat-panel-description>
+        <ng-container [ngSwitch]="typeDataControl.value">
+          <ng-container *ngSwitchCase="PollDataEnum.Partie">Dodaj partie</ng-container>
+          <ng-container *ngSwitchCase="PollDataEnum.Prezydenci">Dodaj kondydata</ng-container>
+          <ng-container *ngSwitchCase="PollDataEnum.Inne">Dodaj jakiś tekst</ng-container>
+        </ng-container>
+      </mat-panel-description>
     </mat-expansion-panel-header>
 
     <div class="parties__items">
@@ -32,15 +38,30 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field *ngSwitchCase="PollDataEnum.Odpowiedzi" appearance="fill">
-            <mat-label>Tekst</mat-label>
-            <input
-              matInput
-              formControlName="text"
-              autocomplete="off"
-              type="text"
-            />
-          </mat-form-field>
+          <ng-container *ngSwitchCase="PollDataEnum.Inne">
+            <mat-form-field appearance="fill">
+              <mat-label>Tekst</mat-label>
+              <input
+                matInput
+                formControlName="text"
+                autocomplete="off"
+                type="text"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Kolor</mat-label>
+              <!-- [ngxMatColorPicker]="picker" -->
+              <input
+                matInput
+                formControlName="color"
+                autocomplete="off"
+                type="text"
+              />
+              <!-- <ngx-mat-color-toggle matSuffix [for]="picker"></ngx-mat-color-toggle>
+              <ngx-mat-color-picker #picker [touchUi]="'false'" [color]="'red'"></ngx-mat-color-picker> -->
+            </mat-form-field>
+          </ng-container>
 
           <mat-form-field *ngSwitchCase="PollDataEnum.Prezydenci" appearance="fill">
             <mat-label>Kandydant</mat-label>

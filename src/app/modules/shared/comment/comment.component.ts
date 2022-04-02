@@ -50,6 +50,18 @@ export class CommentComponent {
     return this.idUser === this.commentData.value.authorId && this.userName
   }
 
+  isValidHttpUrl(str: string) {
+    let url;
+
+    try {
+      url = new URL(str);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === "http:" || url.protocol === "https:";
+  }
+
   handleChangeTextAnswer({ id, text }: { id: string, text: string }) {
     // TODO kiedys posprawdzac dzialanie edycji
     this.commentsService.updateComment(id, { text }).subscribe({

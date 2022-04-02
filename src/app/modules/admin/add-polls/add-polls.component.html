@@ -1,7 +1,7 @@
 <form [formGroup]="form">
   <app-choose-type
-    *ngIf="!idPoll.value"
     [typeDataControl]="form.get('typeItems')"
+    [viewTypeControl]="form.get('viewType')"
   ></app-choose-type>
 
   <app-poll-items

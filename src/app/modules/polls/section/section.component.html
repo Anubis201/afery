@@ -20,6 +20,15 @@
           [idSvg]="'prezydenci' + index"
         ></app-poll-president>
       </ng-container>
+
+      <ng-container *ngSwitchCase="PollDataEnum.Inne">
+        <app-other
+          *ngFor="let poll of polls; trackBy:identify; let index = index"
+          class="col-12 col-sm-6 col-lg-4"
+          [poll]="poll"
+          [idSvg]="'inne' + index"
+        ></app-other>
+      </ng-container>
     </ng-container>
   </div>
 

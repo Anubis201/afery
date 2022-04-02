@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SnowAnimationComponent } from './snow-animation.component';
+import { StartPageComponent } from './start-page.component';
 
-describe('SnowAnimationComponent', () => {
-  let component: SnowAnimationComponent;
-  let fixture: ComponentFixture<SnowAnimationComponent>;
+describe('StartPageComponent', () => {
+  let component: StartPageComponent;
+  let fixture: ComponentFixture<StartPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SnowAnimationComponent ]
+      declarations: [ StartPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SnowAnimationComponent);
+    fixture = TestBed.createComponent(StartPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

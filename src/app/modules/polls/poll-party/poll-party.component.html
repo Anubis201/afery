@@ -3,7 +3,7 @@
   [routerLink]="toPage"
   [style.visibility]="(isLoading | async) ? 'hidden' : 'unset'"
 >
-  <div #image class="poll__image">
+  <div #image>
     <svg [attr.id]="idSvg"></svg>
   </div>
   <div class="poll__title">{{ poll.title }}</div>

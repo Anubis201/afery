@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { PollDataEnum } from 'src/app/models/polls/enums/poll-data.enum';
+import { ViewPullEnum } from 'src/app/models/polls/enums/view-pull.enum';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import { PollsService } from 'src/app/services/collections/polls/polls.service';
 
@@ -22,6 +23,7 @@ export class AddPollsComponent implements OnInit {
     when: new FormControl(null, Validators.required),
     people: new FormControl(null),
     forWhom: new FormControl(null),
+    viewType: new FormControl(ViewPullEnum.Normalny, Validators.required),
     typeItems: new FormControl(PollDataEnum.Partie)
   })
 
@@ -49,6 +51,7 @@ export class AddPollsComponent implements OnInit {
       }
 
       this.handleTypeChange();
+      this.onViewTypeChange();
     })
   }
 
@@ -65,11 +68,11 @@ export class AddPollsComponent implements OnInit {
   }
 
   addEmptyItem() {
-    switch(this.form.get('typeItems').value) {
+    switch (this.form.get('typeItems').value) {
       case PollDataEnum.Partie:
         (this.form.get('items') as FormArray).push(this.createPartyItem());
         break
-      case PollDataEnum.Odpowiedzi:
+      case PollDataEnum.Inne:
         this.createTextItem();
         break
       case PollDataEnum.Prezydenci:
@@ -82,6 +85,14 @@ export class AddPollsComponent implements OnInit {
     (this.form.get('items') as FormArray).removeAt(index);
   }
 
+  private onViewTypeChange() {
+    this.form.get('typeItems').valueChanges.subscribe((val: PollDataEnum) => {
+      if (val !== PollDataEnum.Inne) {
+        this.form.get('viewType').patchValue(ViewPullEnum.Normalny)
+      }
+    })
+  }
+
   private handleTypeChange() {
     this.form.get('typeItems').valueChanges.subscribe((value: PollDataEnum) => {
       (this.form.get('items') as FormArray).controls = [];
@@ -91,7 +102,7 @@ export class AddPollsComponent implements OnInit {
         case PollDataEnum.Partie:
           this.createPartyDefault();
           break
-        case PollDataEnum.Odpowiedzi:
+        case PollDataEnum.Inne:
           this.createTextItem();
           break
         case PollDataEnum.Prezydenci:
@@ -139,7 +150,7 @@ export class AddPollsComponent implements OnInit {
   private getPollDataForEdit(id: string) {
     this.pollsService.getSinglePoll(id).subscribe({
       next: doc => {
-        let data = doc.data() as PollModel;
+        const data = doc.data() as PollModel;
 
         this.form.patchValue({
           ...data,
@@ -148,13 +159,36 @@ export class AddPollsComponent implements OnInit {
 
         (this.form.get('items') as FormArray).controls = [];
 
-        data.items.forEach(element => {
-          (this.form.get('items') as FormArray).push(
-            new FormGroup({
-              party: new FormControl(element.party, Validators.required),
-              percentage: new FormControl(element.percentage, Validators.required),
-          })
-        )})
+        switch(data.typeItems) {
+          case PollDataEnum.Partie:
+            data.items.forEach(element => {
+              (this.form.get('items') as FormArray).push(
+                new FormGroup({
+                  party: new FormControl(element.party, Validators.required),
+                  percentage: new FormControl(element.percentage, Validators.required),
+              })
+            )})
+            break;
+          case PollDataEnum.Prezydenci:
+            data.items.forEach(element => {
+              (this.form.get('items') as FormArray).push(
+                new FormGroup({
+                  percentage: new FormControl(element.percentage, Validators.required),
+                  president: new FormControl(element.president, Validators.required),
+              })
+            )})
+            break;
+          case PollDataEnum.Inne:
+            data.items.forEach(element => {
+              (this.form.get('items') as FormArray).push(
+                new FormGroup({
+                  text: new FormControl(element.text, Validators.required),
+                  color: new FormControl(element.color, Validators.required),
+                  percentage: new FormControl(element.percentage, Validators.required),
+              })
+            )})
+            break;
+        }
 
         this.idPoll.next(doc.id);
       },
@@ -185,6 +219,7 @@ export class AddPollsComponent implements OnInit {
     ref.push(new FormGroup({
       text: new FormControl(null, Validators.required),
       percentage: new FormControl(null, Validators.required),
+      color: new FormControl('red', Validators.required)
     }));
   }
 

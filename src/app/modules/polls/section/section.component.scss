@@ -20,16 +20,14 @@
   }
 
   button {
-
-    mat-icon {
-      font-size: 35px;
-      margin-right: 10px;
-      margin-top: 4px;
-    }
+    font-size: 33px;
+    width: 33px;
+    height: 33px;
+    line-height: 30px;
   }
 }
 
-app-poll-party, app-poll-president {
-  padding: 0 30px;
-  margin-bottom: 10px;
+app-poll-party, app-poll-president, app-other {
+  padding: 0 25px;
+  margin-bottom: 13px;
 }
