@@ -1,19 +1,17 @@
 <mat-dialog-content class="title">Zaloguj się</mat-dialog-content>
 
 <mat-dialog-content class="mat-typography">
-
   <app-save-button
     *ngFor="let provider of providers | async | keyvalue"
     [color]="'primary'"
     [isSaving]="provider.value.isLoading"
     [right]="'75px'"
-    [disabled]="provider.value.text === 'Twitter' || provider.value.text === 'Facebook'"
-    (click)="loginProvider(provider.value.text)"
+    [disabled]="parseInt(provider.key) === ProvidersEnum.Twitter || parseInt(provider.key) === ProvidersEnum.Facebook"
+    (click)="loginProvider(provider.value.authProvider, provider.key)"
   >
-    <img [src]="'/assets/icons/auth/' + provider.value.text + '.png'" [alt]="'ikona ' + provider.value.text">
-    <span>{{ provider.value.text }}</span>
+    <img [src]="'/assets/icons/auth/' + ProvidersEnum[provider.key] + '.png'" [alt]="'ikona ' + ProvidersEnum[provider.key]">
+    <span>{{ ProvidersEnum[provider.key] }}</span>
   </app-save-button>
-
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">

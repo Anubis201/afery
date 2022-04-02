@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthProvider, FacebookAuthProvider, GoogleAuthProvider, TwitterAuthProvider, User } from 'firebase/auth';
+import { AuthProvider, User } from 'firebase/auth';
 import { BehaviorSubject, catchError, from, map, of } from 'rxjs';
-import { ProvidersEnum } from 'src/app/models/others/enums/providers.enum';
 import { UserDetailsModel } from 'src/app/models/others/user-details.model';
 import { UserDetailsService } from '../../collections/user-details/user-details.service';
 import { RandomImageSrc } from '../support-functions/random-image';
@@ -55,22 +54,8 @@ export class UserService {
     return from(this.user.value.delete())
   }
 
-  loginProvider(provider: any) {
-    let authProvider: AuthProvider
-
-    switch(provider as ProvidersEnum) {
-      case ProvidersEnum.Google:
-        authProvider = new GoogleAuthProvider();
-        break
-      case ProvidersEnum.Facebook:
-        authProvider = new FacebookAuthProvider();
-        break
-      case ProvidersEnum.Twitter:
-        authProvider = new TwitterAuthProvider();
-        break
-    }
-
-    return from(this.fireAuth.signInWithPopup(authProvider))
+  loginProvider(provider: AuthProvider) {
+    return from(this.fireAuth.signInWithPopup(provider))
       .pipe(
         map(auth => {
           this._snackBar.open('Zalogowałeś się', 'close');
