@@ -1,29 +1,28 @@
 .items {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1rem;
 
   button {
     width: 140px;
-    margin-top: 10px;
+    margin-top: 1rem;
+    align-self: center;
   }
 
   .item {
+
     .label {
       margin-bottom: 1.5rem;
-      margin-top: 1.5rem;
+      margin-top: 1rem;
+      line-height: 35px;
+      text-align: center;
     }
 
     &__rank {
       display: flex;
-      width: 70px;
-      gap: 1rem;
+      gap: 1.5rem;
       align-items: center;
-
-      &--index {
-        font-weight: 500;
-        font-size: 17px;
-      }
+      justify-content: center;
 
       &--points {
         font-weight: 500;
@@ -42,6 +41,7 @@
       .label {
         margin-bottom: 1.5rem;
         margin-top: 10px;
+        text-align: center;
       }
 
       @media (min-width: 767px) {
@@ -51,14 +51,19 @@
       &__something {
         margin-top: 2rem;
         display: flex;
+        place-content: center;
         gap: 1rem;
         align-items: center;
+
+        &--points {
+          font-size: 21px;
+        }
 
         img {
           height: 40px;
 
           @media (min-width: 767px) {
-            height: 45px;
+            height: 43px;
           }
         }
       }
