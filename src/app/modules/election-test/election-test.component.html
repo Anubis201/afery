@@ -2,10 +2,10 @@
   @showAnimation
   *ngIf="!(isCheckingLogin | async)"
   class="container"
-  [style.align-self]="isStart.value ? 'unset' : 'center'"
+  [style.align-self]="(testMode | async) !== 'menu' ? 'unset' : 'center'"
 >
   <section
-    *ngIf="isStart.value && !(isEnd | async)"
+    *ngIf="testMode.value === 'lvl'"
     class="lvl"
   >
     <app-level
@@ -20,7 +20,7 @@
     ></app-level>
   </section>
 
-  <section *ngIf="!(isStart | async) && !isEnd.value">
+  <section *ngIf="testMode.value === 'menu'">
     <app-start-page
       [isLogin]="isLogin | async"
       [length]="(questions | async).length"
@@ -28,7 +28,7 @@
     ></app-start-page>
   </section>
 
-  <section *ngIf="isStart.value && isEnd.value" @showAnimation>
+  <section *ngIf="testMode.value === 'result'" @showAnimation>
     <app-result-page [result]="result | async"></app-result-page>
   </section>
 </div>
