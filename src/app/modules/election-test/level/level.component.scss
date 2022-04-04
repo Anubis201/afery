@@ -7,11 +7,9 @@
 
 header {
   h1 {
-    display: flex;
-    justify-content: space-between;
-    font-size: 17px;
-    line-height: 17px;
-    margin-bottom: 9px;
+    text-align: end;
+    font-size: 15px;
+    margin-bottom: 1px;
   }
 }
 
@@ -20,7 +18,7 @@ header {
   font-weight: 500;
 
   .label {
-    margin-top: 3rem;
+    margin-top: 2rem;
   }
 
   div {

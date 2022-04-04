@@ -13,13 +13,6 @@
           [src]="'/assets/icons/parties/' + item.party + '.png'"
           [alt]="'Logo ' + item.party"
         />
-
-        <button
-          mat-raised-button
-          color="accent"
-          (click)="goToCheckResult.emit()"
-        >Szczegóły wyniku</button>
-
       </div>
     </div>
 
@@ -39,4 +32,10 @@
       />
     </div>
   </div>
+
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="goToCheckResult.emit()"
+  >Szczegóły wyniku</button>
 </div>
