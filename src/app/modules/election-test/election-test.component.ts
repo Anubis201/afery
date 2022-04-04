@@ -18,7 +18,7 @@ import { UserService } from 'src/app/services/global/user/user.service';
 export class ElectionTestComponent implements OnInit {
   lvl = new BehaviorSubject<number>(1)
   questions = new BehaviorSubject<QuestionModel[]>(QuestionsData)
-  testMode = new BehaviorSubject<'menu' | 'lvl' | 'result' | 'checkResult'>('menu')
+  testMode = new BehaviorSubject<'menu' | 'lvl' | 'result' | 'checkResult'>('lvl')
   isAllQuestionChoosed = new BehaviorSubject<boolean>(false)
   result = new BehaviorSubject<any[]>(this.createResultObject() as any[])
 
@@ -79,6 +79,10 @@ export class ElectionTestComponent implements OnInit {
 
     this.verifyIsAllQuestionChoosed(questions);
     this.questions.next(questions);
+  }
+
+  goToCheckResult() {
+    this.testMode.next('checkResult');
   }
 
   private verifyIsAllQuestionChoosed(questions: QuestionModel[]) {

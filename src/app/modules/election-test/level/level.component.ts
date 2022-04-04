@@ -12,6 +12,7 @@ export class LevelComponent {
   @Input() lvl: number
   @Input() question: QuestionModel
   @Input() isAllQuestionChoosed: boolean
+  @Input() isCheckResult: boolean
 
   @Output() handlePageLvl = new EventEmitter<number>()
   @Output() end = new EventEmitter<void>()

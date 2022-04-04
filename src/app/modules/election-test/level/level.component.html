@@ -26,6 +26,7 @@
     >
       <mat-checkbox
         color="accent"
+        [disabled]="isCheckResult"
         [ngModel]="answer.isChoosed"
         (change)="onChangeAnswer.emit({ answerIndex: index, isChoosed: $event.checked })"
       >
