@@ -25,6 +25,10 @@
         font-size: 17px;
       }
 
+      &--points {
+        font-weight: 500;
+      }
+
       img {
         height: 27px;
       }
@@ -46,12 +50,15 @@
 
       &__something {
         margin-top: 2rem;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
 
         img {
-          height: 70px;
+          height: 40px;
 
           @media (min-width: 767px) {
-            height: 80px;
+            height: 45px;
           }
         }
       }
