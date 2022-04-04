@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { QuestionModel } from 'src/app/models/polls/question.model';
 
 @Component({
@@ -19,4 +20,9 @@ export class LevelComponent {
   @Output() onChangeAnswer = new EventEmitter<{ answerIndex: boolean, isChoosed: boolean }>()
 
   readonly letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+  readonly PartiesEnum = PartiesEnum
+
+  findAnswerIndex() {
+
+  }
 }
