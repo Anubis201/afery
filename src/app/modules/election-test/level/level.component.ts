@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
+import { PartiesPoints } from 'src/app/models/polls/parties-points.model';
 import { QuestionModel } from 'src/app/models/polls/question.model';
 
 @Component({
@@ -14,6 +15,7 @@ export class LevelComponent {
   @Input() question: QuestionModel
   @Input() isAllQuestionChoosed: boolean
   @Input() isCheckResult: boolean
+  @Input() resultDetailsLvl: PartiesPoints[]
 
   @Output() handlePageLvl = new EventEmitter<number>()
   @Output() end = new EventEmitter<void>()
@@ -21,8 +23,4 @@ export class LevelComponent {
 
   readonly letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
   readonly PartiesEnum = PartiesEnum
-
-  findAnswerIndex() {
-
-  }
 }

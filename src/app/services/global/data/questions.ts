@@ -133,68 +133,68 @@ export const QuestionsData: QuestionModel[] = [
     ]
   },
 
-  // {
-  //   text: 'Czy należy zlikwidować fundusz kościelny?',
-  //   answers: [
-  //     {
-  //       text: 'Tak.',
-  //       isChoosed: false,
-  //       partiesPoints: [
-  //         {
-  //           party: PartiesEnum.po,
-  //           points: 1
-  //         },
-  //         {
-  //           party: PartiesEnum.pis,
-  //           points: -2
-  //         },
-  //         {
-  //           party: PartiesEnum.lewica,
-  //           points: 2
-  //         },
-  //         {
-  //           party: PartiesEnum.psl,
-  //           points: -1
-  //         },
-  //         {
-  //           party: PartiesEnum.polska2050,
-  //           points: -1
-  //         },
-  //       ]
-  //     },
-  //     {
-  //       text: 'Nie.',
-  //       isChoosed: false,
-  //       partiesPoints: [
-  //         {
-  //           party: PartiesEnum.lewica,
-  //           points: -2
-  //         },
-  //         {
-  //           party: PartiesEnum.pis,
-  //           points: 2
-  //         },
-  //         {
-  //           party: PartiesEnum.psl,
-  //           points: 1
-  //         },
-  //         {
-  //           party: PartiesEnum.polska2050,
-  //           points: 1
-  //         },
-  //         {
-  //           party: PartiesEnum.po,
-  //           points: -1
-  //         },
-  //       ]
-  //     },
-  //     {
-  //       text: 'Nie mam zdania.',
-  //       isChoosed: false,
-  //       partiesPoints: []
-  //     },
-  //   ]
-  // },
+  {
+    text: 'Czy należy zlikwidować fundusz kościelny?',
+    answers: [
+      {
+        text: 'Tak.',
+        isChoosed: false,
+        partiesPoints: [
+          {
+            party: PartiesEnum.po,
+            points: 1
+          },
+          {
+            party: PartiesEnum.pis,
+            points: -2
+          },
+          {
+            party: PartiesEnum.lewica,
+            points: 2
+          },
+          {
+            party: PartiesEnum.psl,
+            points: -1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: -1
+          },
+        ]
+      },
+      {
+        text: 'Nie.',
+        isChoosed: false,
+        partiesPoints: [
+          {
+            party: PartiesEnum.lewica,
+            points: -2
+          },
+          {
+            party: PartiesEnum.pis,
+            points: 2
+          },
+          {
+            party: PartiesEnum.psl,
+            points: 1
+          },
+          {
+            party: PartiesEnum.polska2050,
+            points: 1
+          },
+          {
+            party: PartiesEnum.po,
+            points: -1
+          },
+        ]
+      },
+      {
+        text: 'Nie mam zdania.',
+        isChoosed: false,
+        partiesPoints: []
+      },
+    ]
+  },
 
   // {
   //   text: 'Czy należy konfiskować/nacjonalizować majątki oraz firmy rosyjskie?',

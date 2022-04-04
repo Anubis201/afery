@@ -16,6 +16,7 @@
       [question]="questions.value[lvl.value - 1]"
       [isAllQuestionChoosed]="isAllQuestionChoosed | async"
       [isCheckResult]="testMode.value === 'checkResult'"
+      [resultDetailsLvl]="resultDetailsLvl | async"
       (handlePageLvl)="handlePageLvl($event)"
       (onChangeAnswer)="onChangeAnswer($event)"
       (end)="handleEnd()"

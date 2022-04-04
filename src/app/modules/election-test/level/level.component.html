@@ -1,7 +1,7 @@
 <section>
   <header>
     <h1>
-      <span>Test wyborczy</span>
+      <span>Postęp</span>
       <span>{{ lvl + '/' + length }}</span>
     </h1>
   </header>
@@ -16,7 +16,7 @@
   </div>
 
   <div class="title">
-    <div>{{ question.text }}</div>
+    <div class="label">{{ question.text }}</div>
   </div>
 
   <div class="answers">
@@ -46,7 +46,7 @@
   <div class="label">Punkty</div>
   <div class="result-details__points">
     <div
-      *ngFor="let point of question.answers[0].partiesPoints"
+      *ngFor="let point of resultDetailsLvl"
       class="result-details__points__item"
     >
       <img
