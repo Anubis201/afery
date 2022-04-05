@@ -8,6 +8,7 @@ import { MainPollPartyComponent } from './main-poll-party/main-poll-party.compon
 import { MatTableModule } from '@angular/material/table';
 import { TablePollComponent } from './table-poll/table-poll.component';
 import { MainPollPresidentsComponent } from './main-poll-presidents/main-poll-presidents.component';
+import { MainPollOtherComponent } from './main-poll-other/main-poll-other.component';
 
 
 
@@ -18,6 +19,7 @@ import { MainPollPresidentsComponent } from './main-poll-presidents/main-poll-pr
     MainPollPartyComponent,
     TablePollComponent,
     MainPollPresidentsComponent,
+    MainPollOtherComponent,
   ],
   providers: [DatePipe],
   imports: [

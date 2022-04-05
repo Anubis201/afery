@@ -4,31 +4,17 @@ import { ViewPullEnum } from 'src/app/models/polls/enums/view-pull.enum';
 import { OtherPollModel } from 'src/app/models/polls/other-poll.model';
 import { PollModel } from 'src/app/models/polls/poll.model';
 import { PieChart } from 'src/app/services/global/d3-char/pie.js'
-import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
-import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-other',
-  templateUrl: './other.component.html',
-  styleUrls: ['./other.component.scss'],
+  selector: 'app-main-poll-other',
+  templateUrl: './main-poll-other.component.html',
+  styleUrls: ['./main-poll-other.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OtherComponent implements AfterViewInit {
+export class MainPollOtherComponent implements AfterViewInit {
   @Input() poll: PollModel
-  @Input() idSvg: string
 
-  @ViewChild('duma') image: ElementRef
-
-  readonly ViewPullEnum = ViewPullEnum
-
-  constructor(
-    private datePipe: DatePipe,
-  ) {}
-
-  get toPage() {
-    const date = this.datePipe.transform(this.poll.when,'yyyy-MM-dd');
-    return `/sondaz/${this.poll.id}/${ChangePolishChars(`${this.poll.surveying}-${date}`)}`
-  }
+  @ViewChild('circle') svg: ElementRef
 
   ngAfterViewInit() {
     if (this.poll?.viewType !== ViewPullEnum.Kolko) {
@@ -38,20 +24,8 @@ export class OtherComponent implements AfterViewInit {
     }
   }
 
-  private getMaxY(data: OtherPollModel[]) {
-    let height = 0;
-
-    data.forEach(val => {
-      if (val.percentage > height) {
-        height = val.percentage;
-      }
-    })
-
-    return height + 5;
-  }
-
   private drawCircle(data: OtherPollModel[]) {
-    const width = parseInt(this.image.nativeElement.offsetWidth, 10);
+    const width = parseInt(this.svg.nativeElement.offsetWidth, 10);
 
     PieChart(data, {
       name: d => d.text,
@@ -60,11 +34,11 @@ export class OtherComponent implements AfterViewInit {
       height: 230,
       stroke: '#161616',
       strokeWidth: '3'
-    }, '#' + this.idSvg)
+    }, '#circleImage')
   }
 
   private drawNormal(data: OtherPollModel[]) {
-    const width = parseInt(this.image.nativeElement.offsetWidth, 10);
+    const width = parseInt(this.svg.nativeElement.offsetWidth, 10);
     const yLabelSpace = 7;
     const thisIsBig = width >= 552;
     const margin = 20;
@@ -78,11 +52,11 @@ export class OtherComponent implements AfterViewInit {
 
     const yScale = d3
       .scaleLinear()
-      .domain([0, this.getMaxY(data)])
+      .domain([0, 200])
       .range([height, 0]);
 
     const chartContainer = d3
-      .select('#' + this.idSvg)
+      .select('#circleImage')
       .attr('width', width + 10)
       .classed('chart-container', true)
       .attr('height', height + (margin * 2));

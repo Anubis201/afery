@@ -21,7 +21,6 @@ export class PollDetailsComponent implements OnInit {
   sortingMethod = new BehaviorSubject<'poll' | 'election'>('poll')
 
   private dataSnapshot: any
-
   readonly PollDataEnum = PollDataEnum
 
   constructor(
