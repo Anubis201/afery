@@ -10,6 +10,7 @@ import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { DocumentReference } from '@angular/fire/compat/firestore/interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleModel } from 'src/app/models/articles/article.model';
+import { ArticleWriteEnum } from 'src/app/models/articles/enums/article-write.enum';
 
 enum ImageEnum {
   new,
@@ -34,6 +35,7 @@ export class CreateComponent implements OnInit {
     customName: new FormControl(null), // uzywane w kategoriach politycy oraz reszta // odwrotnie do góry
     costs: new FormControl(null),
     imageSrc: new FormControl(null), // WYŁĄCZNIE gdy biore z gotowe zdjecie z bazy
+    articleWrite: new FormControl(ArticleWriteEnum.normal, Validators.required)
   })
 
   articleId = new BehaviorSubject<string>('') // jest on uzywany wylacznie podczas edycji artykulu, czyli jednoczesnie jest uzywane aby sprawdzic czy jest isEdit mode
@@ -46,6 +48,7 @@ export class CreateComponent implements OnInit {
   readonly PartiesEnum = PartiesEnum
   readonly ArticlesTypesEnum = ArticlesTypesEnum
   readonly ImageEnum = ImageEnum
+  readonly ArticleWriteEnum = ArticleWriteEnum
   private readonly maxFileSize = 1048576 // 1MB
 
   constructor(

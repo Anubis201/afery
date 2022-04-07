@@ -46,8 +46,8 @@ mat-radio-group {
   color: white;
 
   div:first-child {
-    margin-bottom: 20px;
-    font-size: 1.1rem;
+    margin-bottom: 14px;
+    font-size: 1rem;
   }
 
   mat-radio-button {
@@ -125,4 +125,9 @@ mat-label {
 
 .old-src {
   margin-top: 1rem;
+}
+
+.article-write {
+  margin-bottom: 1rem;
+
 }

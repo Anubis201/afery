@@ -9,6 +9,12 @@
     <textarea class="subtitle-input" formControlName="subtitle" autocomplete="off" matInput rows="2"></textarea>
   </mat-form-field>
 
+  <mat-radio-group class="article-write" formControlName="articleWrite">
+    <div>Zwyły, czy live?</div>
+    <mat-radio-button [value]="ArticleWriteEnum.normal">Normalny</mat-radio-button>
+    <mat-radio-button [value]="ArticleWriteEnum.live">Live</mat-radio-button>
+  </mat-radio-group>
+
   <editor
     [formControl]="form.get('text')"
     [init]="{
@@ -80,11 +86,11 @@
 
   <app-tags [tags]="tags | async" (changeTag)="tags.next($event)"></app-tags>
 
-  <mat-form-field class="costs" appearance="fill">
+  <!-- <mat-form-field class="costs" appearance="fill">
     <mat-label>Koszty</mat-label>
     <input matInput formControlName="costs" autocomplete="off" type="number">
     <span class="costs__zl" matSuffix>ZŁ</span>
-  </mat-form-field>
+  </mat-form-field> -->
 
   <button mat-raised-button class="create" type="submit" color="primary" [disabled]="form.invalid || (isLoading | async)" (click)="handleSubmit(image.files)">
     <div class="loading-button">

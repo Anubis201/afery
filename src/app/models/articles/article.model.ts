@@ -1,3 +1,4 @@
+import { ArticleWriteEnum } from './enums/article-write.enum';
 import { ArticlesTypesEnum } from './enums/articles-types.enum';
 import { PartiesEnum } from './enums/parties.enum';
 
@@ -19,4 +20,5 @@ export interface ArticleModel {
   viewership: number
   isHide?: boolean
   isFirstArticle?: boolean
+  articleWrite?: ArticleWriteEnum
 }
