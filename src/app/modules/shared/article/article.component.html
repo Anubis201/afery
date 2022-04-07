@@ -11,6 +11,7 @@
               class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
               [alt]="'Logo ' + PartiesEnum[article.entity]"
             >
+            <div *ngIf="article?.articleWrite === ArticleWriteEnum.live">Na żywo</div>
           </div>
       </div>
     </mat-card>

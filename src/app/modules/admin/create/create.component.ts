@@ -35,7 +35,7 @@ export class CreateComponent implements OnInit {
     customName: new FormControl(null), // uzywane w kategoriach politycy oraz reszta // odwrotnie do góry
     costs: new FormControl(null),
     imageSrc: new FormControl(null), // WYŁĄCZNIE gdy biore z gotowe zdjecie z bazy
-    articleWrite: new FormControl(ArticleWriteEnum.normal, Validators.required)
+    articleWrite: new FormControl(ArticleWriteEnum.normal, Validators.required),
   })
 
   articleId = new BehaviorSubject<string>('') // jest on uzywany wylacznie podczas edycji artykulu, czyli jednoczesnie jest uzywane aby sprawdzic czy jest isEdit mode
@@ -158,10 +158,16 @@ export class CreateComponent implements OnInit {
           this.form.get('customName')?.addValidators(Validators.required);
           this.form.get('entity')?.patchValue(null);
           break;
+        case ArticlesTypesEnum.Army:
+          this.form.get('entity').clearValidators();
+          this.form.get('entity').patchValue(null);
+          this.form.get('customName').clearValidators();
+          this.form.get('customName').patchValue(null);
+          break;
       }
 
-      this.form.get('customName')?.updateValueAndValidity()
-      this.form.get('entity')?.updateValueAndValidity()
+      this.form.get('customName')?.updateValueAndValidity();
+      this.form.get('entity')?.updateValueAndValidity();
     })
   }
 
@@ -176,6 +182,7 @@ export class CreateComponent implements OnInit {
       subtitle: this.form.get('subtitle')?.value,
       imageDesc: this.form.get('imageDesc')?.value,
       createDate: new Date(),
+      articleWrite: this.form.get('articleWrite')?.value,
       viewership: 1,
       tags: this.tags.value,
       imageSrc,
