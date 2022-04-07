@@ -12,12 +12,12 @@
   </div>
 </div>
 
-<div class="label">
-  <div [style.margin-bottom]="typeItems === PollDataEnum.Partie ? '0' : '10px'">Porównaj z</div>
-  <div
-    *ngIf="typeItems === PollDataEnum.Partie"
-    class="label__actions"
-  >
+<div
+  *ngIf="typeItems === PollDataEnum.Partie"
+  class="label"
+>
+  <div>Porównaj z</div>
+  <div class="label__actions">
     <button
       mat-button
       [class.active]="sortingMethod === 'election'"

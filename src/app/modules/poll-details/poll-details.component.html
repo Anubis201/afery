@@ -30,6 +30,7 @@
 
       <app-main-poll-other
         *ngSwitchCase="PollDataEnum.Inne"
+        [poll]="data.value"
       ></app-main-poll-other>
     </ng-container>
 

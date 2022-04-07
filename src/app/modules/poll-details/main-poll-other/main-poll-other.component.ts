@@ -30,8 +30,8 @@ export class MainPollOtherComponent implements AfterViewInit {
     PieChart(data, {
       name: d => d.text,
       value: d => d.percentage,
-      width: width,
-      height: 230,
+      width,
+      height: 270,
       stroke: '#161616',
       strokeWidth: '3'
     }, '#circleImage')
@@ -52,7 +52,7 @@ export class MainPollOtherComponent implements AfterViewInit {
 
     const yScale = d3
       .scaleLinear()
-      .domain([0, 200])
+      .domain([0, 80])
       .range([height, 0]);
 
     const chartContainer = d3
