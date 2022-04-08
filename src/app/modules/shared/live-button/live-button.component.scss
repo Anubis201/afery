@@ -1,0 +1,22 @@
+span {
+  background-color: rgb(237, 28, 36);
+  padding: 0px 6px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  gap: 3px;
+  align-items: center;
+
+  mat-icon {
+    height: 11px;
+    width: 12px;
+    font-size: 11px;
+  }
+}
+
+.mobile {
+  margin-right: -3px;
+  height: 19px;
+  font-size: 13px;
+}

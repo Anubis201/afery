@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
+import { ArticleWriteEnum } from 'src/app/models/articles/enums/article-write.enum';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
@@ -25,6 +26,7 @@ export class ImportantArticleComponent implements OnInit {
 
   readonly ArticlesTypesEnum = ArticlesTypesEnum
   readonly PartiesEnum = PartiesEnum
+  readonly ArticleWriteEnum = ArticleWriteEnum
 
   constructor(
     private dialog: MatDialog,

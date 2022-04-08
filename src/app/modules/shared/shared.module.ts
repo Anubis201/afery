@@ -27,6 +27,7 @@ import { TimePipe } from 'src/app/services/pipes/time/time.pipe';
 import { MatSelectModule } from '@angular/material/select';
 import { PlusMinusComponent } from './plus-minus/plus-minus.component';
 import { ImportantArticleComponent } from './important-article/important-article.component';
+import { LiveButtonComponent } from './live-button/live-button.component';
 
 const declarations = [
   MillionsPipe,
@@ -46,6 +47,7 @@ const declarations = [
   TopDiscussionComponent,
   PlusMinusComponent,
   ImportantArticleComponent,
+  LiveButtonComponent,
 ]
 
 const imports = [

@@ -34,6 +34,13 @@ $border: 5px;
     @include font();
   }
 
+  &__live {
+    margin-left: auto;
+    margin-right: 5px;
+    margin-top: 5px;
+    text-transform: uppercase;
+  }
+
   &__image {
     @include image.imageBackground;
     height: 150px;
@@ -133,6 +140,10 @@ $border: 5px;
     display: flex;
     flex-direction: column;
     padding: 2px 0;
+
+    &--live {
+      display: inline-flex;
+    }
 
     &__footer {
       font-size: 13px;
