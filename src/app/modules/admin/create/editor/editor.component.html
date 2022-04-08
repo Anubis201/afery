@@ -1,12 +1,12 @@
-<div>
+<div
+  *ngIf="articleWriteSubject === ArticleWriteEnum.live"
+  class="array"
+>
 
-  <!-- {{articleWriteControl.value}} -->
 </div>
-<div>
 
-</div>
 <editor
-  *ngIf="articleWriteControl.value === ArticleWriteEnum.live"
+  *ngIf="articleWriteSubject === ArticleWriteEnum.normal"
   [formControl]="textControl"
   [init]="{
     height: 500,

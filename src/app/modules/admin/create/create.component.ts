@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, first } from 'rxjs';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
@@ -36,12 +36,14 @@ export class CreateComponent implements OnInit {
     costs: new FormControl(null),
     imageSrc: new FormControl(null), // WYŁĄCZNIE gdy biore z gotowe zdjecie z bazy
     articleWrite: new FormControl(ArticleWriteEnum.normal, Validators.required),
+    liveItems: new FormArray([]),
   })
 
   articleId = new BehaviorSubject<string>('') // jest on uzywany wylacznie podczas edycji artykulu, czyli jednoczesnie jest uzywane aby sprawdzic czy jest isEdit mode
   isLoading = new BehaviorSubject<boolean>(false)
   entityItems = new BehaviorSubject<PartiesEnum[]>(ConvertEnum(PartiesEnum, 'number'))
   tags = new BehaviorSubject<string[]>([])
+  articleWriteSubject = new BehaviorSubject<ArticleWriteEnum>(ArticleWriteEnum.normal)
   imageType = new FormControl(ImageEnum.new)
 
   readonly articleTypes = ConvertEnum(ArticlesTypesEnum, 'string')
@@ -61,6 +63,7 @@ export class CreateComponent implements OnInit {
   ngOnInit() {
     this.form.get('type')?.patchValue(ArticlesTypesEnum.PoliticalParties);
     this.setItemsEntityOnTypeChange();
+    this.onArticleWriteChange();
 
     this.activatedRoute.queryParams.subscribe(({ id }) => {
       if (id) {
@@ -72,6 +75,7 @@ export class CreateComponent implements OnInit {
   }
 
   handleSubmit(images: FileList | null) {
+    // TODO sprawdzenie obiektu form czy jest wlasciwy tzn
     if (this.articleId.value.length) {
       // edycja artykulu
       this.edit();
@@ -209,6 +213,26 @@ export class CreateComponent implements OnInit {
         this.form.get('image').updateValueAndValidity();
       },
       error: () => this._snackBar.open('Nie udało się pobrać artykułu', 'close')
+    })
+  }
+
+  private onArticleWriteChange() {
+    this.form.get('articleWrite').valueChanges.subscribe((val: ArticleWriteEnum) => {
+    const refItems = this.form.get('liveItems') as FormArray;
+      if (val === ArticleWriteEnum.live && refItems.length) {
+        refItems.push(this.addNewLiveItem());
+      } else if (val === ArticleWriteEnum.normal) {
+
+      }
+
+      this.articleWriteSubject.next(val);
+    })
+  }
+
+  private addNewLiveItem() {
+    return new FormGroup({
+      date: new FormControl(new Date(), Validators.required),
+      text: new FormControl(null, Validators.required),
     })
   }
 }

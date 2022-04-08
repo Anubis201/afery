@@ -17,7 +17,8 @@
 
   <app-editor
     [textControl]="form.get('text')"
-    [articleWriteControl]="form.get('articleWrite')"
+    [articleWriteSubject]="articleWriteSubject | async"
+    [liveItemsArrayControl]="form.get('liveItems')"
   ></app-editor>
 
   <mat-radio-group class="type-image" [formControl]="imageType" (change)="onChangeTypeImage($event.value)">

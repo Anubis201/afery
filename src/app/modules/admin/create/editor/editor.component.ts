@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormArray, FormControl } from '@angular/forms';
 import { ArticleWriteEnum } from 'src/app/models/articles/enums/article-write.enum';
 
 @Component({
@@ -10,7 +10,8 @@ import { ArticleWriteEnum } from 'src/app/models/articles/enums/article-write.en
 })
 export class EditorComponent {
   @Input() textControl: FormControl
-  @Input() articleWriteControl: FormControl //ArticleWriteEnum
+  @Input() articleWriteSubject: ArticleWriteEnum
+  @Input() liveItemsArrayControl: FormArray // LiveItemModel[]
 
   readonly ArticleWriteEnum = ArticleWriteEnum
 }
