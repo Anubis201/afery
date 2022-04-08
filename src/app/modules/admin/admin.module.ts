@@ -24,6 +24,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { AddNoArticleImageComponent } from './images/add-no-article-image/add-no-article-image.component';
 import { ItemImageComponent } from './images/item-image/item-image.component';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { EditorComponent } from './create/editor/editor.component';
 
 
 
@@ -41,6 +42,7 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     ImagesComponent,
     AddNoArticleImageComponent,
     ItemImageComponent,
+    EditorComponent,
   ],
   imports: [
     CommonModule,

@@ -15,33 +15,10 @@
     <mat-radio-button [value]="ArticleWriteEnum.live">Live</mat-radio-button>
   </mat-radio-group>
 
-  <editor
-    [formControl]="form.get('text')"
-    [init]="{
-      height: 500,
-      menubar: 'insert | edit | format | view',
-      content_css: 'dark',
-      image_dimensions: false,
-      plugins: [
-        'advlist autolink lists link image charmap print preview anchor',
-        'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table paste code help wordcount'
-      ],
-      style_formats: [
-        {title: 'Center image', selector: 'img', styles: {
-          'display' : 'block',
-          'max-width': '100%',
-          'max-height': '600px',
-          'width': 'auto',
-          'height': 'auto'
-        }},
-      ],
-      toolbar:
-        'undo redo | formatselect | bold italic backcolor | \
-        alignleft aligncenter alignright alignjustify | \
-        bullist numlist outdent indent | removeformat | help'
-    }"
-  ></editor>
+  <app-editor
+    [textControl]="form.get('text')"
+    [articleWriteControl]="form.get('articleWrite')"
+  ></app-editor>
 
   <mat-radio-group class="type-image" [formControl]="imageType" (change)="onChangeTypeImage($event.value)">
     <div>Rodzaj zdjęcia</div>
