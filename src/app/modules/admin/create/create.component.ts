@@ -98,6 +98,12 @@ export class CreateComponent implements OnInit {
     this.form.get('imageSrc').updateValueAndValidity();
   }
 
+  handleAddLiveItem() {
+    const ref = this.form.get('liveItems') as FormArray;
+
+    ref.controls.unshift(this.addNewLiveItem());
+  }
+
   private edit() {
     this.isLoading.next(true);
     this.articlesService.editArticle({ ...(this.form.value as ArticleModel), tags: this.tags.value }, this.articleId.value).subscribe({
@@ -218,8 +224,9 @@ export class CreateComponent implements OnInit {
 
   private onArticleWriteChange() {
     this.form.get('articleWrite').valueChanges.subscribe((val: ArticleWriteEnum) => {
-    const refItems = this.form.get('liveItems') as FormArray;
-      if (val === ArticleWriteEnum.live && refItems.length) {
+      const refItems = this.form.get('liveItems') as FormArray;
+
+      if (val === ArticleWriteEnum.live && !refItems.length) {
         refItems.push(this.addNewLiveItem());
       } else if (val === ArticleWriteEnum.normal) {
 

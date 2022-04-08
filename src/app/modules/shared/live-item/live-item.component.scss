@@ -1,0 +1,27 @@
+:host {
+  display: block;
+  color: white;
+}
+
+.label {
+  font-size: .9rem;
+  display: flex;
+  place-content: space-between;
+  padding: 0;
+
+  button {
+    width: 30px;
+    height: 30px;
+
+    mat-icon {
+      font-size: 16px;
+      height: 40px;
+    }
+  }
+}
+
+.text {
+  margin-top: 11px;
+  font-size: 1rem;
+  line-height: 1.7;
+}

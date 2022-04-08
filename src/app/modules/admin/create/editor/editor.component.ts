@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
 import { ArticleWriteEnum } from 'src/app/models/articles/enums/article-write.enum';
 
@@ -12,6 +12,8 @@ export class EditorComponent {
   @Input() textControl: FormControl
   @Input() articleWriteSubject: ArticleWriteEnum
   @Input() liveItemsArrayControl: FormArray // LiveItemModel[]
+
+  @Output() addLiveItem = new EventEmitter<void>()
 
   readonly ArticleWriteEnum = ArticleWriteEnum
 }

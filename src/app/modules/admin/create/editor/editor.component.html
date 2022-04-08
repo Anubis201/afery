@@ -2,34 +2,21 @@
   *ngIf="articleWriteSubject === ArticleWriteEnum.live"
   class="array"
 >
+  <app-live-item
+    *ngFor="let form of liveItemsArrayControl.controls"
+    [item]="form.value"
+    [isAdminPage]="true"
+  ></app-live-item>
 
+  <button
+    mat-stroked-button
+    class="array--button"
+    color="accent"
+    (click)="addLiveItem.emit()"
+  >Dodaj</button>
 </div>
 
-<editor
+<app-my-editor
   *ngIf="articleWriteSubject === ArticleWriteEnum.normal"
-  [formControl]="textControl"
-  [init]="{
-    height: 500,
-    menubar: 'insert | edit | format | view',
-    content_css: 'dark',
-    image_dimensions: false,
-    plugins: [
-      'advlist autolink lists link image charmap print preview anchor',
-      'searchreplace visualblocks code fullscreen',
-      'insertdatetime media table paste code help wordcount'
-    ],
-    style_formats: [
-      {title: 'Center image', selector: 'img', styles: {
-        'display' : 'block',
-        'max-width': '100%',
-        'max-height': '600px',
-        'width': 'auto',
-        'height': 'auto'
-      }},
-    ],
-    toolbar:
-      'undo redo | formatselect | bold italic backcolor | \
-      alignleft aligncenter alignright alignjustify | \
-      bullist numlist outdent indent | removeformat | help'
-  }"
-></editor>
+  [control]="textControl"
+></app-my-editor>

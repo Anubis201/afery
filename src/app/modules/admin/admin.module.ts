@@ -7,7 +7,6 @@ import { MatListModule } from '@angular/material/list';
 import { CreateComponent } from './create/create.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
-import { EditorModule } from '@tinymce/tinymce-angular';
 import { ManageCommentsComponent } from './manage-comments/manage-comments.component';
 import { SharedModule } from '../shared/shared.module';
 import { AddPollsComponent } from './add-polls/add-polls.component';
@@ -53,7 +52,6 @@ import { EditorComponent } from './create/editor/editor.component';
     MatCheckboxModule,
     AdminRoutingModule,
     MatListModule,
-    EditorModule,
     MatChipsModule,
     ClipboardModule,
     NgxMatColorPickerModule,

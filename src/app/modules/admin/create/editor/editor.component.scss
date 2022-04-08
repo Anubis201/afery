@@ -1,3 +1,10 @@
 .array {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
 
+  &--button {
+    width: 60px;
+  }
 }
