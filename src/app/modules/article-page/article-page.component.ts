@@ -5,6 +5,7 @@ import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, catchError, from, map, of, throwError, zip } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
+import { ArticleWriteEnum } from 'src/app/models/articles/enums/article-write.enum';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
@@ -145,7 +146,7 @@ export class ArticlePageComponent implements OnInit {
     this.titleService.setTitle(this.article.value.title + ' - Afery');
 
     let tmp = document.createElement('DIV');
-    tmp.innerHTML = this.article.value.text.split(/\s+/).slice(0, 20).join(' ');
+    tmp.innerHTML =  this.article.value?.articleWrite === ArticleWriteEnum.live ? this.article.value.liveItems[0].text?.split(/\s+/).slice(0, 20).join(' ') : this.article.value.text.split(/\s+/).slice(0, 20).join(' ');
 
     const content =
       this.article.value?.subtitle

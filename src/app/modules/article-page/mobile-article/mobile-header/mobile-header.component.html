@@ -29,10 +29,10 @@
       class="content__time__all"
       [style.margin-bottom]="isShort ? '7px' : '0'"
     >
-      <div>{{ text | timeToRead }} min czytania</div>
+      <div *ngIf="articleWrite === ArticleWriteEnum.normal">{{ text | timeToRead }} min czytania</div>
 
       <div
-        *ngIf="!isShort"
+        *ngIf="!isShort && articleWrite === ArticleWriteEnum.normal"
         class="content__time__all--read"
       ></div>
 

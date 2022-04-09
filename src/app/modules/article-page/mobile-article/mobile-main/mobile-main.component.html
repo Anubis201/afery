@@ -4,10 +4,16 @@
 >{{ subtitle }}</div>
 
 <div
-  *ngIf="text?.length"
+  *ngIf="articleWrite === ArticleWriteEnum.normal"
   class="desc"
   [innerHtml]="checkHtml(text)"
 ></div>
+
+<div
+  *ngIf="articleWrite === ArticleWriteEnum.live"
+>
+  dsdsd
+</div>
 
 <div class="tags">
   <mat-chip-list>

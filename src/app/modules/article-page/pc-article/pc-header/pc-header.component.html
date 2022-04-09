@@ -59,7 +59,10 @@
       <div class="links__time__author">Bartosz Karczmarski</div>
       <div>{{ createDate | time }}</div>
     </div>
-    <div class="links__time--align">
+    <div
+      *ngIf="articleWrite === ArticleWriteEnum.normal"
+      class="links__time--align"
+    >
       <div class="links__time__read"></div>
       {{ text | timeToRead }} min czytania
     </div>
