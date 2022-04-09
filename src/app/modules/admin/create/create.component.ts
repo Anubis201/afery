@@ -238,8 +238,8 @@ export class CreateComponent implements OnInit {
 
   private addNewLiveItem() {
     return new FormGroup({
-      date: new FormControl(new Date(), Validators.required),
-      text: new FormControl(null, Validators.required),
+      date: new FormControl(new Date()),
+      text: new FormControl(null),
     })
   }
 }

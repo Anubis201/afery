@@ -2,18 +2,19 @@
   *ngIf="articleWriteSubject === ArticleWriteEnum.live"
   class="array"
 >
-  <app-live-item
-    *ngFor="let form of liveItemsArrayControl.controls"
-    [item]="form.value"
-    [isAdminPage]="true"
-  ></app-live-item>
-
   <button
     mat-stroked-button
     class="array--button"
     color="accent"
     (click)="addLiveItem.emit()"
   >Dodaj</button>
+
+  <app-live-item
+    *ngFor="let form of liveItemsArrayControl.controls"
+    [item]="form.value"
+    [form]="form"
+    [isAdminPage]="true"
+  ></app-live-item>
 </div>
 
 <app-my-editor

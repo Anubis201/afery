@@ -1,14 +1,34 @@
-<div class="label">
-  <div>
-    {{ item.date | time }}
+<ng-container *ngIf="!(isEdit | async)">
+  <div class="label">
+    <div>
+      {{ item.date | time }}
+    </div>
+
+    <button
+      *ngIf="isAdminPage"
+      mat-icon-button
+      color="accent"
+      (click)="handleEdit()"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
   </div>
 
-  <button mat-icon-button>
-    <mat-icon>edit</mat-icon>
-  </button>
-</div>
+  <div
+    class="text"
+    [innerHtml]="checkHtml(item.text)"
+  ></div>
+</ng-container>
 
-<div
-  class="text"
-  [innerHtml]="checkHtml(item.text)"
-></div>
+<ng-container *ngIf="isEdit.value">
+  <app-my-editor
+    [control]="form.get('text')"
+  ></app-my-editor>
+
+  <button
+    mat-stroked-button
+    color="accent"
+    class="show-normal"
+    (click)="handleEdit()"
+  >Normalny widok</button>
+</ng-container>
