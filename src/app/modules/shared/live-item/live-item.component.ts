@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
@@ -14,6 +14,8 @@ export class LiveItemComponent {
   @Input() item: LiveItemModel
   @Input() isAdminPage: boolean
   @Input() form: FormGroup // LiveItemModel
+
+  @Output() deleteMe = new EventEmitter<void>()
 
   isEdit = new BehaviorSubject<boolean>(false)
 

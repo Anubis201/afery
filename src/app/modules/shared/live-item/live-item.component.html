@@ -4,14 +4,22 @@
       {{ item.date | time }}
     </div>
 
-    <button
-      *ngIf="isAdminPage"
-      mat-icon-button
-      color="accent"
-      (click)="handleEdit()"
-    >
-      <mat-icon>edit</mat-icon>
-    </button>
+    <div *ngIf="isAdminPage">
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="deleteMe.emit()"
+      >
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="handleEdit()"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
   </div>
 
   <div

@@ -14,6 +14,7 @@ export class EditorComponent {
   @Input() liveItemsArrayControl: FormArray // LiveItemModel[]
 
   @Output() addLiveItem = new EventEmitter<void>()
+  @Output() deleteLiveItem = new EventEmitter<number>()
 
   readonly ArticleWriteEnum = ArticleWriteEnum
 }

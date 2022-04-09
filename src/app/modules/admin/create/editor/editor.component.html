@@ -10,10 +10,11 @@
   >Dodaj</button>
 
   <app-live-item
-    *ngFor="let form of liveItemsArrayControl.controls"
+    *ngFor="let form of liveItemsArrayControl.controls; let index = index"
     [item]="form.value"
     [form]="form"
     [isAdminPage]="true"
+    (deleteMe)="deleteLiveItem.emit(index)"
   ></app-live-item>
 </div>
 

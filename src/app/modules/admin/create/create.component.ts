@@ -100,8 +100,12 @@ export class CreateComponent implements OnInit {
 
   handleAddLiveItem() {
     const ref = this.form.get('liveItems') as FormArray;
-
     ref.controls.unshift(this.addNewLiveItem());
+  }
+
+  handleDeleteLiveItem(index: number) {
+    const ref = this.form.get('liveItems') as FormArray;
+    ref.removeAt(index);
   }
 
   private edit() {
@@ -212,7 +216,11 @@ export class CreateComponent implements OnInit {
     this.articlesService.getArticle(id).subscribe({
       next: doc => {
         const data = doc.data() as ArticleModel;
-        this.form.patchValue(data);
+        data?.liveItems.forEach(element => {
+          (this.form.get('liveItems') as FormArray).push(this.addNewLiveItem((element as any).date.toDate(), element.text));
+        })
+        const { liveItems, ...rest } = data;
+        this.form.patchValue(rest);
         this.articleId.next(doc.id);
         this.tags.next(data?.tags ?? []);
         this.form.get('image').clearValidators();
@@ -236,10 +244,10 @@ export class CreateComponent implements OnInit {
     })
   }
 
-  private addNewLiveItem() {
+  private addNewLiveItem(date = new Date(), text = null) {
     return new FormGroup({
-      date: new FormControl(new Date()),
-      text: new FormControl(null),
+      date: new FormControl(date),
+      text: new FormControl(text),
     })
   }
 }
