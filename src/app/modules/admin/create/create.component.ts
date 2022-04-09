@@ -75,7 +75,14 @@ export class CreateComponent implements OnInit {
   }
 
   handleSubmit(images: FileList | null) {
-    // TODO sprawdzenie obiektu form czy jest wlasciwy tzn
+    if (this.form.get('articleWrite').value === ArticleWriteEnum.normal) {
+      this.form.get('liveItems').patchValue([]);
+    } else {
+      this.form.get('text').patchValue(null);
+    }
+
+    this.form.get('liveItems').updateValueAndValidity();
+
     if (this.articleId.value.length) {
       // edycja artykulu
       this.edit();
@@ -193,6 +200,7 @@ export class CreateComponent implements OnInit {
       imageDesc: this.form.get('imageDesc')?.value,
       createDate: new Date(),
       articleWrite: this.form.get('articleWrite')?.value,
+      liveItems: this.form.get('liveItems').value,
       viewership: 1,
       tags: this.tags.value,
       imageSrc,
