@@ -4,10 +4,18 @@
     <button
       mat-icon-button
       matTooltip="Edytuj"
-      class="button"
+      class="title__button"
       (click)="editPoll.emit()"
     >
       <mat-icon>edit</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      matTooltip="Usuń"
+      class="title__button"
+      (click)="deletePoll.emit()"
+    >
+      <mat-icon>delete_outline</mat-icon>
     </button>
   </div>
 </div>

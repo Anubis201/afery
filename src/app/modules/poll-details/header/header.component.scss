@@ -11,6 +11,17 @@
     font-size: 25px;
     margin-bottom: 1.5rem;
   }
+
+  &__button {
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    margin-left: 1rem;
+
+    mat-icon {
+      font-size: 19px;
+    }
+  }
 }
 
 .label {

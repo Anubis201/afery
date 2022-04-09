@@ -16,6 +16,7 @@ export class HeaderComponent {
   @Output() comparePreviousElection = new EventEmitter<void>()
   @Output() comparePreviousPoll = new EventEmitter<void>()
   @Output() editPoll = new EventEmitter<void>()
+  @Output() deletePoll = new EventEmitter<void>()
 
   readonly PollDataEnum = PollDataEnum
 }
