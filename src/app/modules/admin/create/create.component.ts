@@ -224,7 +224,7 @@ export class CreateComponent implements OnInit {
     this.articlesService.getArticle(id).subscribe({
       next: doc => {
         const data = doc.data() as ArticleModel;
-        data?.liveItems.forEach(element => {
+        data?.liveItems?.forEach(element => {
           (this.form.get('liveItems') as FormArray).push(this.addNewLiveItem((element as any).date.toDate(), element.text));
         })
         const { liveItems, ...rest } = data;

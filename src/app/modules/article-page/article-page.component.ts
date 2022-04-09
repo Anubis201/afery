@@ -172,7 +172,14 @@ export class ArticlePageComponent implements OnInit {
   private getData(articleId: string) {
     this.articlesService.getArticle(articleId).subscribe(article => {
       if (article.exists) {
-        this.article.next({ ...article.data() as ArticleModel, id: article.id, createDate: (article.data() as any).createDate.toDate() });
+        const data = article.data() as ArticleModel;
+        this.article.next({
+          ...data,
+          id: article.id,
+          createDate: (article.data() as any).createDate.toDate(),
+          liveItems: data?.liveItems?.map(item => ({ text: item.text, date: (item.date as any).toDate() }))
+        });
+
         this.prepereTagsAndTitle();
 
         // upewnia sie czy wszystko jest dobrze z linkiem
