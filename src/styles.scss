@@ -132,3 +132,10 @@ a {
 .mat-checkbox-layout {
   align-items: normal !important;
 }
+
+.text {
+  &--desc {
+    font-size: 18px;
+    line-height: 1.7;
+  }
+}

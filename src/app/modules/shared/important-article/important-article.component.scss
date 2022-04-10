@@ -56,7 +56,6 @@ $border: 5px;
 
     &__header {
       display: flex;
-      place-content: space-between;
 
       &--organization {
         height: 30px;
@@ -69,6 +68,7 @@ $border: 5px;
       &--live {
         margin-top: 6px;
         margin-right: 6px;
+        margin-left: auto;
       }
     }
   }

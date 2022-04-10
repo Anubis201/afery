@@ -1,6 +1,6 @@
 <div
   *ngIf="subtitle?.length"
-  class="subtitle"
+  class="text--desc"
 >{{ subtitle }}</div>
 
 <div class="image-section">
@@ -11,9 +11,9 @@
   >
   <div class="image-section--author">{{ imageDesc }}</div>
 </div>
-
+{{ articleWrite }}
 <div
-  *ngIf="!isShort && articleWrite === ArticleWriteEnum.normal"
+  *ngIf="!isShort && articleWrite !== ArticleWriteEnum.live"
   class="desc"
   [innerHtml]="checkHtml(text)"
 ></div>

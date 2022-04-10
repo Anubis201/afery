@@ -1,10 +1,10 @@
 <div
   *ngIf="subtitle?.length"
-  class="subtitle"
+  class="text--desc"
 >{{ subtitle }}</div>
 
 <div
-  *ngIf="articleWrite === ArticleWriteEnum.normal"
+  *ngIf="articleWrite !== ArticleWriteEnum.normal"
   class="desc"
   [innerHtml]="checkHtml(text)"
 ></div>
