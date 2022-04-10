@@ -61,6 +61,8 @@ export class PollBarComponent implements OnInit, AfterViewInit {
   private previousPoll() {
     this.pollsService.getPreviousPoll(this.poll.value.surveying, this.poll.value.when).subscribe({
       next: data => {
+        // TODO PROBLEM zly sondaz bierze
+        console.log(data)
         this.setData(data);
       },
       error: () => {
@@ -85,6 +87,8 @@ export class PollBarComponent implements OnInit, AfterViewInit {
   }
 
   private setData(poll: PollModel) {
+    console.log(this.data.value)
+    console.log(poll)
     this.data.next((this.poll.value.items as unknown as PartyCharModel[]).map(current => ({
       party: current.party,
       difference: !poll ? 0 : parseFloat((poll ? current.percentage - (poll.items as unknown as PartyCharModel[]).find(v => v.party === current.party).percentage : current.percentage).toFixed(1)),

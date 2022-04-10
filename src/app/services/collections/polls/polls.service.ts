@@ -47,7 +47,7 @@ export class PollsService {
   }
 
   getPreviousPoll(surveying: string, after: any) {
-    return from(this.getRef().ref.orderBy('when', 'desc').startAfter(after).where('surveying', '==', surveying).limit(1).get())
+    return from(this.getRef().ref.orderBy('when', 'desc').startAfter(after).where('surveying', '==', surveying).where('typeItems', '==', PollDataEnum.Partie).limit(1).get())
       .pipe(map(docs => {
         let data: PollModel = null;
 
