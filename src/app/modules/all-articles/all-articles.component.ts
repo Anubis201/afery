@@ -49,10 +49,10 @@ export class AllArticlesComponent implements OnInit {
 
     this.getTopArticle();
 
-    // Pobiera 4 artykuły z kategori parti
+    // Pobiera po 4 artykuły z różnych kategorii
     this.getArticles(ArticlesTypesEnum.PoliticalParties);
-    // Pobiera 4 artykuły z kategori polityycy
     this.getArticles(ArticlesTypesEnum.Politicians);
+    this.getArticles(ArticlesTypesEnum.Army);
   }
 
   getArticles(type: ArticlesTypesEnum, orderChange?: OrderEnum) {

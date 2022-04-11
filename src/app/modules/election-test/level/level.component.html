@@ -1,7 +1,6 @@
 <section>
   <header>
     <h1>
-      <span>Test wyborczy</span>
       <span>{{ lvl + '/' + length }}</span>
     </h1>
   </header>
@@ -16,7 +15,7 @@
   </div>
 
   <div class="title">
-    <div>{{ question.text }}</div>
+    <div class="label">{{ question.text }}</div>
   </div>
 
   <div class="answers">
@@ -26,6 +25,7 @@
     >
       <mat-checkbox
         color="accent"
+        [disabled]="isCheckResult"
         [ngModel]="answer.isChoosed"
         (change)="onChangeAnswer.emit({ answerIndex: index, isChoosed: $event.checked })"
       >
@@ -38,32 +38,49 @@
   </div>
 </section>
 
-<section>
-  <div class="actions">
-    <button
-      mat-icon-button
-      color="accent"
-      [disabled]="lvl === 1"
-      (click)="handlePageLvl.emit(lvl - 1)"
+<section
+  *ngIf="isCheckResult"
+  class="result-details"
+>
+  <div class="label">Punkty</div>
+  <div class="result-details__points">
+    <div
+      *ngFor="let point of resultDetailsLvl"
+      class="result-details__points__item"
     >
-      <mat-icon class="actions--left">arrow_back_ios</mat-icon>
-    </button>
-
-    <button
-      *ngIf="lvl !== length"
-      mat-icon-button
-      color="accent"
-      (click)="handlePageLvl.emit(lvl + 1)"
-    >
-      <mat-icon class="actions--right">arrow_forward_ios</mat-icon>
-    </button>
-
-    <button
-      *ngIf="lvl === length"
-      mat-raised-button
-      color="accent"
-      [disabled]="!isAllQuestionChoosed"
-      (click)="end.emit()"
-    >WYNIK</button>
+      <img
+        [src]="'/assets/icons/parties/' + PartiesEnum[point.party] + '.png'"
+        [alt]="'Logo ' + PartiesEnum[point.party]"
+      />
+      <span>{{ point.points }}</span>
+    </div>
   </div>
+</section>
+
+<section class="actions">
+  <button
+    mat-icon-button
+    color="accent"
+    [disabled]="lvl === 1"
+    (click)="handlePageLvl.emit(lvl - 1)"
+  >
+    <mat-icon class="actions--left">arrow_back_ios</mat-icon>
+  </button>
+
+  <button
+    *ngIf="lvl !== length"
+    mat-icon-button
+    color="accent"
+    (click)="handlePageLvl.emit(lvl + 1)"
+  >
+    <mat-icon class="actions--right">arrow_forward_ios</mat-icon>
+  </button>
+
+  <button
+    *ngIf="lvl === length"
+    mat-raised-button
+    color="accent"
+    [disabled]="!isAllQuestionChoosed"
+    (click)="end.emit()"
+  >WYNIK</button>
 </section>

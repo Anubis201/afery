@@ -8,6 +8,7 @@
       (comparePreviousPoll)="previousPoll()"
       (comparePreviousElection)="previousElection()"
       (editPoll)="handleEditPoll()"
+      (deletePoll)="handleDeletePoll()"
     ></app-header>
 
     <ng-container [ngSwitch]="data.value.typeItems">
@@ -23,11 +24,15 @@
         ></app-table-poll>
       </ng-container>
 
-      <ng-container *ngSwitchCase="PollDataEnum.Prezydenci">
-        <app-main-poll-presidents
-          [poll]="data.value"
-        ></app-main-poll-presidents>
-      </ng-container>
+      <app-main-poll-presidents
+        *ngSwitchCase="PollDataEnum.Prezydenci"
+        [poll]="data.value"
+      ></app-main-poll-presidents>
+
+      <app-main-poll-other
+        *ngSwitchCase="PollDataEnum.Inne"
+        [poll]="data.value"
+      ></app-main-poll-other>
     </ng-container>
 
     <app-global-comments

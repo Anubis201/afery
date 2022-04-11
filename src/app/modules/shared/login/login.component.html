@@ -4,7 +4,7 @@
 
   <app-save-button
     *ngFor="let provider of providers | async | keyvalue"
-    [color]="'primary'"
+    [color]="'accent'"
     [isSaving]="provider.value.isLoading"
     [right]="'75px'"
     [disabled]="provider.value.text === 'Twitter' || provider.value.text === 'Facebook'"

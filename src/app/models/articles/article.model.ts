@@ -1,5 +1,7 @@
+import { ArticleWriteEnum } from './enums/article-write.enum';
 import { ArticlesTypesEnum } from './enums/articles-types.enum';
 import { PartiesEnum } from './enums/parties.enum';
+import { LiveItemModel } from './live-item.model';
 
 export interface ArticleModel {
   title: string
@@ -19,4 +21,6 @@ export interface ArticleModel {
   viewership: number
   isHide?: boolean
   isFirstArticle?: boolean
+  articleWrite?: ArticleWriteEnum
+  liveItems?: LiveItemModel[]
 }

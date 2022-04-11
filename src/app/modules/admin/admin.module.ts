@@ -7,7 +7,6 @@ import { MatListModule } from '@angular/material/list';
 import { CreateComponent } from './create/create.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
-import { EditorModule } from '@tinymce/tinymce-angular';
 import { ManageCommentsComponent } from './manage-comments/manage-comments.component';
 import { SharedModule } from '../shared/shared.module';
 import { AddPollsComponent } from './add-polls/add-polls.component';
@@ -24,6 +23,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { AddNoArticleImageComponent } from './images/add-no-article-image/add-no-article-image.component';
 import { ItemImageComponent } from './images/item-image/item-image.component';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { EditorComponent } from './create/editor/editor.component';
 
 
 
@@ -41,6 +41,7 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     ImagesComponent,
     AddNoArticleImageComponent,
     ItemImageComponent,
+    EditorComponent,
   ],
   imports: [
     CommonModule,
@@ -51,7 +52,6 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     MatCheckboxModule,
     AdminRoutingModule,
     MatListModule,
-    EditorModule,
     MatChipsModule,
     ClipboardModule,
     NgxMatColorPickerModule,

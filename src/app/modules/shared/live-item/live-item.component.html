@@ -1,0 +1,45 @@
+<ng-container *ngIf="!(isEdit | async)">
+  <div
+    class="label"
+    [style.padding-bottom]="!isAdminPage ? '0.6rem' : '0'"
+  >
+    <div>
+      {{ item.date | time }}
+    </div>
+
+    <div *ngIf="isAdminPage">
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="deleteMe.emit()"
+      >
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="handleEdit()"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="text--desc"
+    [innerHtml]="checkHtml(item.text)"
+  ></div>
+</ng-container>
+
+<ng-container *ngIf="isEdit.value">
+  <app-my-editor
+    [control]="form.get('text')"
+  ></app-my-editor>
+
+  <button
+    mat-stroked-button
+    color="accent"
+    class="show-normal"
+    (click)="handleEdit()"
+  >Normalny widok</button>
+</ng-container>

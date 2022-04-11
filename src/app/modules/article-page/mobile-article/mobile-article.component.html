@@ -11,6 +11,7 @@
       [imageDesc]="article?.imageDesc"
       [imageSrc]="article?.imageSrc"
       [id]="article.id"
+      [articleWrite]="article?.articleWrite"
       (handleLike)="handleLike.emit($event)"
       (handleDislike)="handleDislike.emit($event)"
     ></app-mobile-header>
@@ -19,6 +20,8 @@
       [text]="article?.text"
       [subtitle]="article?.subtitle"
       [tags]="article?.tags"
+      [liveItems]="article?.liveItems"
+      [articleWrite]="article?.articleWrite"
     ></app-mobile-main>
 
     <div class="comments">

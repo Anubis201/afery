@@ -1,0 +1,24 @@
+<div
+  *ngIf="articleWriteSubject === ArticleWriteEnum.live"
+  class="array"
+>
+  <button
+    mat-stroked-button
+    class="array--button"
+    color="accent"
+    (click)="addLiveItem.emit()"
+  >Dodaj</button>
+
+  <app-live-item
+    *ngFor="let form of liveItemsArrayControl.controls; let index = index"
+    [item]="form.value"
+    [form]="form"
+    [isAdminPage]="true"
+    (deleteMe)="deleteLiveItem.emit(index)"
+  ></app-live-item>
+</div>
+
+<app-my-editor
+  *ngIf="articleWriteSubject === ArticleWriteEnum.normal"
+  [control]="textControl"
+></app-my-editor>

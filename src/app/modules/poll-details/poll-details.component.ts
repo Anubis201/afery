@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
@@ -21,7 +22,6 @@ export class PollDetailsComponent implements OnInit {
   sortingMethod = new BehaviorSubject<'poll' | 'election'>('poll')
 
   private dataSnapshot: any
-
   readonly PollDataEnum = PollDataEnum
 
   constructor(
@@ -32,6 +32,7 @@ export class PollDetailsComponent implements OnInit {
     private datePipe: DatePipe,
     private userService: UserService,
     private router: Router,
+    private _snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -54,6 +55,18 @@ export class PollDetailsComponent implements OnInit {
       ['/admin/polls'],
       { queryParams: { id: this.data.value?.id } }
     )
+  }
+
+  handleDeletePoll() {
+    this.pollsService.deletePoll(this.data.value.id).subscribe({
+      next: () => {
+        this._snackBar.open('Ni ma sondażu', 'zamknij');
+        this.router.navigate(['/']);
+      },
+      error: () => {
+        this._snackBar.open('Nie udało się usunąć', 'zamknij');
+      }
+    })
   }
 
   previousPoll() {

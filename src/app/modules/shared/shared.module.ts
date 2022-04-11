@@ -27,6 +27,10 @@ import { TimePipe } from 'src/app/services/pipes/time/time.pipe';
 import { MatSelectModule } from '@angular/material/select';
 import { PlusMinusComponent } from './plus-minus/plus-minus.component';
 import { ImportantArticleComponent } from './important-article/important-article.component';
+import { LiveButtonComponent } from './live-button/live-button.component';
+import { LiveItemComponent } from './live-item/live-item.component';
+import { MyEditorComponent } from './my-editor/my-editor.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 const declarations = [
   MillionsPipe,
@@ -46,6 +50,9 @@ const declarations = [
   TopDiscussionComponent,
   PlusMinusComponent,
   ImportantArticleComponent,
+  LiveButtonComponent,
+  LiveItemComponent,
+  MyEditorComponent,
 ]
 
 const imports = [
@@ -61,6 +68,7 @@ const imports = [
   MatDialogModule,
   MatProgressSpinnerModule,
   MatSelectModule,
+  EditorModule,
 ]
 
 @NgModule({

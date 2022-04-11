@@ -53,15 +53,26 @@ $border: 5px;
     @media (min-width: 576px) {
       height: 235px;
     }
+
+    &__header {
+      display: flex;
+
+      &--organization {
+        height: 30px;
+        border-bottom-right-radius: $border;
+        border-top-left-radius: calc($border - 1px);
+        width: 30px;
+        vertical-align: inherit;
+      }
+
+      &--live {
+        margin-top: 6px;
+        margin-right: 6px;
+        margin-left: auto;
+      }
+    }
   }
 
-  &__organization {
-    height: 30px;
-    border-bottom-right-radius: $border;
-    border-top-left-radius: calc($border - 1px);
-    width: 30px;
-    vertical-align: inherit;
-  }
 
   &__comments {
     display: flex;

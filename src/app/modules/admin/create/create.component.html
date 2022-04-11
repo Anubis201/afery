@@ -9,33 +9,19 @@
     <textarea class="subtitle-input" formControlName="subtitle" autocomplete="off" matInput rows="2"></textarea>
   </mat-form-field>
 
-  <editor
-    [formControl]="form.get('text')"
-    [init]="{
-      height: 500,
-      menubar: 'insert | edit | format | view',
-      content_css: 'dark',
-      image_dimensions: false,
-      plugins: [
-        'advlist autolink lists link image charmap print preview anchor',
-        'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table paste code help wordcount'
-      ],
-      style_formats: [
-        {title: 'Center image', selector: 'img', styles: {
-          'display' : 'block',
-          'max-width': '100%',
-          'max-height': '600px',
-          'width': 'auto',
-          'height': 'auto'
-        }},
-      ],
-      toolbar:
-        'undo redo | formatselect | bold italic backcolor | \
-        alignleft aligncenter alignright alignjustify | \
-        bullist numlist outdent indent | removeformat | help'
-    }"
-  ></editor>
+  <mat-radio-group class="article-write" formControlName="articleWrite">
+    <div>Zwyły, czy live?</div>
+    <mat-radio-button [value]="ArticleWriteEnum.normal">Normalny</mat-radio-button>
+    <mat-radio-button [value]="ArticleWriteEnum.live">Live</mat-radio-button>
+  </mat-radio-group>
+
+  <app-editor
+    [textControl]="form.get('text')"
+    [articleWriteSubject]="articleWriteSubject | async"
+    [liveItemsArrayControl]="form.get('liveItems')"
+    (addLiveItem)="handleAddLiveItem()"
+    (deleteLiveItem)="handleDeleteLiveItem($event)"
+  ></app-editor>
 
   <mat-radio-group class="type-image" [formControl]="imageType" (change)="onChangeTypeImage($event.value)">
     <div>Rodzaj zdjęcia</div>
@@ -80,11 +66,11 @@
 
   <app-tags [tags]="tags | async" (changeTag)="tags.next($event)"></app-tags>
 
-  <mat-form-field class="costs" appearance="fill">
+  <!-- <mat-form-field class="costs" appearance="fill">
     <mat-label>Koszty</mat-label>
     <input matInput formControlName="costs" autocomplete="off" type="number">
     <span class="costs__zl" matSuffix>ZŁ</span>
-  </mat-form-field>
+  </mat-form-field> -->
 
   <button mat-raised-button class="create" type="submit" color="primary" [disabled]="form.invalid || (isLoading | async)" (click)="handleSubmit(image.files)">
     <div class="loading-button">

@@ -1,26 +1,29 @@
 <div
-  @showAnimation
   *ngIf="!(isCheckingLogin | async)"
+  @showAnimation
   class="container"
-  [style.align-self]="isStart.value ? 'unset' : 'center'"
+  [style.align-self]="(testMode | async) !== 'menu' ? 'unset' : 'center'"
 >
   <section
-    *ngIf="isStart.value && !(isEnd | async)"
+    *ngIf="testMode.value === 'lvl' || testMode.value === 'checkResult'"
     class="lvl"
   >
     <app-level
       @showAnimation
+      class="lvl"
       [length]="questions.value.length"
       [lvl]="lvl | async"
       [question]="questions.value[lvl.value - 1]"
       [isAllQuestionChoosed]="isAllQuestionChoosed | async"
+      [isCheckResult]="testMode.value === 'checkResult'"
+      [resultDetailsLvl]="resultDetailsLvl | async"
       (handlePageLvl)="handlePageLvl($event)"
       (onChangeAnswer)="onChangeAnswer($event)"
       (end)="handleEnd()"
     ></app-level>
   </section>
 
-  <section *ngIf="!(isStart | async) && !isEnd.value">
+  <section *ngIf="testMode.value === 'menu'">
     <app-start-page
       [isLogin]="isLogin | async"
       [length]="(questions | async).length"
@@ -28,7 +31,10 @@
     ></app-start-page>
   </section>
 
-  <section *ngIf="isStart.value && isEnd.value" @showAnimation>
-    <app-result-page [result]="result | async"></app-result-page>
+  <section *ngIf="testMode.value === 'result'" @showAnimation>
+    <app-result-page
+      [result]="result | async"
+      (goToCheckResult)="goToCheckResult()"
+    ></app-result-page>
   </section>
 </div>

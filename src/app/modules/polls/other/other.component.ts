@@ -1,11 +1,11 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import * as d3 from 'd3';
 import { ViewPullEnum } from 'src/app/models/polls/enums/view-pull.enum';
 import { OtherPollModel } from 'src/app/models/polls/other-poll.model';
 import { PollModel } from 'src/app/models/polls/poll.model';
-import { UserService } from 'src/app/services/global/user/user.service';
 import { PieChart } from 'src/app/services/global/d3-char/pie.js'
+import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-other',
@@ -21,28 +21,21 @@ export class OtherComponent implements AfterViewInit {
 
   readonly ViewPullEnum = ViewPullEnum
 
+  constructor(
+    private datePipe: DatePipe,
+  ) {}
+
+  get toPage() {
+    const date = this.datePipe.transform(this.poll.when,'yyyy-MM-dd');
+    return `/sondaz/${this.poll.id}/${ChangePolishChars(`${this.poll.surveying}-${date}`)}`
+  }
+
   ngAfterViewInit() {
     if (this.poll?.viewType !== ViewPullEnum.Kolko) {
       this.drawNormal(this.poll.items as OtherPollModel[]);
     } else {
       this.drawCircle(this.poll.items as OtherPollModel[]);
     }
-  }
-
-  constructor(
-    private userService: UserService,
-    private router: Router,
-  ) {}
-
-  handleEditPoll() {
-    this.router.navigate(
-      ['/admin/polls'],
-      { queryParams: { id: this.poll.id } }
-    )
-  }
-
-  get isAdmin() {
-    return this.userService.isAdmin
   }
 
   private getMaxY(data: OtherPollModel[]) {

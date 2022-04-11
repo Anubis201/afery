@@ -4,20 +4,28 @@
     <button
       mat-icon-button
       matTooltip="Edytuj"
-      class="button"
+      class="title__button"
       (click)="editPoll.emit()"
     >
       <mat-icon>edit</mat-icon>
     </button>
+    <button
+      mat-icon-button
+      matTooltip="Usuń"
+      class="title__button"
+      (click)="deletePoll.emit()"
+    >
+      <mat-icon>delete_outline</mat-icon>
+    </button>
   </div>
 </div>
 
-<div class="label">
-  <div [style.margin-bottom]="typeItems === PollDataEnum.Partie ? '0' : '10px'">Porównaj z</div>
-  <div
-    *ngIf="typeItems === PollDataEnum.Partie"
-    class="label__actions"
-  >
+<div
+  *ngIf="typeItems === PollDataEnum.Partie"
+  class="label"
+>
+  <div>Porównaj z</div>
+  <div class="label__actions">
     <button
       mat-button
       [class.active]="sortingMethod === 'election'"

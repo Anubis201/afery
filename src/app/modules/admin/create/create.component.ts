@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, first } from 'rxjs';
 import { ArticlesService } from 'src/app/services/collections/articles/articles.service';
@@ -10,6 +10,7 @@ import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { DocumentReference } from '@angular/fire/compat/firestore/interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleModel } from 'src/app/models/articles/article.model';
+import { ArticleWriteEnum } from 'src/app/models/articles/enums/article-write.enum';
 
 enum ImageEnum {
   new,
@@ -34,18 +35,22 @@ export class CreateComponent implements OnInit {
     customName: new FormControl(null), // uzywane w kategoriach politycy oraz reszta // odwrotnie do góry
     costs: new FormControl(null),
     imageSrc: new FormControl(null), // WYŁĄCZNIE gdy biore z gotowe zdjecie z bazy
+    articleWrite: new FormControl(ArticleWriteEnum.normal, Validators.required),
+    liveItems: new FormArray([]),
   })
 
   articleId = new BehaviorSubject<string>('') // jest on uzywany wylacznie podczas edycji artykulu, czyli jednoczesnie jest uzywane aby sprawdzic czy jest isEdit mode
   isLoading = new BehaviorSubject<boolean>(false)
   entityItems = new BehaviorSubject<PartiesEnum[]>(ConvertEnum(PartiesEnum, 'number'))
   tags = new BehaviorSubject<string[]>([])
+  articleWriteSubject = new BehaviorSubject<ArticleWriteEnum>(ArticleWriteEnum.normal)
   imageType = new FormControl(ImageEnum.new)
 
   readonly articleTypes = ConvertEnum(ArticlesTypesEnum, 'string')
   readonly PartiesEnum = PartiesEnum
   readonly ArticlesTypesEnum = ArticlesTypesEnum
   readonly ImageEnum = ImageEnum
+  readonly ArticleWriteEnum = ArticleWriteEnum
   private readonly maxFileSize = 1048576 // 1MB
 
   constructor(
@@ -58,6 +63,7 @@ export class CreateComponent implements OnInit {
   ngOnInit() {
     this.form.get('type')?.patchValue(ArticlesTypesEnum.PoliticalParties);
     this.setItemsEntityOnTypeChange();
+    this.onArticleWriteChange();
 
     this.activatedRoute.queryParams.subscribe(({ id }) => {
       if (id) {
@@ -69,6 +75,14 @@ export class CreateComponent implements OnInit {
   }
 
   handleSubmit(images: FileList | null) {
+    if (this.form.get('articleWrite').value === ArticleWriteEnum.normal) {
+      this.form.get('liveItems').patchValue([]);
+    } else {
+      this.form.get('text').patchValue(null);
+    }
+
+    this.form.get('liveItems').updateValueAndValidity();
+
     if (this.articleId.value.length) {
       // edycja artykulu
       this.edit();
@@ -89,6 +103,16 @@ export class CreateComponent implements OnInit {
 
     this.form.get('image').updateValueAndValidity();
     this.form.get('imageSrc').updateValueAndValidity();
+  }
+
+  handleAddLiveItem() {
+    const ref = this.form.get('liveItems') as FormArray;
+    ref.controls.unshift(this.addNewLiveItem());
+  }
+
+  handleDeleteLiveItem(index: number) {
+    const ref = this.form.get('liveItems') as FormArray;
+    ref.removeAt(index);
   }
 
   private edit() {
@@ -155,10 +179,16 @@ export class CreateComponent implements OnInit {
           this.form.get('customName')?.addValidators(Validators.required);
           this.form.get('entity')?.patchValue(null);
           break;
+        case ArticlesTypesEnum.Army:
+          this.form.get('entity').clearValidators();
+          this.form.get('entity').patchValue(null);
+          this.form.get('customName').clearValidators();
+          this.form.get('customName').patchValue(null);
+          break;
       }
 
-      this.form.get('customName')?.updateValueAndValidity()
-      this.form.get('entity')?.updateValueAndValidity()
+      this.form.get('customName')?.updateValueAndValidity();
+      this.form.get('entity')?.updateValueAndValidity();
     })
   }
 
@@ -173,6 +203,8 @@ export class CreateComponent implements OnInit {
       subtitle: this.form.get('subtitle')?.value,
       imageDesc: this.form.get('imageDesc')?.value,
       createDate: new Date(),
+      articleWrite: this.form.get('articleWrite')?.value,
+      liveItems: this.form.get('liveItems').value,
       viewership: 1,
       tags: this.tags.value,
       imageSrc,
@@ -192,13 +224,38 @@ export class CreateComponent implements OnInit {
     this.articlesService.getArticle(id).subscribe({
       next: doc => {
         const data = doc.data() as ArticleModel;
-        this.form.patchValue(data);
+        data?.liveItems?.forEach(element => {
+          (this.form.get('liveItems') as FormArray).push(this.addNewLiveItem((element as any).date.toDate(), element.text));
+        })
+        const { liveItems, ...rest } = data;
+        this.form.patchValue(rest);
         this.articleId.next(doc.id);
         this.tags.next(data?.tags ?? []);
         this.form.get('image').clearValidators();
         this.form.get('image').updateValueAndValidity();
       },
       error: () => this._snackBar.open('Nie udało się pobrać artykułu', 'close')
+    })
+  }
+
+  private onArticleWriteChange() {
+    this.form.get('articleWrite').valueChanges.subscribe((val: ArticleWriteEnum) => {
+      const refItems = this.form.get('liveItems') as FormArray;
+
+      if (val === ArticleWriteEnum.live && !refItems.length) {
+        refItems.push(this.addNewLiveItem());
+      } else if (val === ArticleWriteEnum.normal) {
+
+      }
+
+      this.articleWriteSubject.next(val);
+    })
+  }
+
+  private addNewLiveItem(date = new Date(), text = null) {
+    return new FormGroup({
+      date: new FormControl(date),
+      text: new FormControl(text),
     })
   }
 }

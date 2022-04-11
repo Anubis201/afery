@@ -11,6 +11,7 @@
       [likes]="article?.likes"
       [dislikes]="article?.dislikes"
       [id]="article.id"
+      [articleWrite]="article?.articleWrite"
       (setToFirstArticle)="setToFirstArticle.emit()"
       (handleEditArticle)="handleEditArticle.emit()"
       (handleDeleteArticle)="handleDeleteArticle.emit()"
@@ -25,6 +26,8 @@
       [text]="article?.text"
       [imageDesc]="article?.imageDesc"
       [tags]="article?.tags"
+      [liveItems]="article?.liveItems"
+      [articleWrite]="article?.articleWrite"
     ></app-pc-main>
 
     <app-global-comments

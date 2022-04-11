@@ -1,5 +1,6 @@
-<div
+<a
   class="poll"
+  [routerLink]="toPage"
   [style.margin-top]="poll?.viewType === ViewPullEnum.Kolko ? '12px' : '0'"
 >
   <div #duma>
@@ -14,14 +15,4 @@
     <span class="break"></span>
     <div>{{ poll.when | time:'LL' }}</div>
   </div>
-  <div *ngIf="isAdmin | async">
-    <button
-      mat-icon-button
-      matTooltip="Edytuj"
-      class="button"
-      (click)="handleEditPoll()"
-    >
-      <mat-icon>edit</mat-icon>
-    </button>
-  </div>
-</div>
+</a>

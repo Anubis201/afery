@@ -1,13 +1,24 @@
 <div
   *ngIf="subtitle?.length"
-  class="subtitle"
+  class="text--desc"
 >{{ subtitle }}</div>
 
 <div
-  *ngIf="text?.length"
+  *ngIf="articleWrite !== ArticleWriteEnum.live"
   class="desc"
   [innerHtml]="checkHtml(text)"
 ></div>
+
+<div
+  *ngIf="articleWrite === ArticleWriteEnum.live"
+  class="live-items"
+>
+  <app-live-item
+    *ngFor="let item of liveItems"
+    [item]="item"
+    [isAdminPage]="false"
+  ></app-live-item>
+</div>
 
 <div class="tags">
   <mat-chip-list>

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ArticleWriteEnum } from 'src/app/models/articles/enums/article-write.enum';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 
@@ -20,12 +21,14 @@ export class MobileHeaderComponent {
   @Input() imageSrc: string
   @Input() isShort = false
   @Input() id: string
+  @Input() articleWrite: ArticleWriteEnum
 
   @Output() handleLike = new EventEmitter<number>()
   @Output() handleDislike = new EventEmitter<number>()
 
   readonly ArticlesTypesEnum = ArticlesTypesEnum
   readonly PartiesEnum = PartiesEnum
+  readonly ArticleWriteEnum = ArticleWriteEnum
 
   pageUrl() {
     return location.href

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ArticleModel } from 'src/app/models/articles/article.model';
+import { ArticleWriteEnum } from 'src/app/models/articles/enums/article-write.enum';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 
@@ -22,9 +23,11 @@ export class PcHeaderComponent {
   @Input() nextArticle: ArticleModel
   @Input() id: string
   @Input() isShort = false
+  @Input() articleWrite: ArticleWriteEnum
 
   readonly ArticlesTypesEnum = ArticlesTypesEnum
   readonly PartiesEnum = PartiesEnum
+  readonly ArticleWriteEnum = ArticleWriteEnum
 
   @Output() setToFirstArticle = new EventEmitter<void>()
   @Output() handleEditArticle = new EventEmitter<void>()

@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  color: white;
+}
+
+.label {
+  font-size: 17px;
+  display: flex;
+  place-content: space-between;
+
+  button {
+    width: 30px;
+    height: 30px;
+
+    mat-icon {
+      font-size: 16px;
+      height: 40px;
+    }
+  }
+}
+
+.text--desc {
+  margin-top: 12px;
+}
+
+.show-normal {
+  margin-top: 1rem;
+}

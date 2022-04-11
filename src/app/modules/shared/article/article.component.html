@@ -11,6 +11,10 @@
               class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
               [alt]="'Logo ' + PartiesEnum[article.entity]"
             >
+            <app-live-button
+              *ngIf="article?.articleWrite === ArticleWriteEnum.live"
+              class="article__live"
+            ></app-live-button>
           </div>
       </div>
     </mat-card>
@@ -42,7 +46,14 @@
     >
   </a>
   <div class="mobile-article__content">
-    <a class="mobile-article__content--title" [routerLink]="[toArticlePage]">{{ article.title }}</a>
+    <a class="mobile-article__content--title" [routerLink]="[toArticlePage]">
+      <app-live-button
+        *ngIf="article?.articleWrite === ArticleWriteEnum.live"
+        class="mobile-article__content--live"
+        [isMobileVersion]="true"
+      ></app-live-button>
+      {{ article.title }}
+    </a>
     <div class="mobile-article__content__footer">
       <div (click)="seeComments()">
         Komentarze {{ countComments | async }}

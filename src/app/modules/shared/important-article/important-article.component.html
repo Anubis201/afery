@@ -3,11 +3,17 @@
     <div>
       <a [routerLink]="[toArticlePage]">
         <div class="article__image" [style.background-image]="'url(' + article.imageSrc + ')'">
-          <img
-            *ngIf="article.type === ArticlesTypesEnum.PoliticalParties"
-            class="article__organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
-            [alt]="'Logo ' + PartiesEnum[article.entity]"
-          >
+          <div class="article__image__header">
+            <img
+              *ngIf="article.type === ArticlesTypesEnum.PoliticalParties"
+              class="article__image__header--organization" [src]="'/assets/icons/parties/' + PartiesEnum[article.entity] + '.jpg'"
+              [alt]="'Logo ' + PartiesEnum[article.entity]"
+            >
+            <app-live-button
+              *ngIf="article?.articleWrite === ArticleWriteEnum.live"
+              class="article__image__header--live"
+            ></app-live-button>
+          </div>
           <div class="article__title">{{ article.title }}</div>
         </div>
       </a>
