@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-account',
@@ -6,11 +6,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./account.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
 
 }
