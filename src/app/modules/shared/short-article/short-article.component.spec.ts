@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { ShortArticleComponent } from './short-article.component';
 
@@ -8,7 +9,13 @@ describe('ShortArticleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShortArticleComponent ]
+      declarations: [ ShortArticleComponent ],
+      providers: [
+        { provide: MAT_DIALOG_DATA, useValue: {
+          link: 'toGdzies',
+          article: { title: 'testTitle', id: 'dasdasd2' }
+        } },
+      ],
     })
     .compileComponents();
   });
