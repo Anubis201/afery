@@ -1,4 +1,9 @@
+import { Overlay } from '@angular/cdk/overlay';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AngularFireModule } from '@angular/fire/compat';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from 'src/environments/environment';
 
 import { WriteCommentComponent } from './write-comment.component';
 
@@ -8,7 +13,16 @@ describe('WriteCommentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WriteCommentComponent ]
+      declarations: [ WriteCommentComponent ],
+      providers: [
+        MatSnackBar,
+        MatDialog,
+        Overlay,
+      ],
+      imports: [
+        MatDialogModule,
+        AngularFireModule.initializeApp(environment.firebase),
+      ]
     })
     .compileComponents();
   });
