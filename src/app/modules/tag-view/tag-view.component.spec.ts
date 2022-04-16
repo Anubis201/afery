@@ -15,13 +15,7 @@ describe('TagViewComponent', () => {
   const fakeRoute = {
     provide: ActivatedRoute,
     useValue: {
-        snapshot: {
-            params: {
-                get(): Observable<any> {
-                    return new Observable();
-                }
-            }
-        }
+      params: new Observable()
     }
   }
 
