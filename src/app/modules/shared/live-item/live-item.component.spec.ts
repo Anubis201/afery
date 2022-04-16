@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TimePipe } from 'src/app/services/pipes/time/time.pipe';
 
 import { LiveItemComponent } from './live-item.component';
 
@@ -8,7 +9,7 @@ describe('LiveItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LiveItemComponent ]
+      declarations: [ LiveItemComponent, TimePipe ],
     })
     .compileComponents();
   });
@@ -16,6 +17,10 @@ describe('LiveItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LiveItemComponent);
     component = fixture.componentInstance;
+    component.item = {
+      text: 'Witam',
+      date: new Date()
+    }
     fixture.detectChanges();
   });
 
