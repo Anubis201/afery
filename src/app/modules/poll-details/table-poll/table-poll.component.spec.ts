@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TablePollComponent } from './table-poll.component';
 
@@ -8,7 +9,10 @@ describe('TablePollComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TablePollComponent ]
+      declarations: [ TablePollComponent ],
+      imports: [
+        BrowserAnimationsModule
+      ]
     })
     .compileComponents();
   });

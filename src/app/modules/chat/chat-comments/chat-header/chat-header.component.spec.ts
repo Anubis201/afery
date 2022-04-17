@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl } from '@angular/forms';
 
 import { ChatHeaderComponent } from './chat-header.component';
 
@@ -16,6 +17,7 @@ describe('ChatHeaderComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ChatHeaderComponent);
     component = fixture.componentInstance;
+    component.time = new FormControl()
     fixture.detectChanges();
   });
 

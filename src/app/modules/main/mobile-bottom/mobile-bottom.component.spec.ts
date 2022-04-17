@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { MobileBottomComponent } from './mobile-bottom.component';
 
@@ -8,7 +9,10 @@ describe('MobileBottomComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MobileBottomComponent ]
+      declarations: [ MobileBottomComponent ],
+      imports: [
+        RouterTestingModule,
+      ]
     })
     .compileComponents();
   });

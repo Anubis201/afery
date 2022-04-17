@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 
 import { LevelComponent } from './level.component';
 
@@ -16,6 +17,14 @@ describe('LevelComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LevelComponent);
     component = fixture.componentInstance;
+    component.question = {
+      text: 'testText',
+      answers: [{
+        text: 'testText',
+        isChoosed: false,
+        partiesPoints: [{ party: PartiesEnum.lewica, points: 2 }]
+      }]
+    };
     fixture.detectChanges();
   });
 
