@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
 import { ArticleModel } from 'src/app/models/articles/article.model';
 import { ArticleWriteEnum } from 'src/app/models/articles/enums/article-write.enum';
 import { ArticlesTypesEnum } from 'src/app/models/articles/enums/articles-types.enum';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
 import { CommentsService } from 'src/app/services/collections/comments/comments.service';
+import { ModalService } from 'src/app/services/global/modal/modal.service';
 import { ChangePolishChars } from 'src/app/services/global/support-functions/change-polish-chars';
 import { ShortArticleComponent } from '../../shared/short-article/short-article.component';
 
@@ -29,7 +29,7 @@ export class ImportantArticleComponent implements OnInit {
   readonly ArticleWriteEnum = ArticleWriteEnum
 
   constructor(
-    private dialog: MatDialog,
+    private modal: ModalService,
     private commentsService: CommentsService,
   ) {}
 
@@ -38,7 +38,7 @@ export class ImportantArticleComponent implements OnInit {
   }
 
   seeComments() {
-    this.dialog.open(ShortArticleComponent, {
+    this.modal.openDialog(ShortArticleComponent, {
       data: {
         article: this.article,
         link: this.toArticlePage

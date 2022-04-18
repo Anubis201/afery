@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { PartiesEnum } from 'src/app/models/articles/enums/parties.enum';
+import { ModalService } from 'src/app/services/global/modal/modal.service';
 import { ConvertEnum } from 'src/app/services/global/support-functions/convert-enum';
-import { LoginComponent } from '../../shared/login/login.component';
 
 @Component({
   selector: 'app-start-page',
@@ -16,12 +15,12 @@ export class StartPageComponent {
 
   @Output() start = new EventEmitter<void>()
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private modal: ModalService) {}
 
   readonly pollDataEnumArray = ConvertEnum(PartiesEnum, 'string')
   readonly PartiesEnum = PartiesEnum
 
   openSingIn() {
-    this.dialog.open(LoginComponent);
+    this.modal.openSignIn();
   }
 }

@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { NavModel } from 'src/app/models/articles/nav.model';
+import { ModalService } from 'src/app/services/global/modal/modal.service';
 import { UserService } from 'src/app/services/global/user/user.service';
-import { LoginComponent } from '../../shared/login/login.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -30,7 +29,7 @@ export class NavBarComponent implements OnInit {
   constructor(
     private userService: UserService,
     private route: Router,
-    private dialog: MatDialog
+    private modal: ModalService,
   ) { }
 
   get isAdmin() {
@@ -42,7 +41,7 @@ export class NavBarComponent implements OnInit {
   }
 
   login() {
-    this.dialog.open(LoginComponent);
+    this.modal.openSignIn();
   }
 
   logout() {

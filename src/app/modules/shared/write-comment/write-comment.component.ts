@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { CommentModel } from 'src/app/models/articles/comment.model';
 import { OrderEnum } from 'src/app/models/articles/enums/order.enum';
 import { showAnimation } from 'src/app/services/animations/others.animations';
+import { ModalService } from 'src/app/services/global/modal/modal.service';
 import { UserService } from 'src/app/services/global/user/user.service';
-import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-write-comment',
@@ -33,7 +32,7 @@ export class WriteCommentComponent {
 
   constructor(
     private userService: UserService,
-    private dialog: MatDialog
+    private modal: ModalService
   ) {}
 
   get isLogin() {
@@ -58,6 +57,6 @@ export class WriteCommentComponent {
   }
 
   openSingIn() {
-    this.dialog.open(LoginComponent);
+    this.modal.openSignIn();
   }
 }

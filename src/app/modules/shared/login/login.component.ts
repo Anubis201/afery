@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
 import { ProvidersEnum } from 'src/app/models/others/enums/providers.enum';
+import { ModalService } from 'src/app/services/global/modal/modal.service';
 import { ConvertEnum } from 'src/app/services/global/support-functions/convert-enum';
 import { UserService } from 'src/app/services/global/user/user.service';
 
@@ -22,14 +22,14 @@ export class LoginComponent {
 
   constructor(
     private userService: UserService,
-    private dialog: MatDialog
+    private modal: ModalService
   ) { }
 
   loginProvider(provider: ProvidersEnum) {
     this.changeIsLoading(provider, true);
 
     this.userService.loginProvider(ProvidersEnum[provider]).subscribe({
-      next: () => this.dialog.closeAll(),
+      next: () => this.modal.closeAllDialog(),
       complete: () => this.changeIsLoading(provider, false),
     })
   }
