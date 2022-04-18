@@ -36,4 +36,10 @@ describe('WriteCommentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call capitalizeFirst and return the text with first upper letter', () => {
+    expect(component.capitalizeFirst('politycy to skurczybyki')).toBe('Politycy to skurczybyki');
+    expect(component.capitalizeFirst('partia')).toBe('Partia');
+    expect(component.capitalizeFirst('')).toBe('');
+  })
 });
