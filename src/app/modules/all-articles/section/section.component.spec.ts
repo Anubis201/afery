@@ -16,6 +16,7 @@ describe('PartiesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SectionComponent);
     component = fixture.componentInstance;
+    component.name = 'testName';
     fixture.detectChanges();
   });
 

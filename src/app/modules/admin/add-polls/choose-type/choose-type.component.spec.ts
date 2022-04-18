@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl } from '@angular/forms';
 
 import { ChooseTypeComponent } from './choose-type.component';
 
@@ -16,6 +17,7 @@ describe('ChooseTypeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ChooseTypeComponent);
     component = fixture.componentInstance;
+    component.typeDataControl = new FormControl();
     fixture.detectChanges();
   });
 

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TimePipe } from 'src/app/services/pipes/time/time.pipe';
 
 import { PcHeaderComponent } from './pc-header.component';
 
@@ -8,7 +9,10 @@ describe('PcHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PcHeaderComponent ]
+      declarations: [
+        PcHeaderComponent,
+        TimePipe,
+      ]
     })
     .compileComponents();
   });

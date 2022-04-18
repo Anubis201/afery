@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TimePipe } from 'src/app/services/pipes/time/time.pipe';
 
 import { MobileHeaderComponent } from './mobile-header.component';
 
@@ -8,7 +9,10 @@ describe('MobileHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MobileHeaderComponent ]
+      declarations: [
+        MobileHeaderComponent,
+        TimePipe,
+      ]
     })
     .compileComponents();
   });

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormArray, FormControl } from '@angular/forms';
 
 import { PollItemsComponent } from './poll-items.component';
 
@@ -16,6 +17,8 @@ describe('PollItemsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(PollItemsComponent);
     component = fixture.componentInstance;
+    component.typeDataControl = new FormControl();
+    component.items = new FormArray([]);
     fixture.detectChanges();
   });
 
